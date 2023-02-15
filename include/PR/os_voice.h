@@ -1,7 +1,7 @@
 
 /*---------------------------------------------------------------------*
         Copyright (C) 1998 Nintendo.
-        
+
         $RCSfile: os_voice.h,v $
         $Revision: 1.1 $
         $Date: 1998/10/09 08:01:21 $
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 typedef struct {		/* Voice Recognition System */
-  OSMesgQueue	*__mq;		/* SI Message Queue */
+    OSMesgQueue *__mq;		/* SI Message Queue */
   int		__channel;	/* Controller Port # */
   s32		__mode;
   u8		cmd_status;	/* Command Status */
@@ -33,14 +33,14 @@ typedef struct {		/* Voice Recognition System */
 
 typedef struct {		/* Voice Recognition System */
   u16	warning;
-  u16	answer_num;		/* 0°¡5 */
+  u16	answer_num;		/* 0¬°√Å5 */
   u16	voice_level;
   u16	voice_sn;
   u16	voice_time;
   u16	answer[5];
   u16	distance[5];
 } OSVoiceData;
-	
+
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

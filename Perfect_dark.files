@@ -2,6 +2,7 @@ include/PR/PRimage.h
 include/PR/R4300.h
 include/PR/abi.h
 include/PR/gbi.h
+include/PR/gbiex.h
 include/PR/gs2dex.h
 include/PR/gt.h
 include/PR/gu.h

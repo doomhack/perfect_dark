@@ -25,3 +25,5 @@ build-PerfectDark-Desktop_Qt_6_4_1_MSVC2019_64bit-Debug/
 .qtc_clangd/
 
 *.user
+
+build-PerfectDark-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/

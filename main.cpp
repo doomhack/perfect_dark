@@ -1,4 +1,4 @@
-void bootPhase1(void);
+extern "C" void bootPhase1(void);
 
 int main(int argc, char *argv[])
 {
