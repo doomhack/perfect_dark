@@ -19,3 +19,9 @@ src/assets/*/sequences/*.seq
 src/assets/*/textures/*.bin
 src/generated
 tools/mkrom/mkrom
+
+build-PerfectDark-Desktop_Qt_6_4_1_MSVC2019_64bit-Debug/
+
+.qtc_clangd/
+
+*.user
