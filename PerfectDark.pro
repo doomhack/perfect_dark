@@ -10,6 +10,7 @@ CONFIG -= app_bundle
 DEFINES += VERSION=2
 DEFINES += _LANGUAGE_C
 DEFINES += PAL=0
+DEFINES += AVOID_UB
 
 INCLUDEPATH += $$PWD/include
 INCLUDEPATH += $$PWD/include/PR
@@ -18,14 +19,25 @@ INCLUDEPATH += $$PWD/src/include
 
 
 SOURCES += \
-        main.cpp \
+        cmain.cpp \
+        src/game/file.c \
+        src/game/game_1a78b0.c \
         src/game/smoke.c \
         src/game/smokeinit.c \
         src/inflate/inflate.c \
         src/lib/args.c \
+        src/lib/audiomgr.c \
         src/lib/boot.c \
+        src/lib/dma.c \
+        src/lib/fault.c \
+        src/lib/joy.c \
         src/lib/main.c \
+        src/lib/mema.c \
+        src/lib/memp.c \
         src/lib/pimgr.c \
+        src/lib/rdp.c \
+        src/lib/rmon.c \
+        src/lib/rzip.c \
         src/lib/sched.c \
         src/lib/segments.c \
         src/lib/tlb.c \
@@ -35,10 +47,15 @@ SOURCES += \
         src/lib/ultra/os/initialize.c \
         src/lib/ultra/os/os_cache.c \
         src/lib/ultra/os/os_fpccsr.c \
+        src/lib/ultra/os/recvmesg.c \
         src/lib/ultra/os/setthreadpri.c \
+        src/lib/ultra/os/settimer.c \
         src/lib/ultra/os/startthread.c \
         src/lib/ultra/os/stopthread.c \
-        src/lib/videbug.c
+        src/lib/varsinit.c \
+        src/lib/vi.c \
+        src/lib/videbug.c \
+        src/lib/vm.c
 
 
 

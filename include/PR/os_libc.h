@@ -30,6 +30,8 @@
 #ifndef _OS_LIBC_H_
 #define	_OS_LIBC_H_
 
+#include <string.h>
+
 #include "os_pfs.h"
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
@@ -79,10 +81,10 @@ extern "C" {
  */
 
 /* byte string operations */
+extern void     bcopy(const void *, void *, size_t);
+extern int      bcmp(const void *, const void *, size_t);
+extern void     bzero(void *, size_t);
 
-extern void     bcopy(const void *, void *, int);
-extern int      bcmp(const void *, const void *, int);
-extern void     bzero(void *, int);
 
 /* Printf */
 

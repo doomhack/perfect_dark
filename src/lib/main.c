@@ -287,21 +287,7 @@ struct stageallocation g_StageAllocations4Mb[] = {
 #endif
 };
 
-Gfx var8005dcc8[] = {
-	gsSPSegment(0x00, 0x00000000),
-	gsSPDisplayList(&var800613a0),
-	gsSPDisplayList(&var80061380),
-	gsDPFullSync(),
-	gsSPEndDisplayList(),
-};
 
-Gfx var8005dcf0[] = {
-	gsSPSegment(0x00, 0x00000000),
-	gsSPDisplayList(&var800613a0),
-	gsSPDisplayList(&var80061380),
-	gsDPFullSync(),
-	gsSPEndDisplayList(),
-};
 
 s32 var8005dd18 = 1;
 
@@ -330,6 +316,22 @@ void mainInit(void)
 	u32 addr;
 	u8 *start;
 	u8 *end;
+
+    Gfx var8005dcc8[] = {
+        gsSPSegment(0x00, 0x00000000),
+        gsSPDisplayList(&var800613a0),
+        gsSPDisplayList(&var80061380),
+        gsDPFullSync(),
+        gsSPEndDisplayList(),
+    };
+
+    Gfx var8005dcf0[] = {
+        gsSPSegment(0x00, 0x00000000),
+        gsSPDisplayList(&var800613a0),
+        gsSPDisplayList(&var80061380),
+        gsDPFullSync(),
+        gsSPEndDisplayList(),
+    };
 
 	faultInit();
 	dmaInit();

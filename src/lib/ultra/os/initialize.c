@@ -1,3 +1,4 @@
+#include <string.h>
 #include "versions.h"
 #include <os.h>
 #include <os_internal.h>
