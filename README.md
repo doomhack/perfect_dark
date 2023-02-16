@@ -16,6 +16,5 @@ So here's my simple 3-step plan to make this happen;
 
 ## Status
 
-<img src="https://i.imgflip.com/7bfhj3.jpg" title="made at imgflip.com"/>
+<img src="https://i.imgflip.com/7bfhj3.jpg" title="99 errors on the wall..."/>
 
-![image](https://imgflip.com/i/7bfhj3)
