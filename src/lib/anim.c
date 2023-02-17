@@ -136,7 +136,7 @@ extern u8 _animationsSegmentRomStart;
 u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 {
 	if (g_AnimHostEnabled) {
-		bcopy(&g_AnimHostSegment[segoffset], dst, len);
+		memcpy(&g_AnimHostSegment[segoffset], dst, len);
 		return dst;
 	}
 

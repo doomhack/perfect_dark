@@ -3,7 +3,7 @@
 #include <ultraerror.h>
 #include "n_libaudio.h"
 #include "n_seqp.h"
-#include "seq.h"
+#include "../lib/ultra/audio/seq.h"
 #include "versions.h"
 
 void __n_unmapVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice)

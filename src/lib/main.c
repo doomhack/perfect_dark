@@ -1410,8 +1410,8 @@ void mainLoop(void)
 
 void mainTick(void)
 {
-	Gfx *gdl;
-	Gfx *gdlstart;
+	Gfx *gdl = NULL;
+	Gfx *gdlstart = NULL;
 	OSScMsg msg = {OS_SC_DONE_MSG};
 	s32 i;
 

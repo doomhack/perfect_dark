@@ -1,7 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/acosfasinf.h"
-#include "game/atan2f.h"
 #include "game/bg.h"
 #include "game/body.h"
 #include "game/bondgun.h"
@@ -3607,7 +3605,7 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 	u32 stack1;
 	s32 angleindex;
 	u32 stack2;
-	struct yeetanim *row;
+	struct yeetanim *row = NULL;
 	struct coord dist;
 	u32 stack3;
 	s32 race = CHRRACE(chr);
@@ -10792,7 +10790,7 @@ void chrTickAttackAmount(struct chrdata *chr)
 void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
 {
 	struct modelnode *node;
-	union modelrwdata *rwdata;
+	union modelrwdata *rwdata = NULL;
 	s32 partnum;
 
 	if (right) {
@@ -13749,8 +13747,8 @@ f32 chrGetAngleToTarget(struct chrdata *chr)
 
 void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms)
 {
-	struct prop *targetprop;
-	struct chrdata *targetchr;
+	struct prop *targetprop = NULL;
+	struct chrdata *targetchr = NULL;
 	struct pad pad;
 
 	if (attackflags & ATTACKFLAG_AIMATCHR) {
@@ -15386,7 +15384,7 @@ s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
 	f32 sqdist;
 	f32 y = chr->prop->pos.y + 170;
 	s32 currefdist = refdist;
-	struct prop *gotoprop;
+	struct prop *gotoprop = NULL;
 
 	if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
 		if (!chr->aibot || !chr->aibot->gotoprop) {

@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/atan2f.h"
 #include "game/bot.h"
 #include "game/challenge.h"
 #include "game/chrai.h"

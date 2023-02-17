@@ -3,7 +3,6 @@
 #include "bss.h"
 #include "data.h"
 #include "game/activemenu.h"
-#include "game/atan2f.h"
 #include "game/bg.h"
 #include "game/body.h"
 #include "game/bondgun.h"

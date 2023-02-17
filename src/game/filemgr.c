@@ -295,7 +295,7 @@ char *filemgrMenuTextFailReason(struct menuitem *item)
 		L_OPTIONS_330, // "Game note delete failed."
 	};
 
-	return langGet(reasons[g_Menus[g_MpPlayerNum].fm.errno]);
+	return langGet(reasons[g_Menus[g_MpPlayerNum].fm.error]);
 }
 
 /**
@@ -314,7 +314,7 @@ MenuItemHandlerResult filemgrDeviceNameForErrorMenuHandler(s32 operation, struct
 			return true;
 		}
 
-		switch (g_Menus[g_MpPlayerNum].fm.errno) {
+		switch (g_Menus[g_MpPlayerNum].fm.error) {
 		case FILEERROR_OUTOFMEMORY:
 		case FILEERROR_ALREADYLOADED:
 		case FILEERROR_PAKDAMAGED:
@@ -336,7 +336,7 @@ char *filemgrMenuTextDeviceNameForError(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s", filemgrGetDeviceName(g_Menus[g_MpPlayerNum].fm.device1 & 0x7f));
 
-	if (g_Menus[g_MpPlayerNum].fm.errno != FILEERROR_PAKREMOVED) {
+	if (g_Menus[g_MpPlayerNum].fm.error != FILEERROR_PAKREMOVED) {
 		s32 i = 0;
 
 		while (g_StringPointer[i] != '\0') {
@@ -363,9 +363,9 @@ const char var7f1b3024[] = "MyResult: %d\n";
 const char var7f1b3034[] = "PakOperationSearch>> Search for pak: %x = %d\n";
 #endif
 
-void filemgrPushErrorDialog(u16 errno)
+void filemgrPushErrorDialog(u16 error)
 {
-	g_Menus[g_MpPlayerNum].fm.errno = errno;
+	g_Menus[g_MpPlayerNum].fm.error = error;
 
 	menuPushDialog(&g_FilemgrErrorMenuDialog);
 }
@@ -788,7 +788,7 @@ void filemgrRetrySave(s32 context)
 
 bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 {
-	s32 errno = 0;
+	s32 error = 0;
 	bool showfilesaved = (g_Menus[g_MpPlayerNum].fm.isretryingsave & 1) != 0;
 
 	const s32 filetypes[] = {

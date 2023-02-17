@@ -302,7 +302,8 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 	if (type == MENUPLANE_07) {
 		mainOverrideVariable("rsub", &rsub);
 
-		a1 = -rsub;
+		//a1 = -rsub;
+		a1 = 0-rsub;
 
 		sp30 = 8.0f;
 		sp2a = 256;

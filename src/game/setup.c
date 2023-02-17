@@ -11,7 +11,6 @@
 #include "game/body.h"
 #include "game/prop.h"
 #include "game/setuputils.h"
-#include "game/atan2f.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
 #include "game/bg.h"

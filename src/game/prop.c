@@ -8,8 +8,6 @@
 #include "game/prop.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
-#include "game/floor.h"
-#include "game/ceil.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/tex.h"

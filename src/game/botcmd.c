@@ -4,7 +4,6 @@
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/chr.h"
-#include "game/ceil.h"
 #include "game/game_0b0fd0.h"
 #include "game/playermgr.h"
 #include "game/mplayer/setup.h"

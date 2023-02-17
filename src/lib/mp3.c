@@ -35,7 +35,8 @@ extern f32 *var8009c644;
 
 void mp3Init(ALHeap *heap)
 {
-	bzero(&g_Mp3Vars, sizeof(struct mp3vars));
+	memset(&g_Mp3Vars, 0, sizeof(struct mp3vars));
+	//bzero(&g_Mp3Vars, sizeof(struct mp3vars));
 
 #if VERSION < VERSION_NTSC_1_0
 	rmonPrintf("MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n", sizeof(struct asistream));
@@ -201,7 +202,9 @@ s32 func00037fc0(s32 arg0, Acmd **cmd)
 				g_Mp3Vars.var8009c3d0 = 0;
 				g_Mp3Vars.var8009c3d8 = 0;
 
-				bzero(*(u32 **)&g_Mp3Vars.var8009c3d4, 0x440);
+				//bzero(*(u32 **)&g_Mp3Vars.var8009c3d4, 0x440);
+				memset(*(u32**)&g_Mp3Vars.var8009c3d4, 0, 0x440);
+
 			}
 		} else {
 			g_Mp3Vars.var8009c3f0--;
@@ -382,7 +385,7 @@ s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 	proc = n_syn->dma(&sp1c);
 	sp1c = OS_K0_TO_PHYSICAL(proc(g_Mp3Vars.romaddr + g_Mp3Vars.var8009c3c4, arg2, 0));
 
-	bcopy((u8 *)sp1c, arg1, arg2);
+	memcpy((u8 *)sp1c, arg1, arg2);
 
 	g_Mp3Vars.var8009c3c4 += arg2;
 

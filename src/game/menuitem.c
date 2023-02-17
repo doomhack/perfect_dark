@@ -208,7 +208,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 	s32 firstonscreenoptionindex;
 	s32 x;
 	s32 y;
-	s32 sp128;
+	s32 sp128 = 0;
 	s32 halfheight;
 	bool done2 = false;
 	s32 left = context->x + 2;
@@ -1602,7 +1602,7 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 	s32 y;
 	char *sp120;
 	char buffer[80];
-	char *spcc;
+	char *spcc = NULL;
 	u32 spc8;
 	s32 textwidth;
 	s32 textheight;

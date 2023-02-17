@@ -908,7 +908,7 @@ s32 texShrinkNonPaletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 form
 	u8 tl8;
 	u8 tr8;
 	u8 bl8;
-	u8 br8;
+	u8 br8 = 0;
 	s32 nextrow;
 	s32 nextcol;
 
@@ -1782,8 +1782,8 @@ s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *look
 	s32 y;
 	u32 *lookup32 = (u32 *)lookup;
 	u16 *lookup16 = (u16 *)lookup;
-	u8 *src8;
-	u16 *src16;
+	u8 *src8 = NULL;
+	u16 *src16 = NULL;
 	u32 *dst32 = (u32 *)dst;
 	u16 *dst16 = (u16 *)dst;
 	u8 *dst8 = (u8 *)dst;
@@ -2131,7 +2131,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 	struct tex *tex;
 	u8 *alignedcompbuffer;
 	u32 stack;
-	struct tex *tail;
+	struct tex *tail = NULL;
 	u32 freebytes;
 	u8 usingsharedpool = 0;
 	s8 buffer5kb[5 * 1024 + 0x40];
@@ -2252,12 +2252,12 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 				u8 *ptr = mempAllocFromRight(ALIGN16(bytesout + 2 * sizeof(struct tex)), MEMPOOL_STAGE);
 				pool->rightpos = (struct tex *) ptr;
 
-				bcopy(tex, ptr, sizeof(struct tex));
+				memcpy(tex, ptr, sizeof(struct tex));
 
 				tex = (struct tex *) ptr;
 				ptr += sizeof(struct tex);
 
-				bcopy(pool->leftpos - 8, ptr, bytesout + 8);
+				memcpy(pool->leftpos - 8, ptr, bytesout + 8);
 
 				pool->rightpos->data = ptr + 8;
 				pool->rightpos->next = 0;

@@ -15,7 +15,6 @@
 #include "game/setuputils.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
-#include "game/atan2f.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/modelmgr.h"
@@ -6231,7 +6230,7 @@ bool aiFindCoverOutsideDist(void)
 	u16 criteria = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, -flags) != -1) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, 0-flags) != -1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
 	} else {
 		g_Vars.aioffset += 9;

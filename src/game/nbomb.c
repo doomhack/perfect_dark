@@ -8,7 +8,6 @@
 #include "game/chraction.h"
 #include "game/prop.h"
 #include "game/objectives.h"
-#include "game/atan2f.h"
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/savebuffer.h"

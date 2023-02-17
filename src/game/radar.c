@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/cheats.h"
 #include "game/chraction.h"
-#include "game/atan2f.h"
 #include "game/game_0b2150.h"
 #include "game/tex.h"
 #include "game/game_152fa0.h"

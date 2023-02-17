@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/body.h"
-#include "game/floor.h"
 #include "bss.h"
 #include "lib/anim.h"
 #include "data.h"

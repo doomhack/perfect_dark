@@ -4,7 +4,6 @@
 #include "game/bondmove.h"
 #include "game/cheats.h"
 #include "game/chraction.h"
-#include "game/floor.h"
 #include "game/inv.h"
 #include "game/nbomb.h"
 #include "game/title.h"
@@ -14,7 +13,6 @@
 #include "game/prop.h"
 #include "game/propsnd.h"
 #include "game/objectives.h"
-#include "game/atan2f.h"
 #include "game/quaternion.h"
 #include "game/bondgun.h"
 #include "game/env.h"
@@ -1281,11 +1279,11 @@ void playerTickChrBody(void)
 		struct modeldef *headmodeldef = NULL;
 		struct modeldef *weaponmodeldef;
 		s32 offset1 = 0;
-		u8 *allocation;
+		u8 *allocation = NULL;
 		void *spe8;
 		s32 offset2;
 		u32 stack2;
-		struct weaponobj *weaponobj;
+		struct weaponobj *weaponobj = NULL;
 
 		// Unused
 		struct weaponobj template = {

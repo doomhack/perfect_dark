@@ -1,11 +1,8 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_096700.h"
-#include "game/acosfasinf.h"
 #include "game/quaternion.h"
 #include "game/camera.h"
-#include "game/floor.h"
-#include "game/ceil.h"
 #include "game/tex.h"
 #include "game/gfxmemory.h"
 #include "game/bg.h"

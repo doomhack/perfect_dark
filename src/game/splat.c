@@ -242,7 +242,7 @@ void splat0f149274(void)
 bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 splattype, s32 timermax, struct chrdata *chr, s32 timerspeed)
 {
 	struct prop **propptr;
-	struct prop *objprop;
+	struct prop *objprop = NULL;
 	struct hitthing hitthing;
 	struct hitthing besthitthing;
 	s16 rooms[32];
@@ -250,9 +250,9 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	s16 endrooms[8];
 	struct coord endpos;
 	s32 i;
-	struct coord *sp50c;
-	struct coord *hitpos;
-	struct coord *sp504;
+	struct coord *sp50c = NULL;
+	struct coord *hitpos = NULL;
+	struct coord *sp504 = NULL;
 	s32 bestroom = 0;
 	s32 mtxindex;
 	s32 room;

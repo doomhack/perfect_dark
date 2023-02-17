@@ -2524,7 +2524,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	f32 f0;
 	f32 sp218[2];
 	f32 sp214;
-	struct gfxvtx *vertices; // 210
+	struct gfxvtx *vertices = NULL; // 210
 	f32 frac;
 	s32 a0;
 	Mtxf sp1c8;
@@ -4569,7 +4569,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	s32 k;
 	s32 s8;
 	f32 tmp;
-	u32 sp137c;
+	u32 sp137c = 0;
 	u8 stack[0x3c];
 	u32 sp1354;
 	bool a0;
@@ -4601,7 +4601,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	f32 sp220;
 	f32 sp21c;
 	Mtxf *mtx;
-	struct gfxvtx *vertices; // 214
+	struct gfxvtx *vertices = NULL; // 214
 	struct gfxvtx *v0;
 	struct gfxvtx *v0_2;
 	Mtxf sp1cc;

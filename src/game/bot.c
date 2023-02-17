@@ -5,7 +5,6 @@
 #include "game/chr.h"
 #include "game/prop.h"
 #include "game/propsnd.h"
-#include "game/atan2f.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/player.h"

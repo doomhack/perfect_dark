@@ -21,7 +21,7 @@
 #define __N_SYNTHINTERNALS__
 
 #include <n_libaudio.h>
-#include <synthInternals.h>
+#include "../lib/ultra/audio/synthInternals.h"
 #include "n_abi.h"
 #include "types.h"
 

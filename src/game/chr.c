@@ -5571,8 +5571,8 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[playermgrGetPlayerNumByProp(prop)]->isdead)
 			&& !(g_Vars.coopplayernum >= 0 && (prop == g_Vars.bond->prop || prop == g_Vars.coop->prop))) {
 		struct model *model = chr->model;
-		Mtxf *mtx1;
-		Mtxf *mtx2;
+		Mtxf *mtx1 = NULL;
+		Mtxf *mtx2 = NULL;
 
 		if (model->definition->skel == &g_SkelChr) {
 			mtx1 = &model->matrices[0];

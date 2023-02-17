@@ -9,7 +9,6 @@
 #include "game/prop.h"
 #include "game/propsnd.h"
 #include "game/game_096360.h"
-#include "game/acosfasinf.h"
 #include "game/game_096b20.h"
 #include "game/quaternion.h"
 #include "game/game_097aa0.h"
@@ -4433,7 +4432,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 	struct coord *extrapos = &g_Vars.currentplayer->bondextrapos;
 	Mtxf sp190;
 	struct defaultobj *obj;
-	struct weaponobj *weapon;
+	struct weaponobj *weapon = NULL;
 	struct coord muzzlepos;
 	struct coord spawnpos;
 	s16 spawnrooms[8];
@@ -7464,7 +7463,7 @@ void bgunCreateFx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s3
 
 void bgun0f0a5550(s32 handnum)
 {
-	u8 *mtxallocation;
+	u8 *mtxallocation = NULL;
 	Mtxf sp2c4;
 	Mtxf sp284;
 	struct modeldef *modeldef = NULL;

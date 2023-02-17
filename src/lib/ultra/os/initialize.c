@@ -60,7 +60,8 @@ void osInitialize(void)
 #endif
 
 	if (osResetType == RESETTYPE_COLD) {
-		bzero(&osAppNMIBuffer, 0x40);
+		//bzero(&osAppNMIBuffer, 0x40);
+		memset(osAppNMIBuffer, 0, 0x40);
 	}
 
 #if VERSION >= VERSION_PAL_BETA

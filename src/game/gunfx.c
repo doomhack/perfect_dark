@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/acosfasinf.h"
 #include "game/bondgun.h"
 #include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
@@ -2185,7 +2184,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 {
 	Mtxf *mtx;
 	f32 f0;
-	f32 f20;
+	f32 f20 = 0;
 	struct player *player = g_Vars.currentplayer;
 	Mtxf sp1b0;
 	struct coord campos;

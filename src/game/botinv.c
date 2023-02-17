@@ -3,7 +3,6 @@
 #include "game/chraction.h"
 #include "game/debug.h"
 #include "game/chr.h"
-#include "game/ceil.h"
 #include "game/game_0b0fd0.h"
 #include "game/playermgr.h"
 #include "game/mplayer/setup.h"
@@ -1019,7 +1018,7 @@ void botinvTick(struct chrdata *chr)
  */
 bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 {
-	struct invitem *item;
+	struct invitem *item = NULL;
 	struct weaponfunc *func;
 	struct aibot *aibot;
 	s32 i;

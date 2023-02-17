@@ -1,6 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/atan2f.h"
 #include "game/tex.h"
 #include "game/playermgr.h"
 #include "game/bg.h"

@@ -1,7 +1,8 @@
 #ifndef _IN_CONSTANTS_H
 #define _IN_CONSTANTS_H
 #include "versions.h"
-#include "math.h"
+#include <math.h>
+#include "pd_math.h"
 #include "animations.h"
 #include "files.h"
 #include "sequences.h"
@@ -88,6 +89,8 @@
 
 #ifdef __sgi
 #define ALIGNED16
+#elif defined _MSC_VER
+#define ALIGNED16 __declspec(align(16))
 #else
 #define ALIGNED16 __attribute__ ((aligned (16)))
 #endif

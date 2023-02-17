@@ -183,14 +183,14 @@ void vmInit(void)
 	u8 *s7; // nb: 154c
 	u8 *gameseg;
 	u8 *zip; // 48
-	s32 pagenum;
+	s32 pagenum = 0;
 	s32 statetablelen;
 #if VERSION < VERSION_NTSC_1_0
 	u32 stack1;
 #endif
 	u32 size;
 	u32 numentries2; // N/A, 1474
-	u32 numentries;
+	u32 numentries = 0;
 	u32 *ptr;
 #if VERSION >= VERSION_NTSC_1_0
 	s32 i;

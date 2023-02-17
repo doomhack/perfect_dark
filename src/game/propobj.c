@@ -15,11 +15,7 @@
 #include "game/propsnd.h"
 #include "game/objectives.h"
 #include "game/game_096360.h"
-#include "game/atan2f.h"
-#include "game/acosfasinf.h"
 #include "game/quaternion.h"
-#include "game/floor.h"
-#include "game/ceil.h"
 #include "game/bondgun.h"
 #include "game/gunfx.h"
 #include "game/game_0b0fd0.h"
@@ -2663,7 +2659,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	f32 sum2;
 	struct coord spfc;
 	struct coord spf0;
-	struct modelnode *node1;
+	struct modelnode *node1 = NULL;
 	s32 hitpart;
 	struct modelnode *spe4 = NULL;
 	struct hitthing thing1;
@@ -2671,7 +2667,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	struct modelnode *node;
 	struct hitthing thing2;
 	s32 mtxindex2;
-	struct modelnode *node2;
+	struct modelnode *node2 = NULL;
 	f32 sum3;
 
 	if (prop->parent == NULL) {
@@ -2859,7 +2855,7 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 	Gfx *s4;
 	Gfx *s6;
 	struct gfxvtx *vertices;
-	struct modelnode *sp88;
+	struct modelnode *sp88 = NULL;
 	struct modelnode *sp84 = NULL;
 	bool s7;
 	struct coord sp74;
@@ -15536,7 +15532,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	s32 spe4;
 	struct coord spd8;
 	f32 spd4;
-	struct modelnode *node2;
+	struct modelnode *node2 = NULL;
 	s32 hitpart;
 	bool isnotglass;
 	struct modelnode *node3;

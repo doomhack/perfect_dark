@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "game/dlights.h"
 #include "game/game_006900.h"
-#include "game/atan2f.h"
 #include "game/savebuffer.h"
 #include "game/sky.h"
 #include "game/bondview.h"

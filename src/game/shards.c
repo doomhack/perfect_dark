@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "data.h"
-#include "game/atan2f.h"
 #include "game/dlights.h"
 #include "game/file.h"
 #include "game/propsnd.h"

@@ -7,7 +7,6 @@
 #include "game/room.h"
 #include "game/chr.h"
 #include "game/prop.h"
-#include "game/ceil.h"
 #include "game/bondgun.h"
 #include "game/tex.h"
 #include "game/camera.h"
@@ -1670,7 +1669,7 @@ Gfx *bgRenderArtifacts(Gfx *gdl)
 void bgLoadFile(void *memaddr, u32 offset, u32 len)
 {
 	if (var8007fc04) {
-		bcopy(var8007fc08 + offset, memaddr, len);
+		memcpy(var8007fc08 + offset, memaddr, len);
 	} else {
 		fileLoadPartToAddr(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
 	}
@@ -3004,7 +3003,7 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 #endif
 	} else {
 		result = len;
-		bcopy(src, dst, len);
+		memcpy(src, dst, len);
 	}
 
 	return result;
@@ -5108,13 +5107,13 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 	struct coord *point1;
 	struct coord *point2;
 	struct coord *point3;
-	struct gfxvtx *vtx;
+	struct gfxvtx *vtx = NULL;
 	Gfx *imggdl = NULL;
 	s32 texturenum;
 	f32 lowestsqdist = MAXFLOAT;
 	s32 offset;
 	s32 numvertices;
-	Gfx *tri4gdl;
+	Gfx *tri4gdl = NULL;
 	s32 count;
 	struct coord min;
 	struct coord max;
@@ -5405,13 +5404,13 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 	bool hit;
 	f32 tmp;
 	f32 sqdist;
-	struct gfxvtx *vtx;
+	struct gfxvtx *vtx = NULL;
 	struct coord *point1;
 	struct coord *point2;
 	struct coord *point3;
 	u32 word;
-	Gfx *tri4gdl;
-	Mtxf *mtx;
+	Gfx *tri4gdl = NULL;
+	Mtxf *mtx = NULL;
 	struct coord min;
 	struct coord max;
 	struct coord sp84;
@@ -5693,7 +5692,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 	f32 *ptr;
 	Gfx *iter;
 	Gfx *tmpgdl;
-	Gfx *tri4gdl;
+	Gfx *tri4gdl = NULL;
 
 	vtx = roomFindVerticesForGdl(roomnum, gdl);
 	iter = &gdl[batch->gbicmdindex];

@@ -18,7 +18,7 @@ u32 func0f152fa0(f32 arg0)
 
 	if (arg0 < 0) {
 		result = arg0 * -65536;
-		result = -result;
+		result = 0-result;
 	} else {
 		result = 65536 * arg0;
 	}

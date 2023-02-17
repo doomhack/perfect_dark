@@ -30,7 +30,7 @@ ALMicroTime n_alEvtqNextEvent(ALEventQueue *evtq, N_ALEvent *evt)
 
 	if (item) {
 		alUnlink((ALLink *)item);
-		bcopy(&item->evt, evt, sizeof(*evt));
+		memcpy(&item->evt, evt, sizeof(*evt));
 		alLink((ALLink *)item, &evtq->freeList);
 		delta = item->delta;
 	} else {
@@ -71,7 +71,7 @@ void n_alEvtqPostEvent(ALEventQueue *evtq, N_ALEvent *evt, ALMicroTime delta, s3
 	}
 
 	alUnlink((ALLink *)item);
-	bcopy(evt, &item->evt, sizeof(*evt));
+	memcpy(evt, &item->evt, sizeof(*evt));
 
 	if (delta == AL_EVTQ_END) {
 		postAtEnd = -1;

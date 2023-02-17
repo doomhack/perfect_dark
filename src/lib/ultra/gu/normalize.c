@@ -1,3 +1,4 @@
+#include <math.h>
 #include <ultra64.h>
 
 void guNormalize(f32 *x, f32 *y, f32 *z)

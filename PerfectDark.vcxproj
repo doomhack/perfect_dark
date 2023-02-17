@@ -1,0 +1,1087 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{a2bfc105-87b0-49aa-9770-6a78a72dcb81}</ProjectGuid>
+    <RootNamespace>PerfectDark</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;ROM_SIZE=32</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;ROM_SIZE=32</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;ROM_SIZE=32</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;ROM_SIZE=32</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="cmain.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClCompile Include="getcount.c" />
+    <ClCompile Include="src\game\activemenu.c" />
+    <ClCompile Include="src\game\activemenutick.c" />
+    <ClCompile Include="src\game\bg.c" />
+    <ClCompile Include="src\game\bgbss.c" />
+    <ClCompile Include="src\game\body.c" />
+    <ClCompile Include="src\game\bodyinit.c" />
+    <ClCompile Include="src\game\bodyreset.c" />
+    <ClCompile Include="src\game\bondbike.c" />
+    <ClCompile Include="src\game\bondcutscene.c" />
+    <ClCompile Include="src\game\bondeyespy.c" />
+    <ClCompile Include="src\game\bondgrab.c" />
+    <ClCompile Include="src\game\bondgun.c" />
+    <ClCompile Include="src\game\bondgunreset.c" />
+    <ClCompile Include="src\game\bondgunstop.c" />
+    <ClCompile Include="src\game\bondhead.c" />
+    <ClCompile Include="src\game\bondheadreset.c" />
+    <ClCompile Include="src\game\bondmove.c" />
+    <ClCompile Include="src\game\bondview.c" />
+    <ClCompile Include="src\game\bondwalk.c" />
+    <ClCompile Include="src\game\bossfile.c" />
+    <ClCompile Include="src\game\bot.c" />
+    <ClCompile Include="src\game\botact.c" />
+    <ClCompile Include="src\game\botcmd.c" />
+    <ClCompile Include="src\game\botinv.c" />
+    <ClCompile Include="src\game\botinvinit.c" />
+    <ClCompile Include="src\game\botmgr.c" />
+    <ClCompile Include="src\game\botroom.c" />
+    <ClCompile Include="src\game\buildtime.c" />
+    <ClCompile Include="src\game\camdraw.c" />
+    <ClCompile Include="src\game\camera.c" />
+    <ClCompile Include="src\game\casingreset.c" />
+    <ClCompile Include="src\game\casingtick.c" />
+    <ClCompile Include="src\game\challenge.c" />
+    <ClCompile Include="src\game\challengeinit.c" />
+    <ClCompile Include="src\game\cheats.c" />
+    <ClCompile Include="src\game\chr.c" />
+    <ClCompile Include="src\game\chraction.c" />
+    <ClCompile Include="src\game\chrai.c" />
+    <ClCompile Include="src\game\chraicommands.c" />
+    <ClCompile Include="src\game\chrmgr.c" />
+    <ClCompile Include="src\game\chrmgrstop.c" />
+    <ClCompile Include="src\game\collisionutils.c" />
+    <ClCompile Include="src\game\crc.c" />
+    <ClCompile Include="src\game\credits.c" />
+    <ClCompile Include="src\game\debug1.c" />
+    <ClCompile Include="src\game\debug2.c" />
+    <ClCompile Include="src\game\debug3.c" />
+    <ClCompile Include="src\game\dlights.c" />
+    <ClCompile Include="src\game\dyntex.c" />
+    <ClCompile Include="src\game\endscreen.c" />
+    <ClCompile Include="src\game\env.c" />
+    <ClCompile Include="src\game\explosions.c" />
+    <ClCompile Include="src\game\explosionsreset.c" />
+    <ClCompile Include="src\game\explosionsstop.c" />
+    <ClCompile Include="src\game\file.c" />
+    <ClCompile Include="src\game\filelist.c" />
+    <ClCompile Include="src\game\filemgr.c" />
+    <ClCompile Include="src\game\fmb.c" />
+    <ClCompile Include="src\game\footstep.c" />
+    <ClCompile Include="src\game\gailists.c" />
+    <ClCompile Include="src\game\gamefile.c" />
+    <ClCompile Include="src\game\game_006900.c" />
+    <ClCompile Include="src\game\game_00b820.c" />
+    <ClCompile Include="src\game\game_096360.c" />
+    <ClCompile Include="src\game\game_096700.c" />
+    <ClCompile Include="src\game\game_096b20.c" />
+    <ClCompile Include="src\game\game_097a50.c" />
+    <ClCompile Include="src\game\game_097aa0.c" />
+    <ClCompile Include="src\game\game_0b0fd0.c" />
+    <ClCompile Include="src\game\game_0b2150.c" />
+    <ClCompile Include="src\game\game_13c510.c" />
+    <ClCompile Include="src\game\game_152fa0.c" />
+    <ClCompile Include="src\game\game_1531a0.c" />
+    <ClCompile Include="src\game\game_175f90.c" />
+    <ClCompile Include="src\game\game_176080.c" />
+    <ClCompile Include="src\game\game_1a78b0.c" />
+    <ClCompile Include="src\game\getitle.c" />
+    <ClCompile Include="src\game\getitlereset.c" />
+    <ClCompile Include="src\game\gfxmemory.c" />
+    <ClCompile Include="src\game\gfxreplace.c" />
+    <ClCompile Include="src\game\gunfx.c" />
+    <ClCompile Include="src\game\gunfxreset.c" />
+    <ClCompile Include="src\game\healthbar.c" />
+    <ClCompile Include="src\game\hudmsg.c" />
+    <ClCompile Include="src\game\inv.c" />
+    <ClCompile Include="src\game\invitems.c" />
+    <ClCompile Include="src\game\invreset.c" />
+    <ClCompile Include="src\game\lang.c" />
+    <ClCompile Include="src\game\langinit.c" />
+    <ClCompile Include="src\game\langreset.c" />
+    <ClCompile Include="src\game\langtick.c" />
+    <ClCompile Include="src\game\lv.c" />
+    <ClCompile Include="src\game\mainmenu.c" />
+    <ClCompile Include="src\game\menu.c" />
+    <ClCompile Include="src\game\menugfx.c" />
+    <ClCompile Include="src\game\menuitem.c" />
+    <ClCompile Include="src\game\menustop.c" />
+    <ClCompile Include="src\game\menutick.c" />
+    <ClCompile Include="src\game\modeldata\basic.c" />
+    <ClCompile Include="src\game\modeldata\casing.c" />
+    <ClCompile Include="src\game\modeldata\chrgun.c" />
+    <ClCompile Include="src\game\modeldata\classicgun.c" />
+    <ClCompile Include="src\game\modeldata\general.c" />
+    <ClCompile Include="src\game\modeldata\playermd.c" />
+    <ClCompile Include="src\game\modeldata\robot.c" />
+    <ClCompile Include="src\game\modeldata\skedar.c" />
+    <ClCompile Include="src\game\modeldata\skel06.c" />
+    <ClCompile Include="src\game\modeldata\skel0a.c" />
+    <ClCompile Include="src\game\modeldata\skel0b.c" />
+    <ClCompile Include="src\game\modeldata\skel20.c" />
+    <ClCompile Include="src\game\modeldata\skelchr.c" />
+    <ClCompile Include="src\game\modeldata\uzi.c" />
+    <ClCompile Include="src\game\modeldata\weapon.c" />
+    <ClCompile Include="src\game\modeldef.c" />
+    <ClCompile Include="src\game\modelmgr.c" />
+    <ClCompile Include="src\game\modelmgrreset.c" />
+    <ClCompile Include="src\game\mplayer\ingame.c" />
+    <ClCompile Include="src\game\mplayer\mpaicommands.c" />
+    <ClCompile Include="src\game\mplayer\mplayer.c" />
+    <ClCompile Include="src\game\mplayer\scenarios.c" />
+    <ClCompile Include="src\game\mplayer\mpsetup.c" />
+    <ClCompile Include="src\game\mpstats.c" />
+    <ClCompile Include="src\game\mtxf2lbulkasm_c.c" />
+    <ClCompile Include="src\game\music.c" />
+    <ClCompile Include="src\game\nbomb.c" />
+    <ClCompile Include="src\game\objectives.c" />
+    <ClCompile Include="src\game\objectivesreset.c" />
+    <ClCompile Include="src\game\objectivesstop.c" />
+    <ClCompile Include="src\game\options.c" />
+    <ClCompile Include="src\game\pad.c" />
+    <ClCompile Include="src\game\padhalllv.c" />
+    <ClCompile Include="src\game\pak.c" />
+    <ClCompile Include="src\game\pdmode.c" />
+    <ClCompile Include="src\game\player.c" />
+    <ClCompile Include="src\game\playermgr.c" />
+    <ClCompile Include="src\game\playerreset.c" />
+    <ClCompile Include="src\game\portal.c" />
+    <ClCompile Include="src\game\portalconv_c.c" />
+    <ClCompile Include="src\game\prop.c" />
+    <ClCompile Include="src\game\propobj.c" />
+    <ClCompile Include="src\game\propobjbss.c" />
+    <ClCompile Include="src\game\propobjstop.c" />
+    <ClCompile Include="src\game\propsnd.c" />
+    <ClCompile Include="src\game\propsndreset.c" />
+    <ClCompile Include="src\game\propsndstop.c" />
+    <ClCompile Include="src\game\propsstop.c" />
+    <ClCompile Include="src\game\proptick.c" />
+    <ClCompile Include="src\game\quaternion.c" />
+    <ClCompile Include="src\game\race.c" />
+    <ClCompile Include="src\game\raceinit.c" />
+    <ClCompile Include="src\game\radar.c" />
+    <ClCompile Include="src\game\rng2_c.c" />
+    <ClCompile Include="src\game\room.c" />
+    <ClCompile Include="src\game\roomreset.c" />
+    <ClCompile Include="src\game\roomtick.c" />
+    <ClCompile Include="src\game\savebuffer.c" />
+    <ClCompile Include="src\game\setup.c" />
+    <ClCompile Include="src\game\setupcover.c" />
+    <ClCompile Include="src\game\setuppads.c" />
+    <ClCompile Include="src\game\setuputils.c" />
+    <ClCompile Include="src\game\setupwaypoints.c" />
+    <ClCompile Include="src\game\shards.c" />
+    <ClCompile Include="src\game\shardsreset.c" />
+    <ClCompile Include="src\game\shardsstop.c" />
+    <ClCompile Include="src\game\shardstick.c" />
+    <ClCompile Include="src\game\sight.c" />
+    <ClCompile Include="src\game\sky.c" />
+    <ClCompile Include="src\game\skyreset.c" />
+    <ClCompile Include="src\game\skytick.c" />
+    <ClCompile Include="src\game\smoke.c" />
+    <ClCompile Include="src\game\smokeinit.c" />
+    <ClCompile Include="src\game\smokereset.c" />
+    <ClCompile Include="src\game\smokestop.c" />
+    <ClCompile Include="src\game\sparks.c" />
+    <ClCompile Include="src\game\sparksreset.c" />
+    <ClCompile Include="src\game\sparkstick.c" />
+    <ClCompile Include="src\game\splat.c" />
+    <ClCompile Include="src\game\stagemusic.c" />
+    <ClCompile Include="src\game\stagetable.c" />
+    <ClCompile Include="src\game\stars.c" />
+    <ClCompile Include="src\game\stubs\game_000840.c" />
+    <ClCompile Include="src\game\stubs\game_000850.c" />
+    <ClCompile Include="src\game\stubs\game_000860.c" />
+    <ClCompile Include="src\game\stubs\game_000870.c" />
+    <ClCompile Include="src\game\stubs\game_0008e0.c" />
+    <ClCompile Include="src\game\stubs\game_0008f0.c" />
+    <ClCompile Include="src\game\stubs\game_000900.c" />
+    <ClCompile Include="src\game\stubs\game_000910.c" />
+    <ClCompile Include="src\game\stubs\game_00b180.c" />
+    <ClCompile Include="src\game\stubs\game_00b200.c" />
+    <ClCompile Include="src\game\stubs\game_013540.c" />
+    <ClCompile Include="src\game\stubs\game_015260.c" />
+    <ClCompile Include="src\game\stubs\game_015270.c" />
+    <ClCompile Include="src\game\stubs\game_0153f0.c" />
+    <ClCompile Include="src\game\stubs\game_015400.c" />
+    <ClCompile Include="src\game\stubs\game_015410.c" />
+    <ClCompile Include="src\game\stubs\game_102230.c" />
+    <ClCompile Include="src\game\stubs\game_11eff0.c" />
+    <ClCompile Include="src\game\stubs\game_175f50.c" />
+    <ClCompile Include="src\game\stubs\game_176000.c" />
+    <ClCompile Include="src\game\surfacereset.c" />
+    <ClCompile Include="src\game\tex.c" />
+    <ClCompile Include="src\game\texdecompress.c" />
+    <ClCompile Include="src\game\texinit.c" />
+    <ClCompile Include="src\game\texreset.c" />
+    <ClCompile Include="src\game\texselect.c" />
+    <ClCompile Include="src\game\tilesreset.c" />
+    <ClCompile Include="src\game\timing.c" />
+    <ClCompile Include="src\game\title.c" />
+    <ClCompile Include="src\game\titleclear.c" />
+    <ClCompile Include="src\game\titleinit.c" />
+    <ClCompile Include="src\game\titlereset.c" />
+    <ClCompile Include="src\game\training.c" />
+    <ClCompile Include="src\game\trainingmenus.c" />
+    <ClCompile Include="src\game\utils.c" />
+    <ClCompile Include="src\game\varsreset.c" />
+    <ClCompile Include="src\game\vmstats.c" />
+    <ClCompile Include="src\game\vtxstore.c" />
+    <ClCompile Include="src\game\vtxstorereset.c" />
+    <ClCompile Include="src\game\wallhit.c" />
+    <ClCompile Include="src\game\wallhitreset.c" />
+    <ClCompile Include="src\game\weather.c" />
+    <ClCompile Include="src\game\weatherreset.c" />
+    <ClCompile Include="src\game\weathertick.c" />
+    <ClCompile Include="src\inflate\inflate.c" />
+    <ClCompile Include="src\lib\ailist.c" />
+    <ClCompile Include="src\lib\anim.c" />
+    <ClCompile Include="src\lib\args.c" />
+    <ClCompile Include="src\lib\audiodma.c" />
+    <ClCompile Include="src\lib\audiomgr.c" />
+    <ClCompile Include="src\lib\base.c" />
+    <ClCompile Include="src\lib\boot.c" />
+    <ClCompile Include="src\lib\collision.c" />
+    <ClCompile Include="src\lib\crash.c" />
+    <ClCompile Include="src\lib\debughud.c" />
+    <ClCompile Include="src\lib\dma.c" />
+    <ClCompile Include="src\lib\fault.c" />
+    <ClCompile Include="src\lib\joy.c" />
+    <ClCompile Include="src\lib\lib_034d0.c" />
+    <ClCompile Include="src\lib\lib_04f60nb.c" />
+    <ClCompile Include="src\lib\lib_15850.c" />
+    <ClCompile Include="src\lib\lib_17ce0.c" />
+    <ClCompile Include="src\lib\lib_2f490_c.c" />
+    <ClCompile Include="src\lib\lib_2fc60.c" />
+    <ClCompile Include="src\lib\lib_39c80.c" />
+    <ClCompile Include="src\lib\lib_3e3e0.c" />
+    <ClCompile Include="src\lib\main.c" />
+    <ClCompile Include="src\lib\mema.c" />
+    <ClCompile Include="src\lib\memp.c" />
+    <ClCompile Include="src\lib\model.c" />
+    <ClCompile Include="src\lib\mp3.c" />
+    <ClCompile Include="src\lib\mp3\decoder.c" />
+    <ClCompile Include="src\lib\mp3\lib_45ed0.c" />
+    <ClCompile Include="src\lib\mp3\lib_47d20.c" />
+    <ClCompile Include="src\lib\mp3\lib_47ef0.c" />
+    <ClCompile Include="src\lib\mp3\mp3main.c" />
+    <ClCompile Include="src\lib\mtx.c" />
+    <ClCompile Include="src\lib\mtx_c.c" />
+    <ClCompile Include="src\lib\lmusic.c" />
+    <ClCompile Include="src\lib\naudio\n_auxbus.c" />
+    <ClCompile Include="src\lib\naudio\n_cspgetstate.c" />
+    <ClCompile Include="src\lib\naudio\n_csplayer.c" />
+    <ClCompile Include="src\lib\naudio\n_cspplay.c" />
+    <ClCompile Include="src\lib\naudio\n_cspsendmidi.c" />
+    <ClCompile Include="src\lib\naudio\n_cspsetbank.c" />
+    <ClCompile Include="src\lib\naudio\n_cspsetseq.c" />
+    <ClCompile Include="src\lib\naudio\n_cspsetvol.c" />
+    <ClCompile Include="src\lib\naudio\n_csq.c" />
+    <ClCompile Include="src\lib\naudio\n_drvrNew.c" />
+    <ClCompile Include="src\lib\naudio\n_env.c" />
+    <ClCompile Include="src\lib\naudio\n_event.c" />
+    <ClCompile Include="src\lib\naudio\n_load.c" />
+    <ClCompile Include="src\lib\naudio\n_mainbus.c" />
+    <ClCompile Include="src\lib\naudio\n_resample.c" />
+    <ClCompile Include="src\lib\naudio\n_resample2.c" />
+    <ClCompile Include="src\lib\naudio\n_reverb.c" />
+    <ClCompile Include="src\lib\naudio\n_save.c" />
+    <ClCompile Include="src\lib\naudio\n_seqplayer.c" />
+    <ClCompile Include="src\lib\naudio\n_seqpstop.c" />
+    <ClCompile Include="src\lib\naudio\n_sl.c" />
+    <ClCompile Include="src\lib\naudio\n_sndplayer.c" />
+    <ClCompile Include="src\lib\naudio\n_synaddplayer.c" />
+    <ClCompile Include="src\lib\naudio\n_synallocfx.c" />
+    <ClCompile Include="src\lib\naudio\n_synallocvoice.c" />
+    <ClCompile Include="src\lib\naudio\n_syndelete.c" />
+    <ClCompile Include="src\lib\naudio\n_synfilter11.c" />
+    <ClCompile Include="src\lib\naudio\n_synfilter12.c" />
+    <ClCompile Include="src\lib\naudio\n_synfilter13.c" />
+    <ClCompile Include="src\lib\naudio\n_synfreevoice.c" />
+    <ClCompile Include="src\lib\naudio\n_synsetfxmix.c" />
+    <ClCompile Include="src\lib\naudio\n_synsetfxparam.c" />
+    <ClCompile Include="src\lib\naudio\n_synsetpan.c" />
+    <ClCompile Include="src\lib\naudio\n_synsetpitch.c" />
+    <ClCompile Include="src\lib\naudio\n_synsetpriority.c" />
+    <ClCompile Include="src\lib\naudio\n_synsetvol.c" />
+    <ClCompile Include="src\lib\naudio\n_synstartvoiceparam.c" />
+    <ClCompile Include="src\lib\naudio\n_synstopvoice.c" />
+    <ClCompile Include="src\lib\naudio\n_synthesizer.c" />
+    <ClCompile Include="src\lib\path.c" />
+    <ClCompile Include="src\lib\pimgr.c" />
+    <ClCompile Include="src\lib\profile.c" />
+    <ClCompile Include="src\lib\rdp.c" />
+    <ClCompile Include="src\lib\reset.c" />
+    <ClCompile Include="src\lib\rmon.c" />
+    <ClCompile Include="src\lib\rng_c.c" />
+    <ClCompile Include="src\lib\rzip.c" />
+    <ClCompile Include="src\lib\sched.c" />
+    <ClCompile Include="src\lib\segments.c" />
+    <ClCompile Include="src\lib\snd.c" />
+    <ClCompile Include="src\lib\speaker.c" />
+    <ClCompile Include="src\lib\tlb.c" />
+    <ClCompile Include="src\lib\ultra\audio\bnkf.c" />
+    <ClCompile Include="src\lib\ultra\audio\cents2ratio.c" />
+    <ClCompile Include="src\lib\ultra\audio\cseq.c" />
+    <ClCompile Include="src\lib\ultra\audio\heap.c" />
+    <ClCompile Include="src\lib\ultra\audio\sl.c" />
+    <ClCompile Include="src\lib\ultra\gu\align.c" />
+    <ClCompile Include="src\lib\ultra\gu\coss.c" />
+    <ClCompile Include="src\lib\ultra\gu\frustum.c" />
+    <ClCompile Include="src\lib\ultra\gu\lookat.c" />
+    <ClCompile Include="src\lib\ultra\gu\lookatref.c" />
+    <ClCompile Include="src\lib\ultra\gu\mtxutil.c" />
+    <ClCompile Include="src\lib\ultra\gu\normalize.c" />
+    <ClCompile Include="src\lib\ultra\gu\ortho.c" />
+    <ClCompile Include="src\lib\ultra\gu\perspective.c" />
+    <ClCompile Include="src\lib\ultra\gu\rotate.c" />
+    <ClCompile Include="src\lib\ultra\gu\scale.c" />
+    <ClCompile Include="src\lib\ultra\gu\sins.c" />
+    <ClCompile Include="src\lib\ultra\gu\translate.c" />
+    <ClCompile Include="src\lib\ultra\io\ai.c" />
+    <ClCompile Include="src\lib\ultra\io\aigetlen.c" />
+    <ClCompile Include="src\lib\ultra\io\aisetfreq.c" />
+    <ClCompile Include="src\lib\ultra\io\aisetnextbuf.c" />
+    <ClCompile Include="src\lib\ultra\io\conteeplongread.c" />
+    <ClCompile Include="src\lib\ultra\io\conteeplongwrite.c" />
+    <ClCompile Include="src\lib\ultra\io\conteepprobe.c" />
+    <ClCompile Include="src\lib\ultra\io\conteepread.c" />
+    <ClCompile Include="src\lib\ultra\io\conteepwrite.c" />
+    <ClCompile Include="src\lib\ultra\io\contpfs.c" />
+    <ClCompile Include="src\lib\ultra\io\contquery.c" />
+    <ClCompile Include="src\lib\ultra\io\contramread.c" />
+    <ClCompile Include="src\lib\ultra\io\contramwrite.c" />
+    <ClCompile Include="src\lib\ultra\io\contreaddata.c" />
+    <ClCompile Include="src\lib\ultra\io\controller.c" />
+    <ClCompile Include="src\lib\ultra\io\iocrc.c" />
+    <ClCompile Include="src\lib\ultra\io\devmgr.c" />
+    <ClCompile Include="src\lib\ultra\io\dpctr.c" />
+    <ClCompile Include="src\lib\ultra\io\dpgetstat.c" />
+    <ClCompile Include="src\lib\ultra\io\dpsetstat.c" />
+    <ClCompile Include="src\lib\ultra\io\epirawdma.c" />
+    <ClCompile Include="src\lib\ultra\io\epirawread.c" />
+    <ClCompile Include="src\lib\ultra\io\epirawwrite.c" />
+    <ClCompile Include="src\lib\ultra\io\gbpakcheckconnector.c" />
+    <ClCompile Include="src\lib\ultra\io\gbpakgetstatus.c" />
+    <ClCompile Include="src\lib\ultra\io\gbpakinit.c" />
+    <ClCompile Include="src\lib\ultra\io\gbpakpower.c" />
+    <ClCompile Include="src\lib\ultra\io\gbpakreadid.c" />
+    <ClCompile Include="src\lib\ultra\io\gbpakreadwrite.c" />
+    <ClCompile Include="src\lib\ultra\io\gbpakselectbank.c" />
+    <ClCompile Include="src\lib\ultra\io\iopimgr.c" />
+    <ClCompile Include="src\lib\ultra\io\motor.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsallocatefile.c" />
+    <ClCompile Include="src\lib\ultra\io\pfschecker.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsdeletefile.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsfilestate.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsfindfile.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsfreeblocks.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsgetstatus.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsinitpak.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsinitpak2.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsisplug.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsnumfiles.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsreadwritefile.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsresizefile.c" />
+    <ClCompile Include="src\lib\ultra\io\pfsselectbank.c" />
+    <ClCompile Include="src\lib\ultra\io\piacs.c" />
+    <ClCompile Include="src\lib\ultra\io\pidma.c" />
+    <ClCompile Include="src\lib\ultra\io\pigetcmdq.c" />
+    <ClCompile Include="src\lib\ultra\io\pirawdma.c" />
+    <ClCompile Include="src\lib\ultra\io\pirawread.c" />
+    <ClCompile Include="src\lib\ultra\io\piread.c" />
+    <ClCompile Include="src\lib\ultra\io\si.c" />
+    <ClCompile Include="src\lib\ultra\io\siacs.c" />
+    <ClCompile Include="src\lib\ultra\io\sirawdma.c" />
+    <ClCompile Include="src\lib\ultra\io\sirawread.c" />
+    <ClCompile Include="src\lib\ultra\io\sirawwrite.c" />
+    <ClCompile Include="src\lib\ultra\io\sp.c" />
+    <ClCompile Include="src\lib\ultra\io\spgetstat.c" />
+    <ClCompile Include="src\lib\ultra\io\sprawdma.c" />
+    <ClCompile Include="src\lib\ultra\io\spsetpc.c" />
+    <ClCompile Include="src\lib\ultra\io\spsetstat.c" />
+    <ClCompile Include="src\lib\ultra\io\sptask.c" />
+    <ClCompile Include="src\lib\ultra\io\sptaskyield.c" />
+    <ClCompile Include="src\lib\ultra\io\sptaskyielded.c" />
+    <ClCompile Include="src\lib\ultra\io\iovi.c" />
+    <ClCompile Include="src\lib\ultra\io\viblack.c" />
+    <ClCompile Include="src\lib\ultra\io\vigetcurrcontext.c" />
+    <ClCompile Include="src\lib\ultra\io\vigetcurrframebuf.c" />
+    <ClCompile Include="src\lib\ultra\io\vigetnextframebuf.c" />
+    <ClCompile Include="src\lib\ultra\io\vimgr.c" />
+    <ClCompile Include="src\lib\ultra\io\vimodempallan1.c" />
+    <ClCompile Include="src\lib\ultra\io\vimodentsclan1.c" />
+    <ClCompile Include="src\lib\ultra\io\vimodepallan1.c" />
+    <ClCompile Include="src\lib\ultra\io\visetevent.c" />
+    <ClCompile Include="src\lib\ultra\io\visetmode.c" />
+    <ClCompile Include="src\lib\ultra\io\visetspecial.c" />
+    <ClCompile Include="src\lib\ultra\io\visetxscale.c" />
+    <ClCompile Include="src\lib\ultra\io\visetyscale.c" />
+    <ClCompile Include="src\lib\ultra\io\viswapbuf.c" />
+    <ClCompile Include="src\lib\ultra\io\viswapcontext.c" />
+    <ClCompile Include="src\lib\ultra\io\vitbl.c" />
+    <ClCompile Include="src\lib\ultra\os\atomic.c" />
+    <ClCompile Include="src\lib\ultra\os\createmesgqueue.c" />
+    <ClCompile Include="src\lib\ultra\os\createthread.c" />
+    <ClCompile Include="src\lib\ultra\os\destroythread.c" />
+    <ClCompile Include="src\lib\ultra\os\exceptvars.c" />
+    <ClCompile Include="src\lib\ultra\os\getcurrfaultthread.c" />
+    <ClCompile Include="src\lib\ultra\os\getmemsize.c" />
+    <ClCompile Include="src\lib\ultra\os\getthreadpri.c" />
+    <ClCompile Include="src\lib\ultra\os\gettime.c" />
+    <ClCompile Include="src\lib\ultra\os\initialize.c" />
+    <ClCompile Include="src\lib\ultra\os\jammesg.c" />
+    <ClCompile Include="src\lib\ultra\os\os_cache.c" />
+    <ClCompile Include="src\lib\ultra\os\os_fpccsr.c" />
+    <ClCompile Include="src\lib\ultra\os\recvmesg.c" />
+    <ClCompile Include="src\lib\ultra\os\resetglobalintmask.c" />
+    <ClCompile Include="src\lib\ultra\os\sendmesg.c" />
+    <ClCompile Include="src\lib\ultra\os\seteventmesg.c" />
+    <ClCompile Include="src\lib\ultra\os\setglobalintmask.c" />
+    <ClCompile Include="src\lib\ultra\os\setthreadpri.c" />
+    <ClCompile Include="src\lib\ultra\os\settimer.c" />
+    <ClCompile Include="src\lib\ultra\os\startthread.c" />
+    <ClCompile Include="src\lib\ultra\os\stopthread.c" />
+    <ClCompile Include="src\lib\ultra\os\stoptimer.c" />
+    <ClCompile Include="src\lib\ultra\os\syncputchars.c" />
+    <ClCompile Include="src\lib\ultra\os\thread.c" />
+    <ClCompile Include="src\lib\ultra\os\timerintr.c" />
+    <ClCompile Include="src\lib\ultra\os\virtualtophysical.c" />
+    <ClCompile Include="src\lib\ultra\os\yieldthread.c" />
+    <ClCompile Include="src\lib\varsinit.c" />
+    <ClCompile Include="src\lib\vi.c" />
+    <ClCompile Include="src\lib\videbug.c" />
+    <ClCompile Include="src\lib\vm.c" />
+    <ClCompile Include="src\textureconfig.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\PR\abi.h" />
+    <ClInclude Include="include\PR\gbi.h" />
+    <ClInclude Include="include\PR\gbiex.h" />
+    <ClInclude Include="include\PR\gs2dex.h" />
+    <ClInclude Include="include\PR\gt.h" />
+    <ClInclude Include="include\PR\gu.h" />
+    <ClInclude Include="include\PR\leo.h" />
+    <ClInclude Include="include\PR\leoappli.h" />
+    <ClInclude Include="include\PR\libaudio.h" />
+    <ClInclude Include="include\PR\mbi.h" />
+    <ClInclude Include="include\PR\n_libaudio.h" />
+    <ClInclude Include="include\PR\n_libaudio_s_to_n.h" />
+    <ClInclude Include="include\PR\os.h" />
+    <ClInclude Include="include\PR\os_ai.h" />
+    <ClInclude Include="include\PR\os_cache.h" />
+    <ClInclude Include="include\PR\os_cont.h" />
+    <ClInclude Include="include\PR\os_convert.h" />
+    <ClInclude Include="include\PR\os_debug.h" />
+    <ClInclude Include="include\PR\os_eeprom.h" />
+    <ClInclude Include="include\PR\os_error.h" />
+    <ClInclude Include="include\PR\os_exception.h" />
+    <ClInclude Include="include\PR\os_gbpak.h" />
+    <ClInclude Include="include\PR\os_gio.h" />
+    <ClInclude Include="include\PR\os_host.h" />
+    <ClInclude Include="include\PR\os_internal.h" />
+    <ClInclude Include="include\PR\os_internal_debug.h" />
+    <ClInclude Include="include\PR\os_internal_error.h" />
+    <ClInclude Include="include\PR\os_internal_exception.h" />
+    <ClInclude Include="include\PR\os_internal_gio.h" />
+    <ClInclude Include="include\PR\os_internal_host.h" />
+    <ClInclude Include="include\PR\os_internal_reg.h" />
+    <ClInclude Include="include\PR\os_internal_rsp.h" />
+    <ClInclude Include="include\PR\os_internal_si.h" />
+    <ClInclude Include="include\PR\os_internal_thread.h" />
+    <ClInclude Include="include\PR\os_internal_tlb.h" />
+    <ClInclude Include="include\PR\os_libc.h" />
+    <ClInclude Include="include\PR\os_message.h" />
+    <ClInclude Include="include\PR\os_motor.h" />
+    <ClInclude Include="include\PR\os_pfs.h" />
+    <ClInclude Include="include\PR\os_pi.h" />
+    <ClInclude Include="include\PR\os_rdp.h" />
+    <ClInclude Include="include\PR\os_reg.h" />
+    <ClInclude Include="include\PR\os_rsp.h" />
+    <ClInclude Include="include\PR\os_si.h" />
+    <ClInclude Include="include\PR\os_system.h" />
+    <ClInclude Include="include\PR\os_thread.h" />
+    <ClInclude Include="include\PR\os_time.h" />
+    <ClInclude Include="include\PR\os_tlb.h" />
+    <ClInclude Include="include\PR\os_version.h" />
+    <ClInclude Include="include\PR\os_vi.h" />
+    <ClInclude Include="include\PR\os_voice.h" />
+    <ClInclude Include="include\PR\PRimage.h" />
+    <ClInclude Include="include\PR\R4300.h" />
+    <ClInclude Include="include\PR\ramrom.h" />
+    <ClInclude Include="include\PR\rcp.h" />
+    <ClInclude Include="include\PR\rdb.h" />
+    <ClInclude Include="include\PR\region.h" />
+    <ClInclude Include="include\PR\rmon.h" />
+    <ClInclude Include="include\PR\sched.h" />
+    <ClInclude Include="include\PR\sp.h" />
+    <ClInclude Include="include\PR\sptask.h" />
+    <ClInclude Include="include\PR\ucode.h" />
+    <ClInclude Include="include\PR\ucode_debug.h" />
+    <ClInclude Include="include\PR\ultraerror.h" />
+    <ClInclude Include="include\PR\ultralog.h" />
+    <ClInclude Include="include\PR\ultratypes.h" />
+    <ClInclude Include="include\PR\uportals.h" />
+    <ClInclude Include="include\sys\asm.h" />
+    <ClInclude Include="include\sys\regdef.h" />
+    <ClInclude Include="include\sys\u64driver.h" />
+    <ClInclude Include="include\sys\u64gio.h" />
+    <ClInclude Include="include\tinymon.h" />
+    <ClInclude Include="include\ultra64.h" />
+    <ClInclude Include="include\ultrahost.h" />
+    <ClInclude Include="src\include\animations.h" />
+    <ClInclude Include="src\include\asm_helper.h" />
+    <ClInclude Include="src\include\bss.h" />
+    <ClInclude Include="src\include\commands.h" />
+    <ClInclude Include="src\include\constants.h" />
+    <ClInclude Include="src\include\data.h" />
+    <ClInclude Include="src\include\files.h" />
+    <ClInclude Include="src\include\firingrange\frcommands.h" />
+    <ClInclude Include="src\include\game\activemenu.h" />
+    <ClInclude Include="src\include\game\bg.h" />
+    <ClInclude Include="src\include\game\body.h" />
+    <ClInclude Include="src\include\game\bondbike.h" />
+    <ClInclude Include="src\include\game\bondcutscene.h" />
+    <ClInclude Include="src\include\game\bondeyespy.h" />
+    <ClInclude Include="src\include\game\bondgrab.h" />
+    <ClInclude Include="src\include\game\bondgun.h" />
+    <ClInclude Include="src\include\game\bondguninit.h" />
+    <ClInclude Include="src\include\game\bondhead.h" />
+    <ClInclude Include="src\include\game\bondmove.h" />
+    <ClInclude Include="src\include\game\bondview.h" />
+    <ClInclude Include="src\include\game\bondwalk.h" />
+    <ClInclude Include="src\include\game\bossfile.h" />
+    <ClInclude Include="src\include\game\bot.h" />
+    <ClInclude Include="src\include\game\botact.h" />
+    <ClInclude Include="src\include\game\botcmd.h" />
+    <ClInclude Include="src\include\game\botinv.h" />
+    <ClInclude Include="src\include\game\botinvinit.h" />
+    <ClInclude Include="src\include\game\botmgr.h" />
+    <ClInclude Include="src\include\game\camdraw.h" />
+    <ClInclude Include="src\include\game\camera.h" />
+    <ClInclude Include="src\include\game\casing.h" />
+    <ClInclude Include="src\include\game\challenge.h" />
+    <ClInclude Include="src\include\game\cheats.h" />
+    <ClInclude Include="src\include\game\chr.h" />
+    <ClInclude Include="src\include\game\chraction.h" />
+    <ClInclude Include="src\include\game\chrai.h" />
+    <ClInclude Include="src\include\game\chraicommands.h" />
+    <ClInclude Include="src\include\game\chrmgr.h" />
+    <ClInclude Include="src\include\game\crc.h" />
+    <ClInclude Include="src\include\game\credits.h" />
+    <ClInclude Include="src\include\game\debug.h" />
+    <ClInclude Include="src\include\game\dlights.h" />
+    <ClInclude Include="src\include\game\dyntex.h" />
+    <ClInclude Include="src\include\game\endscreen.h" />
+    <ClInclude Include="src\include\game\env.h" />
+    <ClInclude Include="src\include\game\explosions.h" />
+    <ClInclude Include="src\include\game\file.h" />
+    <ClInclude Include="src\include\game\filelist.h" />
+    <ClInclude Include="src\include\game\filemgr.h" />
+    <ClInclude Include="src\include\game\fmb.h" />
+    <ClInclude Include="src\include\game\footstep.h" />
+    <ClInclude Include="src\include\game\gamefile.h" />
+    <ClInclude Include="src\include\game\game_006900.h" />
+    <ClInclude Include="src\include\game\game_00b320.h" />
+    <ClInclude Include="src\include\game\game_00b820.h" />
+    <ClInclude Include="src\include\game\game_0147d0.h" />
+    <ClInclude Include="src\include\game\game_096360.h" />
+    <ClInclude Include="src\include\game\game_096700.h" />
+    <ClInclude Include="src\include\game\game_096b20.h" />
+    <ClInclude Include="src\include\game\game_097a50.h" />
+    <ClInclude Include="src\include\game\game_097aa0.h" />
+    <ClInclude Include="src\include\game\game_0b0fd0.h" />
+    <ClInclude Include="src\include\game\game_0b2150.h" />
+    <ClInclude Include="src\include\game\game_13c510.h" />
+    <ClInclude Include="src\include\game\game_152fa0.h" />
+    <ClInclude Include="src\include\game\game_1531a0.h" />
+    <ClInclude Include="src\include\game\game_175f90.h" />
+    <ClInclude Include="src\include\game\game_176080.h" />
+    <ClInclude Include="src\include\game\game_1a78b0.h" />
+    <ClInclude Include="src\include\game\getitle.h" />
+    <ClInclude Include="src\include\game\gfxmemory.h" />
+    <ClInclude Include="src\include\game\gfxreplace.h" />
+    <ClInclude Include="src\include\game\gunfx.h" />
+    <ClInclude Include="src\include\game\healthbar.h" />
+    <ClInclude Include="src\include\game\hudmsg.h" />
+    <ClInclude Include="src\include\game\inv.h" />
+    <ClInclude Include="src\include\game\lang.h" />
+    <ClInclude Include="src\include\game\lv.h" />
+    <ClInclude Include="src\include\game\mainmenu.h" />
+    <ClInclude Include="src\include\game\menu.h" />
+    <ClInclude Include="src\include\game\menugfx.h" />
+    <ClInclude Include="src\include\game\menuitem.h" />
+    <ClInclude Include="src\include\game\modeldef.h" />
+    <ClInclude Include="src\include\game\modelmgr.h" />
+    <ClInclude Include="src\include\game\mplayer\ingame.h" />
+    <ClInclude Include="src\include\game\mplayer\mplayer.h" />
+    <ClInclude Include="src\include\game\mplayer\scenarios.h" />
+    <ClInclude Include="src\include\game\mplayer\setup.h" />
+    <ClInclude Include="src\include\game\mpstats.h" />
+    <ClInclude Include="src\include\game\mtxf2lbulk.h" />
+    <ClInclude Include="src\include\game\music.h" />
+    <ClInclude Include="src\include\game\nbomb.h" />
+    <ClInclude Include="src\include\game\objectives.h" />
+    <ClInclude Include="src\include\game\options.h" />
+    <ClInclude Include="src\include\game\pad.h" />
+    <ClInclude Include="src\include\game\padhalllv.h" />
+    <ClInclude Include="src\include\game\pak.h" />
+    <ClInclude Include="src\include\game\pdmode.h" />
+    <ClInclude Include="src\include\game\player.h" />
+    <ClInclude Include="src\include\game\playermgr.h" />
+    <ClInclude Include="src\include\game\playerreset.h" />
+    <ClInclude Include="src\include\game\portal.h" />
+    <ClInclude Include="src\include\game\portalconv.h" />
+    <ClInclude Include="src\include\game\prop.h" />
+    <ClInclude Include="src\include\game\propobj.h" />
+    <ClInclude Include="src\include\game\propobjstop.h" />
+    <ClInclude Include="src\include\game\propsnd.h" />
+    <ClInclude Include="src\include\game\quaternion.h" />
+    <ClInclude Include="src\include\game\race.h" />
+    <ClInclude Include="src\include\game\radar.h" />
+    <ClInclude Include="src\include\game\rng2.h" />
+    <ClInclude Include="src\include\game\room.h" />
+    <ClInclude Include="src\include\game\savebuffer.h" />
+    <ClInclude Include="src\include\game\setup.h" />
+    <ClInclude Include="src\include\game\setuputils.h" />
+    <ClInclude Include="src\include\game\shards.h" />
+    <ClInclude Include="src\include\game\sight.h" />
+    <ClInclude Include="src\include\game\sky.h" />
+    <ClInclude Include="src\include\game\smoke.h" />
+    <ClInclude Include="src\include\game\sparks.h" />
+    <ClInclude Include="src\include\game\splat.h" />
+    <ClInclude Include="src\include\game\stagemusic.h" />
+    <ClInclude Include="src\include\game\stagetable.h" />
+    <ClInclude Include="src\include\game\stars.h" />
+    <ClInclude Include="src\include\game\stubs\game_000840.h" />
+    <ClInclude Include="src\include\game\stubs\game_000850.h" />
+    <ClInclude Include="src\include\game\stubs\game_000860.h" />
+    <ClInclude Include="src\include\game\stubs\game_000870.h" />
+    <ClInclude Include="src\include\game\stubs\game_0008e0.h" />
+    <ClInclude Include="src\include\game\stubs\game_0008f0.h" />
+    <ClInclude Include="src\include\game\stubs\game_000900.h" />
+    <ClInclude Include="src\include\game\stubs\game_000910.h" />
+    <ClInclude Include="src\include\game\stubs\game_00b180.h" />
+    <ClInclude Include="src\include\game\stubs\game_00b200.h" />
+    <ClInclude Include="src\include\game\stubs\game_013540.h" />
+    <ClInclude Include="src\include\game\stubs\game_015260.h" />
+    <ClInclude Include="src\include\game\stubs\game_015270.h" />
+    <ClInclude Include="src\include\game\stubs\game_0153f0.h" />
+    <ClInclude Include="src\include\game\stubs\game_015400.h" />
+    <ClInclude Include="src\include\game\stubs\game_015410.h" />
+    <ClInclude Include="src\include\game\stubs\game_102230.h" />
+    <ClInclude Include="src\include\game\stubs\game_175f50.h" />
+    <ClInclude Include="src\include\game\stubs\game_176000.h" />
+    <ClInclude Include="src\include\game\tex.h" />
+    <ClInclude Include="src\include\game\texdecompress.h" />
+    <ClInclude Include="src\include\game\tiles.h" />
+    <ClInclude Include="src\include\game\timing.h" />
+    <ClInclude Include="src\include\game\title.h" />
+    <ClInclude Include="src\include\game\training.h" />
+    <ClInclude Include="src\include\game\trainingmenus.h" />
+    <ClInclude Include="src\include\game\utils.h" />
+    <ClInclude Include="src\include\game\vtxstore.h" />
+    <ClInclude Include="src\include\game\wallhit.h" />
+    <ClInclude Include="src\include\game\weather.h" />
+    <ClInclude Include="src\include\gunscript.h" />
+    <ClInclude Include="src\include\inflate\inflate.h" />
+    <ClInclude Include="src\include\intro.h" />
+    <ClInclude Include="src\include\lang.h" />
+    <ClInclude Include="src\include\lang\ame.h" />
+    <ClInclude Include="src\include\lang\arch.h" />
+    <ClInclude Include="src\include\lang\arec.h" />
+    <ClInclude Include="src\include\lang\ark.h" />
+    <ClInclude Include="src\include\lang\ash.h" />
+    <ClInclude Include="src\include\lang\ate.h" />
+    <ClInclude Include="src\include\lang\azt.h" />
+    <ClInclude Include="src\include\lang\cat.h" />
+    <ClInclude Include="src\include\lang\cave.h" />
+    <ClInclude Include="src\include\lang\crad.h" />
+    <ClInclude Include="src\include\lang\cryp.h" />
+    <ClInclude Include="src\include\lang\dam.h" />
+    <ClInclude Include="src\include\lang\depo.h" />
+    <ClInclude Include="src\include\lang\dest.h" />
+    <ClInclude Include="src\include\lang\dish.h" />
+    <ClInclude Include="src\include\lang\ear.h" />
+    <ClInclude Include="src\include\lang\eld.h" />
+    <ClInclude Include="src\include\lang\gun.h" />
+    <ClInclude Include="src\include\lang\imp.h" />
+    <ClInclude Include="src\include\lang\jun.h" />
+    <ClInclude Include="src\include\lang\lam.h" />
+    <ClInclude Include="src\include\lang\lee.h" />
+    <ClInclude Include="src\include\lang\len.h" />
+    <ClInclude Include="src\include\lang\lip.h" />
+    <ClInclude Include="src\include\lang\lue.h" />
+    <ClInclude Include="src\include\lang\misc.h" />
+    <ClInclude Include="src\include\lang\mp1.h" />
+    <ClInclude Include="src\include\lang\mp10.h" />
+    <ClInclude Include="src\include\lang\mp11.h" />
+    <ClInclude Include="src\include\lang\mp12.h" />
+    <ClInclude Include="src\include\lang\mp13.h" />
+    <ClInclude Include="src\include\lang\mp14.h" />
+    <ClInclude Include="src\include\lang\mp15.h" />
+    <ClInclude Include="src\include\lang\mp16.h" />
+    <ClInclude Include="src\include\lang\mp17.h" />
+    <ClInclude Include="src\include\lang\mp18.h" />
+    <ClInclude Include="src\include\lang\mp19.h" />
+    <ClInclude Include="src\include\lang\mp2.h" />
+    <ClInclude Include="src\include\lang\mp20.h" />
+    <ClInclude Include="src\include\lang\mp3.h" />
+    <ClInclude Include="src\include\lang\mp4.h" />
+    <ClInclude Include="src\include\lang\mp5.h" />
+    <ClInclude Include="src\include\lang\mp6.h" />
+    <ClInclude Include="src\include\lang\mp7.h" />
+    <ClInclude Include="src\include\lang\mp8.h" />
+    <ClInclude Include="src\include\lang\mp9.h" />
+    <ClInclude Include="src\include\lang\mpmenu.h" />
+    <ClInclude Include="src\include\lang\mpweapons.h" />
+    <ClInclude Include="src\include\lang\oat.h" />
+    <ClInclude Include="src\include\lang\old.h" />
+    <ClInclude Include="src\include\lang\options.h" />
+    <ClInclude Include="src\include\lang\pam.h" />
+    <ClInclude Include="src\include\lang\pete.h" />
+    <ClInclude Include="src\include\lang\propobj.h" />
+    <ClInclude Include="src\include\lang\ref.h" />
+    <ClInclude Include="src\include\lang\rit.h" />
+    <ClInclude Include="src\include\lang\run.h" />
+    <ClInclude Include="src\include\lang\sev.h" />
+    <ClInclude Include="src\include\lang\sevb.h" />
+    <ClInclude Include="src\include\lang\sevx.h" />
+    <ClInclude Include="src\include\lang\sevxb.h" />
+    <ClInclude Include="src\include\lang\sho.h" />
+    <ClInclude Include="src\include\lang\silo.h" />
+    <ClInclude Include="src\include\lang\stat.h" />
+    <ClInclude Include="src\include\lang\title.h" />
+    <ClInclude Include="src\include\lang\tra.h" />
+    <ClInclude Include="src\include\lang\uff.h" />
+    <ClInclude Include="src\include\lang\wax.h" />
+    <ClInclude Include="src\include\lib\ailist.h" />
+    <ClInclude Include="src\include\lib\anim.h" />
+    <ClInclude Include="src\include\lib\args.h" />
+    <ClInclude Include="src\include\lib\audiodma.h" />
+    <ClInclude Include="src\include\lib\audiomgr.h" />
+    <ClInclude Include="src\include\lib\boot.h" />
+    <ClInclude Include="src\include\lib\collision.h" />
+    <ClInclude Include="src\include\lib\crash.h" />
+    <ClInclude Include="src\include\lib\debughud.h" />
+    <ClInclude Include="src\include\lib\dma.h" />
+    <ClInclude Include="src\include\lib\fault.h" />
+    <ClInclude Include="src\include\lib\joy.h" />
+    <ClInclude Include="src\include\lib\libc\ll.h" />
+    <ClInclude Include="src\include\lib\libc\llcvt.h" />
+    <ClInclude Include="src\include\lib\libc\xprintf.h" />
+    <ClInclude Include="src\include\lib\lib_06440.h" />
+    <ClInclude Include="src\include\lib\lib_17ce0.h" />
+    <ClInclude Include="src\include\lib\lib_2f490.h" />
+    <ClInclude Include="src\include\lib\lib_2fc60.h" />
+    <ClInclude Include="src\include\lib\lib_317f0.h" />
+    <ClInclude Include="src\include\lib\lib_34240.h" />
+    <ClInclude Include="src\include\lib\lib_34d0.h" />
+    <ClInclude Include="src\include\lib\lib_39c80.h" />
+    <ClInclude Include="src\include\lib\lib_39fc0.h" />
+    <ClInclude Include="src\include\lib\lib_3d280.h" />
+    <ClInclude Include="src\include\lib\lib_3e3e0.h" />
+    <ClInclude Include="src\include\lib\lib_3e8c0.h" />
+    <ClInclude Include="src\include\lib\lib_48150.h" />
+    <ClInclude Include="src\include\lib\main.h" />
+    <ClInclude Include="src\include\lib\mema.h" />
+    <ClInclude Include="src\include\lib\memp.h" />
+    <ClInclude Include="src\include\lib\model.h" />
+    <ClInclude Include="src\include\lib\mp3.h" />
+    <ClInclude Include="src\include\lib\mtx.h" />
+    <ClInclude Include="src\include\lib\music.h" />
+    <ClInclude Include="src\include\lib\path.h" />
+    <ClInclude Include="src\include\lib\pimgr.h" />
+    <ClInclude Include="src\include\lib\profile.h" />
+    <ClInclude Include="src\include\lib\rdp.h" />
+    <ClInclude Include="src\include\lib\reset.h" />
+    <ClInclude Include="src\include\lib\rmon.h" />
+    <ClInclude Include="src\include\lib\rng.h" />
+    <ClInclude Include="src\include\lib\rzip.h" />
+    <ClInclude Include="src\include\lib\sched.h" />
+    <ClInclude Include="src\include\lib\segments.h" />
+    <ClInclude Include="src\include\lib\snd.h" />
+    <ClInclude Include="src\include\lib\speaker.h" />
+    <ClInclude Include="src\include\lib\str.h" />
+    <ClInclude Include="src\include\lib\tlb.h" />
+    <ClInclude Include="src\include\lib\vars.h" />
+    <ClInclude Include="src\include\lib\vi.h" />
+    <ClInclude Include="src\include\lib\videbug.h" />
+    <ClInclude Include="src\include\lib\vm.h" />
+    <ClInclude Include="src\include\pads.h" />
+    <ClInclude Include="src\include\pads\ame.h" />
+    <ClInclude Include="src\include\pads\arch.h" />
+    <ClInclude Include="src\include\pads\arec.h" />
+    <ClInclude Include="src\include\pads\ark.h" />
+    <ClInclude Include="src\include\pads\ash.h" />
+    <ClInclude Include="src\include\pads\ate.h" />
+    <ClInclude Include="src\include\pads\azt.h" />
+    <ClInclude Include="src\include\pads\cat.h" />
+    <ClInclude Include="src\include\pads\cave.h" />
+    <ClInclude Include="src\include\pads\crad.h" />
+    <ClInclude Include="src\include\pads\cryp.h" />
+    <ClInclude Include="src\include\pads\dam.h" />
+    <ClInclude Include="src\include\pads\depo.h" />
+    <ClInclude Include="src\include\pads\dest.h" />
+    <ClInclude Include="src\include\pads\dish.h" />
+    <ClInclude Include="src\include\pads\ear.h" />
+    <ClInclude Include="src\include\pads\eld.h" />
+    <ClInclude Include="src\include\pads\imp.h" />
+    <ClInclude Include="src\include\pads\jun.h" />
+    <ClInclude Include="src\include\pads\lam.h" />
+    <ClInclude Include="src\include\pads\lee.h" />
+    <ClInclude Include="src\include\pads\len.h" />
+    <ClInclude Include="src\include\pads\lip.h" />
+    <ClInclude Include="src\include\pads\lue.h" />
+    <ClInclude Include="src\include\pads\mp1.h" />
+    <ClInclude Include="src\include\pads\mp10.h" />
+    <ClInclude Include="src\include\pads\mp11.h" />
+    <ClInclude Include="src\include\pads\mp12.h" />
+    <ClInclude Include="src\include\pads\mp13.h" />
+    <ClInclude Include="src\include\pads\mp14.h" />
+    <ClInclude Include="src\include\pads\mp15.h" />
+    <ClInclude Include="src\include\pads\mp16.h" />
+    <ClInclude Include="src\include\pads\mp17.h" />
+    <ClInclude Include="src\include\pads\mp18.h" />
+    <ClInclude Include="src\include\pads\mp19.h" />
+    <ClInclude Include="src\include\pads\mp2.h" />
+    <ClInclude Include="src\include\pads\mp20.h" />
+    <ClInclude Include="src\include\pads\mp3.h" />
+    <ClInclude Include="src\include\pads\mp4.h" />
+    <ClInclude Include="src\include\pads\mp5.h" />
+    <ClInclude Include="src\include\pads\mp6.h" />
+    <ClInclude Include="src\include\pads\mp7.h" />
+    <ClInclude Include="src\include\pads\mp8.h" />
+    <ClInclude Include="src\include\pads\mp9.h" />
+    <ClInclude Include="src\include\pads\oat.h" />
+    <ClInclude Include="src\include\pads\old.h" />
+    <ClInclude Include="src\include\pads\pam.h" />
+    <ClInclude Include="src\include\pads\pete.h" />
+    <ClInclude Include="src\include\pads\ref.h" />
+    <ClInclude Include="src\include\pads\rit.h" />
+    <ClInclude Include="src\include\pads\run.h" />
+    <ClInclude Include="src\include\pads\sev.h" />
+    <ClInclude Include="src\include\pads\sevb.h" />
+    <ClInclude Include="src\include\pads\sevx.h" />
+    <ClInclude Include="src\include\pads\sho.h" />
+    <ClInclude Include="src\include\pads\silo.h" />
+    <ClInclude Include="src\include\pads\stat.h" />
+    <ClInclude Include="src\include\pads\tra.h" />
+    <ClInclude Include="src\include\pads\uff.h" />
+    <ClInclude Include="src\include\pads\wax.h" />
+    <ClInclude Include="src\include\pd_math.h" />
+    <ClInclude Include="src\include\props.h" />
+    <ClInclude Include="src\include\sequences.h" />
+    <ClInclude Include="src\include\sfx.h" />
+    <ClInclude Include="src\include\sgidefs.h" />
+    <ClInclude Include="src\include\stagesetup.h" />
+    <ClInclude Include="src\include\stdlib.h" />
+    <ClInclude Include="src\include\textureconfig.h" />
+    <ClInclude Include="src\include\textures.h" />
+    <ClInclude Include="src\include\tiles.h" />
+    <ClInclude Include="src\include\tiles\ame.h" />
+    <ClInclude Include="src\include\tiles\arch.h" />
+    <ClInclude Include="src\include\tiles\arec.h" />
+    <ClInclude Include="src\include\tiles\ark.h" />
+    <ClInclude Include="src\include\tiles\ash.h" />
+    <ClInclude Include="src\include\tiles\ate.h" />
+    <ClInclude Include="src\include\tiles\azt.h" />
+    <ClInclude Include="src\include\tiles\cat.h" />
+    <ClInclude Include="src\include\tiles\cave.h" />
+    <ClInclude Include="src\include\tiles\crad.h" />
+    <ClInclude Include="src\include\tiles\cryp.h" />
+    <ClInclude Include="src\include\tiles\dam.h" />
+    <ClInclude Include="src\include\tiles\depo.h" />
+    <ClInclude Include="src\include\tiles\dest.h" />
+    <ClInclude Include="src\include\tiles\dish.h" />
+    <ClInclude Include="src\include\tiles\ear.h" />
+    <ClInclude Include="src\include\tiles\eld.h" />
+    <ClInclude Include="src\include\tiles\imp.h" />
+    <ClInclude Include="src\include\tiles\jun.h" />
+    <ClInclude Include="src\include\tiles\lam.h" />
+    <ClInclude Include="src\include\tiles\lee.h" />
+    <ClInclude Include="src\include\tiles\len.h" />
+    <ClInclude Include="src\include\tiles\lip.h" />
+    <ClInclude Include="src\include\tiles\lue.h" />
+    <ClInclude Include="src\include\tiles\mp1.h" />
+    <ClInclude Include="src\include\tiles\mp10.h" />
+    <ClInclude Include="src\include\tiles\mp11.h" />
+    <ClInclude Include="src\include\tiles\mp12.h" />
+    <ClInclude Include="src\include\tiles\mp13.h" />
+    <ClInclude Include="src\include\tiles\mp14.h" />
+    <ClInclude Include="src\include\tiles\mp15.h" />
+    <ClInclude Include="src\include\tiles\mp16.h" />
+    <ClInclude Include="src\include\tiles\mp17.h" />
+    <ClInclude Include="src\include\tiles\mp18.h" />
+    <ClInclude Include="src\include\tiles\mp19.h" />
+    <ClInclude Include="src\include\tiles\mp2.h" />
+    <ClInclude Include="src\include\tiles\mp20.h" />
+    <ClInclude Include="src\include\tiles\mp3.h" />
+    <ClInclude Include="src\include\tiles\mp4.h" />
+    <ClInclude Include="src\include\tiles\mp5.h" />
+    <ClInclude Include="src\include\tiles\mp6.h" />
+    <ClInclude Include="src\include\tiles\mp7.h" />
+    <ClInclude Include="src\include\tiles\mp8.h" />
+    <ClInclude Include="src\include\tiles\mp9.h" />
+    <ClInclude Include="src\include\tiles\oat.h" />
+    <ClInclude Include="src\include\tiles\old.h" />
+    <ClInclude Include="src\include\tiles\pam.h" />
+    <ClInclude Include="src\include\tiles\pete.h" />
+    <ClInclude Include="src\include\tiles\ref.h" />
+    <ClInclude Include="src\include\tiles\rit.h" />
+    <ClInclude Include="src\include\tiles\run.h" />
+    <ClInclude Include="src\include\tiles\sev.h" />
+    <ClInclude Include="src\include\tiles\sevb.h" />
+    <ClInclude Include="src\include\tiles\sevx.h" />
+    <ClInclude Include="src\include\tiles\sho.h" />
+    <ClInclude Include="src\include\tiles\silo.h" />
+    <ClInclude Include="src\include\tiles\stat.h" />
+    <ClInclude Include="src\include\tiles\tra.h" />
+    <ClInclude Include="src\include\tiles\uff.h" />
+    <ClInclude Include="src\include\tiles\wax.h" />
+    <ClInclude Include="src\include\tvcmds.h" />
+    <ClInclude Include="src\include\types.h" />
+    <ClInclude Include="src\include\util.h" />
+    <ClInclude Include="src\include\versions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\include\macros.inc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -11,7 +11,6 @@
 #include "game/game_006900.h"
 #include "game/chr.h"
 #include "game/prop.h"
-#include "game/atan2f.h"
 #include "game/quaternion.h"
 #include "game/bondgun.h"
 #include "game/game_0b0fd0.h"

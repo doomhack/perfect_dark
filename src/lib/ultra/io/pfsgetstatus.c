@@ -27,7 +27,7 @@ s32 __osPfsGetStatus(OSMesgQueue *queue, int channel)
 		return PFS_ERR_NEW_PACK;
 	}
 
-	if (data.errno != 0 || (data.status & CONT_CARD_ON) == 0) {
+	if (data.error != 0 || (data.status & CONT_CARD_ON) == 0) {
 		return PFS_ERR_NOPACK;
 	}
 
@@ -77,9 +77,9 @@ void __osPfsGetOneChannelData(int channel, OSContStatus *data)
 	}
 
 	requestformat = *(__OSContRequestFormatShort *)ptr;
-	data->errno = CHNL_ERR(requestformat);
+	data->error = CHNL_ERR(requestformat);
 
-	if (data->errno == 0) {
+	if (data->error == 0) {
 		data->type = (requestformat.typel << 8) | (requestformat.typeh);
 		data->status = requestformat.status;
 	}

@@ -975,7 +975,7 @@ Gfx *menugfxDrawProjectedLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colo
 {
 	s32 numfullblocks;
 	s32 i;
-	u32 partcolourtop;
+	u32 partcolourtop = 0;
 	u32 partcolourbottom;
 	s32 partbottom;
 	s32 parttop;

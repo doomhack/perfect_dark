@@ -3763,7 +3763,7 @@ struct menudata_filemgr {
 	};
 	/*0xe2c*/ s32 unke2c;
 	/*0xe30*/ u32 unke30;
-	/*0xe34*/ u16 errno;
+	/*0xe34*/ u16 error;
 	/*0xe38*/ struct filelistfile *filetodelete;
 	/*0xe3c*/ u8 device1;
 	/*0xe3d*/ u8 filetypetodelete;

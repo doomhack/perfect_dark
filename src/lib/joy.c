@@ -303,7 +303,7 @@ void joyInit(void)
 			g_JoyData[i].samples[0].pads[j].button = 0;
 			g_JoyData[i].samples[0].pads[j].stick_x = 0;
 			g_JoyData[i].samples[0].pads[j].stick_y = 0;
-			g_JoyData[i].samples[0].pads[j].errno = 0;
+			g_JoyData[i].samples[0].pads[j].error = 0;
 		}
 	}
 
@@ -371,7 +371,7 @@ void joy00013e84(void)
 		osContGetQuery(var80099f38);
 
 		for (i = 0; i < 4; i++) {
-			if (var80099f38[i].errno & CONT_NO_RESPONSE_ERROR) {
+			if (var80099f38[i].error & CONT_NO_RESPONSE_ERROR) {
 				slots -= 1 << i;
 			}
 		}
@@ -619,8 +619,8 @@ void joysTick(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
-						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
+				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].error == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].error != 0)
+						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].error != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].error == 0)) {
 					joy00013e84();
 					break;
 				}
@@ -671,8 +671,8 @@ void joysTick(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
-						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
+				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].error == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].error != 0)
+						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].error != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].error == 0)) {
 					joy00013e84();
 					break;
 				}

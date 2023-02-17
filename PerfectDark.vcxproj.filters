@@ -1,0 +1,2870 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{354c13d2-4345-4642-ad99-f531be692e16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lib">
+      <UniqueIdentifier>{862309f9-0a99-4f6b-84de-1db25cfb35d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lib\ultra">
+      <UniqueIdentifier>{e7678e0e-f98a-41ba-9a07-137e9d57af2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lib\ultra\gu">
+      <UniqueIdentifier>{5ad05c68-3bba-48e7-8b2c-f43539126dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lib\ultra\os">
+      <UniqueIdentifier>{e366c166-602e-477c-a0e2-1ec9e16e3e76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\game">
+      <UniqueIdentifier>{f40fb1a5-d0bb-4ee2-86ee-e44279449fd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\inflate">
+      <UniqueIdentifier>{572a0659-a52e-4ad2-8755-c077f3c8e359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\game\mplayer">
+      <UniqueIdentifier>{11b254ae-6c7e-49bb-9538-5ae8fd2b3c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\game\modeldata">
+      <UniqueIdentifier>{f2b8f64d-b6e3-4091-a202-6f68f6898337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\game\stubs">
+      <UniqueIdentifier>{c3a3b391-efa9-4cb0-b222-c30eef87aa3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lib\naudio">
+      <UniqueIdentifier>{ecbbc0d2-0e91-4cfe-8e36-ed573df22817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lib\ultra\io">
+      <UniqueIdentifier>{a52bb328-09dd-4bdc-80cb-3329ff66c62d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lib\ultra\audio">
+      <UniqueIdentifier>{02d69b26-1a05-423c-bd7b-5782e6e3d29c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lib\mp3">
+      <UniqueIdentifier>{1597d858-0376-4b25-9aa9-0fa93dd9ae9c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\boot.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\args.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\audiomgr.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\dma.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\fault.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\joy.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\main.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mema.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\memp.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\pimgr.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\rdp.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\rmon.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\rzip.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\sched.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\tlb.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\varsinit.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\vi.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\videbug.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\vm.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\scale.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\createmesgqueue.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\createthread.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\initialize.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\os_cache.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\os_fpccsr.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\recvmesg.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\setthreadpri.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\settimer.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\startthread.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\stopthread.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\file.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_1a78b0.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\smoke.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\smokeinit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inflate\inflate.c">
+      <Filter>Source Files\src\inflate</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\camdraw.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\cheats.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\debug2.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\lang.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\langinit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\langreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\raceinit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bodyinit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\body.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\chraction.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\chr.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\prop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modelmgr.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\lv.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldef.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\mplayer\mplayer.c">
+      <Filter>Source Files\src\game\mplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\pad.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\propobj.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\model.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\rng_c.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ailist.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\collision.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\skelchr.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\skedar.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\robot.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\menu.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="getcount.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\texselect.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_00b180.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_00b200.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_0008e0.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_0008f0.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_11eff0.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_0153f0.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_175f50.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_000840.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_000850.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_000860.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_000870.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_000900.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_000910.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_013540.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_015260.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_015270.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_015400.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_015410.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_102230.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stubs\game_176000.c">
+      <Filter>Source Files\src\game\stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bg.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\virtualtophysical.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\dlights.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\portal.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\roomreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\room.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondgun.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\tex.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\camera.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\player.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\sky.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stars.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\dyntex.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_13c510.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_1531a0.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\gfxmemory.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\gfxreplace.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\portalconv_c.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stagetable.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\env.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\texdecompress.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\wallhitreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\wallhit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib_17ce0.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib_2f490_c.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mtx_c.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mtx.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bgbss.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\getthreadpri.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\rotate.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\normalize.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondmove.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\inv.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_006900.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\propsnd.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_096360.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_096b20.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\quaternion.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_097aa0.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\gunfx.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_0b0fd0.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\mtxf2lbulkasm_c.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\sight.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\playermgr.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_176080.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\training.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\pak.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\options.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\snd.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_sndplayer.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\invitems.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\propobjbss.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\activemenu.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\savebuffer.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bot.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\botcmd.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondbike.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\setuputils.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\objectives.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondhead.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\anim.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondgrab.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondwalk.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\footstep.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondcutscene.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\mplayer\ingame.c">
+      <Filter>Source Files\src\game\mplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\mplayer\scenarios.c">
+      <Filter>Source Files\src\game\mplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\radar.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\botroom.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\botact.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\botinv.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\padhalllv.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\splat.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\utils.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\filelist.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\filemgr.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\gamefile.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\mainmenu.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\rng2_c.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\vtxstore.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\sparks.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\general.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\chrai.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\explosions.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\mpstats.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\pdmode.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_00b820.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\chraicommands.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\mplayer\mpaicommands.c">
+      <Filter>Source Files\src\game\mplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\gailists.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\playerreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\title.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\hudmsg.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\weather.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\music.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lmusic.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\menutick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bossfile.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\fmb.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\mplayer\mpsetup.c">
+      <Filter>Source Files\src\game\mplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\challenge.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modelmgrreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_097a50.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_0b2150.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\menugfx.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\activemenutick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\menustop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\perspective.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\timerintr.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\thread.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\iopimgr.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\sirawread.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\mtxutil.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bodyreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondgunreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondgunstop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondheadreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondview.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\playermd.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\casingreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\weapon.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsallocatefile.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\basic.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\chrgun.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\classicgun.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\uzi.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\endscreen.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\menuitem.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\titleinit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_seqpstop.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_auxbus.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_cspgetstate.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_csplayer.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_cspplay.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_cspsendmidi.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_cspsetbank.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_cspsetseq.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_cspsetvol.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_csq.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_drvrNew.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_env.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_event.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_load.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_mainbus.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_resample.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_resample2.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_reverb.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_save.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_seqplayer.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_sl.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synaddplayer.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synallocfx.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synallocvoice.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_syndelete.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synfilter11.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synfilter12.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synfilter13.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synfreevoice.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synsetfxmix.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synsetfxparam.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synsetpan.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synsetpitch.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synsetpriority.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synsetvol.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synstartvoiceparam.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synstopvoice.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\naudio\n_synthesizer.c">
+      <Filter>Source Files\src\lib\naudio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mp3.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\profile.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\audio\heap.c">
+      <Filter>Source Files\src\lib\ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\speaker.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\reset.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib_2fc60.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_152fa0.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\shardsstop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\vtxstorereset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\nbomb.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\shards.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\bondeyespy.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\trainingmenus.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\audio\bnkf.c">
+      <Filter>Source Files\src\lib\ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\audio\cents2ratio.c">
+      <Filter>Source Files\src\lib\ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\audio\cseq.c">
+      <Filter>Source Files\src\lib\ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\audio\sl.c">
+      <Filter>Source Files\src\lib\ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\sendmesg.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\casingtick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mp3\decoder.c">
+      <Filter>Source Files\src\lib\mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mp3\lib_45ed0.c">
+      <Filter>Source Files\src\lib\mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mp3\lib_47d20.c">
+      <Filter>Source Files\src\lib\mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mp3\lib_47ef0.c">
+      <Filter>Source Files\src\lib\mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\mp3\mp3main.c">
+      <Filter>Source Files\src\lib\mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\skyreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\invreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\objectivesstop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\langtick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\shardstick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\shardsreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\titlereset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\varsreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\weatherreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\credits.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\audiodma.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\ai.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\aigetlen.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\aisetfreq.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\aisetnextbuf.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\conteeplongread.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\conteeplongwrite.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\conteepprobe.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\conteepread.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\conteepwrite.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\contpfs.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\contquery.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\contramread.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\contramwrite.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\contreaddata.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\controller.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\iocrc.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\devmgr.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\dpctr.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\dpgetstat.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\dpsetstat.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\epirawdma.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\epirawread.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\epirawwrite.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\gbpakcheckconnector.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\gbpakgetstatus.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\gbpakinit.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\gbpakpower.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\gbpakreadid.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\gbpakreadwrite.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\gbpakselectbank.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\motor.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfschecker.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsdeletefile.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsfilestate.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsfindfile.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsfreeblocks.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsgetstatus.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsinitpak.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsinitpak2.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsisplug.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsnumfiles.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsreadwritefile.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsresizefile.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pfsselectbank.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\piacs.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pidma.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pigetcmdq.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pirawdma.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\pirawread.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\piread.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\si.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\siacs.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\sirawdma.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\sirawwrite.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\sp.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\spgetstat.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\sprawdma.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\spsetpc.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\spsetstat.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\sptask.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\sptaskyield.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\sptaskyielded.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\iovi.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\viblack.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\vigetcurrcontext.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\vigetcurrframebuf.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\vigetnextframebuf.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\vimgr.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\vimodempallan1.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\vimodentsclan1.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\vimodepallan1.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\visetevent.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\visetmode.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\visetspecial.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\visetxscale.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\visetyscale.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\viswapbuf.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\viswapcontext.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\io\vitbl.c">
+      <Filter>Source Files\src\lib\ultra\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\explosionsreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\explosionsstop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\gunfxreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\skytick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\vmstats.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\chrmgr.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\chrmgrstop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\objectivesreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\proptick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\propsstop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\botinvinit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\botmgr.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\buildtime.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\challengeinit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\collisionutils.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\crc.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\debug1.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\debug3.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_175f90.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\game_096700.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\getitle.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\getitlereset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\healthbar.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\propobjstop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\propsndreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\propsndstop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\race.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\roomtick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\setup.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\setupcover.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\setuppads.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\setupwaypoints.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\smokereset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\smokestop.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\sparksreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\sparkstick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\stagemusic.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\surfacereset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\texinit.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\texreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\tilesreset.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\timing.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\titleclear.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\weathertick.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\textureconfig.c">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\atomic.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\destroythread.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\exceptvars.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\getcurrfaultthread.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\getmemsize.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\gettime.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\jammesg.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\resetglobalintmask.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\seteventmesg.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\setglobalintmask.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\stoptimer.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\syncputchars.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\yieldthread.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\align.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\coss.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\frustum.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\lookat.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\lookatref.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\ortho.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\sins.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\gu\translate.c">
+      <Filter>Source Files\src\lib\ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\casing.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\skel0a.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\skel0b.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\skel06.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\modeldata\skel20.c">
+      <Filter>Source Files\src\game\modeldata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\base.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\crash.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\debughud.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib_3e3e0.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib_04f60nb.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib_034d0.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib_39c80.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib_15850.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\path.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\segments.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\PR\abi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\gbi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\gbiex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\gs2dex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\gt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\gu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\leo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\leoappli.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\libaudio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\mbi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\n_libaudio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\n_libaudio_s_to_n.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_ai.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_cont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_convert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_eeprom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_gbpak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_gio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_host.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_gio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_host.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_reg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_rsp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_si.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_internal_tlb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_libc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_message.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_motor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_pfs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_pi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_rdp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_reg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_rsp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_si.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_tlb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_vi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\os_voice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\PRimage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\R4300.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\ramrom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\rcp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\rdb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\region.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\rmon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\sched.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\sp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\sptask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\ucode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\ucode_debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\ultraerror.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\ultralog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\ultratypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PR\uportals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sys\asm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sys\regdef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sys\u64driver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sys\u64gio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinymon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ultra64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ultrahost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\firingrange\frcommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\mplayer\ingame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\mplayer\mplayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\mplayer\scenarios.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\mplayer\setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_00b180.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_00b200.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_0008e0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_0008f0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_0153f0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_175f50.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_000840.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_000850.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_000860.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_000870.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_000900.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_000910.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_013540.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_015260.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_015270.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_015400.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_015410.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_102230.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stubs\game_176000.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\activemenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\body.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondbike.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondcutscene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondeyespy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondgrab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondgun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondguninit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondhead.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondmove.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondview.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bondwalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bossfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\bot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\botact.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\botcmd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\botinv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\botinvinit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\botmgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\camdraw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\casing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\challenge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\cheats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\chr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\chraction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\chrai.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\chraicommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\chrmgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\crc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\credits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\dlights.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\dyntex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\endscreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\env.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\explosions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\filelist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\filemgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\fmb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\footstep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_00b320.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_00b820.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_0b0fd0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_0b2150.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_1a78b0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_13c510.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_096b20.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_097a50.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_097aa0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_0147d0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_152fa0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_175f90.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_1531a0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_006900.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_096360.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_096700.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\game_176080.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\gamefile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\getitle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\gfxmemory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\gfxreplace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\gunfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\healthbar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\hudmsg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\inv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\lang.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\lv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\mainmenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\menugfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\menuitem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\modeldef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\modelmgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\mpstats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\mtxf2lbulk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\nbomb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\objectives.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\pad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\padhalllv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\pak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\pdmode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\playermgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\playerreset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\portal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\portalconv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\prop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\propobj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\propobjstop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\propsnd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\quaternion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\race.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\radar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\rng2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\room.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\savebuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\setup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\setuputils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\shards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\sight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\sky.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\smoke.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\sparks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\splat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stagemusic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stagetable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\stars.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\tex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\texdecompress.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\tiles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\timing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\title.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\training.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\trainingmenus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\vtxstore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\wallhit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game\weather.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\inflate\inflate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\ame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\arch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\arec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\ark.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\ash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\ate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\azt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\cat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\cave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\crad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\cryp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\dam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\depo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\dest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\dish.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\ear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\eld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\gun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\imp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\jun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\lam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\lee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\len.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\lip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\lue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp12.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp13.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp14.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp15.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp17.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp18.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp19.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mp20.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mpmenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\mpweapons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\oat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\pam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\pete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\propobj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\ref.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\rit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\run.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\sev.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\sevb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\sevx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\sevxb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\sho.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\silo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\stat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\title.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\tra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\uff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang\wax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\libc\ll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\libc\llcvt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\libc\xprintf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\ailist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\anim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\args.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\audiodma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\audiomgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\boot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\crash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\debughud.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\dma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\fault.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\joy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_2f490.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_2fc60.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_3d280.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_3e3e0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_3e8c0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_17ce0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_34d0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_39c80.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_39fc0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_317f0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_06440.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_34240.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\lib_48150.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\mema.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\memp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\mp3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\mtx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\pimgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\profile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\rdp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\reset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\rmon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\rng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\rzip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\sched.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\segments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\snd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\speaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\str.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\tlb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\vars.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\vi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\videbug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lib\vm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\ame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\arch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\arec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\ark.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\ash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\ate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\azt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\cat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\cave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\crad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\cryp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\dam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\depo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\dest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\dish.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\ear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\eld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\imp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\jun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\lam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\lee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\len.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\lip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\lue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp12.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp13.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp14.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp15.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp17.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp18.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp19.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\mp20.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\oat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\pam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\pete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\ref.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\rit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\run.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\sev.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\sevb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\sevx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\sho.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\silo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\stat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\tra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\uff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads\wax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\ame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\arch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\arec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\ark.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\ash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\ate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\azt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\cat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\cave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\crad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\cryp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\dam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\depo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\dest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\dish.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\ear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\eld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\imp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\jun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\lam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\lee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\len.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\lip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\lue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp12.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp13.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp14.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp15.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp17.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp18.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp19.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\mp20.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\oat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\pam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\pete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\ref.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\rit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\run.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\sev.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\sevb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\sevx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\sho.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\silo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\stat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\tra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\uff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles\wax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\animations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\asm_helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\commands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\files.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gunscript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\intro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\lang.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pads.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pd_math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\props.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\sequences.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\sfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\sgidefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\stagesetup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\stdlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\textureconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\textures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tiles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tvcmds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\versions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\include\macros.inc">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

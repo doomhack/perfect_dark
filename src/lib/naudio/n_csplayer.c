@@ -5,7 +5,7 @@
 #include <ultraerror.h>
 #include "n_libaudio.h"
 #include "n_seqp.h"
-#include "cseq.h"
+#include "../lib/ultra/audio/cseq.h"
 #include "n_cseqp.h"
 
 void __n_CSPRepostEvent(ALEventQueue *evtq, N_ALEventListItem *item);
@@ -506,9 +506,9 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 	s16                 vol;
 	N_ALEvent           evt;
 	ALMicroTime         deltaTime;
-	N_ALVoiceState     *vstate;
+	N_ALVoiceState     *vstate = NULL;
 	ALPan   		    pan;
-	ALChanState        *chanstate;
+	ALChanState        *chanstate = NULL;
 	s32                 sp90;
 	ALVoiceConfig       config;
 	ALSound            *sound;
@@ -518,7 +518,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 	u8                  sp76;
 	f32                 sp70;
 	void               *oscState;
-	ALInstrument       *inst;
+	ALInstrument       *inst = NULL;
 	u8                  sp67;
 	u8                  sp66;
 	s32                 sp60;
