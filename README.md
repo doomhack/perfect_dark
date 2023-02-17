@@ -16,4 +16,5 @@ So here's my simple 3-step plan to make this happen;
 
 ## Status
 
-Current status is 'I've found the boot code. How hard can this be?'.
+<img src="https://i.imgflip.com/7bfhj3.jpg" title="99 errors on the wall..."/>
+
