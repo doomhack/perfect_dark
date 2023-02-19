@@ -214,7 +214,7 @@ s32 __osGetId(OSPfs *pfs)
 		}
 	}
 
-	bcopy(id, pfs->id, 0x20);
+	memcpy(id, pfs->id, 0x20);
 
 	pfs->version = id->version;
 	pfs->banks = id->banks;
@@ -256,7 +256,7 @@ s32 __osCheckId(OSPfs *pfs)
 		ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp));
 	}
 
-	if (bcmp(pfs->id, temp, 0x20) != 0) {
+	if (memcmp(pfs->id, temp, 0x20) != 0) {
 		return PFS_ERR_NEW_PACK;
 	}
 
@@ -273,7 +273,7 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank)
 	static __OSInode prevnode;
 
 	if (flag == 0 && bank == g_PfsPrevBank && pfs->channel == g_PfsPrevChannel) {
-		bcopy(&prevnode, inode, sizeof(__OSInode));
+		memcpy(&prevnode, inode, sizeof(__OSInode));
 		return 0;
 	}
 
@@ -325,7 +325,7 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank)
 	}
 
 	g_PfsPrevBank = bank;
-	bcopy(inode, &prevnode, sizeof(__OSInode));
+	memcpy(inode, &prevnode, sizeof(__OSInode));
 	g_PfsPrevChannel = pfs->channel;
 
 	return 0;

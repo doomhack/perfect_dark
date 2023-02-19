@@ -54,7 +54,7 @@ extern u8 var02005dd0;
  *
  * @TODO figure out how to fix this properly.
  */
-Gfx *getitle0f0155f0_hack(Gfx *gdl, s32 arg1, u32 arg2);
+//Gfx *getitle0f0155f0_hack(Gfx *gdl, s32 arg1, u32 arg2);
 
 Gfx *getitle0f0155f0(Gfx *gdl, s32 arg1, u8 arg2)
 {
@@ -195,7 +195,7 @@ Gfx *getitleRender(Gfx *gdl)
 
 		guRotate(&var8009cc88[var80062410], var80062484, 0, 1, 0);
 
-		gdl = getitle0f0155f0_hack(gdl, var8009cc8c, (sp30 * sp2c) / 255);
+        gdl = getitle0f0155f0(gdl, var8009cc8c, (sp30 * sp2c) / 255);
 
 		if (var80062498 >= TICKS(1040) && var80062498 >= TICKS(1160)) {
 			var80062498 = 0;

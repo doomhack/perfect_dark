@@ -18,6 +18,11 @@
 #include "data.h"
 #include "types.h"
 
+s32 osResetType = 0;	/* 0 = cold reset, 1 = NMI */
+s32 osTvType = 1;	/* 0 = PAL, 1 = NTSC, 2 = MPAL */
+u32 osMemSize;	/* Memory Size */
+
+
 OSThread g_RmonThread;
 OSThread g_IdleThread;
 OSThread g_MainThread;
@@ -62,6 +67,7 @@ s32 bootGetMemSize(void)
 
 u32 __osGetFpcCsr(void);
 u32 __osSetFpcCsr(u32 arg0);
+
 
 /**
  * Prepares the inflate, .data and lib segments, then creates and starts the

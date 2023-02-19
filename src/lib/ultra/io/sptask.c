@@ -17,7 +17,7 @@ OSTask *_VirtualToPhysicalTask(OSTask *intp)
 {
 	OSTask *tp;
 	tp = &tmp_task;
-	bcopy(intp, tp, sizeof(OSTask));
+	memcpy(intp, tp, sizeof(OSTask));
 
 	_osVirtualToPhysical(tp->t.ucode);
 	_osVirtualToPhysical(tp->t.ucode_data);

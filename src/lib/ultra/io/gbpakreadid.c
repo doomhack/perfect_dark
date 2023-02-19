@@ -59,7 +59,7 @@ s32 osGbpakReadId(OSPfs *pfs, OSGbpakId *id, u8 *status)
 		}
 
 		// Compare id->nintendo_chr with expected data
-		if (bcmp(g_OsGbNintendoData, &buffer[4], sizeof(id->nintendo_chr)) != 0) {
+		if (memcmp(g_OsGbNintendoData, &buffer[4], sizeof(id->nintendo_chr)) != 0) {
 			return PFS_ERR_CONTRFAIL;
 		}
 
@@ -76,7 +76,7 @@ s32 osGbpakReadId(OSPfs *pfs, OSGbpakId *id, u8 *status)
 			return PFS_ERR_CONTRFAIL;
 		}
 
-		bcopy(buffer, id, sizeof(OSGbpakId));
+		memcpy(buffer, id, sizeof(OSGbpakId));
 
 		if (id->cart_type < 20) {
 			pfs->version = g_OsGbCartVersions[id->cart_type];

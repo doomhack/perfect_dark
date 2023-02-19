@@ -2142,7 +2142,8 @@ bool mp3decInit(void)
 		return false;
 	}
 
-	bzero(var8009c640, 10500 * sizeof(struct mp3decfourbytes));
+	memset(var8009c640, 0, 10500 * sizeof(struct mp3decfourbytes));
+	//bzero(var8009c640, 10500 * sizeof(struct mp3decfourbytes));
 
 	for (sp264 = 0; sp264 < 34; sp264++) {
 		sp254 = var8005f670[sp264];
@@ -2163,7 +2164,8 @@ bool mp3decInit(void)
 
 		sp230 = 1;
 		sp228 = 1;
-		bzero(sp28, sizeof(sp28));
+		memset(sp28, 0, sizeof(sp28));
+		//bzero(sp28, sizeof(sp28));
 		sp260 = 1;
 
 		while (sp228) {
@@ -2375,7 +2377,8 @@ bool mp3dec00040164(struct asistream *stream, u32 gr, u32 ch)
 	}
 
 	if (sp48 < 576) {
-		bzero(sp40, stream->unk4660[ch] * 4);
+		//bzero(sp40, stream->unk4660[ch] * 4);
+		memset(sp40, 0, stream->unk4660[ch] * 4);
 		return true;
 	}
 
@@ -2547,9 +2550,9 @@ bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch)
 	}
 
 	if (window_switching && block_type == 2) {
-		bcopy(sp70[sp48][sp44][mixed + 1], sp28, 0x10);
+		memcpy(sp70[sp48][sp44][mixed + 1], sp28, 0x10);
 	} else {
-		bcopy(sp70[sp48][sp44][0], sp28, 0x10);
+		memcpy(sp70[sp48][sp44][0], sp28, 0x10);
 	}
 
 	sfb = 0;
@@ -2692,7 +2695,8 @@ bool mp3dec00042238(struct asistream *stream, u32 gr, u32 ch)
 		if (var8009c650[sp38] == NULL) {
 			sp2c = sp30 - sp48;
 
-			bzero(sp44, sp2c * 2);
+			//bzero(sp44, sp2c * 2);
+			memset(sp44, 0, sp2c * 2);
 
 			sp44 += sp2c;
 			sp40 += sp2c;
@@ -2715,7 +2719,8 @@ bool mp3dec00042238(struct asistream *stream, u32 gr, u32 ch)
 
 	if (sp48 < 576) {
 		stream->unk4660[ch] = 576 - sp48;
-		bzero(sp44, stream->unk4660[ch] * 2);
+		//bzero(sp44, stream->unk4660[ch] * 2);
+		memset(sp44, 0, stream->unk4660[ch] * 2);
 	} else {
 		stream->unk4660[ch] = 0;
 	}
@@ -3003,8 +3008,9 @@ bool mp3decDecodeFrame(struct asistream *stream)
 		}
 
 		while (i < 32) {
-			bcopy(&stream->unk6a64[ch][i], &sp34[i], sizeof(struct asistream_4f64));
-			bzero(&stream->unk6a64[ch][i], sizeof(struct asistream_4f64));
+			memcpy(&stream->unk6a64[ch][i], &sp34[i], sizeof(struct asistream_4f64));
+			//bzero(&stream->unk6a64[ch][i], sizeof(struct asistream_4f64));
+			memset(&stream->unk6a64[ch][i], 0, sizeof(struct asistream_4f64));
 			i++;
 		}
 

@@ -75,7 +75,7 @@ s32 osPfsInitPak2(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 		}
 	}
 
-	bcopy(id, pfs->id, sizeof(*id));
+	memcpy(id, pfs->id, sizeof(*id));
 
 	pfs->version = id->version;
 	pfs->banks = id->banks;
@@ -125,7 +125,7 @@ s32 __osPfsCheckRamArea2(OSPfs* pfs)
 		return ret;
 	}
 
-	if (bcmp(temp1, temp2, BLOCKSIZE) != 0) {
+	if (memcmp(temp1, temp2, BLOCKSIZE) != 0) {
 		return PFS_ERR_DEVICE;
 	}
 

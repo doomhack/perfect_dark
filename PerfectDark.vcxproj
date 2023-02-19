@@ -143,6 +143,9 @@
       <FileType>CppHeader</FileType>
     </ClCompile>
     <ClCompile Include="getcount.c" />
+    <ClCompile Include="interrupt.c" />
+    <ClCompile Include="invalidcache.c" />
+    <ClCompile Include="setintmask.c" />
     <ClCompile Include="src\game\activemenu.c" />
     <ClCompile Include="src\game\activemenutick.c" />
     <ClCompile Include="src\game\bg.c" />

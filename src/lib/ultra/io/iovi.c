@@ -9,7 +9,9 @@ __OSViContext *__osViNext = &var800608b0[1];
 
 void __osViInit(void)
 {
-	bzero(&var800608b0, sizeof(var800608b0));
+	//bzero(&var800608b0, sizeof(var800608b0));
+	memset(&var800608b0, 0, sizeof(var800608b0));
+
 
 	__osViCurr = &var800608b0[0];
 	__osViNext = &var800608b0[1];

@@ -77,7 +77,9 @@ s32 osPfsChecker(OSPfs *pfs)
 			}
 
 			if (cc != 0 || next_page.ipage != 1) {
-				bzero(&tmp_dir, sizeof(__OSDir));
+				//bzero(&tmp_dir, sizeof(__OSDir));
+				memset(&tmp_dir, 0, sizeof(__OSDir));
+
 
 				if (pfs->activebank != 0) {
 					ERRCK(__osPfsSelectBank(pfs, 0));

@@ -68,7 +68,9 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status)
 			}
 		}
 
-		bzero(blocksloaded, 12);
+		//bzero(blocksloaded, 12);
+		memset(blocksloaded, 0, 12);
+
 
 		for (thischunkaddr = 0x80; thischunkaddr <= 0x4000; thischunkaddr *= 2) {
 			blocknum = 0;
@@ -97,7 +99,7 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status)
 				}
 
 				// Compare them and bail out if different
-				if (bcmp(blocks[thisslot][blocknum], blocks[prevslot][blocknum], 32) != 0) {
+				if (memcmp(blocks[thisslot][blocknum], blocks[prevslot][blocknum], 32) != 0) {
 					blocknum = 0;
 					break;
 				}
@@ -149,7 +151,7 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status)
 					}
 
 					// Compare them and bail out if different
-					if (bcmp(blocks[thisslot][blocknum], blocks[0][blocknum], 32) != 0) {
+					if (memcmp(blocks[thisslot][blocknum], blocks[0][blocknum], 32) != 0) {
 						stilllooking = 0;
 						goto end;
 					}
@@ -167,7 +169,8 @@ end:
 			}
 
 			if (prevslot != 0) {
-				bzero(&blocksloaded[prevslot][0], 4);
+				//bzero(&blocksloaded[prevslot][0], 4);
+				memset(&blocksloaded[prevslot][0], 0, 4);
 			}
 
 			prevchunkaddr = thischunkaddr;
@@ -193,7 +196,7 @@ end:
 					return ret;
 				}
 
-				if (bcmp(blocks[thisslot][blocknum], blocks[prevslot][blocknum], 32) != 0) {
+				if (memcmp(blocks[thisslot][blocknum], blocks[prevslot][blocknum], 32) != 0) {
 					blocknum = 0;
 					break;
 				}

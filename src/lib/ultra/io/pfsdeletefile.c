@@ -54,7 +54,8 @@ s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, 
 		return PFS_ERR_INCONSISTENT;
 	}
 
-	bzero(&dir, sizeof(__OSDir));
+	//bzero(&dir, sizeof(__OSDir));
+	memset(&dir, 0, sizeof(__OSDir));
 
 	ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8*)&dir, 0);
 

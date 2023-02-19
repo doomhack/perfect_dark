@@ -25,7 +25,7 @@ s32 mp3main00043dd0(struct asistream *stream)
 	s32 sp18;
 
 	if (stream->unk201c + stream->unk3f88 > 0x1ffb) {
-		bcopy(&stream->unk1c[sp1c], &stream->unk1c, sp1c);
+		memcpy(&stream->unk1c[sp1c], &stream->unk1c, sp1c);
 		stream->unk201c -= sp1c;
 		stream->unk2020 -= sp1c * 8;
 	}
@@ -33,7 +33,8 @@ s32 mp3main00043dd0(struct asistream *stream)
 	sp18 = stream->unk04(stream->unk00, &stream->unk1c[stream->unk201c], stream->unk3f88, -1);
 
 	if (sp18 < stream->unk3f88) {
-		bzero(&stream->unk1c[sp18], stream->unk3f88 - sp18);
+		//bzero(&stream->unk1c[sp18], stream->unk3f88 - sp18);
+		memset(&stream->unk1c[sp18], 0, stream->unk3f88 - sp18);
 	}
 
 	stream->unk18 += stream->unk3f88;
@@ -192,7 +193,9 @@ struct asistream *mp3main00044460(s32 arg0, void *arg1, s32 arg2)
 
 	stream->unk8474 = 0;
 
-	bzero(&stream->unk6a64, sizeof(stream->unk6a64[0]));
+	//bzero(&stream->unk6a64, sizeof(stream->unk6a64[0]));
+	memset(&stream->unk6a64, 0, sizeof(stream->unk6a64[0]));
+
 
 	return stream;
 }
