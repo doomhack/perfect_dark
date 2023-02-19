@@ -40,8 +40,8 @@
 #define FRSCRIPTINDEX_TARGETS 0x22
 #define FRSCRIPTINDEX_HELP    0x71
 
-extern u8 *_firingrangeSegmentRomStart;
-extern u8 *_firingrangeSegmentRomEnd;
+u8 *_firingrangeSegmentRomStart;
+u8 *_firingrangeSegmentRomEnd;
 
 struct frdata g_FrData;
 struct trainingdata g_DtData;

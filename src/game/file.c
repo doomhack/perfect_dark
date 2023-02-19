@@ -2068,7 +2068,7 @@ void *_file_Asaucerexp1M;
 void *_file_PjaplogoZ;
 void *_file_PjappdZ;
 #endif
-extern void *_filenamesSegmentRomStart;
+void *_filenamesSegmentRomStart = NULL;
 
 struct fileinfo g_FileInfo[NUM_FILES];
 

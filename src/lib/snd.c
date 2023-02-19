@@ -842,12 +842,12 @@ s16 var8005ecf8[] = {
 	-1,
 };
 
-extern u8 _sfxctlSegmentRomStart;
-extern u8 _sfxtblSegmentRomStart;
-extern u8 _seqctlSegmentRomStart;
-extern u8 _seqctlSegmentRomEnd;
-extern u8 _seqtblSegmentRomStart;
-extern u8 _sequencesSegmentRomStart;
+u8 _sfxctlSegmentRomStart;
+u8 _sfxtblSegmentRomStart;
+u8 _seqctlSegmentRomStart;
+u8 _seqctlSegmentRomEnd;
+u8 _seqtblSegmentRomStart;
+u8 _sequencesSegmentRomStart;
 
 bool sndIsPlayingMp3(void)
 {

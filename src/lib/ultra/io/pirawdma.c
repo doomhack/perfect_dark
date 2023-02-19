@@ -2,6 +2,8 @@
 #include "piint.h"
 #include "types.h"
 
+void* osRomBase;	/* Rom base address of the game image */
+
 s32 osPiRawStartDma(s32 direction, u32 devAddr, void *dramAddr, u32 size)
 {
 	register u32 stat;

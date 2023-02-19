@@ -24,3 +24,18 @@ void __osDequeueThread(OSThread **queue, OSThread *t)
 		succ = pred->next;
 	}
 }
+
+void __osEnqueueAndYield(OSThread** t)
+{
+
+}
+
+OSThread* __osPopThread(OSThread** t)
+{
+	return NULL;
+}
+
+void __osEnqueueThread(OSThread** t1, OSThread* t2)
+{
+
+}

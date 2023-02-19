@@ -168,8 +168,8 @@ u32 var8005f138nb[] = {
 
 u16 *g_CrashFrameBuffer = NULL;
 
-extern u32 _libSegmentStart;
-extern u32 _libSegmentEnd;
+u32 _libSegmentStart;
+u32 _libSegmentEnd;
 
 void faultproc(void *arg0);
 u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen);

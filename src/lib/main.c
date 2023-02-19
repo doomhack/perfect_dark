@@ -291,11 +291,11 @@ struct stageallocation g_StageAllocations4Mb[] = {
 
 s32 var8005dd18 = 1;
 
-extern u8 _accessingpakSegmentRomStart;
-extern u8 _accessingpakSegmentRomEnd;
-extern u8 _copyrightSegmentRomStart;
-extern u8 _copyrightSegmentRomEnd;
-extern u8 _bssSegmentEnd;
+u8 _accessingpakSegmentRomStart;
+u8 _accessingpakSegmentRomEnd;
+u8 _copyrightSegmentRomStart;
+u8 _copyrightSegmentRomEnd;
+u8 _bssSegmentEnd;
 
 #if !MATCHING || VERSION >= VERSION_NTSC_1_0
 /**

@@ -69,5 +69,5 @@ void rmonPrintf(const char *format, ...)
 	va_list ap;
 	va_start(ap, format);
 
-	_Printf(rmonProut, NULL, format, ap);
+	//_Printf(rmonProut, NULL, format, ap);
 }

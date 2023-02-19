@@ -39,8 +39,8 @@ s32 g_AnimMaxHeaderLength = 608;
 bool g_AnimHostEnabled = false;
 u8 *g_AnimHostSegment = NULL;
 
-extern u8 _animationsTableRomStart;
-extern u8 _animationsTableRomEnd;
+u8 _animationsTableRomStart;
+u8 _animationsTableRomEnd;
 
 void animsInit(void)
 {
@@ -131,7 +131,7 @@ s32 animGetNumAnimations(void)
 	return g_NumAnimations;
 }
 
-extern u8 _animationsSegmentRomStart;
+u8 _animationsSegmentRomStart;
 
 u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 {

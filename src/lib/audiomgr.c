@@ -242,8 +242,8 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 
 	static OSScTask *g_AmgrCurrentCmdList;
 
-	extern u8 aspTextStart;
-	extern u8 aspDataStart;
+    u8 aspTextStart;
+    u8 aspDataStart;
 
 	if (g_AmgrCurrentCmdList) {
 		schedAppendTasks(&g_Sched, g_AmgrCurrentCmdList);

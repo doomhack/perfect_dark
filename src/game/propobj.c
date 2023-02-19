@@ -4232,7 +4232,7 @@ void ammocrateTick(struct prop *prop)
  * function with the third argument and link it to the same address as
  * nbombCreateStorm via the linker config.
  */
-void nbombCreateStorm_hack(struct coord *pos, struct prop *ownerprop, struct prop *nbombprop);
+//void nbombCreateStorm_hack(struct coord *pos, struct prop *ownerprop, struct prop *nbombprop);
 
 /**
  * Handles the following:
@@ -4363,7 +4363,7 @@ void weaponTick(struct prop *prop)
 					}
 				}
 
-				nbombCreateStorm_hack(&prop->pos, ownerprop, prop);
+				nbombCreateStorm(&prop->pos, ownerprop);
 				propUnsetDangerous(prop);
 
 				obj->hidden |= OBJHFLAG_DELETING;
@@ -4521,7 +4521,7 @@ void weaponTick(struct prop *prop)
 					}
 				}
 
-				nbombCreateStorm_hack(&prop->pos, ownerprop, prop);
+				nbombCreateStorm(&prop->pos, ownerprop);
 				propUnsetDangerous(prop);
 
 				obj->hidden |= OBJHFLAG_DELETING;

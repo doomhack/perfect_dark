@@ -38,12 +38,12 @@ u32 var80062494 = 0x00000001;
 s32 var80062498 = 0;
 u32 var8006249c = 0x00000000;
 
-extern u8 var020043f8;
-extern u8 var02004468;
-extern u8 var02004700;
-extern u8 var02004d28;
-extern u8 var02004dc8;
-extern u8 var02005dd0;
+u8 var020043f8;
+u8 var02004468;
+u8 var02004700;
+u8 var02004d28;
+u8 var02004dc8;
+u8 var02005dd0;
 
 /**
  * This is a dirty, dirty hack. getitle0f0155f0 only matches if arg2 is a u8.
@@ -138,9 +138,9 @@ Gfx *getitle0f0155f0(Gfx *gdl, s32 arg1, u8 arg2)
 	return gdl;
 }
 
-extern u8 _getitleSegmentRomStart;
-extern u8 _getitleSegmentStart;
-extern u8 _getitleSegmentEnd;
+u8 _getitleSegmentRomStart;
+u8 _getitleSegmentStart;
+u8 _getitleSegmentEnd;
 
 void getitleLoad(void *addr, u32 arg1)
 {

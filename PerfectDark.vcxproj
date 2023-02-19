@@ -145,6 +145,9 @@
     <ClCompile Include="getcount.c" />
     <ClCompile Include="interrupt.c" />
     <ClCompile Include="invalidcache.c" />
+    <ClCompile Include="modelasm.c" />
+    <ClCompile Include="os_error.c" />
+    <ClCompile Include="os_tlb.c" />
     <ClCompile Include="setintmask.c" />
     <ClCompile Include="src\game\activemenu.c" />
     <ClCompile Include="src\game\activemenutick.c" />
@@ -590,6 +593,7 @@
     <ClCompile Include="src\lib\videbug.c" />
     <ClCompile Include="src\lib\vm.c" />
     <ClCompile Include="src\textureconfig.c" />
+    <ClCompile Include="mp3utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PR\abi.h" />

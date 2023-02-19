@@ -8,8 +8,8 @@
 
 void texInit(void)
 {
-	extern u8 _textureslistSegmentRomStart;
-	extern u8 _textureslistSegmentRomEnd;
+	u8 _textureslistSegmentRomStart;
+	u8 _textureslistSegmentRomEnd;
 
 	u32 len = ((&_textureslistSegmentRomEnd - &_textureslistSegmentRomStart) + 15) & -16;
 

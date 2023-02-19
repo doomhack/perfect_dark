@@ -94,15 +94,15 @@ s32 g_VmNumPages = 0;
 
 u32 var8005cf88 = 0;
 
-extern u8 _gameSegmentStart;
-extern u8 _gameSegmentEnd;
-extern u8 _gamezipSegmentRomStart;
+u8 _gameSegmentStart;
+u8 _gameSegmentEnd;
+u8 _gamezipSegmentRomStart;
 
-extern u32 var8008ae20;
-extern u32 *g_VmStateTable;
-extern u8 g_VmInitialised;
-extern u32 g_VmZipBuffer;
-extern u32 *g_VmZipTable;
+u32 var8008ae20;
+u32 *g_VmStateTable;
+u8 g_VmInitialised;
+u32 g_VmZipBuffer;
+u32 *g_VmZipTable;
 
 #define PAGE_SIZE (1024 * 4)
 

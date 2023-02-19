@@ -1404,6 +1404,18 @@
     <ClCompile Include="interrupt.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
+    <ClCompile Include="modelasm.c">
+      <Filter>Source Files\src\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="mp3utils.c">
+      <Filter>Source Files\src\lib\mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="os_error.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="os_tlb.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PR\abi.h">

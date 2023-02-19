@@ -12,6 +12,9 @@ ALIGNED16 u8 g_RdpYieldData[0xb00];
 u16 *g_RdpOutBufferEnd = NULL;
 u16 *g_RdpOutBufferStart = NULL;
 
+long long int rspbootTextStart[128], rspbootTextEnd[128];
+
+
 struct rdptask g_RdpTaskA = {
 	{
 		// OSScTask
@@ -60,8 +63,8 @@ struct rdptask g_RdpTaskB = {
 
 struct rdptask *g_RdpCurTask = &g_RdpTaskA;
 
-extern u8 gspTextStart;
-extern u8 gspDataStart;
+u8 gspTextStart;
+u8 gspDataStart;
 
 void rdpInit(void)
 {

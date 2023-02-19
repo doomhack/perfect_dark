@@ -213,9 +213,9 @@ u32 langGetLangBankIndexFromStagenum(s32 stagenum)
 	return bank;
 }
 
-extern u8 _fontjpnSegmentRomStart;
-extern u8 _fontjpnsingleSegmentRomStart;
-extern u8 _fontjpnmultiSegmentRomStart;
+u8 _fontjpnSegmentRomStart;
+u8 _fontjpnsingleSegmentRomStart;
+u8 _fontjpnmultiSegmentRomStart;
 
 struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 {

@@ -50,13 +50,13 @@ u8 *g_StackAllocatedPos = (u8 *) K0BASE + 4 * 1024 * 1024;
 u32 var8005ce4c = 0x00000002;
 u32 var8005ce50 = 0x10000000;
 
-extern u8 *_libSegmentStart;
-extern u8 *_datazipSegmentRomStart;
-extern u8 *_datazipSegmentRomEnd;
-extern u8 *_dataSegmentStart;
-extern u8 *_inflateSegmentStart;
-extern u8 *_inflateSegmentRomStart;
-extern u8 *_inflateSegmentRomEnd;
+u8 *_libSegmentStart;
+u8 *_datazipSegmentRomStart;
+u8 *_datazipSegmentRomEnd;
+u8 *_dataSegmentStart;
+u8 *_inflateSegmentStart;
+u8 *_inflateSegmentRomStart;
+u8 *_inflateSegmentRomEnd;
 
 #if VERSION >= VERSION_NTSC_1_0
 s32 bootGetMemSize(void)

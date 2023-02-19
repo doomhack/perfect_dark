@@ -278,16 +278,16 @@ void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontch
 
 void textReset(void)
 {
-	extern u8 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
-	extern u8 _fontzurichSegmentRomStart,         _fontzurichSegmentRomEnd;
-	extern u8 _fonttahomaSegmentRomStart,         _fonttahomaSegmentRomEnd;
-	extern u8 _fontnumericSegmentRomStart,        _fontnumericSegmentRomEnd;
-	extern u8 _fonthandelgothicsmSegmentRomStart, _fonthandelgothicsmSegmentRomEnd;
-	extern u8 _fonthandelgothicxsSegmentRomStart, _fonthandelgothicxsSegmentRomEnd;
-	extern u8 _fonthandelgothicmdSegmentRomStart, _fonthandelgothicmdSegmentRomEnd;
-	extern u8 _fonthandelgothiclgSegmentRomStart, _fonthandelgothiclgSegmentRomEnd;
-	extern u8 _fontocramdSegmentRomStart,         _fontocramdSegmentRomEnd;
-	extern u8 _fontocralgSegmentRomStart,         _fontocralgSegmentRomEnd;
+	u8 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
+	u8 _fontzurichSegmentRomStart,         _fontzurichSegmentRomEnd;
+	u8 _fonttahomaSegmentRomStart,         _fonttahomaSegmentRomEnd;
+	u8 _fontnumericSegmentRomStart,        _fontnumericSegmentRomEnd;
+	u8 _fonthandelgothicsmSegmentRomStart, _fonthandelgothicsmSegmentRomEnd;
+	u8 _fonthandelgothicxsSegmentRomStart, _fonthandelgothicxsSegmentRomEnd;
+	u8 _fonthandelgothicmdSegmentRomStart, _fonthandelgothicmdSegmentRomEnd;
+	u8 _fonthandelgothiclgSegmentRomStart, _fonthandelgothiclgSegmentRomEnd;
+	u8 _fontocramdSegmentRomStart,         _fontocramdSegmentRomEnd;
+	u8 _fontocralgSegmentRomStart,         _fontocralgSegmentRomEnd;
 
 	var8007faec = 0;
 	g_FontTahoma2 = NULL;

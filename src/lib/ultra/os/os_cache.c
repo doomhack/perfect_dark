@@ -9,3 +9,8 @@ void osInvalICache(void* p, s32 x)
 {
 
 }
+
+void osWritebackDCache(void* p, s32 x)
+{
+
+}

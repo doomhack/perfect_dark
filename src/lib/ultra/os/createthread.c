@@ -31,3 +31,13 @@ void osCreateThread(OSThread *t, OSId id, void (*entry)(void *), void *arg, void
 
 	__osRestoreInt(saveMask);
 }
+
+void __osCleanupThread()
+{
+
+}
+
+void __osDispatchThread()
+{
+
+}

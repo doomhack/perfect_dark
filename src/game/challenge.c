@@ -373,21 +373,21 @@ struct mpconfigfull *challengeLoadConfig(s32 confignum, u8 *buffer, s32 len)
 	struct mpstrings *loadedstrings;
 	s32 bank;
 	u32 language_id = langGetFileNumOffset();
-	extern struct mpconfig _mpconfigsSegmentRomStart[];
-	extern struct mpstrings _mpstringsESegmentRomStart;
-	extern struct mpstrings _mpstringsJSegmentRomStart;
-	extern struct mpstrings _mpstringsPSegmentRomStart;
-	extern struct mpstrings _mpstringsGSegmentRomStart;
-	extern struct mpstrings _mpstringsFSegmentRomStart;
-	extern struct mpstrings _mpstringsSSegmentRomStart;
-	extern struct mpstrings _mpstringsISegmentRomStart;
-	extern struct mpstrings _mpstringsESegmentRomEnd;
-	extern struct mpstrings _mpstringsJSegmentRomEnd;
-	extern struct mpstrings _mpstringsPSegmentRomEnd;
-	extern struct mpstrings _mpstringsGSegmentRomEnd;
-	extern struct mpstrings _mpstringsFSegmentRomEnd;
-	extern struct mpstrings _mpstringsSSegmentRomEnd;
-	extern struct mpstrings _mpstringsISegmentRomEnd;
+	struct mpconfig _mpconfigsSegmentRomStart[128];
+	struct mpstrings _mpstringsESegmentRomStart;
+	struct mpstrings _mpstringsJSegmentRomStart;
+	struct mpstrings _mpstringsPSegmentRomStart;
+	struct mpstrings _mpstringsGSegmentRomStart;
+	struct mpstrings _mpstringsFSegmentRomStart;
+	struct mpstrings _mpstringsSSegmentRomStart;
+	struct mpstrings _mpstringsISegmentRomStart;
+	struct mpstrings _mpstringsESegmentRomEnd;
+	struct mpstrings _mpstringsJSegmentRomEnd;
+	struct mpstrings _mpstringsPSegmentRomEnd;
+	struct mpstrings _mpstringsGSegmentRomEnd;
+	struct mpstrings _mpstringsFSegmentRomEnd;
+	struct mpstrings _mpstringsSSegmentRomEnd;
+	struct mpstrings _mpstringsISegmentRomEnd;
 
 	s32 banks[][2] = {
 		{ (s32)&_mpstringsESegmentRomStart, (s32)&_mpstringsESegmentRomEnd },
