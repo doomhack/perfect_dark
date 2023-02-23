@@ -142,13 +142,6 @@
     <ClCompile Include="cmain.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="getcount.c" />
-    <ClCompile Include="interrupt.c" />
-    <ClCompile Include="invalidcache.c" />
-    <ClCompile Include="modelasm.c" />
-    <ClCompile Include="os_error.c" />
-    <ClCompile Include="os_tlb.c" />
-    <ClCompile Include="setintmask.c" />
     <ClCompile Include="src\game\activemenu.c" />
     <ClCompile Include="src\game\activemenutick.c" />
     <ClCompile Include="src\game\bg.c" />
@@ -399,12 +392,14 @@
     <ClCompile Include="src\lib\mema.c" />
     <ClCompile Include="src\lib\memp.c" />
     <ClCompile Include="src\lib\model.c" />
+    <ClCompile Include="src\lib\modelasm.c" />
     <ClCompile Include="src\lib\mp3.c" />
     <ClCompile Include="src\lib\mp3\decoder.c" />
     <ClCompile Include="src\lib\mp3\lib_45ed0.c" />
     <ClCompile Include="src\lib\mp3\lib_47d20.c" />
     <ClCompile Include="src\lib\mp3\lib_47ef0.c" />
     <ClCompile Include="src\lib\mp3\mp3main.c" />
+    <ClCompile Include="src\lib\mp3\mp3utils.c" />
     <ClCompile Include="src\lib\mtx.c" />
     <ClCompile Include="src\lib\mtx_c.c" />
     <ClCompile Include="src\lib\lmusic.c" />
@@ -565,19 +560,25 @@
     <ClCompile Include="src\lib\ultra\os\createthread.c" />
     <ClCompile Include="src\lib\ultra\os\destroythread.c" />
     <ClCompile Include="src\lib\ultra\os\exceptvars.c" />
+    <ClCompile Include="src\lib\ultra\os\getcount.c" />
     <ClCompile Include="src\lib\ultra\os\getcurrfaultthread.c" />
     <ClCompile Include="src\lib\ultra\os\getmemsize.c" />
     <ClCompile Include="src\lib\ultra\os\getthreadpri.c" />
     <ClCompile Include="src\lib\ultra\os\gettime.c" />
     <ClCompile Include="src\lib\ultra\os\initialize.c" />
+    <ClCompile Include="src\lib\ultra\os\interrupt.c" />
+    <ClCompile Include="src\lib\ultra\os\invalidcache.c" />
     <ClCompile Include="src\lib\ultra\os\jammesg.c" />
     <ClCompile Include="src\lib\ultra\os\os_cache.c" />
+    <ClCompile Include="src\lib\ultra\os\os_error.c" />
     <ClCompile Include="src\lib\ultra\os\os_fpccsr.c" />
+    <ClCompile Include="src\lib\ultra\os\os_tlb.c" />
     <ClCompile Include="src\lib\ultra\os\recvmesg.c" />
     <ClCompile Include="src\lib\ultra\os\resetglobalintmask.c" />
     <ClCompile Include="src\lib\ultra\os\sendmesg.c" />
     <ClCompile Include="src\lib\ultra\os\seteventmesg.c" />
     <ClCompile Include="src\lib\ultra\os\setglobalintmask.c" />
+    <ClCompile Include="src\lib\ultra\os\setintmask.c" />
     <ClCompile Include="src\lib\ultra\os\setthreadpri.c" />
     <ClCompile Include="src\lib\ultra\os\settimer.c" />
     <ClCompile Include="src\lib\ultra\os\startthread.c" />
@@ -593,7 +594,6 @@
     <ClCompile Include="src\lib\videbug.c" />
     <ClCompile Include="src\lib\vm.c" />
     <ClCompile Include="src\textureconfig.c" />
-    <ClCompile Include="mp3utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PR\abi.h" />

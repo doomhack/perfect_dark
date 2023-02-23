@@ -20,7 +20,6 @@
 
 s32 osResetType = 0;	/* 0 = cold reset, 1 = NMI */
 s32 osTvType = 1;	/* 0 = PAL, 1 = NTSC, 2 = MPAL */
-u32 osMemSize;	/* Memory Size */
 
 
 OSThread g_RmonThread;
@@ -34,7 +33,7 @@ u32 var8008dbcc;
 OSSched g_Sched;
 OSScClient var8008dca8;
 #if VERSION >= VERSION_NTSC_1_0
-u32 g_OsMemSize;
+u32 g_OsMemSize = 0x800000;
 #else
 u16 *var800902e4;
 u16 var800902e8;
@@ -92,21 +91,12 @@ void bootPhase1(void)
 	s32 numlibwords;
 	u32 flags;
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (osResetType == RESETTYPE_WARM) {
-		g_OsMemSize = *(u32 *) STACK_START;
-	} else {
-		*(u32 *) STACK_START = g_OsMemSize = osMemSize;
-	}
-#endif
 
 	// Copy compressed .data and inflate segments
 	// .data is copied from ROM to 0x701eb000 - 0x70200000
 	// inflate is copied from ROM to 0x70200000 - 0x702013f0
 	datacomplen = (romptr_t) &_datazipSegmentRomEnd - (romptr_t) &_datazipSegmentRomStart;
-#if VERSION >= VERSION_NTSC_1_0
-	if (1);
-#endif
+
 	inflatelen = (romptr_t) &_inflateSegmentRomEnd - (romptr_t) &_inflateSegmentRomStart;
 	copylen = datacomplen + inflatelen;
 	libram = (u32 *) ((romptr_t) &_libSegmentStart + 0x2000);
@@ -125,7 +115,8 @@ void bootPhase1(void)
 	// This is fine, as it's about half that.
 	numlibwords = 75000;
 
-	for (i = 0; i < numlibwords; i++) {
+	for (i = 0; i < numlibwords; i++)
+	{
 		libzipram[i] = libram[i];
 	}
 
@@ -135,11 +126,6 @@ void bootPhase1(void)
 	// Inflate .data
 	segInflate((void *) datazipram, (void *) dataram, (void *) 0x80300000);
 
-#if PIRACYCHECKS
-	if (IO_READ(0xa00002e8) != 0xc86e2000) {
-		while (1);
-	}
-#endif
 
 	tlbUnmapRange(1, NTLBENTRIES);
 
@@ -166,12 +152,6 @@ void bootPhase1(void)
 	flags |= FPCSR_EV; // enable invalid operation
 
 	__osSetFpcCsr(flags);
-
-#if VERSION < VERSION_NTSC_1_0
-	var800902e4 = (void *) 0xbc000c02;
-	var800902e8 = 0x4040;
-	*(s16 *) 0xbc000c02 = 0x4040;
-#endif
 
 	// Create and start the main thread
 	osCreateThread(&g_MainThread, THREAD_MAIN, bootPhase2, NULL, bootAllocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
@@ -212,16 +192,6 @@ void *bootAllocateStack(s32 threadid, s32 size)
 	for (i = 0; i < size; i++) {
 		ptr8[i] = ((0xf - (threadid & 0xf)) << 4) | (threadid & 0xf);
 	}
-
-#if VERSION < VERSION_NTSC_1_0
-	// Mark the first 8 words specially
-	ptr32 = (u32 *)g_StackLeftAddrs[threadid];
-
-	for (j = 0; j < 8; j++) {
-		*ptr32 = 0xdeadbabe;
-		ptr32++;
-	}
-#endif
 
 	return g_StackAllocatedPos + size - 8;
 }

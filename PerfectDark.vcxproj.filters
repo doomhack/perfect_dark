@@ -243,9 +243,6 @@
     <ClCompile Include="src\game\menu.c">
       <Filter>Source Files\src\game</Filter>
     </ClCompile>
-    <ClCompile Include="getcount.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\texselect.c">
       <Filter>Source Files\src\game</Filter>
     </ClCompile>
@@ -1395,25 +1392,28 @@
     <ClCompile Include="src\lib\segments.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
-    <ClCompile Include="invalidcache.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
-    <ClCompile Include="setintmask.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
-    <ClCompile Include="interrupt.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
-    <ClCompile Include="modelasm.c">
+    <ClCompile Include="src\lib\modelasm.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
-    <ClCompile Include="mp3utils.c">
+    <ClCompile Include="src\lib\mp3\mp3utils.c">
       <Filter>Source Files\src\lib\mp3</Filter>
     </ClCompile>
-    <ClCompile Include="os_error.c">
+    <ClCompile Include="src\lib\ultra\os\getcount.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
-    <ClCompile Include="os_tlb.c">
+    <ClCompile Include="src\lib\ultra\os\interrupt.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\invalidcache.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\os_error.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\os_tlb.c">
+      <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ultra\os\setintmask.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
   </ItemGroup>
