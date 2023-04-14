@@ -593,6 +593,7 @@
     <ClCompile Include="src\lib\vi.c" />
     <ClCompile Include="src\lib\videbug.c" />
     <ClCompile Include="src\lib\vm.c" />
+    <ClCompile Include="src\symbolmaps\symbols_ntsc.c" />
     <ClCompile Include="src\textureconfig.c" />
   </ItemGroup>
   <ItemGroup>

@@ -50,12 +50,12 @@ u32 var8005ce4c = 0x00000002;
 u32 var8005ce50 = 0x10000000;
 
 u8 *_libSegmentStart;
-u8 *_datazipSegmentRomStart;
-u8 *_datazipSegmentRomEnd;
+extern u8 *_datazipSegmentRomStart;
+extern u8 *_datazipSegmentRomEnd;
 u8 *_dataSegmentStart;
 u8 *_inflateSegmentStart;
-u8 *_inflateSegmentRomStart;
-u8 *_inflateSegmentRomEnd;
+extern u8 *_inflateSegmentRomStart;
+extern u8 *_inflateSegmentRomEnd;
 
 #if VERSION >= VERSION_NTSC_1_0
 s32 bootGetMemSize(void)
@@ -95,9 +95,9 @@ void bootPhase1(void)
 	// Copy compressed .data and inflate segments
 	// .data is copied from ROM to 0x701eb000 - 0x70200000
 	// inflate is copied from ROM to 0x70200000 - 0x702013f0
-	datacomplen = (romptr_t) &_datazipSegmentRomEnd - (romptr_t) &_datazipSegmentRomStart;
+	datacomplen = (romptr_t) _datazipSegmentRomEnd - (romptr_t) _datazipSegmentRomStart;
 
-	inflatelen = (romptr_t) &_inflateSegmentRomEnd - (romptr_t) &_inflateSegmentRomStart;
+	inflatelen = (romptr_t) _inflateSegmentRomEnd - (romptr_t) _inflateSegmentRomStart;
 	copylen = datacomplen + inflatelen;
 	libram = (u32 *) ((romptr_t) &_libSegmentStart + 0x2000);
 	libzipram = (u32 *) 0x70280000;

@@ -55,6 +55,9 @@
     <Filter Include="Source Files\src\lib\mp3">
       <UniqueIdentifier>{1597d858-0376-4b25-9aa9-0fa93dd9ae9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src\symbolmaps">
+      <UniqueIdentifier>{f887f2e8-e8af-442e-bbc4-46479a15daeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cmain.cpp">
@@ -1415,6 +1418,9 @@
     </ClCompile>
     <ClCompile Include="src\lib\ultra\os\setintmask.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\symbolmaps\symbols_ntsc.c">
+      <Filter>Source Files\src\symbolmaps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
