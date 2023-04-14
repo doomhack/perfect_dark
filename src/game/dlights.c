@@ -84,11 +84,8 @@ u32 var80061450 = 0x00000000;
 u32 var80061454 = 0xffffffff;
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 var80061458 = 0x00000000;
-u32 var8006145c = 0x00000000;
+s32 g_LightsPrevTickMode = 0;
 #endif
-
-Lights1 var80061460 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0x4d, 0x4d, 0x2e);
 
 u32 func0f000920(s32 portalnum1, s32 portalnum2)
 {
@@ -107,40 +104,40 @@ struct light *roomGetLight(s32 roomnum, s32 lightnum)
 	return (struct light *)&g_BgLightsFileData[(g_Rooms[roomnum].lightindex + lightnum) * 0x22];
 }
 
-u8 func0f0009c0(s32 roomnum)
+u8 roomGetFinalBrightness(s32 roomnum)
 {
-	s32 value = g_Rooms[roomnum].unk52 + g_Rooms[roomnum].unk4b;
+	s32 brightness = g_Rooms[roomnum].br_flash + g_Rooms[roomnum].br_settled_regional;
 
-	if (value > 255) {
-		value = 255;
+	if (brightness > 255) {
+		brightness = 255;
 	}
 
-	if (value < 0) {
-		value = 0;
+	if (brightness < 0) {
+		brightness = 0;
 	}
 
-	return value;
+	return brightness;
 }
 
-u8 func0f000a10(s32 roomnum)
+u8 roomGetFinalBrightnessForPlayer(s32 roomnum)
 {
-	s32 value = g_Rooms[roomnum].unk52;
+	s32 brightness = g_Rooms[roomnum].br_flash;
 
 	if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-		value += var8009caec;
+		brightness += var8009caec;
 	} else {
-		value += g_Rooms[roomnum].unk4b;
+		brightness += g_Rooms[roomnum].br_settled_regional;
 	}
 
-	if (value > 255) {
-		value = 255;
+	if (brightness > 255) {
+		brightness = 255;
 	}
 
-	if (value < 0) {
-		value = 0;
+	if (brightness < 0) {
+		brightness = 0;
 	}
 
-	return value;
+	return brightness;
 }
 
 u8 func0f000b18(u32 arg0)
@@ -148,69 +145,69 @@ u8 func0f000b18(u32 arg0)
 	return 255;
 }
 
-u8 func0f000b24(s32 roomnum)
+u8 roomGetSettledRegionalBrightnessForPlayer(s32 roomnum)
 {
-	u32 value;
+	u32 brightness;
 
 	if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
 		return var8009caec;
 	}
 
-	if (g_Rooms[roomnum].flags & ROOMFLAG_0040) {
-		value = g_Rooms[roomnum].unk4b;
+	if (g_Rooms[roomnum].flags & ROOMFLAG_BRIGHTNESS_CALCED) {
+		brightness = g_Rooms[roomnum].br_settled_regional;
 	} else {
-		value = 255;
+		brightness = 255;
 	}
 
-	return value;
+	return brightness;
 }
 
-u8 roomGetBrightness(s32 room)
+u8 roomGetSettledLocalBrightness(s32 room)
 {
-	return g_Rooms[room].brightness & 0xff;
+	return g_Rooms[room].br_settled_local & 0xff;
 }
 
-s32 func0f000c54(s32 roomnum)
+s32 roomGetFlashBrightness(s32 roomnum)
 {
-	if (g_Rooms[roomnum].unk52 > 255) {
+	if (g_Rooms[roomnum].br_flash > 255) {
 		return 255;
 	}
 
-	if (g_Rooms[roomnum].unk52 < 0) {
+	if (g_Rooms[roomnum].br_flash < 0) {
 		return 0;
 	}
 
-	return (g_Rooms[roomnum].flags & ROOMFLAG_0040) ? g_Rooms[roomnum].unk52 : 0;
+	return (g_Rooms[roomnum].flags & ROOMFLAG_BRIGHTNESS_CALCED) ? g_Rooms[roomnum].br_flash : 0;
 }
 
-f32 roomGetUnk5c(s32 roomnum)
+f32 roomGetLightOpCurFrac(s32 roomnum)
 {
-	return g_Rooms[roomnum].unk5c;
+	return g_Rooms[roomnum].lightop_cur_frac;
 }
 
-f32 func0f000cec(s32 roomnum)
+f32 roomGetFinalBrightnessFrac(s32 roomnum)
 {
-	f32 value = (g_Rooms[roomnum].unk52 + g_Rooms[roomnum].unk4b) / 0.0039215688593686f;
+	f32 frac = (g_Rooms[roomnum].br_flash + g_Rooms[roomnum].br_settled_regional) / (1.0f / 255.0f);
 
-	if (value > 1) {
-		value = 1;
+	if (frac > 1) {
+		frac = 1;
 	}
 
-	if (value < 0) {
-		value = 0;
+	if (frac < 0) {
+		frac = 0;
 	}
 
-	return value;
+	return frac;
 }
 
-f32 func0f000d6c(s32 roomnum)
+f32 roomGetSettledRegionalBrightnessFrac(s32 roomnum)
 {
-	return g_Rooms[roomnum].unk4b / 255.0f;
+	return g_Rooms[roomnum].br_settled_regional / 255.0f;
 }
 
-f32 func0f000dbc(s32 roomnum)
+f32 roomGetSettledLocalBrightnessFrac(s32 roomnum)
 {
-	return g_Rooms[roomnum].brightness / 255.0f;
+	return g_Rooms[roomnum].br_settled_local / 255.0f;
 }
 
 /**
@@ -272,19 +269,19 @@ bool lightIsOn(s32 roomnum, s32 lightnum)
 	return on;
 }
 
-void roomSetUnk52(s32 roomnum, s32 value)
+void roomSetFlashBrightness(s32 roomnum, s32 value)
 {
-	g_Rooms[roomnum].unk52 = value;
+	g_Rooms[roomnum].br_flash = value;
 }
 
-void lightGetUnk07(s32 roomnum, u32 lightnum, struct coord *coord)
+void lightGetDirection(s32 roomnum, u32 lightnum, struct coord *dir)
 {
 	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	light += lightnum;
 
-	coord->x = light->unk07;
-	coord->y = light->unk08;
-	coord->z = light->unk09;
+	dir->x = light->dirx;
+	dir->y = light->diry;
+	dir->z = light->dirz;
 }
 
 void func0f0010b4(void)
@@ -298,28 +295,28 @@ void func0f0010b4(void)
 
 void roomSetDefaults(struct room *room)
 {
-	room->unk48 = 0;
-	room->unk49 = 255;
-	room->unk4a = 0;
-	room->brightness = 128;
-	room->unk52 = 0;
-	room->unk4b = 0;
-	room->lightop = 0;
-	room->flags &= ~(ROOMFLAG_0200 | ROOMFLAG_DIRTY | ROOMFLAG_RENDERALWAYS | ROOMFLAG_0040);
+	room->br_light_min = 0;
+	room->br_light_max = 255;
+	room->br_light_each = 0;
+	room->br_settled_local = 128;
+	room->br_flash = 0;
+	room->br_settled_regional = 0;
+	room->lightop = LIGHTOP_NONE;
+	room->flags &= ~(ROOMFLAG_BRIGHTNESS_DIRTY_PERM | ROOMFLAG_LIGHTS_DIRTY | ROOMFLAG_RENDERALWAYS | ROOMFLAG_BRIGHTNESS_CALCED);
 	room->unk6c = 1;
 	room->unk70 = 1;
-	room->unk5c = 1;
-	room->unk60 = 0;
-	room->unk64 = 0;
-	room->unk68 = 0;
+	room->lightop_cur_frac = 1;
+	room->lightop_to_frac = 0;
+	room->lightop_from_frac = 0;
+	room->lightop_duration240 = 0;
 }
 
 Gfx *lightsSetForRoom(Gfx *gdl, s16 roomnum)
 {
 	Lights1 *lights = gfxAllocate(sizeof(Lights1));
 
-	u8 v0 = func0f000a10(roomnum);
-	u8 a0 = (u32)(v0 * 0.5882353f);
+	u8 brightness = roomGetFinalBrightnessForPlayer(roomnum);
+	u8 a0 = (u32)(brightness * 0.5882353f);
 
 	lights->a.l.col[0] = a0;
 	lights->a.l.col[1] = a0;
@@ -328,12 +325,12 @@ Gfx *lightsSetForRoom(Gfx *gdl, s16 roomnum)
 	lights->a.l.colc[1] = a0;
 	lights->a.l.colc[2] = a0;
 
-	lights->l[0].l.col[0] = v0;
-	lights->l[0].l.col[1] = v0;
-	lights->l[0].l.col[2] = v0;
-	lights->l[0].l.colc[0] = v0;
-	lights->l[0].l.colc[1] = v0;
-	lights->l[0].l.colc[2] = v0;
+	lights->l[0].l.col[0] = brightness;
+	lights->l[0].l.col[1] = brightness;
+	lights->l[0].l.col[2] = brightness;
+	lights->l[0].l.colc[0] = brightness;
+	lights->l[0].l.colc[1] = brightness;
+	lights->l[0].l.colc[2] = brightness;
 	lights->l[0].l.dir[0] = 0x4d;
 	lights->l[0].l.dir[1] = 0x4d;
 	lights->l[0].l.dir[2] = 0x2e;
@@ -348,6 +345,8 @@ Gfx *lightsSetForRoom(Gfx *gdl, s16 roomnum)
 
 Gfx *lightsSetDefault(Gfx *gdl)
 {
+	static Lights1 var80061460 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0x4d, 0x4d, 0x2e);
+
 	gSPSetLights1(gdl++, var80061460);
 
 	gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
@@ -362,35 +361,35 @@ void roomInitLights(s32 roomnum)
 	struct light *light;
 	s32 i;
 
-	func0f158108(roomnum, &room->unk48, &room->unk49);
+	bgGetRoomBrightnessRange(roomnum, &room->br_light_min, &room->br_light_max);
 
-	room->unk48 = room->unk48 / 4;
+	room->br_light_min = room->br_light_min / 4;
 
 	if (room->numlights) {
-		room->unk4a = (f32)(room->unk49 - room->unk48) / (f32)room->numlights;
+		room->br_light_each = (f32)(room->br_light_max - room->br_light_min) / (f32)room->numlights;
 	} else {
-		room->unk4a = 0;
+		room->br_light_each = 0;
 	}
 
-	if (room->unk48 > 255) {
-		room->unk48 = 255;
+	if (room->br_light_min > 255) {
+		room->br_light_min = 255;
 	}
 
-	if (room->unk49 > 255) {
-		room->unk49 = 255;
+	if (room->br_light_max > 255) {
+		room->br_light_max = 255;
 	}
 
-	room->unk4c = room->unk48;
+	room->br_base = room->br_light_min;
 
 	if (room->numlights == 0) {
-		room->unk4c += (room->unk49 - room->unk48) * 4 / 5;
+		room->br_base += (room->br_light_max - room->br_light_min) * 4 / 5;
 	}
 
 	switch (g_Vars.stagenum) {
 	case STAGE_EXTRACTION:
 	case STAGE_DEFECTION:
 		if (roomnum == 0x003d) { // near the top comms hub
-			room->unk4c = 2;
+			room->br_base = 2;
 		}
 		break;
 	}
@@ -410,12 +409,12 @@ void roomInitLights(s32 roomnum)
 		room->flags &= ~ROOMFLAG_RENDERALWAYS;
 	}
 
-	room->flags |= ROOMFLAG_DIRTY;
+	room->flags |= ROOMFLAG_LIGHTS_DIRTY;
 
 #if VERSION < VERSION_NTSC_1_0
 	if (cheatIsActive(CHEAT_PERFECTDARKNESS) && (room->flags & ROOMFLAG_RENDERALWAYS) == 0) {
-		room->lightop = LIGHTOP_1;
-		room->unk60 = 0.0f;
+		room->lightop = LIGHTOP_SET;
+		room->lightop_to_frac = 0.0f;
 	}
 #endif
 
@@ -424,8 +423,8 @@ void roomInitLights(s32 roomnum)
 	for (i = 0; i < room->numlights; i++) {
 #if VERSION < VERSION_NTSC_1_0
 		if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-			light->unk04 = 0;
-			light->unk05_00 = (random() % 2) ? true : false;
+			light->brightness = 0;
+			light->sparkable = (random() % 2) ? true : false;
 			light->healthy = false;
 			light->on = false;
 			light->sparking = false;
@@ -433,8 +432,8 @@ void roomInitLights(s32 roomnum)
 		} else
 #endif
 		{
-			light->unk04 = g_Rooms[roomnum].unk4a;
-			light->unk05_00 = true;
+			light->brightness = g_Rooms[roomnum].br_light_each;
+			light->sparkable = true;
 			light->healthy = true;
 			light->on = true;
 			light->sparking = false;
@@ -536,12 +535,12 @@ void roomSetLightsFaulty(s32 roomnum, s32 chance)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	g_Rooms[roomnum].unk4c = 50;
+	g_Rooms[roomnum].br_base = 50;
 #else
-	g_Rooms[roomnum].unk4c = 15;
+	g_Rooms[roomnum].br_base = 15;
 #endif
 
-	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
+	g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTS_DIRTY;
 }
 
 void roomSetLightBroken(s32 roomnum, s32 lightnum)
@@ -550,7 +549,7 @@ void roomSetLightBroken(s32 roomnum, s32 lightnum)
 	light->healthy = false;
 	light->on = false;
 
-	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
+	g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTS_DIRTY;
 }
 
 void lightsReset(void)
@@ -822,8 +821,8 @@ void func0f00259c(s32 roomnum)
 	}
 
 	if (sp58 < 0.1f) {
-		g_Rooms[roomnum].unk48 = g_Rooms[roomnum].unk49 >> 1;
-		var80061434[roomnum] = g_Rooms[roomnum].unk49;
+		g_Rooms[roomnum].br_light_min = g_Rooms[roomnum].br_light_max >> 1;
+		var80061434[roomnum] = g_Rooms[roomnum].br_light_max;
 	}
 }
 
@@ -877,7 +876,7 @@ void func0f002a98(void)
 
 	var8009cae0 = align4(g_Vars.roomcount);
 #if VERSION >= VERSION_NTSC_1_0
-	var80061458 = 0;
+	g_LightsPrevTickMode = 0;
 #endif
 	g_Vars.remakewallhitvtx = 0;
 
@@ -886,7 +885,7 @@ void func0f002a98(void)
 		roomInitLights(i);
 	}
 
-	var80061420 = 0;
+	var80061420 = NULL;
 
 	if (IS4MB()) {
 		var80061444 = 0;
@@ -914,703 +913,52 @@ void roomSetLightsOn(s32 roomnum, s32 enable)
 		g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTSOFF;
 	}
 
-	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
+	g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTS_DIRTY;
 }
 
-void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4)
+/**
+ * @bug: The lightop_timer240 values are not set correctly.
+ * They should be duration60 * 4. This only affects LIGHTOP_TRANSITION,
+ * which makes it start the transition 3/4 of the way into it.
+ */
+void roomSetLightOp(s32 roomnum, s32 operation, u8 br_to, u8 br_from, u8 duration60)
 {
 	if (cheatIsActive(CHEAT_PERFECTDARKNESS) == false) {
 		g_Rooms[roomnum].lightop = operation;
 
 		switch (operation) {
-		case LIGHTOP_1:
-			g_Rooms[roomnum].unk60 = arg2 * 0.01f;
+		case LIGHTOP_SET:
+			g_Rooms[roomnum].lightop_to_frac = br_to * 0.01f;
 			break;
-		case LIGHTOP_2:
-			g_Rooms[roomnum].unk60 = arg2;
-			g_Rooms[roomnum].unk64 = arg3 * 0.01f;
-			g_Rooms[roomnum].unk68 = arg4 * 4.0f;
-			g_Rooms[roomnum].unk54 = arg4;
+		case LIGHTOP_SETRANDOM:
+			g_Rooms[roomnum].lightop_to_frac = br_to;
+			g_Rooms[roomnum].lightop_from_frac = br_from * 0.01f;
+			g_Rooms[roomnum].lightop_duration240 = duration60 * 4.0f;
+			g_Rooms[roomnum].lightop_timer240 = duration60;
 			break;
-		case LIGHTOP_3:
-			g_Rooms[roomnum].unk60 = arg2 * 0.01f;
-			g_Rooms[roomnum].unk64 = arg3 * 0.01f;
-			g_Rooms[roomnum].unk68 = arg4 * 4.0f;
-			g_Rooms[roomnum].unk54 = arg4;
+		case LIGHTOP_TRANSITION:
+			g_Rooms[roomnum].lightop_to_frac = br_to * 0.01f;
+			g_Rooms[roomnum].lightop_from_frac = br_from * 0.01f;
+			g_Rooms[roomnum].lightop_duration240 = duration60 * 4.0f;
+			g_Rooms[roomnum].lightop_timer240 = duration60;
 			break;
-		case LIGHTOP_4:
-			g_Rooms[roomnum].unk60 = arg2 * 0.01f;
-			g_Rooms[roomnum].unk64 = arg3 * 0.01f;
-			g_Rooms[roomnum].unk68 = arg4 * 4.0f;
-			g_Rooms[roomnum].unk54 = 0;
+		case LIGHTOP_SINELOOP:
+			g_Rooms[roomnum].lightop_to_frac = br_to * 0.01f;
+			g_Rooms[roomnum].lightop_from_frac = br_from * 0.01f;
+			g_Rooms[roomnum].lightop_duration240 = duration60 * 4.0f;
+			g_Rooms[roomnum].lightop_timer240 = 0;
 			break;
-		case LIGHTOP_5:
+		case LIGHTOP_HIGHLIGHT:
 			break;
 		}
 	}
 }
 
-#if MATCHING
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel lightTickBroken
-/*  f002ef8:	0004c0c0 */ 	sll	$t8,$a0,0x3
-/*  f002efc:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f002f00:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f002f04:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f002f08:	27bdff28 */ 	addiu	$sp,$sp,-216
-/*  f002f0c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f002f10:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f002f14:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f002f18:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f002f1c:	afa400d8 */ 	sw	$a0,0xd8($sp)
-/*  f002f20:	afa500dc */ 	sw	$a1,0xdc($sp)
-/*  f002f24:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*  f002f28:	972a000a */ 	lhu	$t2,0xa($t9)
-/*  f002f2c:	3c0f800a */ 	lui	$t7,%hi(g_BgLightsFileData)
-/*  f002f30:	8def4cd8 */ 	lw	$t7,%lo(g_BgLightsFileData)($t7)
-/*  f002f34:	01456021 */ 	addu	$t4,$t2,$a1
-/*  f002f38:	000c6900 */ 	sll	$t5,$t4,0x4
-/*  f002f3c:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f002f40:	000d6840 */ 	sll	$t5,$t5,0x1
-/*  f002f44:	01af1821 */ 	addu	$v1,$t5,$t7
-/*  f002f48:	80780005 */ 	lb	$t8,0x5($v1)
-/*  f002f4c:	07020004 */ 	bltzl	$t8,.L0f002f60
-/*  f002f50:	94790004 */ 	lhu	$t9,0x4($v1)
-/*  f002f54:	10000112 */ 	b	.L0f0033a0
-/*  f002f58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f002f5c:	94790004 */ 	lhu	$t9,0x4($v1)
-.L0f002f60:
-/*  f002f60:	00195ec0 */ 	sll	$t3,$t9,0x1b
-/*  f002f64:	05610102 */ 	bgez	$t3,.L0f003370
-/*  f002f68:	00000000 */ 	nop
-/*  f002f6c:	0c004b70 */ 	jal	random
-/*  f002f70:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f002f74:	304c0007 */ 	andi	$t4,$v0,0x7
-/*  f002f78:	15800005 */ 	bnez	$t4,.L0f002f90
-/*  f002f7c:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f002f80:	906d0005 */ 	lbu	$t5,0x5($v1)
-/*  f002f84:	31afffef */ 	andi	$t7,$t5,0xffef
-/*  f002f88:	10000104 */ 	b	.L0f00339c
-/*  f002f8c:	a06f0005 */ 	sb	$t7,0x5($v1)
-.L0f002f90:
-/*  f002f90:	0c004b70 */ 	jal	random
-/*  f002f94:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f002f98:	304e0001 */ 	andi	$t6,$v0,0x1
-/*  f002f9c:	15c000ff */ 	bnez	$t6,.L0f00339c
-/*  f002fa0:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f002fa4:	0c004b70 */ 	jal	random
-/*  f002fa8:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f002fac:	44822000 */ 	mtc1	$v0,$f4
-/*  f002fb0:	04410005 */ 	bgez	$v0,.L0f002fc8
-/*  f002fb4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f002fb8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f002fbc:	44814000 */ 	mtc1	$at,$f8
-/*  f002fc0:	00000000 */ 	nop
-/*  f002fc4:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f002fc8:
-/*  f002fc8:	3c012f80 */ 	lui	$at,0x2f80
-/*  f002fcc:	44815000 */ 	mtc1	$at,$f10
-/*  f002fd0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f002fd4:	44814000 */ 	mtc1	$at,$f8
-/*  f002fd8:	460a3002 */ 	mul.s	$f0,$f6,$f10
-/*  f002fdc:	46000100 */ 	add.s	$f4,$f0,$f0
-/*  f002fe0:	46082301 */ 	sub.s	$f12,$f4,$f8
-/*  f002fe4:	0c004b70 */ 	jal	random
-/*  f002fe8:	e7ac0070 */ 	swc1	$f12,0x70($sp)
-/*  f002fec:	44823000 */ 	mtc1	$v0,$f6
-/*  f002ff0:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f002ff4:	c7ac0070 */ 	lwc1	$f12,0x70($sp)
-/*  f002ff8:	04410005 */ 	bgez	$v0,.L0f003010
-/*  f002ffc:	468032a0 */ 	cvt.s.w	$f10,$f6
-/*  f003000:	3c014f80 */ 	lui	$at,0x4f80
-/*  f003004:	44812000 */ 	mtc1	$at,$f4
-/*  f003008:	00000000 */ 	nop
-/*  f00300c:	46045280 */ 	add.s	$f10,$f10,$f4
-.L0f003010:
-/*  f003010:	3c012f80 */ 	lui	$at,0x2f80
-/*  f003014:	44814000 */ 	mtc1	$at,$f8
-/*  f003018:	3c013f80 */ 	lui	$at,0x3f80
-/*  f00301c:	44812000 */ 	mtc1	$at,$f4
-/*  f003020:	46085002 */ 	mul.s	$f0,$f10,$f8
-/*  f003024:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f003028:	3c077f1a */ 	lui	$a3,%hi(var7f1a7bb4)
-/*  f00302c:	24e77bb4 */ 	addiu	$a3,$a3,%lo(var7f1a7bb4)
-/*  f003030:	2406060a */ 	addiu	$a2,$zero,0x60a
-/*  f003034:	46000180 */ 	add.s	$f6,$f0,$f0
-/*  f003038:	46043081 */ 	sub.s	$f2,$f6,$f4
-/*  f00303c:	e7a2006c */ 	swc1	$f2,0x6c($sp)
-/*  f003040:	8468000a */ 	lh	$t0,0xa($v1)
-/*  f003044:	84780010 */ 	lh	$t8,0x10($v1)
-/*  f003048:	846f0016 */ 	lh	$t7,0x16($v1)
-/*  f00304c:	846a0012 */ 	lh	$t2,0x12($v1)
-/*  f003050:	0308c823 */ 	subu	$t9,$t8,$t0
-/*  f003054:	44995000 */ 	mtc1	$t9,$f10
-/*  f003058:	01e87023 */ 	subu	$t6,$t7,$t0
-/*  f00305c:	448e2000 */ 	mtc1	$t6,$f4
-/*  f003060:	468053a0 */ 	cvt.s.w	$f14,$f10
-/*  f003064:	8464000c */ 	lh	$a0,0xc($v1)
-/*  f003068:	846c0014 */ 	lh	$t4,0x14($v1)
-/*  f00306c:	8465000e */ 	lh	$a1,0xe($v1)
-/*  f003070:	01445823 */ 	subu	$t3,$t2,$a0
-/*  f003074:	468022a0 */ 	cvt.s.w	$f10,$f4
-/*  f003078:	448b4000 */ 	mtc1	$t3,$f8
-/*  f00307c:	01856823 */ 	subu	$t5,$t4,$a1
-/*  f003080:	448d3000 */ 	mtc1	$t5,$f6
-/*  f003084:	460e6382 */ 	mul.s	$f14,$f12,$f14
-/*  f003088:	e7aa00bc */ 	swc1	$f10,0xbc($sp)
-/*  f00308c:	84780018 */ 	lh	$t8,0x18($v1)
-/*  f003090:	46804420 */ 	cvt.s.w	$f16,$f8
-/*  f003094:	0304c823 */ 	subu	$t9,$t8,$a0
-/*  f003098:	44994000 */ 	mtc1	$t9,$f8
-/*  f00309c:	27a40098 */ 	addiu	$a0,$sp,0x98
-/*  f0030a0:	468034a0 */ 	cvt.s.w	$f18,$f6
-/*  f0030a4:	46106402 */ 	mul.s	$f16,$f12,$f16
-/*  f0030a8:	00000000 */ 	nop
-/*  f0030ac:	46126482 */ 	mul.s	$f18,$f12,$f18
-/*  f0030b0:	c7ac006c */ 	lwc1	$f12,0x6c($sp)
-/*  f0030b4:	468041a0 */ 	cvt.s.w	$f6,$f8
-/*  f0030b8:	e7a600c0 */ 	swc1	$f6,0xc0($sp)
-/*  f0030bc:	846a001a */ 	lh	$t2,0x1a($v1)
-/*  f0030c0:	01455823 */ 	subu	$t3,$t2,$a1
-/*  f0030c4:	448b2000 */ 	mtc1	$t3,$f4
-/*  f0030c8:	27a500a4 */ 	addiu	$a1,$sp,0xa4
-/*  f0030cc:	46802220 */ 	cvt.s.w	$f8,$f4
-/*  f0030d0:	460a1102 */ 	mul.s	$f4,$f2,$f10
-/*  f0030d4:	44885000 */ 	mtc1	$t0,$f10
-/*  f0030d8:	46066002 */ 	mul.s	$f0,$f12,$f6
-/*  f0030dc:	e7a800c4 */ 	swc1	$f8,0xc4($sp)
-/*  f0030e0:	46086082 */ 	mul.s	$f2,$f12,$f8
-/*  f0030e4:	e7a400bc */ 	swc1	$f4,0xbc($sp)
-/*  f0030e8:	c7a800bc */ 	lwc1	$f8,0xbc($sp)
-/*  f0030ec:	46805120 */ 	cvt.s.w	$f4,$f10
-/*  f0030f0:	460e2180 */ 	add.s	$f6,$f4,$f14
-/*  f0030f4:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0030f8:	e7aa0098 */ 	swc1	$f10,0x98($sp)
-/*  f0030fc:	846c000a */ 	lh	$t4,0xa($v1)
-/*  f003100:	448c2000 */ 	mtc1	$t4,$f4
-/*  f003104:	00000000 */ 	nop
-/*  f003108:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f00310c:	46103200 */ 	add.s	$f8,$f6,$f16
-/*  f003110:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f003114:	e7aa009c */ 	swc1	$f10,0x9c($sp)
-/*  f003118:	846d000a */ 	lh	$t5,0xa($v1)
-/*  f00311c:	448d2000 */ 	mtc1	$t5,$f4
-/*  f003120:	00000000 */ 	nop
-/*  f003124:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f003128:	46123200 */ 	add.s	$f8,$f6,$f18
-/*  f00312c:	46024280 */ 	add.s	$f10,$f8,$f2
-/*  f003130:	e7aa00a0 */ 	swc1	$f10,0xa0($sp)
-/*  f003134:	806f0007 */ 	lb	$t7,0x7($v1)
-/*  f003138:	448f2000 */ 	mtc1	$t7,$f4
-/*  f00313c:	00000000 */ 	nop
-/*  f003140:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f003144:	e7a6008c */ 	swc1	$f6,0x8c($sp)
-/*  f003148:	806e0008 */ 	lb	$t6,0x8($v1)
-/*  f00314c:	448e4000 */ 	mtc1	$t6,$f8
-/*  f003150:	00000000 */ 	nop
-/*  f003154:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f003158:	c7a8008c */ 	lwc1	$f8,0x8c($sp)
-/*  f00315c:	e7aa0090 */ 	swc1	$f10,0x90($sp)
-/*  f003160:	80780009 */ 	lb	$t8,0x9($v1)
-/*  f003164:	46004287 */ 	neg.s	$f10,$f8
-/*  f003168:	afa90068 */ 	sw	$t1,0x68($sp)
-/*  f00316c:	44982000 */ 	mtc1	$t8,$f4
-/*  f003170:	e7aa0080 */ 	swc1	$f10,0x80($sp)
-/*  f003174:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f003178:	c7a40090 */ 	lwc1	$f4,0x90($sp)
-/*  f00317c:	e7a60094 */ 	swc1	$f6,0x94($sp)
-/*  f003180:	c7a80094 */ 	lwc1	$f8,0x94($sp)
-/*  f003184:	46002187 */ 	neg.s	$f6,$f4
-/*  f003188:	46004287 */ 	neg.s	$f10,$f8
-/*  f00318c:	e7a60084 */ 	swc1	$f6,0x84($sp)
-/*  f003190:	0fc5dc59 */ 	jal	func0f177164
-/*  f003194:	e7aa0088 */ 	swc1	$f10,0x88($sp)
-/*  f003198:	c7b200a4 */ 	lwc1	$f18,0xa4($sp)
-/*  f00319c:	c7b00080 */ 	lwc1	$f16,0x80($sp)
-/*  f0031a0:	c7ae00a8 */ 	lwc1	$f14,0xa8($sp)
-/*  f0031a4:	c7ac0084 */ 	lwc1	$f12,0x84($sp)
-/*  f0031a8:	46109400 */ 	add.s	$f16,$f18,$f16
-/*  f0031ac:	c7b200ac */ 	lwc1	$f18,0xac($sp)
-/*  f0031b0:	c7aa0088 */ 	lwc1	$f10,0x88($sp)
-/*  f0031b4:	460c7300 */ 	add.s	$f12,$f14,$f12
-/*  f0031b8:	27a400a4 */ 	addiu	$a0,$sp,0xa4
-/*  f0031bc:	3c077f1a */ 	lui	$a3,%hi(var7f1a7bc0)
-/*  f0031c0:	460a9280 */ 	add.s	$f10,$f18,$f10
-/*  f0031c4:	e7b000a4 */ 	swc1	$f16,0xa4($sp)
-/*  f0031c8:	e7ac00a8 */ 	swc1	$f12,0xa8($sp)
-/*  f0031cc:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0031d0:	e7aa00ac */ 	swc1	$f10,0xac($sp)
-/*  f0031d4:	2406060c */ 	addiu	$a2,$zero,0x60c
-/*  f0031d8:	0fc5dc59 */ 	jal	func0f177164
-/*  f0031dc:	24e77bc0 */ 	addiu	$a3,$a3,%lo(var7f1a7bc0)
-/*  f0031e0:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-/*  f0031e4:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f0031e8:	0324c821 */ 	addu	$t9,$t9,$a0
-/*  f0031ec:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0031f0:	0c004b70 */ 	jal	random
-/*  f0031f4:	afb90058 */ 	sw	$t9,0x58($sp)
-/*  f0031f8:	30430003 */ 	andi	$v1,$v0,0x3
-/*  f0031fc:	1060000a */ 	beqz	$v1,.L0f003228
-/*  f003200:	8fa90068 */ 	lw	$t1,0x68($sp)
-/*  f003204:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f003208:	10610009 */ 	beq	$v1,$at,.L0f003230
-/*  f00320c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f003210:	10610009 */ 	beq	$v1,$at,.L0f003238
-/*  f003214:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f003218:	5061000a */ 	beql	$v1,$at,.L0f003244
-/*  f00321c:	24090014 */ 	addiu	$t1,$zero,0x14
-/*  f003220:	10000009 */ 	b	.L0f003248
-/*  f003224:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-.L0f003228:
-/*  f003228:	10000006 */ 	b	.L0f003244
-/*  f00322c:	24090011 */ 	addiu	$t1,$zero,0x11
-.L0f003230:
-/*  f003230:	10000004 */ 	b	.L0f003244
-/*  f003234:	24090012 */ 	addiu	$t1,$zero,0x12
-.L0f003238:
-/*  f003238:	10000002 */ 	b	.L0f003244
-/*  f00323c:	24090013 */ 	addiu	$t1,$zero,0x13
-/*  f003240:	24090014 */ 	addiu	$t1,$zero,0x14
-.L0f003244:
-/*  f003244:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-.L0f003248:
-/*  f003248:	8fa500dc */ 	lw	$a1,0xdc($sp)
-/*  f00324c:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f003250:	0fc0037f */ 	jal	lightGetBboxCentre
-/*  f003254:	afa90068 */ 	sw	$t1,0x68($sp)
-/*  f003258:	3c0b800a */ 	lui	$t3,%hi(g_BgRooms)
-/*  f00325c:	8d6b4cc4 */ 	lw	$t3,%lo(g_BgRooms)($t3)
-/*  f003260:	8fac0058 */ 	lw	$t4,0x58($sp)
-/*  f003264:	c7a60074 */ 	lwc1	$f6,0x74($sp)
-/*  f003268:	c7a40078 */ 	lwc1	$f4,0x78($sp)
-/*  f00326c:	016c1821 */ 	addu	$v1,$t3,$t4
-/*  f003270:	c4680004 */ 	lwc1	$f8,0x4($v1)
-/*  f003274:	8fa90068 */ 	lw	$t1,0x68($sp)
-/*  f003278:	27ad008c */ 	addiu	$t5,$sp,0x8c
-/*  f00327c:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f003280:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-/*  f003284:	00002825 */ 	or	$a1,$zero,$zero
-/*  f003288:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f00328c:	e7aa0074 */ 	swc1	$f10,0x74($sp)
-/*  f003290:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f003294:	c7aa007c */ 	lwc1	$f10,0x7c($sp)
-/*  f003298:	27a700a4 */ 	addiu	$a3,$sp,0xa4
-/*  f00329c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0032a0:	e7a80078 */ 	swc1	$f8,0x78($sp)
-/*  f0032a4:	c464000c */ 	lwc1	$f4,0xc($v1)
-/*  f0032a8:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0032ac:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0032b0:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f0032b4:	0fc4be7c */ 	jal	sparksCreate
-/*  f0032b8:	e7a6007c */ 	swc1	$f6,0x7c($sp)
-/*  f0032bc:	0c004b70 */ 	jal	random
-/*  f0032c0:	00000000 */ 	nop
-/*  f0032c4:	304f0003 */ 	andi	$t7,$v0,0x3
-/*  f0032c8:	15e00008 */ 	bnez	$t7,.L0f0032ec
-/*  f0032cc:	8fae00d8 */ 	lw	$t6,0xd8($sp)
-/*  f0032d0:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f0032d4:	a7ae0064 */ 	sh	$t6,0x64($sp)
-/*  f0032d8:	a7b80066 */ 	sh	$t8,0x66($sp)
-/*  f0032dc:	27a40074 */ 	addiu	$a0,$sp,0x74
-/*  f0032e0:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0032e4:	0fc4ba08 */ 	jal	smokeCreateSimple
-/*  f0032e8:	24060007 */ 	addiu	$a2,$zero,0x7
-.L0f0032ec:
-/*  f0032ec:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-/*  f0032f0:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f0032f4:	0fc010e3 */ 	jal	roomAdjustLighting
-/*  f0032f8:	24060050 */ 	addiu	$a2,$zero,0x50
-/*  f0032fc:	0fc25480 */ 	jal	propsndGetRandomSparkSound
-/*  f003300:	00000000 */ 	nop
-/*  f003304:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f003308:	44810000 */ 	mtc1	$at,$f0
-/*  f00330c:	8faf00d8 */ 	lw	$t7,0xd8($sp)
-/*  f003310:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f003314:	0006cc03 */ 	sra	$t9,$a2,0x10
-/*  f003318:	240affff */ 	addiu	$t2,$zero,-1
-/*  f00331c:	240b0400 */ 	addiu	$t3,$zero,0x400
-/*  f003320:	240c0010 */ 	addiu	$t4,$zero,0x10
-/*  f003324:	27ad0074 */ 	addiu	$t5,$sp,0x74
-/*  f003328:	afad0020 */ 	sw	$t5,0x20($sp)
-/*  f00332c:	afac001c */ 	sw	$t4,0x1c($sp)
-/*  f003330:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f003334:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f003338:	03203025 */ 	or	$a2,$t9,$zero
-/*  f00333c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f003340:	00002825 */ 	or	$a1,$zero,$zero
-/*  f003344:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f003348:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f00334c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f003350:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*  f003354:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f003358:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f00335c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f003360:	0fc24e7e */ 	jal	propsnd0f0939f8
-/*  f003364:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f003368:	1000000d */ 	b	.L0f0033a0
-/*  f00336c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f003370:
-/*  f003370:	0c004b70 */ 	jal	random
-/*  f003374:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f003378:	24010050 */ 	addiu	$at,$zero,0x50
-/*  f00337c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f003380:	00007010 */ 	mfhi	$t6
-/*  f003384:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f003388:	55c00005 */ 	bnezl	$t6,.L0f0033a0
-/*  f00338c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f003390:	90790005 */ 	lbu	$t9,0x5($v1)
-/*  f003394:	372a0010 */ 	ori	$t2,$t9,0x10
-/*  f003398:	a06a0005 */ 	sb	$t2,0x5($v1)
-.L0f00339c:
-/*  f00339c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0033a0:
-/*  f0033a0:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0033a4:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
-/*  f0033a8:	03e00008 */ 	jr	$ra
-/*  f0033ac:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel lightTickBroken
-/*  f002ef8:	0004c0c0 */ 	sll	$t8,$a0,0x3
-/*  f002efc:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f002f00:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f002f04:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f002f08:	27bdff28 */ 	addiu	$sp,$sp,-216
-/*  f002f0c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f002f10:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f002f14:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f002f18:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f002f1c:	afa400d8 */ 	sw	$a0,0xd8($sp)
-/*  f002f20:	afa500dc */ 	sw	$a1,0xdc($sp)
-/*  f002f24:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*  f002f28:	972a000a */ 	lhu	$t2,0xa($t9)
-/*  f002f2c:	3c0f800a */ 	lui	$t7,%hi(g_BgLightsFileData)
-/*  f002f30:	8def4cd8 */ 	lw	$t7,%lo(g_BgLightsFileData)($t7)
-/*  f002f34:	01456021 */ 	addu	$t4,$t2,$a1
-/*  f002f38:	000c6900 */ 	sll	$t5,$t4,0x4
-/*  f002f3c:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f002f40:	000d6840 */ 	sll	$t5,$t5,0x1
-/*  f002f44:	01af1821 */ 	addu	$v1,$t5,$t7
-/*  f002f48:	80780005 */ 	lb	$t8,0x5($v1)
-/*  f002f4c:	07020004 */ 	bltzl	$t8,.L0f002f60
-/*  f002f50:	94790004 */ 	lhu	$t9,0x4($v1)
-/*  f002f54:	10000112 */ 	b	.L0f0033a0
-/*  f002f58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f002f5c:	94790004 */ 	lhu	$t9,0x4($v1)
-.L0f002f60:
-/*  f002f60:	00195ec0 */ 	sll	$t3,$t9,0x1b
-/*  f002f64:	05610102 */ 	bgez	$t3,.L0f003370
-/*  f002f68:	00000000 */ 	nop
-/*  f002f6c:	0c004b70 */ 	jal	random
-/*  f002f70:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f002f74:	304c0007 */ 	andi	$t4,$v0,0x7
-/*  f002f78:	15800005 */ 	bnez	$t4,.L0f002f90
-/*  f002f7c:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f002f80:	906d0005 */ 	lbu	$t5,0x5($v1)
-/*  f002f84:	31afffef */ 	andi	$t7,$t5,0xffef
-/*  f002f88:	10000104 */ 	b	.L0f00339c
-/*  f002f8c:	a06f0005 */ 	sb	$t7,0x5($v1)
-.L0f002f90:
-/*  f002f90:	0c004b70 */ 	jal	random
-/*  f002f94:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f002f98:	304e0001 */ 	andi	$t6,$v0,0x1
-/*  f002f9c:	15c000ff */ 	bnez	$t6,.L0f00339c
-/*  f002fa0:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f002fa4:	0c004b70 */ 	jal	random
-/*  f002fa8:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f002fac:	44822000 */ 	mtc1	$v0,$f4
-/*  f002fb0:	04410005 */ 	bgez	$v0,.L0f002fc8
-/*  f002fb4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f002fb8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f002fbc:	44814000 */ 	mtc1	$at,$f8
-/*  f002fc0:	00000000 */ 	nop
-/*  f002fc4:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f002fc8:
-/*  f002fc8:	3c012f80 */ 	lui	$at,0x2f80
-/*  f002fcc:	44815000 */ 	mtc1	$at,$f10
-/*  f002fd0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f002fd4:	44814000 */ 	mtc1	$at,$f8
-/*  f002fd8:	460a3002 */ 	mul.s	$f0,$f6,$f10
-/*  f002fdc:	46000100 */ 	add.s	$f4,$f0,$f0
-/*  f002fe0:	46082301 */ 	sub.s	$f12,$f4,$f8
-/*  f002fe4:	0c004b70 */ 	jal	random
-/*  f002fe8:	e7ac0070 */ 	swc1	$f12,0x70($sp)
-/*  f002fec:	44823000 */ 	mtc1	$v0,$f6
-/*  f002ff0:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f002ff4:	c7ac0070 */ 	lwc1	$f12,0x70($sp)
-/*  f002ff8:	04410005 */ 	bgez	$v0,.L0f003010
-/*  f002ffc:	468032a0 */ 	cvt.s.w	$f10,$f6
-/*  f003000:	3c014f80 */ 	lui	$at,0x4f80
-/*  f003004:	44812000 */ 	mtc1	$at,$f4
-/*  f003008:	00000000 */ 	nop
-/*  f00300c:	46045280 */ 	add.s	$f10,$f10,$f4
-.L0f003010:
-/*  f003010:	3c012f80 */ 	lui	$at,0x2f80
-/*  f003014:	44814000 */ 	mtc1	$at,$f8
-/*  f003018:	3c013f80 */ 	lui	$at,0x3f80
-/*  f00301c:	44812000 */ 	mtc1	$at,$f4
-/*  f003020:	46085002 */ 	mul.s	$f0,$f10,$f8
-/*  f003024:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f003028:	3c077f1a */ 	lui	$a3,%hi(var7f1a7bb4)
-/*  f00302c:	24e77bb4 */ 	addiu	$a3,$a3,%lo(var7f1a7bb4)
-/*  f003030:	2406060a */ 	addiu	$a2,$zero,0x622
-/*  f003034:	46000180 */ 	add.s	$f6,$f0,$f0
-/*  f003038:	46043081 */ 	sub.s	$f2,$f6,$f4
-/*  f00303c:	e7a2006c */ 	swc1	$f2,0x6c($sp)
-/*  f003040:	8468000a */ 	lh	$t0,0xa($v1)
-/*  f003044:	84780010 */ 	lh	$t8,0x10($v1)
-/*  f003048:	846f0016 */ 	lh	$t7,0x16($v1)
-/*  f00304c:	846a0012 */ 	lh	$t2,0x12($v1)
-/*  f003050:	0308c823 */ 	subu	$t9,$t8,$t0
-/*  f003054:	44995000 */ 	mtc1	$t9,$f10
-/*  f003058:	01e87023 */ 	subu	$t6,$t7,$t0
-/*  f00305c:	448e2000 */ 	mtc1	$t6,$f4
-/*  f003060:	468053a0 */ 	cvt.s.w	$f14,$f10
-/*  f003064:	8464000c */ 	lh	$a0,0xc($v1)
-/*  f003068:	846c0014 */ 	lh	$t4,0x14($v1)
-/*  f00306c:	8465000e */ 	lh	$a1,0xe($v1)
-/*  f003070:	01445823 */ 	subu	$t3,$t2,$a0
-/*  f003074:	468022a0 */ 	cvt.s.w	$f10,$f4
-/*  f003078:	448b4000 */ 	mtc1	$t3,$f8
-/*  f00307c:	01856823 */ 	subu	$t5,$t4,$a1
-/*  f003080:	448d3000 */ 	mtc1	$t5,$f6
-/*  f003084:	460e6382 */ 	mul.s	$f14,$f12,$f14
-/*  f003088:	e7aa00bc */ 	swc1	$f10,0xbc($sp)
-/*  f00308c:	84780018 */ 	lh	$t8,0x18($v1)
-/*  f003090:	46804420 */ 	cvt.s.w	$f16,$f8
-/*  f003094:	0304c823 */ 	subu	$t9,$t8,$a0
-/*  f003098:	44994000 */ 	mtc1	$t9,$f8
-/*  f00309c:	27a40098 */ 	addiu	$a0,$sp,0x98
-/*  f0030a0:	468034a0 */ 	cvt.s.w	$f18,$f6
-/*  f0030a4:	46106402 */ 	mul.s	$f16,$f12,$f16
-/*  f0030a8:	00000000 */ 	nop
-/*  f0030ac:	46126482 */ 	mul.s	$f18,$f12,$f18
-/*  f0030b0:	c7ac006c */ 	lwc1	$f12,0x6c($sp)
-/*  f0030b4:	468041a0 */ 	cvt.s.w	$f6,$f8
-/*  f0030b8:	e7a600c0 */ 	swc1	$f6,0xc0($sp)
-/*  f0030bc:	846a001a */ 	lh	$t2,0x1a($v1)
-/*  f0030c0:	01455823 */ 	subu	$t3,$t2,$a1
-/*  f0030c4:	448b2000 */ 	mtc1	$t3,$f4
-/*  f0030c8:	27a500a4 */ 	addiu	$a1,$sp,0xa4
-/*  f0030cc:	46802220 */ 	cvt.s.w	$f8,$f4
-/*  f0030d0:	460a1102 */ 	mul.s	$f4,$f2,$f10
-/*  f0030d4:	44885000 */ 	mtc1	$t0,$f10
-/*  f0030d8:	46066002 */ 	mul.s	$f0,$f12,$f6
-/*  f0030dc:	e7a800c4 */ 	swc1	$f8,0xc4($sp)
-/*  f0030e0:	46086082 */ 	mul.s	$f2,$f12,$f8
-/*  f0030e4:	e7a400bc */ 	swc1	$f4,0xbc($sp)
-/*  f0030e8:	c7a800bc */ 	lwc1	$f8,0xbc($sp)
-/*  f0030ec:	46805120 */ 	cvt.s.w	$f4,$f10
-/*  f0030f0:	460e2180 */ 	add.s	$f6,$f4,$f14
-/*  f0030f4:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0030f8:	e7aa0098 */ 	swc1	$f10,0x98($sp)
-/*  f0030fc:	846c000a */ 	lh	$t4,0xa($v1)
-/*  f003100:	448c2000 */ 	mtc1	$t4,$f4
-/*  f003104:	00000000 */ 	nop
-/*  f003108:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f00310c:	46103200 */ 	add.s	$f8,$f6,$f16
-/*  f003110:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f003114:	e7aa009c */ 	swc1	$f10,0x9c($sp)
-/*  f003118:	846d000a */ 	lh	$t5,0xa($v1)
-/*  f00311c:	448d2000 */ 	mtc1	$t5,$f4
-/*  f003120:	00000000 */ 	nop
-/*  f003124:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f003128:	46123200 */ 	add.s	$f8,$f6,$f18
-/*  f00312c:	46024280 */ 	add.s	$f10,$f8,$f2
-/*  f003130:	e7aa00a0 */ 	swc1	$f10,0xa0($sp)
-/*  f003134:	806f0007 */ 	lb	$t7,0x7($v1)
-/*  f003138:	448f2000 */ 	mtc1	$t7,$f4
-/*  f00313c:	00000000 */ 	nop
-/*  f003140:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f003144:	e7a6008c */ 	swc1	$f6,0x8c($sp)
-/*  f003148:	806e0008 */ 	lb	$t6,0x8($v1)
-/*  f00314c:	448e4000 */ 	mtc1	$t6,$f8
-/*  f003150:	00000000 */ 	nop
-/*  f003154:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f003158:	c7a8008c */ 	lwc1	$f8,0x8c($sp)
-/*  f00315c:	e7aa0090 */ 	swc1	$f10,0x90($sp)
-/*  f003160:	80780009 */ 	lb	$t8,0x9($v1)
-/*  f003164:	46004287 */ 	neg.s	$f10,$f8
-/*  f003168:	afa90068 */ 	sw	$t1,0x68($sp)
-/*  f00316c:	44982000 */ 	mtc1	$t8,$f4
-/*  f003170:	e7aa0080 */ 	swc1	$f10,0x80($sp)
-/*  f003174:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f003178:	c7a40090 */ 	lwc1	$f4,0x90($sp)
-/*  f00317c:	e7a60094 */ 	swc1	$f6,0x94($sp)
-/*  f003180:	c7a80094 */ 	lwc1	$f8,0x94($sp)
-/*  f003184:	46002187 */ 	neg.s	$f6,$f4
-/*  f003188:	46004287 */ 	neg.s	$f10,$f8
-/*  f00318c:	e7a60084 */ 	swc1	$f6,0x84($sp)
-/*  f003190:	0fc5dc59 */ 	jal	func0f177164
-/*  f003194:	e7aa0088 */ 	swc1	$f10,0x88($sp)
-/*  f003198:	c7b200a4 */ 	lwc1	$f18,0xa4($sp)
-/*  f00319c:	c7b00080 */ 	lwc1	$f16,0x80($sp)
-/*  f0031a0:	c7ae00a8 */ 	lwc1	$f14,0xa8($sp)
-/*  f0031a4:	c7ac0084 */ 	lwc1	$f12,0x84($sp)
-/*  f0031a8:	46109400 */ 	add.s	$f16,$f18,$f16
-/*  f0031ac:	c7b200ac */ 	lwc1	$f18,0xac($sp)
-/*  f0031b0:	c7aa0088 */ 	lwc1	$f10,0x88($sp)
-/*  f0031b4:	460c7300 */ 	add.s	$f12,$f14,$f12
-/*  f0031b8:	27a400a4 */ 	addiu	$a0,$sp,0xa4
-/*  f0031bc:	3c077f1a */ 	lui	$a3,%hi(var7f1a7bc0)
-/*  f0031c0:	460a9280 */ 	add.s	$f10,$f18,$f10
-/*  f0031c4:	e7b000a4 */ 	swc1	$f16,0xa4($sp)
-/*  f0031c8:	e7ac00a8 */ 	swc1	$f12,0xa8($sp)
-/*  f0031cc:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0031d0:	e7aa00ac */ 	swc1	$f10,0xac($sp)
-/*  f0031d4:	2406060c */ 	addiu	$a2,$zero,0x624
-/*  f0031d8:	0fc5dc59 */ 	jal	func0f177164
-/*  f0031dc:	24e77bc0 */ 	addiu	$a3,$a3,%lo(var7f1a7bc0)
-/*  f0031e0:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-/*  f0031e4:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f0031e8:	0324c821 */ 	addu	$t9,$t9,$a0
-/*  f0031ec:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0031f0:	0c004b70 */ 	jal	random
-/*  f0031f4:	afb90058 */ 	sw	$t9,0x58($sp)
-/*  f0031f8:	30430003 */ 	andi	$v1,$v0,0x3
-/*  f0031fc:	1060000a */ 	beqz	$v1,.L0f003228
-/*  f003200:	8fa90068 */ 	lw	$t1,0x68($sp)
-/*  f003204:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f003208:	10610009 */ 	beq	$v1,$at,.L0f003230
-/*  f00320c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f003210:	10610009 */ 	beq	$v1,$at,.L0f003238
-/*  f003214:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f003218:	5061000a */ 	beql	$v1,$at,.L0f003244
-/*  f00321c:	24090014 */ 	addiu	$t1,$zero,0x14
-/*  f003220:	10000009 */ 	b	.L0f003248
-/*  f003224:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-.L0f003228:
-/*  f003228:	10000006 */ 	b	.L0f003244
-/*  f00322c:	24090011 */ 	addiu	$t1,$zero,0x11
-.L0f003230:
-/*  f003230:	10000004 */ 	b	.L0f003244
-/*  f003234:	24090012 */ 	addiu	$t1,$zero,0x12
-.L0f003238:
-/*  f003238:	10000002 */ 	b	.L0f003244
-/*  f00323c:	24090013 */ 	addiu	$t1,$zero,0x13
-/*  f003240:	24090014 */ 	addiu	$t1,$zero,0x14
-.L0f003244:
-/*  f003244:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-.L0f003248:
-/*  f003248:	8fa500dc */ 	lw	$a1,0xdc($sp)
-/*  f00324c:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f003250:	0fc0037f */ 	jal	lightGetBboxCentre
-/*  f003254:	afa90068 */ 	sw	$t1,0x68($sp)
-/*  f003258:	3c0b800a */ 	lui	$t3,%hi(g_BgRooms)
-/*  f00325c:	8d6b4cc4 */ 	lw	$t3,%lo(g_BgRooms)($t3)
-/*  f003260:	8fac0058 */ 	lw	$t4,0x58($sp)
-/*  f003264:	c7a60074 */ 	lwc1	$f6,0x74($sp)
-/*  f003268:	c7a40078 */ 	lwc1	$f4,0x78($sp)
-/*  f00326c:	016c1821 */ 	addu	$v1,$t3,$t4
-/*  f003270:	c4680004 */ 	lwc1	$f8,0x4($v1)
-/*  f003274:	8fa90068 */ 	lw	$t1,0x68($sp)
-/*  f003278:	27ad008c */ 	addiu	$t5,$sp,0x8c
-/*  f00327c:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f003280:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-/*  f003284:	00002825 */ 	or	$a1,$zero,$zero
-/*  f003288:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f00328c:	e7aa0074 */ 	swc1	$f10,0x74($sp)
-/*  f003290:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f003294:	c7aa007c */ 	lwc1	$f10,0x7c($sp)
-/*  f003298:	27a700a4 */ 	addiu	$a3,$sp,0xa4
-/*  f00329c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0032a0:	e7a80078 */ 	swc1	$f8,0x78($sp)
-/*  f0032a4:	c464000c */ 	lwc1	$f4,0xc($v1)
-/*  f0032a8:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0032ac:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0032b0:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f0032b4:	0fc4be7c */ 	jal	sparksCreate
-/*  f0032b8:	e7a6007c */ 	swc1	$f6,0x7c($sp)
-/*  f0032bc:	0c004b70 */ 	jal	random
-/*  f0032c0:	00000000 */ 	nop
-/*  f0032c4:	304f0003 */ 	andi	$t7,$v0,0x3
-/*  f0032c8:	15e00008 */ 	bnez	$t7,.L0f0032ec
-/*  f0032cc:	8fae00d8 */ 	lw	$t6,0xd8($sp)
-/*  f0032d0:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f0032d4:	a7ae0064 */ 	sh	$t6,0x64($sp)
-/*  f0032d8:	a7b80066 */ 	sh	$t8,0x66($sp)
-/*  f0032dc:	27a40074 */ 	addiu	$a0,$sp,0x74
-/*  f0032e0:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0032e4:	0fc4ba08 */ 	jal	smokeCreateSimple
-/*  f0032e8:	24060007 */ 	addiu	$a2,$zero,0x7
-.L0f0032ec:
-/*  f0032ec:	8fa400d8 */ 	lw	$a0,0xd8($sp)
-/*  f0032f0:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f0032f4:	0fc010e3 */ 	jal	roomAdjustLighting
-/*  f0032f8:	24060050 */ 	addiu	$a2,$zero,0x50
-/*  f0032fc:	0fc25480 */ 	jal	propsndGetRandomSparkSound
-/*  f003300:	00000000 */ 	nop
-/*  f003304:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f003308:	44810000 */ 	mtc1	$at,$f0
-/*  f00330c:	8faf00d8 */ 	lw	$t7,0xd8($sp)
-/*  f003310:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f003314:	0006cc03 */ 	sra	$t9,$a2,0x10
-/*  f003318:	240affff */ 	addiu	$t2,$zero,-1
-/*  f00331c:	240b0400 */ 	addiu	$t3,$zero,0x400
-/*  f003320:	240c0010 */ 	addiu	$t4,$zero,0x10
-/*  f003324:	27ad0074 */ 	addiu	$t5,$sp,0x74
-/*  f003328:	afad0020 */ 	sw	$t5,0x20($sp)
-/*  f00332c:	afac001c */ 	sw	$t4,0x1c($sp)
-/*  f003330:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f003334:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f003338:	03203025 */ 	or	$a2,$t9,$zero
-/*  f00333c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f003340:	00002825 */ 	or	$a1,$zero,$zero
-/*  f003344:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f003348:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f00334c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f003350:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*  f003354:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f003358:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f00335c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f003360:	0fc24e7e */ 	jal	propsnd0f0939f8
-/*  f003364:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f003368:	1000000d */ 	b	.L0f0033a0
-/*  f00336c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f003370:
-/*  f003370:	0c004b70 */ 	jal	random
-/*  f003374:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f003378:	24010050 */ 	addiu	$at,$zero,0x50
-/*  f00337c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f003380:	00007010 */ 	mfhi	$t6
-/*  f003384:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f003388:	55c00005 */ 	bnezl	$t6,.L0f0033a0
-/*  f00338c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f003390:	90790005 */ 	lbu	$t9,0x5($v1)
-/*  f003394:	372a0010 */ 	ori	$t2,$t9,0x10
-/*  f003398:	a06a0005 */ 	sb	$t2,0x5($v1)
-.L0f00339c:
-/*  f00339c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0033a0:
-/*  f0033a0:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0033a4:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
-/*  f0033a8:	03e00008 */ 	jr	$ra
-/*  f0033ac:	00000000 */ 	nop
-);
-#endif
-
-const char var7f1a7bb4[] = "dlights.c";
-const char var7f1a7bc0[] = "dlights.c";
-#else
-// Mismatch: Documented below
 bool lightTickBroken(s32 roomnum, s32 lightnum)
 {
 	struct light *light = (struct light *)(g_BgLightsFileData + ((g_Rooms[roomnum].lightindex + lightnum) * 0x22));
-	struct coord spc8;
-	struct coord spbc;
-	struct coord spb0;
-	struct coord spa4;
-	struct coord sp98;
-	struct coord sp8c;
-	struct coord sp80;
-	struct coord centre; // 74
-	f32 rand1; // 70
-	f32 rand2; // 6c
-	s32 sparktype; // 68
 
-	if (!light->unk05_00) {
+	if (!light->sparkable) {
 		return false;
 	}
 
@@ -1618,9 +966,19 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 		if ((random() % 8) == 0) {
 			light->sparking = false;
 		} else if ((random() % 2) == 0) {
-			rand1 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
-			rand2 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
-			sparktype = -1;
+			struct coord spc8;
+			struct coord spbc;
+			struct coord spb0;
+			struct coord spa4;
+			struct coord sp98;
+			struct coord sp8c;
+			struct coord sp80;
+			struct coord centre;
+			f32 rand1 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
+			f32 rand2 = 2.0f * RANDOMFRAC() - 1.0f; // range -1 to 1
+			s32 sparktype = -1;
+			s16 smokerooms[2];
+			struct bgroom *room;
 
 			spc8.x = light->bbox[1].x - light->bbox[0].x;
 			spc8.y = light->bbox[1].y - light->bbox[0].y;
@@ -1643,13 +1001,13 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 			sp98.y = light->bbox[0].x + spc8.y + spbc.y;
 			sp98.z = light->bbox[0].x + spc8.z + spbc.z;
 
-			sp8c.x = light->unk07;
-			sp8c.y = light->unk08;
-			sp8c.z = light->unk09;
+			sp8c.x = light->dirx;
+			sp8c.y = light->diry;
+			sp8c.z = light->dirz;
 
-			sp80.x = -sp8c.f[0];
-			sp80.y = -sp8c.f[1];
-			sp80.z = -sp8c.f[2];
+			sp80.x = -sp8c.x;
+			sp80.y = -sp8c.y;
+			sp80.z = -sp8c.z;
 
 			func0f177164(&sp98, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1546 : 1570, "dlights.c");
 
@@ -1659,13 +1017,11 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 
 			func0f177164(&spa4, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1548 : 1572, "dlights.c");
 
-			// Mismatch: Goal loads roomnum * 0x14 into sp58 here but doesn't
-			// use it until after lightGetBboxCentre. The below statement does
-			// the same but also emits the load and store instructions.
-			g_BgRooms[roomnum].unk00 += 0;
+			room = (void *) (roomnum * sizeof(struct bgroom));
 
 			switch (random() % 4) {
 			case 0:
+				if (roomnum && roomnum && roomnum);
 				sparktype = SPARKTYPE_LIGHT1;
 				break;
 			case 1:
@@ -1681,27 +1037,25 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 
 			lightGetBboxCentre(roomnum, lightnum, &centre);
 
-			centre.x += g_BgRooms[roomnum].pos.x;
-			centre.y += g_BgRooms[roomnum].pos.y;
-			centre.z += g_BgRooms[roomnum].pos.z;
+			room = (void *) ((u8 *) g_BgRooms + (u32) room);
+			centre.x += room->pos.x;
+			centre.y += room->pos.y;
+			centre.z += room->pos.z;
 
 			sparksCreate(roomnum, NULL, &centre, &spa4, &sp8c, sparktype);
 
 			if ((random() % 4) == 0) {
-				s16 smokerooms[2]; // 64
 				smokerooms[0] = roomnum;
 				smokerooms[1] = -1;
 
 				smokeCreateSimple(&centre, smokerooms, SMOKETYPE_BULLETIMPACT);
 			}
 
-			roomAdjustLighting(roomnum, 0x40, 0x50);
+			roomFlashLighting(roomnum, 64, 80);
 			propsnd0f0939f8(NULL, NULL, propsndGetRandomSparkSound(), -1, -1, 0x400, 0, 0x10, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
 			return true;
 		}
 	} else {
-		u32 stack;
-
 		if ((random() % 80) == 0) {
 			light->sparking = true;
 		}
@@ -1709,7 +1063,6 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 
 	return false;
 }
-#endif
 
 const char var7f1a7bcc[] = "L2 - g_bfGlobalLightRebuild = %d";
 const char var7f1a7bf0[] = "Acoustic Shadowing is %s";
@@ -1730,7 +1083,7 @@ void lightingTick(void)
 {
 	s32 i;
 
-	func0f0037ac();
+	roomsTickLighting();
 
 	if (g_Vars.remakewallhitvtx) {
 		wallhitsRecolour();
@@ -1738,29 +1091,29 @@ void lightingTick(void)
 		g_Vars.remakewallhitvtx = false;
 
 		for (i = 1; i < g_Vars.roomcount; i++) {
-			g_Rooms[i].flags &= ~ROOMFLAG_1000;
+			g_Rooms[i].flags &= ~ROOMFLAG_NEEDRESHADE;
 		}
 	}
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f003444(void)
+void lightsConfigureForPerfectDarknessCutscene(void)
 {
 	s32 i;
 	s32 j;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[i].lightindex * 0x22];
-		g_Rooms[i].lightop = LIGHTOP_1;
-		g_Rooms[i].unk60 = 0.5f;
+		g_Rooms[i].lightop = LIGHTOP_SET;
+		g_Rooms[i].lightop_to_frac = 0.5f;
 
 		for (j = 0; j < g_Rooms[i].numlights; j++) {
-			light->unk05_00 = random() % 2 ? true : false;
+			light->sparkable = random() % 2 ? true : false;
 			light->healthy = true;
 			light->on = true;
 			light->sparking = false;
 			light->vulnerable = true;
-			light->unk04 = g_Rooms[i].unk4a;
+			light->brightness = g_Rooms[i].br_light_each;
 
 			light++;
 		}
@@ -1769,23 +1122,23 @@ void func0f003444(void)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f0035c0(void)
+void lightsConfigureForPerfectDarknessGameplay(void)
 {
 	s32 i;
 	s32 j;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[i].lightindex * 0x22];
-		g_Rooms[i].lightop = LIGHTOP_1;
-		g_Rooms[i].unk60 = 0;
+		g_Rooms[i].lightop = LIGHTOP_SET;
+		g_Rooms[i].lightop_to_frac = 0;
 
 		for (j = 0; j < g_Rooms[i].numlights; j++) {
-			light->unk05_00 = random() % 2 ? true : false;
+			light->sparkable = random() % 2 ? true : false;
 			light->healthy = false;
 			light->on = false;
 			light->sparking = false;
 			light->vulnerable = false;
-			light->unk04 = 0;
+			light->brightness = 0;
 
 			light++;
 		}
@@ -1794,21 +1147,21 @@ void func0f0035c0(void)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f00372c(void)
+void lightsTickPerfectDarkness(void)
 {
-	if (g_Vars.tickmode != var80061458) {
-		if (TICKMODE_CUTSCENE == g_Vars.tickmode && TICKMODE_CUTSCENE != var80061458) {
-			func0f003444();
-		} else if (TICKMODE_NORMAL == g_Vars.tickmode && TICKMODE_NORMAL != var80061458) {
-			func0f0035c0();
+	if (g_Vars.tickmode != g_LightsPrevTickMode) {
+		if (TICKMODE_CUTSCENE == g_Vars.tickmode && TICKMODE_CUTSCENE != g_LightsPrevTickMode) {
+			lightsConfigureForPerfectDarknessCutscene();
+		} else if (TICKMODE_NORMAL == g_Vars.tickmode && TICKMODE_NORMAL != g_LightsPrevTickMode) {
+			lightsConfigureForPerfectDarknessGameplay();
 		}
 
-		var80061458 = g_Vars.tickmode;
+		g_LightsPrevTickMode = g_Vars.tickmode;
 	}
 }
 #endif
 
-void func0f0037ac(void)
+void roomsTickLighting(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	s32 i;
@@ -1821,14 +1174,14 @@ void func0f0037ac(void)
 	bool wasdirty = false;
 	struct light *light;
 	f32 amount;
-	s32 v1;
+	s32 timer240;
 	f32 angle;
 	f32 average;
 	u32 stack;
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-		func0f00372c();
+		lightsTickPerfectDarkness();
 	}
 #else
 	static s32 prevtickmode = 0;
@@ -1847,77 +1200,79 @@ void func0f0037ac(void)
 	}
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		g_Rooms[i].flags &= ~ROOMFLAG_0400;
+		g_Rooms[i].flags &= ~ROOMFLAG_BRIGHTNESS_DIRTY_TEMP;
 	}
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		g_Rooms[i].unk54 -= g_Vars.lvupdate240;
+		// Tick any light operations
+		g_Rooms[i].lightop_timer240 -= g_Vars.lvupdate240;
 
 		switch (g_Rooms[i].lightop) {
-		case LIGHTOP_1:
-			g_Rooms[i].unk5c = g_Rooms[i].unk60;
+		case LIGHTOP_SET:
+			g_Rooms[i].lightop_cur_frac = g_Rooms[i].lightop_to_frac;
 
-			if (g_Rooms[i].unk5c < 0.0f) {
-				g_Rooms[i].unk5c = 0.0f;
+			if (g_Rooms[i].lightop_cur_frac < 0.0f) {
+				g_Rooms[i].lightop_cur_frac = 0.0f;
 			}
 
-			g_Rooms[i].flags |= ROOMFLAG_DIRTY;
-			roomSetLighting(i, 0, 0, 0, 0);
+			g_Rooms[i].flags |= ROOMFLAG_LIGHTS_DIRTY;
+			roomSetLightOp(i, LIGHTOP_NONE, 0, 0, 0);
 			break;
-		case LIGHTOP_2:
-			if (g_Rooms[i].unk54 < 0) {
-				if (RANDOMFRAC() * 100.0f < g_Rooms[i].unk60) {
-					g_Rooms[i].unk5c = 1.0f;
+		case LIGHTOP_SETRANDOM:
+			if (g_Rooms[i].lightop_timer240 < 0) {
+				if (RANDOMFRAC() * 100.0f < g_Rooms[i].lightop_to_frac) {
+					g_Rooms[i].lightop_cur_frac = 1.0f;
 				} else {
-					g_Rooms[i].unk5c = g_Rooms[i].unk64;
+					g_Rooms[i].lightop_cur_frac = g_Rooms[i].lightop_from_frac;
 
-					if (g_Rooms[i].unk5c < 0.0f) {
-						g_Rooms[i].unk5c = 0.0f;
+					if (g_Rooms[i].lightop_cur_frac < 0.0f) {
+						g_Rooms[i].lightop_cur_frac = 0.0f;
 					}
 				}
 
-				g_Rooms[i].unk54 = g_Rooms[i].unk68;
-				g_Rooms[i].flags |= ROOMFLAG_DIRTY;
+				g_Rooms[i].lightop_timer240 = g_Rooms[i].lightop_duration240;
+				g_Rooms[i].flags |= ROOMFLAG_LIGHTS_DIRTY;
 			}
 			break;
-		case LIGHTOP_3:
-			if (g_Rooms[i].unk54 > 0) {
-				g_Rooms[i].unk5c = g_Rooms[i].unk64;
-				g_Rooms[i].unk5c += g_Rooms[i].unk54 / g_Rooms[i].unk68 * (g_Rooms[i].unk60 - g_Rooms[i].unk64);
+		case LIGHTOP_TRANSITION:
+			if (g_Rooms[i].lightop_timer240 > 0) {
+				g_Rooms[i].lightop_cur_frac = g_Rooms[i].lightop_from_frac;
+				g_Rooms[i].lightop_cur_frac += g_Rooms[i].lightop_timer240 / g_Rooms[i].lightop_duration240 * (g_Rooms[i].lightop_to_frac - g_Rooms[i].lightop_from_frac);
 
-				if (g_Rooms[i].unk5c < 0.0f) {
-					g_Rooms[i].unk5c = 0.0f;
+				if (g_Rooms[i].lightop_cur_frac < 0.0f) {
+					g_Rooms[i].lightop_cur_frac = 0.0f;
 				}
 			} else {
-				roomSetLighting(i, 0, 0, 0, 0);
+				roomSetLightOp(i, LIGHTOP_NONE, 0, 0, 0);
 			}
 
-			g_Rooms[i].flags |= ROOMFLAG_DIRTY;
+			g_Rooms[i].flags |= ROOMFLAG_LIGHTS_DIRTY;
 			break;
-		case LIGHTOP_4:
-			v1 = g_Rooms[i].unk54 > 0 ? g_Rooms[i].unk54 : -g_Rooms[i].unk54;
+		case LIGHTOP_SINELOOP:
+			timer240 = g_Rooms[i].lightop_timer240 > 0 ? g_Rooms[i].lightop_timer240 : -g_Rooms[i].lightop_timer240;
 
-			angle = (v1 % (s32) g_Rooms[i].unk68) * M_TAU / g_Rooms[i].unk68;
-			average = (g_Rooms[i].unk60 + g_Rooms[i].unk64) * 0.5f;
+			angle = (timer240 % (s32) g_Rooms[i].lightop_duration240) * M_TAU / g_Rooms[i].lightop_duration240;
+			average = (g_Rooms[i].lightop_to_frac + g_Rooms[i].lightop_from_frac) * 0.5f;
 
-			g_Rooms[i].unk5c = g_Rooms[i].unk60 + (cosf(angle) + 1.0f) * average;
+			g_Rooms[i].lightop_cur_frac = g_Rooms[i].lightop_to_frac + (cosf(angle) + 1.0f) * average;
 
-			if (g_Rooms[i].unk5c < 0.0f) {
-				g_Rooms[i].unk5c = 0.0f;
+			if (g_Rooms[i].lightop_cur_frac < 0.0f) {
+				g_Rooms[i].lightop_cur_frac = 0.0f;
 			}
 
-			g_Rooms[i].flags |= ROOMFLAG_DIRTY;
+			g_Rooms[i].flags |= ROOMFLAG_LIGHTS_DIRTY;
 			break;
-		case LIGHTOP_5:
-			g_Rooms[i].flags |= ROOMFLAG_DIRTY;
+		case LIGHTOP_HIGHLIGHT:
+			g_Rooms[i].flags |= ROOMFLAG_LIGHTS_DIRTY;
 			break;
 		}
 
 		if (g_IsSwitchingGoggles) {
-			g_Rooms[i].flags |= ROOMFLAG_DIRTY;
+			g_Rooms[i].flags |= ROOMFLAG_LIGHTS_DIRTY;
 		}
 
-		if (g_Rooms[i].flags & ROOMFLAG_DIRTY) {
+		if (g_Rooms[i].flags & ROOMFLAG_LIGHTS_DIRTY) {
+			// Calculate the settled local brightness
 			if (g_Rooms[i].numlights != 0) {
 				s32 numlightson = 0;
 				struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[i].lightindex * 0x22];
@@ -1933,43 +1288,45 @@ void func0f0037ac(void)
 				if (g_Rooms[i].flags & ROOMFLAG_LIGHTSOFF) {
 					amount = 2.0f;
 				} else if (numlightson != 0) {
-					amount = g_Rooms[i].unk4c;
+					amount = g_Rooms[i].br_base;
 				} else {
-					amount = (f32)g_Rooms[i].unk4c / 2;
+					amount = (f32)g_Rooms[i].br_base / 2;
 				}
 			} else {
 				if (g_Rooms[i].flags & ROOMFLAG_LIGHTSOFF) {
 					amount = 2.0f;
 				} else {
-					amount = g_Rooms[i].unk4c;
+					amount = g_Rooms[i].br_base;
 				}
 			}
 
-			amount *= g_Rooms[i].unk5c;
-			g_Rooms[i].brightness = amount;
+			amount *= g_Rooms[i].lightop_cur_frac;
+			g_Rooms[i].br_settled_local = amount;
 
+			// Add brightness for each light that is on
 			light = (struct light *)&g_BgLightsFileData[g_Rooms[i].lightindex * 0x22];
 
 			for (j = 0; j < g_Rooms[i].numlights; j++) {
 				if (light->on) {
-					amount = g_Rooms[i].unk5c * light->unk04;
-					g_Rooms[i].brightness += (s32)amount;
+					amount = g_Rooms[i].lightop_cur_frac * light->brightness;
+					g_Rooms[i].br_settled_local += (s32)amount;
 				}
 
 				light++;
 			}
 
-			if (g_Rooms[i].brightness > 255) {
-				g_Rooms[i].brightness = 255;
+			if (g_Rooms[i].br_settled_local > 255) {
+				g_Rooms[i].br_settled_local = 255;
 			}
 
-			g_Rooms[i].flags &= ~ROOMFLAG_DIRTY;
+			g_Rooms[i].flags &= ~ROOMFLAG_LIGHTS_DIRTY;
 
 			wasdirty = 1;
 		}
 
-		if (g_Rooms[i].unk52 != 0) {
-			s32 updaterate = g_Vars.lvupdate240 * 2;
+		// Tick any flash lighting
+		if (g_Rooms[i].br_flash != 0) {
+			s32 increment = g_Vars.lvupdate240 * 2;
 
 			if (var80061420 != NULL) {
 				s32 spa0 = 0;
@@ -1979,43 +1336,48 @@ void func0f0037ac(void)
 
 				while (ret != -1) {
 					if (ret != 0) {
-						g_Rooms[sp9c].flags |= ROOMFLAG_0400;
+						g_Rooms[sp9c].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_TEMP;
 					}
 
 					ret = func0f177c8c(var80061420[i].unk04, &spa0, &sp9c);
 				}
 			}
 
-			if (g_Rooms[i].unk52 > 0) {
-				if (g_Rooms[i].unk52 < updaterate) {
-					updaterate = g_Rooms[i].unk52;
+			if (g_Rooms[i].br_flash > 0) {
+				if (increment > g_Rooms[i].br_flash) {
+					increment = g_Rooms[i].br_flash;
 				}
 
-				g_Rooms[i].unk52 -= updaterate;
+				g_Rooms[i].br_flash -= increment;
 			} else {
-				if (g_Rooms[i].unk52 > updaterate) {
-					updaterate = g_Rooms[i].unk52;
+				// @bug: In this branch br_flash is zero or negative.
+				// Both instances of br_flash should be negated here.
+				if (increment < g_Rooms[i].br_flash) {
+					increment = g_Rooms[i].br_flash;
 				}
 
-				g_Rooms[i].unk52 += updaterate;
+				g_Rooms[i].br_flash += increment;
 			}
 
-			g_Rooms[i].flags |= ROOMFLAG_0400;
+			g_Rooms[i].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_TEMP;
 		}
 
-		g_Rooms[i].flags &= ~ROOMFLAG_DIRTY;
+		g_Rooms[i].flags &= ~ROOMFLAG_LIGHTS_DIRTY;
 	}
 
+	// If switching googles, mark all rooms as dirty so their brightness will be
+	// recalculated the next time they appear on screen.
 	if (g_IsSwitchingGoggles || wasdirty) {
 		for (i = 1; i < g_Vars.roomcount; i++) {
-			g_Rooms[i].flags |= ROOMFLAG_0200;
+			g_Rooms[i].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_PERM;
 		}
 	}
 
+	// Calculate settled regional lighting for any rooms that need it
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		if (i != 0) {
 			if ((g_Rooms[i].flags & ROOMFLAG_RENDERALWAYS) || (g_Rooms[i].flags & (ROOMFLAG_ONSCREEN | ROOMFLAG_STANDBY))) {
-				if (g_Rooms[i].flags & (ROOMFLAG_0200 | ROOMFLAG_0400)) {
+				if (g_Rooms[i].flags & (ROOMFLAG_BRIGHTNESS_DIRTY_PERM | ROOMFLAG_BRIGHTNESS_DIRTY_TEMP)) {
 					s32 sum = 0;
 					s32 sp90 = 0;
 					s32 sp8c = 0;
@@ -2027,7 +1389,7 @@ void func0f0037ac(void)
 							s32 add = 0;
 
 							if (sp8c) {
-								add += (s32)((1.0f / 255.0f) * ret * g_Rooms[sp8c].brightness);
+								add += (s32)((1.0f / 255.0f) * ret * g_Rooms[sp8c].br_settled_local);
 							}
 
 							sum += add;
@@ -2040,27 +1402,25 @@ void func0f0037ac(void)
 						sum = 255;
 					}
 
-					g_Rooms[i].unk4b = sum;
-					g_Rooms[i].flags |= ROOMFLAG_0040;
-					g_Rooms[i].flags |= ROOMFLAG_1000;
-					g_Rooms[i].flags &= ~(ROOMFLAG_0200 | ROOMFLAG_0400);
+					g_Rooms[i].br_settled_regional = sum;
+					g_Rooms[i].flags |= ROOMFLAG_BRIGHTNESS_CALCED;
+					g_Rooms[i].flags |= ROOMFLAG_NEEDRESHADE;
+					g_Rooms[i].flags &= ~(ROOMFLAG_BRIGHTNESS_DIRTY_PERM | ROOMFLAG_BRIGHTNESS_DIRTY_TEMP);
 
-					if (g_Rooms[i].lightop == LIGHTOP_5) {
-						s32 sp80;
-						s32 sp7c;
-						s32 sp78;
+					if (g_Rooms[i].lightop == LIGHTOP_HIGHLIGHT) {
+						s32 r = roomGetFinalBrightnessForPlayer(i);
+						s32 g = r;
+						s32 b = r;
 
-						sp78 = sp7c = sp80 = func0f000a10(i);
+						scenarioHighlightRoom(i, &r, &g, &b);
 
-						scenarioHighlightRoom(i, &sp80, &sp7c, &sp78);
-
-						g_Rooms[i].unk74 = sp80 * (1.0f / 255.0f);
-						g_Rooms[i].unk78 = sp7c * (1.0f / 255.0f);
-						g_Rooms[i].unk7c = sp78 * (1.0f / 255.0f);
+						g_Rooms[i].highlightfrac_r = r * (1.0f / 255.0f);
+						g_Rooms[i].highlightfrac_g = g * (1.0f / 255.0f);
+						g_Rooms[i].highlightfrac_b = b * (1.0f / 255.0f);
 					} else {
-						g_Rooms[i].unk74 = func0f000a10(i) * (1.0f / 255.0f);
-						g_Rooms[i].unk78 = g_Rooms[i].unk74;
-						g_Rooms[i].unk7c = g_Rooms[i].unk74;
+						g_Rooms[i].highlightfrac_r = roomGetFinalBrightnessForPlayer(i) * (1.0f / 255.0f);
+						g_Rooms[i].highlightfrac_g = g_Rooms[i].highlightfrac_r;
+						g_Rooms[i].highlightfrac_b = g_Rooms[i].highlightfrac_r;
 					}
 
 					numprocessed++;
@@ -2075,7 +1435,7 @@ void func0f0037ac(void)
 		while (prop) {
 			if (prop->type == PROPTYPE_CHR) {
 				for (i = 0; prop->rooms[i] != -1; i++) {
-					if (g_Rooms[prop->rooms[i]].flags & ROOMFLAG_1000) {
+					if (g_Rooms[prop->rooms[i]].flags & ROOMFLAG_NEEDRESHADE) {
 						if (2 == g_IsSwitchingGoggles) {
 							struct chrdata *chr = prop->chr;
 							propCalculateShadeColour(chr->prop, chr->nextcol, chr->floorcol);
@@ -2106,7 +1466,7 @@ void lightsTick(void)
 	func0f005bb0();
 
 	if (hand1->flashon || hand2->flashon) {
-		roomAdjustLighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
+		roomFlashLighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
 	}
 }
 
@@ -2115,7 +1475,12 @@ void func0f004384(void)
 	// empty
 }
 
-void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
+/**
+ * Set a lighting flash in the given room and its neighbours.
+ *
+ * The room must not have ROOMFLAG_OUTDOORS.
+ */
+void roomFlashLighting(s32 roomnum, s32 start, s32 limit)
 {
 	if (var80061420 && !(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
 		s32 value;
@@ -2125,7 +1490,7 @@ void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
 		value = func0f177c8c(var80061420[roomnum].unk04, &sp78, &neighbournum);
 
 		while (value != -1) {
-			f32 increment = value * 0.0039215688593686f * start * 5.0f;
+			f32 increment = value * (1.0f / 255.0f) * start * 5.0f;
 
 			if (start > 0) {
 				if (increment > start) {
@@ -2139,7 +1504,7 @@ void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
 
 			// @bug: Should be checking neighbournum flags, not roomnum
 			if (!(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
-				func0f004558(neighbournum, increment, limit);
+				roomFlashLocalLighting(neighbournum, increment, limit);
 			}
 
 			value = func0f177c8c(var80061420[roomnum].unk04, &sp78, &neighbournum);
@@ -2147,26 +1512,26 @@ void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
 	}
 }
 
-void func0f004558(s32 roomnum, s32 increment, s32 limit)
+void roomFlashLocalLighting(s32 roomnum, s32 increment, s32 limit)
 {
 	if (roomnum) {
 		if (g_Rooms[roomnum].flags & ROOMFLAG_ONSCREEN) {
 			if (increment > 0) {
 				// Increasing
-				if (g_Rooms[roomnum].unk52 < limit) {
-					g_Rooms[roomnum].unk52 += increment;
+				if (g_Rooms[roomnum].br_flash < limit) {
+					g_Rooms[roomnum].br_flash += increment;
 
-					if (g_Rooms[roomnum].unk52 > limit) {
-						g_Rooms[roomnum].unk52 = limit;
+					if (g_Rooms[roomnum].br_flash > limit) {
+						g_Rooms[roomnum].br_flash = limit;
 					}
 				}
 			} else {
 				// Decreasing
-				if (g_Rooms[roomnum].unk52 > limit) {
-					g_Rooms[roomnum].unk52 += increment;
+				if (g_Rooms[roomnum].br_flash > limit) {
+					g_Rooms[roomnum].br_flash += increment;
 
-					if (g_Rooms[roomnum].unk52 < limit) {
-						g_Rooms[roomnum].unk52 = limit;
+					if (g_Rooms[roomnum].br_flash < limit) {
+						g_Rooms[roomnum].br_flash = limit;
 					}
 				}
 			}
@@ -2188,7 +1553,7 @@ void roomHighlight(s32 roomnum)
 	s32 numcolours;
 	struct colour *src;
 	struct colour *dst;
-	u8 s2;
+	u8 br_settled_regional;
 	s32 max;
 	f32 mult;
 	u32 stack;
@@ -2196,16 +1561,16 @@ void roomHighlight(s32 roomnum)
 	if (var8007fc3c != g_Rooms[roomnum].unk56 && g_Rooms[roomnum].loaded240 != 0) {
 		g_Rooms[roomnum].unk56 = var8007fc3c;
 
-		if ((g_Rooms[roomnum].flags & ROOMFLAG_0040) == 0) {
-			g_Rooms[roomnum].flags |= ROOMFLAG_0200;
+		if ((g_Rooms[roomnum].flags & ROOMFLAG_BRIGHTNESS_CALCED) == 0) {
+			g_Rooms[roomnum].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_PERM;
 		}
 
-		s2 = func0f000b24(roomnum);
+		br_settled_regional = roomGetSettledRegionalBrightnessForPlayer(roomnum);
 		numcolours = g_Rooms[roomnum].gfxdata->numcolours;
 		dst = gfxAllocateColours(numcolours);
 		g_Rooms[roomnum].colours = dst;
 
-		extra = g_Rooms[roomnum].unk52;
+		extra = g_Rooms[roomnum].br_flash;
 		src = (struct colour *)((uintptr_t)g_Rooms[roomnum].gfxdata->vertices + g_Rooms[roomnum].gfxdata->numvertices * sizeof(struct gfxvtx));
 		src = (struct colour *)ALIGN8((uintptr_t)src);
 
@@ -2220,7 +1585,7 @@ void roomHighlight(s32 roomnum)
 				dst[i].r = src[i].r;
 				dst[i].g = src[i].g;
 				dst[i].b = src[i].b;
-				dst[i].a = src[i].a * (1.0f / 255.0f * s2);
+				dst[i].a = src[i].a * (1.0f / 255.0f * br_settled_regional);
 			} else {
 				if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
 					tmpr = tmpg = tmpb = (src[i].r > src[i].g && src[i].r > src[i].b)
@@ -2243,8 +1608,8 @@ void roomHighlight(s32 roomnum)
 					max = tmpb;
 				}
 
-				if (max > s2) {
-					mult = s2 / (f32)max;
+				if (max > br_settled_regional) {
+					mult = br_settled_regional / (f32)max;
 				} else {
 					mult = 1.0f;
 				}
@@ -2261,14 +1626,14 @@ void roomHighlight(s32 roomnum)
 				}
 
 				if (red + green + blue != 0
-						|| g_Rooms[roomnum].unk5c == 0.0f
+						|| g_Rooms[roomnum].lightop_cur_frac == 0.0f
 						|| (g_Rooms[roomnum].flags & ROOMFLAG_LIGHTSOFF)) {
 					red += extra;
 					green += extra;
 					blue += extra;
 				}
 
-				if (g_Rooms[roomnum].lightop == LIGHTOP_5) {
+				if (g_Rooms[roomnum].lightop == LIGHTOP_HIGHLIGHT) {
 					scenarioHighlightRoom(roomnum, &red, &green, &blue);
 				}
 
@@ -2651,7 +2016,7 @@ void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
  */
 void func0f005bb0(void)
 {
-	s32 brightness = func0f0009c0(g_Vars.currentplayer->prop->rooms[0]);
+	s32 brightness = roomGetFinalBrightness(g_Vars.currentplayer->prop->rooms[0]);
 
 	if (((USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) && !g_Vars.currentplayer->usinggoggles)
 			|| ((!USINGDEVICE(DEVICE_NIGHTVISION) && !USINGDEVICE(DEVICE_IRSCANNER)) && g_Vars.currentplayer->usinggoggles)) {

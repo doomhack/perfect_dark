@@ -13303,7 +13303,7 @@ void chraTick(struct chrdata *chr)
 		// Consider setting darkroomlist
 		if (chr->prop
 				&& chr->aidarkroomlist >= 0
-				&& roomGetBrightness(chr->prop->rooms[0]) < 25
+				&& roomGetSettledLocalBrightness(chr->prop->rooms[0]) < 25
 				&& ailistFindById(chr->aidarkroomlist) != chr->ailist) {
 			chr->darkroomthing = true;
 		}
