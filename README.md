@@ -16,5 +16,4 @@ So here's my simple 3-step plan to make this happen;
 
 ## Status
 
-<img src="https://i.imgflip.com/7bqz7e.jpg" title="What have I started?"/>
-
+<img src="https://i.imgflip.com/7ie4jf.jpg" title="What have I started?"/>
