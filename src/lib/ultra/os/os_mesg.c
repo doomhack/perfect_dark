@@ -23,6 +23,8 @@ s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags)
 		{
 			return -1;
 		}
+
+		osYieldThread();
 	}
 
 	if (msg != NULL)
@@ -40,39 +42,35 @@ s32 osJamMesg(OSMesgQueue* mq, OSMesg msg, s32 flag)
 {
 	register u32 saveMask = __osDisableInt();
 
-	while (mq->validCount >= mq->msgCount) {
-		if (flag == OS_MESG_BLOCK) {
-			__osRunningThread->state = OS_STATE_WAITING;
-			__osEnqueueAndYield(&mq->fullqueue);
-		}
-		else {
-			__osRestoreInt(saveMask);
+	while (MQ_IS_FULL(mq))
+	{
+		if (flag == OS_MESG_NOBLOCK)
+		{
 			return -1;
 		}
+
+		osYieldThread();
 	}
 
 	mq->first = (mq->first + mq->msgCount - 1) % mq->msgCount;
 	mq->msg[mq->first] = msg;
 	mq->validCount++;
 
-	if (mq->mtqueue->next != NULL) {
-		osStartThread(__osPopThread(&mq->mtqueue));
-	}
-
-	__osRestoreInt(saveMask);
-
 	return 0;
 }
 
 s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flags)
 {
-	register u32 saveMask;
 	register s32 last;
 
-
-	if(MQ_IS_FULL(mq))
+	while (MQ_IS_FULL(mq))
 	{
-		return -1;
+		if (flags == OS_MESG_NOBLOCK)
+		{
+			return -1;
+		}
+
+		osYieldThread();
 	}
 
 	last = (mq->first + mq->validCount) % mq->msgCount;

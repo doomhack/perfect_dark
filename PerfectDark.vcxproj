@@ -555,10 +555,8 @@
     <ClCompile Include="src\lib\ultra\io\viswapbuf.c" />
     <ClCompile Include="src\lib\ultra\io\viswapcontext.c" />
     <ClCompile Include="src\lib\ultra\io\vitbl.c" />
-    <ClCompile Include="src\lib\ultra\os\atomic.c" />
-    <ClCompile Include="src\lib\ultra\os\getcount.c" />
+    <ClCompile Include="src\lib\ultra\os\os_count.c" />
     <ClCompile Include="src\lib\ultra\os\getmemsize.c" />
-    <ClCompile Include="src\lib\ultra\os\gettime.c" />
     <ClCompile Include="src\lib\ultra\os\initialize.c" />
     <ClCompile Include="src\lib\ultra\os\interrupt.c" />
     <ClCompile Include="src\lib\ultra\os\os_cache.c" />
@@ -570,10 +568,8 @@
     <ClCompile Include="src\lib\ultra\os\seteventmesg.c" />
     <ClCompile Include="src\lib\ultra\os\setglobalintmask.c" />
     <ClCompile Include="src\lib\ultra\os\setintmask.c" />
-    <ClCompile Include="src\lib\ultra\os\settimer.c" />
-    <ClCompile Include="src\lib\ultra\os\stoptimer.c" />
-    <ClCompile Include="src\lib\ultra\os\syncputchars.c" />
-    <ClCompile Include="src\lib\ultra\os\thread.c" />
+    <ClCompile Include="src\lib\ultra\os\os_timer.c" />
+    <ClCompile Include="src\lib\ultra\os\os_thread.c" />
     <ClCompile Include="src\lib\ultra\os\timerintr.c" />
     <ClCompile Include="src\lib\ultra\os\tinycthread\tinycthread.c" />
     <ClCompile Include="src\lib\ultra\os\virtualtophysical.c" />
@@ -610,7 +606,6 @@
     <ClInclude Include="include\PR\os_gio.h" />
     <ClInclude Include="include\PR\os_host.h" />
     <ClInclude Include="include\PR\os_internal.h" />
-    <ClInclude Include="include\PR\os_internal_debug.h" />
     <ClInclude Include="include\PR\os_internal_error.h" />
     <ClInclude Include="include\PR\os_internal_exception.h" />
     <ClInclude Include="include\PR\os_internal_gio.h" />

@@ -138,7 +138,7 @@
     <ClCompile Include="src\lib\ultra\os\os_mesg.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\settimer.c">
+    <ClCompile Include="src\lib\ultra\os\os_timer.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
     <ClCompile Include="src\game\file.c">
@@ -621,7 +621,7 @@
     <ClCompile Include="src\lib\ultra\os\timerintr.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\thread.c">
+    <ClCompile Include="src\lib\ultra\os\os_thread.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\iopimgr.c">
@@ -1269,13 +1269,7 @@
     <ClCompile Include="src\textureconfig.c">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\atomic.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\os\getmemsize.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\gettime.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\os\resetglobalintmask.c">
@@ -1285,12 +1279,6 @@
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\os\setglobalintmask.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\stoptimer.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\syncputchars.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\gu\align.c">
@@ -1368,7 +1356,7 @@
     <ClCompile Include="src\lib\mp3\mp3utils.c">
       <Filter>Source Files\src\lib\mp3</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\getcount.c">
+    <ClCompile Include="src\lib\ultra\os\os_count.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\os\interrupt.c">
@@ -1464,9 +1452,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\PR\os_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\PR\os_internal_debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\PR\os_internal_error.h">

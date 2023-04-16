@@ -37,7 +37,6 @@ extern "C" {
 #include "os_internal_error.h"
 #include "os_internal_gio.h"
 #include "os_internal_thread.h"
-#include "os_internal_debug.h"
 #include "os_internal_host.h"
 
 #endif /* _LANGUAGE_C */
