@@ -45,10 +45,12 @@ void osInitialize(void)
 
 	while (__osSiRawWriteIo(PIF_RAM_END - 3, pifdata | 8));
 
+	/*
 	*(__osExceptionVector *)UT_VEC = __osExceptionPreamble;
 	*(__osExceptionVector *)XUT_VEC = __osExceptionPreamble;
 	*(__osExceptionVector *)ECC_VEC = __osExceptionPreamble;
 	*(__osExceptionVector *)E_VEC = __osExceptionPreamble;
+	*/
 
 	osWritebackDCache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
 	osInvalICache((void *)UT_VEC, E_VEC - UT_VEC + sizeof(__osExceptionVector));
@@ -88,9 +90,11 @@ void osInitialize(void)
 		while (1);
 	}
 
+	/*
 	*(u32 *)PHYS_TO_K1(AI_CONTROL_REG) = 1;
 	*(u32 *)PHYS_TO_K1(AI_DACRATE_REG) = 0x3fff;
 	*(u32 *)PHYS_TO_K1(AI_BITRATE_REG) = 0xf;
+	*/
 }
 
 extern OSPiHandle CartRomHandle;
@@ -103,6 +107,7 @@ extern OSPiHandle LeoDiskHandle;
  */
 OSPiHandle *osCartRomInit(void)
 {
+	/*
 	CartRomHandle.type = DEVICE_TYPE_INIT;
 	CartRomHandle.latency = IO_READ(0xa4600014);
 	CartRomHandle.pulse = IO_READ(0xa4600018);
@@ -114,8 +119,7 @@ OSPiHandle *osCartRomInit(void)
 	LeoDiskHandle.pulse = IO_READ(0xa4600028);
 	LeoDiskHandle.pageSize = IO_READ(0xa460002c);
 	LeoDiskHandle.relDuration = IO_READ(0xa4600030);
+	*/
 
-#ifdef AVOID_UB
 	return &CartRomHandle;
-#endif
 }

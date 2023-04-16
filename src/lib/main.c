@@ -345,8 +345,10 @@ void mainInit(void)
 	joyInit();
 	osCreateMesgQueue(&queue, &msg, 1);
 
+
 	// Wait a bit, reset the controllers and wait a bit more
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < 4; i++)
+	{
 		osSetTimer(&timer, 781250 * 6, 0, &queue, &msg);
 		osRecvMesg(&queue, &msg, OS_MESG_BLOCK);
 

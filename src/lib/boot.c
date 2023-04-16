@@ -39,6 +39,9 @@ u16 *var800902e4;
 u16 var800902e8;
 #endif
 
+u8* g_Rom = NULL;
+u32 g_RomSize = 0;
+
 u32 var8005ce00 = 0;
 u32 var8005ce04 = 0;
 u32 var8005ce08 = 0;
@@ -49,7 +52,7 @@ u8 *g_StackAllocatedPos = (u8 *) K0BASE + 4 * 1024 * 1024;
 u32 var8005ce4c = 0x00000002;
 u32 var8005ce50 = 0x10000000;
 
-u8 *_libSegmentStart;
+extern u8 *_libSegmentStart;
 extern u8 *_datazipSegmentRomStart;
 extern u8 *_datazipSegmentRomEnd;
 u8 *_dataSegmentStart;
@@ -96,14 +99,16 @@ void bootPhase1(void)
 	// .data is copied from ROM to 0x701eb000 - 0x70200000
 	// inflate is copied from ROM to 0x70200000 - 0x702013f0
 	datacomplen = (romptr_t) _datazipSegmentRomEnd - (romptr_t) _datazipSegmentRomStart;
-
 	inflatelen = (romptr_t) _inflateSegmentRomEnd - (romptr_t) _inflateSegmentRomStart;
 	copylen = datacomplen + inflatelen;
+
 	libram = (u32 *) ((romptr_t) &_libSegmentStart + 0x2000);
 	libzipram = (u32 *) 0x70280000;
 	dataziprom = (u8 *) ((romptr_t) &_datazipSegmentRomStart | 0x70000000);
 	datazipram = (u8 *) (0x70200000 - datacomplen);
 	dataram = (romptr_t) &_dataSegmentStart;
+
+	/*
 
 	for (i = copylen - 1; i >= 0; i--) {
 		datazipram[i] = dataziprom[i];
@@ -126,6 +131,7 @@ void bootPhase1(void)
 	// Inflate .data
 	segInflate((void *) datazipram, (void *) dataram, (void *) 0x80300000);
 
+	*/
 
 	tlbUnmapRange(1, NTLBENTRIES);
 
@@ -154,8 +160,10 @@ void bootPhase1(void)
 	__osSetFpcCsr(flags);
 
 	// Create and start the main thread
-	osCreateThread(&g_MainThread, THREAD_MAIN, bootPhase2, NULL, bootAllocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
-	osStartThread(&g_MainThread);
+	//osCreateThread(&g_MainThread, THREAD_MAIN, bootPhase2, NULL, bootAllocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
+	//osStartThread(&g_MainThread);
+
+	bootPhase2(NULL);
 }
 
 /**
@@ -175,25 +183,7 @@ void bootPhase1(void)
  */
 void *bootAllocateStack(s32 threadid, s32 size)
 {
-	u8 *ptr8;
-	u32 *ptr32;
-	s32 i;
-	s32 j;
-	u8 *tmp;
-
-	g_StackRightAddrs[threadid] = g_StackAllocatedPos;
-	size = (size + 0xf) & 0xfffffff0;
-
-	g_StackAllocatedPos -= size;
-	g_StackLeftAddrs[threadid] = (tmp = g_StackAllocatedPos);
-
-	ptr8 = g_StackAllocatedPos;
-
-	for (i = 0; i < size; i++) {
-		ptr8[i] = ((0xf - (threadid & 0xf)) << 4) | (threadid & 0xf);
-	}
-
-	return g_StackAllocatedPos + size - 8;
+	return NULL;
 }
 
 #if VERSION < VERSION_NTSC_1_0
@@ -218,14 +208,14 @@ void idleproc(void *data)
 
 void bootCreateIdleThread(void)
 {
-	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, bootAllocateStack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
-	osStartThread(&g_IdleThread);
+	//osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, bootAllocateStack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
+	//osStartThread(&g_IdleThread);
 }
 
 void bootCreateRmonThread(void)
 {
-	osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, bootAllocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
-	osStartThread(&g_RmonThread);
+	//osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, bootAllocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
+	//osStartThread(&g_RmonThread);
 }
 
 void bootCreateSchedThread(void)

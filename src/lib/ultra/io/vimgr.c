@@ -18,6 +18,7 @@ void viMgrMain(void *args);
 
 void osCreateViManager(OSPri pri)
 {
+	/*
 	u32 savedMask;
 	OSPri oldPri;
 	OSPri myPri;
@@ -64,6 +65,7 @@ void osCreateViManager(OSPri pri)
 			osSetThreadPri(0, oldPri);
 		}
 	}
+	*/
 }
 
 void viMgrMain(void *args)

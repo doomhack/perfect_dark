@@ -16,10 +16,8 @@ extern struct __osThreadTail
 
 //maybe should be in exceptasm.h?
 extern void __osEnqueueAndYield(OSThread **);
-extern void __osDequeueThread(OSThread **, OSThread *);
 extern void __osEnqueueThread(OSThread **, OSThread *);
 extern OSThread *__osPopThread(OSThread **);
-extern void __osDispatchThread(void);
 
 extern void __osSetTimerIntr(OSTime);
 extern OSTime __osInsertTimer(OSTimer *);

@@ -10,5 +10,5 @@ OSMesgQueue g_PimgrMesgQueue;
 
 void pimgrCreate(void)
 {
-	osCreatePiManager(150, &g_PimgrMesgQueue, var80099900, 64);
+	//osCreatePiManager(150, &g_PimgrMesgQueue, var80099900, 64);
 }

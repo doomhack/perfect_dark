@@ -14,3 +14,8 @@ void osWritebackDCache(void* p, s32 x)
 {
 
 }
+
+void osInvalDCache(void* p, s32 l)
+{
+
+}

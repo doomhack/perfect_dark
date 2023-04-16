@@ -78,6 +78,13 @@ typedef struct OSThread_s {
 	OSId			id;		/* id for debugging */
 	int			fp;		/* thread has used fp unit */
 	__OSThreadContext	context;	/* register/interrupt mask */
+
+	//
+	void (*entrypoint)(void*);
+	void* param;
+	void* os_thread;
+
+
 } OSThread;
 
 
@@ -133,7 +140,6 @@ typedef struct OSThread_s {
 /* Thread operations */
 
 extern void		osCreateThread(OSThread *, OSId, void (*)(void *), void *, void *, OSPri);
-extern void		osDestroyThread(OSThread *);
 extern void		osYieldThread(void);
 extern void		osStartThread(OSThread *);
 extern void		osStopThread(OSThread *);
