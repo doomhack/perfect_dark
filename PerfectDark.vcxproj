@@ -74,7 +74,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;ROM_SIZE=32;NO_GZIP</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;ROM_SIZE=32</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>

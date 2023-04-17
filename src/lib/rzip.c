@@ -3,23 +3,20 @@
 
 s32 rzipInflate(void *src, void *dst, void *scratch)
 {
-    u32 dstLen = 512 * 1024;
-
     u8* srcByte = src;
 
     //1173, then 3 bytes size uncompressed, then data
-    if (rzipIs1173(src))
-    {
-        dstLen = ((u32)srcByte[2] << 16) | ((u32)srcByte[3] << 8) | srcByte[4];
+    if (!rzipIs1173(src))
+        return 0;
 
-        src = &srcByte[5];
-    }
+    u32 dstLen = ((u32)srcByte[2] << 16) | ((u32)srcByte[3] << 8) | srcByte[4];
 
-    z_stream stream;
-    memset(&stream, 0, sizeof(z_stream));
+    src = &srcByte[5];
+
+    z_stream stream = {0};
 
     stream.next_in = src;
-    stream.avail_in = dstLen;
+    stream.avail_in = -1; //We don't know the input buff len so we just YOLO data out until the dst buff is full.
 
     stream.next_out = dst;
     stream.avail_out = dstLen;
