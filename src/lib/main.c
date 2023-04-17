@@ -338,13 +338,15 @@ void mainInit(void)
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
 
-		while (osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0) {
+		while (osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0)
+		{
 			// empty
 		}
 
 		j = 0;
 
-		while (j < 6) {
+		while (j < 6)
+		{
 			osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_BLOCK);
 
 			i = (s32) &scdonemsg;
