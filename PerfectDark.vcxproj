@@ -74,7 +74,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;ROM_SIZE=32</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;ROM_SIZE=32;NO_GZIP</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -366,7 +366,6 @@
     <ClCompile Include="src\game\weather.c" />
     <ClCompile Include="src\game\weatherreset.c" />
     <ClCompile Include="src\game\weathertick.c" />
-    <ClCompile Include="src\inflate\inflate.c" />
     <ClCompile Include="src\lib\ailist.c" />
     <ClCompile Include="src\lib\anim.c" />
     <ClCompile Include="src\lib\args.c" />
@@ -451,7 +450,6 @@
     <ClCompile Include="src\lib\rng_c.c" />
     <ClCompile Include="src\lib\rzip.c" />
     <ClCompile Include="src\lib\sched.c" />
-    <ClCompile Include="src\lib\segments.c" />
     <ClCompile Include="src\lib\snd.c" />
     <ClCompile Include="src\lib\speaker.c" />
     <ClCompile Include="src\lib\tlb.c" />
@@ -577,6 +575,13 @@
     <ClCompile Include="src\lib\vi.c" />
     <ClCompile Include="src\lib\videbug.c" />
     <ClCompile Include="src\lib\vm.c" />
+    <ClCompile Include="src\lib\zlib\adler32.c" />
+    <ClCompile Include="src\lib\zlib\crc32.c" />
+    <ClCompile Include="src\lib\zlib\inffast.c" />
+    <ClCompile Include="src\lib\zlib\inflate.c" />
+    <ClCompile Include="src\lib\zlib\inftrees.c" />
+    <ClCompile Include="src\lib\zlib\uncompr.c" />
+    <ClCompile Include="src\lib\zlib\zutil.c" />
     <ClCompile Include="src\symbolmaps\symbols.c" />
     <ClCompile Include="src\textureconfig.c" />
   </ItemGroup>

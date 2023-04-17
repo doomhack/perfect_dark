@@ -61,6 +61,9 @@
     <Filter Include="Source Files\src\lib\ultra\os\tinycthread">
       <UniqueIdentifier>{5be1d45e-088f-46b3-b05f-2db2eb74b5b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src\lib\zlib">
+      <UniqueIdentifier>{6cffa558-206a-45d9-8e0a-1309bd674435}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cmain.cpp">
@@ -152,9 +155,6 @@
     </ClCompile>
     <ClCompile Include="src\game\smokeinit.c">
       <Filter>Source Files\src\game</Filter>
-    </ClCompile>
-    <ClCompile Include="src\inflate\inflate.c">
-      <Filter>Source Files\src\inflate</Filter>
     </ClCompile>
     <ClCompile Include="src\game\camdraw.c">
       <Filter>Source Files\src\game</Filter>
@@ -1347,9 +1347,6 @@
     <ClCompile Include="src\lib\path.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\segments.c">
-      <Filter>Source Files\src\lib</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\modelasm.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
@@ -1376,6 +1373,27 @@
     </ClCompile>
     <ClCompile Include="src\lib\ultra\os\tinycthread\tinycthread.c">
       <Filter>Source Files\src\lib\ultra\os\tinycthread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\zlib\uncompr.c">
+      <Filter>Source Files\src\lib\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\zlib\inflate.c">
+      <Filter>Source Files\src\lib\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\zlib\adler32.c">
+      <Filter>Source Files\src\lib\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\zlib\crc32.c">
+      <Filter>Source Files\src\lib\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\zlib\zutil.c">
+      <Filter>Source Files\src\lib\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\zlib\inffast.c">
+      <Filter>Source Files\src\lib\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\zlib\inftrees.c">
+      <Filter>Source Files\src\lib\zlib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -191,12 +191,12 @@ struct stageallocation g_StageAllocations4Mb[] = {
 
 s32 var8005dd18 = 1;
 
-extern u8 _accessingpakSegmentRomStart;
-extern u8 _accessingpakSegmentRomEnd;
-extern u8 _copyrightSegmentRomStart;
-extern u8 _copyrightSegmentRomEnd;
+extern u32 _accessingpakSegmentRomStart;
+extern u32 _accessingpakSegmentRomEnd;
+extern u32 _copyrightSegmentRomStart;
+extern u32 _copyrightSegmentRomEnd;
 
-extern u8 * g_Rom;
+extern u8* g_Rom;
 extern u32 g_RomSize;
 
 u8 _bssSegmentEnd;
@@ -277,7 +277,7 @@ void mainInit(void)
 
 		fb = addr;
 
-		texture = malloc(507 * 48);
+		texture = malloc(507 * 48 * 2);
 
 		// DMA the compressed texture from the ROM to the framebuffer.
 		// It's using the framebuffer as a temporary data buffer.
@@ -321,8 +321,10 @@ void mainInit(void)
 			// and the texture is right aligned.
 			dsty = 0;
 
-			for (srcy = 0; srcy < 507 * 48; srcy += 507) {
-				for (x = 0; x < 507; x++) {
+			for (srcy = 0; srcy < 507 * 48; srcy += 507)
+			{
+				for (x = 0; x < 507; x++)
+				{
 					fb[dsty + (576 - 507) + x] = texture[srcy + x];
 				}
 

@@ -46,7 +46,7 @@ void byteSwapRom()
 int main(int argc, char *argv[])
 {
     loadRom();
-    byteSwapRom();
+    //byteSwapRom();
 
     bootPhase1();
 }
