@@ -31,9 +31,6 @@
     <Filter Include="Source Files\src\game">
       <UniqueIdentifier>{f40fb1a5-d0bb-4ee2-86ee-e44279449fd8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\src\inflate">
-      <UniqueIdentifier>{572a0659-a52e-4ad2-8755-c077f3c8e359}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\src\game\mplayer">
       <UniqueIdentifier>{11b254ae-6c7e-49bb-9538-5ae8fd2b3c36}</UniqueIdentifier>
     </Filter>

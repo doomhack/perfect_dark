@@ -9,7 +9,7 @@
 #ifndef __STDC_NO_THREADS__
 	#include <threads.h>
 #else
-	#include "tinycthread/tinycthread.h"
+	#include <PR/tinycthread.h>
 #endif
 
 

@@ -36,6 +36,9 @@ extern "C" {
 
 #include <PR/ultratypes.h>
 
+
+
+
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 
 /**************************************************************************
@@ -63,6 +66,8 @@ typedef struct OSMesgQueue_s {
 	s32		first;		/* Points to first valid message */
 	s32		msgCount;	/* Contains total # of messages */
 	OSMesg		*msg;		/* Points to message buffer array */
+
+	void* mutex; //Thread mutex.
 } OSMesgQueue;
 
 

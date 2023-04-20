@@ -351,7 +351,8 @@ void mainInit(void)
 
 			i = (s32) &scdonemsg;
 
-			if (*(s16 *) receivedmsg == 1) {
+			if (*(s16 *) receivedmsg == 1)
+			{
 				viUpdateMode();
 				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) i);
 				j++;

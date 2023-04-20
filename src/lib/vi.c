@@ -1032,23 +1032,19 @@ void viUpdateMode(void)
 	x = (f32)g_ViBackData->x / (f32)g_ViBackData->bufx;
 	y = (f32)g_ViBackData->y / (f32)g_ViBackData->bufy;
 
-	if (g_ViBackData->mode == VIMODE_NONE) { \
-		y = 1; \
-	} \
-	slot = g_ViSlot;
+	if (g_ViBackData->mode == VIMODE_NONE)
+	{
+		y = 1;
+	}
 
-#if PAL
-	if (g_ViBackData->mode == VIMODE_LO);
-	if (1);
-	if (1);
-	if (1);
-#endif
+	slot = g_ViSlot;
 
 	g_ViXScalesBySlot[slot] = x;
 	g_ViYScalesBySlot[slot] = y;
 
 	// 12c
-	if (g_ViBackData->mode == VIMODE_LO) {
+	if (g_ViBackData->mode == VIMODE_LO)
+	{
 #if PAL
 		if (g_ViIs16Bit) {
 			var8008dcc0[slot] = osViModeTable[OS_VI_PAL_LAN1];
@@ -1056,16 +1052,25 @@ void viUpdateMode(void)
 			var8008dcc0[slot] = osViModeTable[OS_VI_PAL_LAN2];
 		}
 #else
-		if (g_ViIs16Bit) {
-			if (osTvType == OS_TV_MPAL) {
+		if (g_ViIs16Bit)
+		{
+			if (osTvType == OS_TV_MPAL)
+			{
 				var8008dcc0[slot] = osViModeTable[OS_VI_MPAL_LAN1];
-			} else {
+			}
+			else
+			{
 				var8008dcc0[slot] = osViModeTable[OS_VI_NTSC_LAN1];
 			}
-		} else {
-			if (osTvType == OS_TV_MPAL) {
+		}
+		else
+		{
+			if (osTvType == OS_TV_MPAL)
+			{
 				var8008dcc0[slot] = osViModeTable[OS_VI_MPAL_LAN2];
-			} else {
+			}
+			else
+			{
 				var8008dcc0[slot] = osViModeTable[OS_VI_NTSC_LAN2];
 			}
 		}
@@ -1098,12 +1103,10 @@ void viUpdateMode(void)
 		v1 = g_ViBackData->bufy;
 		v1 = v1 * 1024 / var8008dcc0[slot].fldRegs[0].yScale;
 
-#if PAL
-		if (1);
-#endif
 
 		// 458
-		if (v1 > 300) {
+		if (v1 > 300)
+		{
 			v1 >>= 1;
 		}
 
@@ -1120,13 +1123,18 @@ void viUpdateMode(void)
 #endif
 
 		g_SchedViModesPending[slot] = true;
-	} else if (g_ViBackData->mode == VIMODE_HI) {
+	}
+	else if (g_ViBackData->mode == VIMODE_HI)
+	{
 #if PAL
 		var8008dcc0[slot] = osViModeTable[OS_VI_PAL_HAF1];
 #else
-		if (osTvType == OS_TV_MPAL) {
+		if (osTvType == OS_TV_MPAL)
+		{
 			var8008dcc0[slot] = osViModeTable[OS_VI_MPAL_HAF1];
-		} else {
+		}
+		else
+		{
 			var8008dcc0[slot] = osViModeTable[OS_VI_NTSC_HAF1];
 		}
 #endif
@@ -1148,7 +1156,8 @@ void viUpdateMode(void)
 		var8008de10 = var8008dcc0[slot].fldRegs[1].vStart = ADD_LOW_AND_HI_16_MOD(v1, var8005d58c);
 
 		// 7f8
-		if (var8005dd18) {
+		if (var8005dd18)
+		{
 #if PAL
 			var8008de0c = var8008dcc0[slot].fldRegs[0].vStart = ((var8005d58c + 506) % 0xffff) << 16 | (var8005d58c + 134) % 0xffff;
 			var8008de10 = var8008dcc0[slot].fldRegs[1].vStart = ((var8005d58c + 508) % 0xffff) << 16 | (var8005d58c + 132) % 0xffff;
@@ -1159,7 +1168,9 @@ void viUpdateMode(void)
 		}
 
 		g_SchedViModesPending[slot] = true;
-	} else {
+	}
+	else
+	{
 		// 8f4
 		g_SchedViModesPending[slot] = false;
 	}
@@ -1182,7 +1193,8 @@ void viUpdateMode(void)
 
 	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
 
-	if (g_ViReconfigured) {
+	if (g_ViReconfigured)
+	{
 		g_ViReconfigured = false;
 		viBlack(false);
 	}

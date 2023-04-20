@@ -1,7 +1,14 @@
 #include <os_internal.h>
 #include "osint.h"
 
-extern struct __osThreadTail __osThreadTail;
+//Soooo....it's 2023 and still no C11 thread support....
+#ifndef __STDC_NO_THREADS__
+	#include <threads.h>
+#else
+	#include <PR/tinycthread.h>
+#endif
+
+
 
 void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 msgCount)
 {
@@ -11,6 +18,9 @@ void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 msgCount)
 	mq->first = 0;
 	mq->msgCount = msgCount;
 	mq->msg = msg;
+	mq->mutex = malloc(sizeof(mtx_t));
+
+	mtx_init(mq->mutex, mtx_plain | mtx_recursive);
 }
 
 s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags)
@@ -27,6 +37,8 @@ s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags)
 		osYieldThread();
 	}
 
+	mtx_lock(mq->mutex);
+
 	if (msg != NULL)
 	{
 		*msg = mq->msg[mq->first];
@@ -34,6 +46,8 @@ s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags)
 
 	mq->first = (mq->first + 1) % mq->msgCount;
 	mq->validCount--;
+
+	mtx_unlock(mq->mutex);
 
 	return 0;
 }
@@ -52,9 +66,14 @@ s32 osJamMesg(OSMesgQueue* mq, OSMesg msg, s32 flag)
 		osYieldThread();
 	}
 
+	mtx_lock(mq->mutex);
+
 	mq->first = (mq->first + mq->msgCount - 1) % mq->msgCount;
 	mq->msg[mq->first] = msg;
 	mq->validCount++;
+
+	mtx_unlock(mq->mutex);
+
 
 	return 0;
 }
@@ -73,9 +92,13 @@ s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flags)
 		osYieldThread();
 	}
 
+	mtx_lock(mq->mutex);
+
 	last = (mq->first + mq->validCount) % mq->msgCount;
 	mq->msg[last] = msg;
 	mq->validCount++;
+
+	mtx_unlock(mq->mutex);
 
 	return 0;
 }
