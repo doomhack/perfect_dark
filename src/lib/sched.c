@@ -6,7 +6,6 @@
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/audiomgr.h"
-#include "lib/reset.h"
 #include "lib/rzip.h"
 #include "lib/main.h"
 #include "lib/snd.h"
@@ -105,8 +104,6 @@ void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 	sc->retraceMsg.type = OS_SC_RETRACE_MSG;
 	sc->prenmiMsg.type = OS_SC_PRE_NMI_MSG;
 	sc->thread = thread;
-
-	resetThreadCreate();
 
 	osCreateMesgQueue(&sc->interruptQ, sc->intBuf, OS_SC_MAX_MESGS);
 	osCreateMesgQueue(&sc->cmdQ, sc->cmdMsgBuf, OS_SC_MAX_MESGS);
@@ -231,20 +228,20 @@ void __scHandleRetrace(OSSched *sc)
 	sc->frameCount++;
 
 #if PAL
-	if (!g_Resetting && (sc->frameCount & 1)) {
+	if (sc->frameCount & 1)
+	{
 		osStopTimer(&g_SchedRspTimer);
 		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), &g_SchedRspMsg);
 	}
 #else
-	if (!g_Resetting && ((sc->frameCount & 1) || IS4MB())) {
+	if ((sc->frameCount & 1) || IS4MB())
+	{
 		osStopTimer(&g_SchedRspTimer);
 		osSetTimer(&g_SchedRspTimer, 280000, 0, amgrGetFrameMesgQueue(), &g_SchedRspMsg);
 	}
 #endif
 
-	if (!g_Resetting) {
-		vi00009ed4();
-	}
+	vi00009ed4();
 
 	joysTick();
 	snd0000fe18();
@@ -310,35 +307,35 @@ void __scHandleRSP(OSSched *sc)
 	OSScTask *t, *sp = 0, *dp = 0;
 	s32 state;
 
-	if (!g_Resetting) {
-		t = sc->curRSPTask;
-		sc->curRSPTask = 0;
 
-		profileSetMarker(PROFILE_RSP_END);
+	t = sc->curRSPTask;
+	sc->curRSPTask = 0;
 
-		if ((t->state & OS_SC_YIELD) && osSpTaskYielded(&t->list)) {
-			t->state |= OS_SC_YIELDED;
+	profileSetMarker(PROFILE_RSP_END);
 
-			if ((t->flags & OS_SC_TYPE_MASK) == OS_SC_XBUS) {
-				// Push the task back on the list
-				t->next = sc->gfxListHead;
-				sc->gfxListHead = t;
+	if ((t->state & OS_SC_YIELD) && osSpTaskYielded(&t->list)) {
+		t->state |= OS_SC_YIELDED;
 
-				if (sc->gfxListTail == 0) {
-					sc->gfxListTail = t;
-				}
+		if ((t->flags & OS_SC_TYPE_MASK) == OS_SC_XBUS) {
+			// Push the task back on the list
+			t->next = sc->gfxListHead;
+			sc->gfxListHead = t;
+
+			if (sc->gfxListTail == 0) {
+				sc->gfxListTail = t;
 			}
-		} else {
-			t->state &= ~OS_SC_NEEDS_RSP;
-			__scTaskComplete(sc, t);
 		}
-
-		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
-
-		if (__scSchedule(sc, &sp, &dp, state) != state) {
-			__scExec(sc, sp, dp);
-		}
+	} else {
+		t->state &= ~OS_SC_NEEDS_RSP;
+		__scTaskComplete(sc, t);
 	}
+
+	state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
+
+	if (__scSchedule(sc, &sp, &dp, state) != state) {
+		__scExec(sc, sp, dp);
+	}
+
 }
 
 u32 *schedGetDpCounters(void)

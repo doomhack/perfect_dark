@@ -111,9 +111,6 @@
     <ClCompile Include="src\lib\vi.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\videbug.c">
-      <Filter>Source Files\src\lib</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\vm.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
@@ -796,9 +793,6 @@
       <Filter>Source Files\src\lib\ultra\audio</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\speaker.c">
-      <Filter>Source Files\src\lib</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\reset.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\lib_2fc60.c">
@@ -2360,9 +2354,6 @@
     <ClInclude Include="src\include\lib\rdp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\lib\reset.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\lib\rng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -2391,9 +2382,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\lib\vi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\lib\videbug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\lib\vm.h">

@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "lib/tlb.h"
 #include "lib/boot.h"
-#include "lib/reset.h"
 #include "lib/segments.h"
 #include "constants.h"
 #include "game/menugfx.h"
@@ -11,7 +10,6 @@
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
-#include "lib/videbug.h"
 #include "lib/lib_48150.h"
 #include "data.h"
 #include "types.h"
@@ -200,7 +198,6 @@ void bootCreateSchedThread(void)
 
 void bootPhase2(void *arg)
 {
-	videbugCreate();
 	pimgrCreate();
 
 	if (argsParseDebugArgs())

@@ -56,7 +56,6 @@
 #include "lib/memp.h"
 #include "lib/mema.h"
 #include "lib/profile.h"
-#include "lib/videbug.h"
 #include "lib/debughud.h"
 #include "lib/anim.h"
 #include "lib/rdp.h"
@@ -238,7 +237,6 @@ void mainInit(void)
 	varsInit();
 	mempInit();
 	memaInit();
-	videbugInit();
 	viConfigureForLogos();
 	var8005d9b0 = true;
 	joyInit();

@@ -184,32 +184,18 @@ void vmInit(void)
 	u8 *zip; // 48
 	s32 pagenum = 0;
 	s32 statetablelen;
-#if VERSION < VERSION_NTSC_1_0
-	u32 stack1;
-#endif
 	u32 size;
 	u32 numentries2; // N/A, 1474
 	u32 numentries = 0;
 	u32 *ptr;
-#if VERSION >= VERSION_NTSC_1_0
 	s32 i;
 	u8 sp68[1024 * 5]; // 128, 68
-#else
-	u8 sp68[1024 * 5]; // 128, 68
-	char message[128]; // nb: a8
-	s32 len;
-	s32 stack2;
-#endif
 
 	g_VmInitialised = true;
 
 	rzipInit();
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (bootGetMemSize() <= 0x400000)
-#else
-	if (osGetMemSize() <= 0x400000)
-#endif
 	{
 		g_Is4Mb = true;
 
@@ -264,20 +250,18 @@ void vmInit(void)
 		}
 
 		tlb0000113c();
-	} else {
+	}
+	else
+	{
 		// Expansion pak is being used
 		g_Is4Mb = numentries * false;
 
 		numpages = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
 		s7 = (u8 *) STACK_START;
 
-#if VERSION >= VERSION_NTSC_1_0
 		numentries = numpages + 1;
 		gameseg = (u8 *) ((uintptr_t) (s7 - (u8 *) ALIGN64((uintptr_t) &_gameSegmentEnd - (uintptr_t) &_gameSegmentStart)) & 0xfffe0000);
-#else
-		gameseg = (u8 *) ((uintptr_t) (s7 - (u8 *) ALIGN64((uintptr_t) &_gameSegmentEnd - (uintptr_t) &_gameSegmentStart)) & 0xfffe0000);
-		numentries = numpages + 1;
-#endif
+
 
 		romaddrs = (u32 *) (((uintptr_t) gameseg - ((numentries + 4) << 2)) & ~0xf);
 		g_VmMarker = gameseg;
@@ -286,16 +270,12 @@ void vmInit(void)
 		// Load gamezips pointer list
 		dmaExec(romaddrs, (romptr_t) &_gamezipSegmentRomStart, ALIGN16((numentries2 + 1) << 2));
 
-		if (pagenum);
-
-#if VERSION >= VERSION_NTSC_1_0
 #define ITER i
-#else
-#define ITER s1
-#endif
+
 
 		// Make pointers absolute instead of relative to their segment
-		for (ITER = 0; ITER < numentries2; ITER++) { \
+		for (ITER = 0; ITER < numentries2; ITER++)
+		{
 			romaddrs[ITER] += (romptr_t) &_gamezipSegmentRomStart;
 		}
 
@@ -304,27 +284,12 @@ void vmInit(void)
 		chunkbuffer = (u8 *) ((uintptr_t) romaddrs - PAGE_SIZE * 2);
 		zip = chunkbuffer + 2;
 
-		for (ITER = 0; ITER < numentries2 - 1;) {
+		for (ITER = 0; ITER < numentries2 - 1;)
+		{
 			dmaExec(chunkbuffer, romaddrs[ITER], ALIGN16(romaddrs[ITER + 1] - romaddrs[ITER]));
 
-#if VERSION >= VERSION_NTSC_1_0
 			s2 += rzipInflate(zip, s2, sp68);
-#else
-			len = rzipInflate(zip, s2, sp68);
 
-			if (len == 0) {
-				sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-						"vm_m.c", 298,
-						chunkbuffer[0], chunkbuffer[1], chunkbuffer[2], chunkbuffer[3],
-						chunkbuffer[4], chunkbuffer[5], chunkbuffer[6], chunkbuffer[7],
-						chunkbuffer[8], chunkbuffer[9], chunkbuffer[10], chunkbuffer[11],
-						chunkbuffer[12], chunkbuffer[13], chunkbuffer[14], chunkbuffer[15]);
-				crashSetMessage(message);
-				CRASH();
-			}
-
-			s2 += len;
-#endif
 
 			ITER++;
 		}
@@ -337,7 +302,8 @@ void vmInit(void)
 		s1p = (u8 *) 0x7f000000;
 		pagenum = 2; // reusing variable
 
-		while (gameseg <= s7) {
+		while (gameseg <= s7)
+		{
 			osMapTLB(pagenum, OS_PM_64K, s1p,
 					osVirtualToPhysical((void *) gameseg),
 					osVirtualToPhysical((void *) (gameseg + 0x10000)), -1);

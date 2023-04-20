@@ -89,17 +89,9 @@ void mempSetHeap(u8 *heapstart, u32 heaplen)
 	g_MempOnboardPools[MEMPOOL_STAGE].rightpos = heapstart + heaplen;
 
 	// If 8MB, reserve the entire expansion pak for the stage pool
-#if VERSION >= VERSION_NTSC_1_0
 	extraend = (u8 *) K0BASE + bootGetMemSize();
-#else
-	extraend = (u8 *) K0BASE + osGetMemSize();
-#endif
 
-#if VERSION >= VERSION_NTSC_1_0
 	if (bootGetMemSize() > 4 * 1024 * 1024)
-#else
-	if (osGetMemSize() > 4 * 1024 * 1024)
-#endif
 	{
 		g_MempExpansionPools[MEMPOOL_STAGE].start = (u8 *) K0BASE + 4 * 1024 * 1024;
 		g_MempExpansionPools[MEMPOOL_STAGE].rightpos = extraend;

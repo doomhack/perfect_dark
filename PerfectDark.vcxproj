@@ -444,7 +444,6 @@
     <ClCompile Include="src\lib\pimgr.c" />
     <ClCompile Include="src\lib\profile.c" />
     <ClCompile Include="src\lib\rdp.c" />
-    <ClCompile Include="src\lib\reset.c" />
     <ClCompile Include="src\lib\rng_c.c" />
     <ClCompile Include="src\lib\rzip.c" />
     <ClCompile Include="src\lib\sched.c" />
@@ -571,7 +570,6 @@
     <ClCompile Include="src\lib\ultra\os\virtualtophysical.c" />
     <ClCompile Include="src\lib\varsinit.c" />
     <ClCompile Include="src\lib\vi.c" />
-    <ClCompile Include="src\lib\videbug.c" />
     <ClCompile Include="src\lib\vm.c" />
     <ClCompile Include="src\lib\zlib\adler32.c" />
     <ClCompile Include="src\lib\zlib\crc32.c" />
@@ -919,7 +917,6 @@
     <ClInclude Include="src\include\lib\pimgr.h" />
     <ClInclude Include="src\include\lib\profile.h" />
     <ClInclude Include="src\include\lib\rdp.h" />
-    <ClInclude Include="src\include\lib\reset.h" />
     <ClInclude Include="src\include\lib\rng.h" />
     <ClInclude Include="src\include\lib\rzip.h" />
     <ClInclude Include="src\include\lib\sched.h" />
@@ -930,7 +927,6 @@
     <ClInclude Include="src\include\lib\tlb.h" />
     <ClInclude Include="src\include\lib\vars.h" />
     <ClInclude Include="src\include\lib\vi.h" />
-    <ClInclude Include="src\include\lib\videbug.h" />
     <ClInclude Include="src\include\lib\vm.h" />
     <ClInclude Include="src\include\pads.h" />
     <ClInclude Include="src\include\pads\ame.h" />

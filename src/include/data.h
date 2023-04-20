@@ -18,7 +18,6 @@ extern s32 g_ViUnblackTimer;
 extern s32 g_ViShakeDirection;
 extern s32 g_ViShakeIntensity;
 extern s32 g_ViShakeTimer;
-extern s8 g_Resetting;
 extern OSDevMgr __osViDevMgr;
 extern u32 var8005cefc;
 extern OSDevMgr __osPiDevMgr;
