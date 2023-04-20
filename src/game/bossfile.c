@@ -16,7 +16,6 @@
 #include "game/options.h"
 #include "game/utils.h"
 #include "bss.h"
-#include "lib/fault.h"
 #include "lib/snd.h"
 #include "data.h"
 #include "types.h"
@@ -188,10 +187,6 @@ void bossfileSave(void)
 	func0f0d54c4(&buffer);
 
 	fileid = bossfileFindFileId();
-
-	if (fileid == 0) {
-		faultAssert("fileGuid", "bossfile.c", VERSION >= VERSION_PAL_BETA ? 377 : 375);
-	}
 
 	if (pakSaveAtGuid(SAVEDEVICE_GAMEPAK, fileid, PAKFILETYPE_BOSS, buffer.bytes, NULL, 0) != 0) {
 		sp12c = true;

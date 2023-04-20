@@ -79,6 +79,7 @@
       <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -374,10 +375,8 @@
     <ClCompile Include="src\lib\base.c" />
     <ClCompile Include="src\lib\boot.c" />
     <ClCompile Include="src\lib\collision.c" />
-    <ClCompile Include="src\lib\crash.c" />
     <ClCompile Include="src\lib\debughud.c" />
     <ClCompile Include="src\lib\dma.c" />
-    <ClCompile Include="src\lib\fault.c" />
     <ClCompile Include="src\lib\joy.c" />
     <ClCompile Include="src\lib\lib_034d0.c" />
     <ClCompile Include="src\lib\lib_04f60nb.c" />
@@ -446,7 +445,6 @@
     <ClCompile Include="src\lib\profile.c" />
     <ClCompile Include="src\lib\rdp.c" />
     <ClCompile Include="src\lib\reset.c" />
-    <ClCompile Include="src\lib\rmon.c" />
     <ClCompile Include="src\lib\rng_c.c" />
     <ClCompile Include="src\lib\rzip.c" />
     <ClCompile Include="src\lib\sched.c" />
@@ -642,7 +640,6 @@
     <ClInclude Include="include\PR\rcp.h" />
     <ClInclude Include="include\PR\rdb.h" />
     <ClInclude Include="include\PR\region.h" />
-    <ClInclude Include="include\PR\rmon.h" />
     <ClInclude Include="include\PR\sched.h" />
     <ClInclude Include="include\PR\sp.h" />
     <ClInclude Include="include\PR\sptask.h" />
@@ -892,10 +889,8 @@
     <ClInclude Include="src\include\lib\audiomgr.h" />
     <ClInclude Include="src\include\lib\boot.h" />
     <ClInclude Include="src\include\lib\collision.h" />
-    <ClInclude Include="src\include\lib\crash.h" />
     <ClInclude Include="src\include\lib\debughud.h" />
     <ClInclude Include="src\include\lib\dma.h" />
-    <ClInclude Include="src\include\lib\fault.h" />
     <ClInclude Include="src\include\lib\joy.h" />
     <ClInclude Include="src\include\lib\libc\ll.h" />
     <ClInclude Include="src\include\lib\libc\llcvt.h" />
@@ -925,7 +920,6 @@
     <ClInclude Include="src\include\lib\profile.h" />
     <ClInclude Include="src\include\lib\rdp.h" />
     <ClInclude Include="src\include\lib\reset.h" />
-    <ClInclude Include="src\include\lib\rmon.h" />
     <ClInclude Include="src\include\lib\rng.h" />
     <ClInclude Include="src\include\lib\rzip.h" />
     <ClInclude Include="src\include\lib\sched.h" />

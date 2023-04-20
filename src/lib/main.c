@@ -49,8 +49,6 @@
 #include "lib/vm.h"
 #include "lib/rzip.h"
 #include "lib/vi.h"
-#include "lib/fault.h"
-#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/joy.h"
 #include "lib/main.h"
@@ -64,7 +62,6 @@
 #include "lib/rdp.h"
 #include "lib/lib_34d0.h"
 #include "lib/lib_2f490.h"
-#include "lib/rmon.h"
 #include "lib/rng.h"
 #include "lib/str.h"
 #include "data.h"
@@ -236,7 +233,6 @@ void mainInit(void)
         gsSPEndDisplayList(),
     };
 
-	faultInit();
 	dmaInit();
 	amgrInit();
 	varsInit();
@@ -244,7 +240,7 @@ void mainInit(void)
 	memaInit();
 	videbugInit();
 	viConfigureForLogos();
-	var8005d9b0 = rmonIsDisabled();
+	var8005d9b0 = true;
 	joyInit();
 	osCreateMesgQueue(&queue, &msg, 1);
 
@@ -397,7 +393,6 @@ void mainInit(void)
 
 	mempResetPool(MEMPOOL_8);
 	mempResetPool(MEMPOOL_PERMANENT);
-	crashReset();
 	challengesInit();
 	utilsInit();
 	func000034d0();
@@ -750,7 +745,6 @@ void mainTick(void)
 		profileSetMarker(PROFILE_MAINTICK_START);
 		func000034d8();
 		joyDebugJoy();
-		schedSetCrashEnable2(false);
 
 		if (g_MainGameLogicEnabled) {
 			gdl = gdlstart = gfxGetMasterDisplayList();

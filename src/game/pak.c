@@ -13,7 +13,6 @@
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/args.h"
-#include "lib/crash.h"
 #include "lib/joy.h"
 #include "lib/lib_06440.h"
 #include "lib/main.h"

@@ -8,12 +8,10 @@
 #include "lib/audiomgr.h"
 #include "lib/reset.h"
 #include "lib/rzip.h"
-#include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
 #include "lib/profile.h"
-#include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "lib/vi.h"
 #include "lib/joy.h"
@@ -94,49 +92,6 @@ u32 var8005cea4 = 0;
 OSScMsg g_SchedRspMsg = {OS_SC_RSP_MSG};
 bool g_SchedIsFirstTask = true;
 
-void schedSetCrashEnable1(bool enable)
-{
-	g_SchedCrashEnable1 = enable;
-}
-
-void schedSetCrashedUnexpectedly(bool enable)
-{
-	g_SchedCrashedUnexpectedly = enable;
-}
-
-void schedSetCrashEnable2(bool enable)
-{
-	g_SchedCrashEnable2 = enable;
-}
-
-void schedSetCrashRenderInterval(u32 cycles)
-{
-	g_SchedCrashRenderInterval = cycles;
-}
-
-void schedRenderCrashOnBuffer(void *framebuffer)
-{
-	if ((g_SchedCrashEnable2 && g_SchedCrashEnable1) || g_SchedCrashedUnexpectedly) {
-		crashRenderFrame(framebuffer);
-		g_SchedCrashLastRendered = osGetCount();
-	}
-}
-
-void schedRenderCrashPeriodically(u32 framecount)
-{
-	if ((framecount & 0xf) == 0 && ((g_SchedCrashEnable2 && g_SchedCrashEnable1) || g_SchedCrashedUnexpectedly)) {
-		if (osGetCount() - g_SchedCrashLastRendered > g_SchedCrashRenderInterval) {
-			crashRenderFrame(g_FrameBuffers[0]);
-			crashRenderFrame(g_FrameBuffers[1]);
-		}
-	}
-}
-
-void schedInitCrashLastRendered(void)
-{
-	g_SchedCrashLastRendered = osGetCount();
-}
-
 void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 {
 	sc->curRSPTask = 0;
@@ -172,7 +127,6 @@ void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 	osSetEventMesg(OS_EVENT_DP, &sc->interruptQ, (OSMesg)RDP_DONE_MSG);
 
 	osViSetEvent(&sc->interruptQ, (OSMesg)VIDEO_MSG, numFields);
-	schedInitCrashLastRendered();
 	osCreateThread(sc->thread, THREAD_SCHED, &__scMain, sc, bootAllocateStack(THREAD_SCHED, STACKSIZE_SCHED), THREADPRI_SCHED);
 	osStartThread(sc->thread);
 }
@@ -190,34 +144,6 @@ void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, int is8mb)
 
 	osSetIntMask(mask);
 }
-
-#if VERSION < VERSION_NTSC_1_0
-void osScRemoveClient(OSSched *sc, OSScClient *c)
-{
-	OSScClient *client = sc->clientList;
-	OSScClient *prev   = 0;
-	OSIntMask  mask;
-
-	mask = osSetIntMask(OS_IM_NONE);
-
-	while (client) {
-		if (client == c) {
-			if (prev) {
-				prev->next = c->next;
-			} else {
-				sc->clientList = c->next;
-			}
-
-			break;
-		}
-
-		prev = client;
-		client = client->next;
-	}
-
-	osSetIntMask(mask);
-}
-#endif
 
 OSMesgQueue *osScGetCmdQ(OSSched *sc)
 {
@@ -322,7 +248,6 @@ void __scHandleRetrace(OSSched *sc)
 
 	joysTick();
 	snd0000fe18();
-	schedRenderCrashPeriodically(sc->frameCount);
 }
 
 extern struct sndcache g_SndCache;
@@ -374,28 +299,6 @@ void __scHandleTasks(OSSched *sc)
 			osSendMesg(client->msgQ, (OSMesg) &sc->retraceMsg, OS_MESG_NOBLOCK);
 		}
 	}
-
-#if PIRACYCHECKS
-	{
-		u32 checksum = 0;
-		s32 *end = (s32 *)&bootAllocateStack;
-		s32 *ptr = (s32 *)&bootPhase1;
-		s32 i;
-
-		while (ptr < end) {
-			checksum ^= *ptr;
-			ptr++;
-		}
-
-		if (checksum != CHECKSUM_PLACEHOLDER) {
-			u8 *addr = (u8 *) &g_SndCache;
-
-			for (i = 0; i < 40; i++) {
-				addr[4 + i] = 0xff;
-			}
-		}
-	}
-#endif
 }
 
 /**
@@ -639,7 +542,6 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 				g_ViUnblackTimer--;
 			}
 
-			schedRenderCrashOnBuffer(t->framebuffer);
 			osViSwapBuffer(t->framebuffer);
 		}
 
@@ -711,17 +613,6 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 		}
 	}
 }
-
-#if VERSION < VERSION_NTSC_1_0
-bool schedIsCurTaskAudio(OSSched *sc)
-{
-	if (sc->curRSPTask) {
-		return sc->curRSPTask->list.t.type == M_AUDTASK;
-	}
-
-	return false;
-}
-#endif
 
 void __scYield(OSSched *sc)
 {

@@ -28,7 +28,6 @@
 #include "game/texdecompress.h"
 #include "game/wallhit.h"
 #include "bss.h"
-#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/lib_17ce0.h"
 #include "lib/lib_2f490.h"

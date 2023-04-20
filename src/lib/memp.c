@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/boot.h"
-#include "lib/crash.h"
 #include "lib/memp.h"
 #include "data.h"
 #include "types.h"

@@ -4,7 +4,6 @@
 #include <sched.h>
 #include "types.h"
 
-void schedSetCrashEnable2(s32 enable);
 void schedAppendTasks(OSSched *sc, OSScTask *t);
 void __scHandleRetrace(OSSched *sc);
 void __scHandleRSP(OSSched *sc);
@@ -22,6 +21,5 @@ void schedIncrementWriteArtifacts(void);
 void schedIncrementFrontArtifacts(void);
 void schedUpdatePendingArtifacts(void);
 void schedConsiderScreenshot(void);
-void schedSetCrashedUnexpectedly(bool enable);
 
 #endif

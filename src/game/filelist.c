@@ -15,7 +15,6 @@
 #include "game/options.h"
 #include "game/utils.h"
 #include "bss.h"
-#include "lib/fault.h"
 #include "lib/joy.h"
 #include "lib/snd.h"
 #include "lib/mema.h"
@@ -288,14 +287,6 @@ void pheadAllocateTextures(s32 playernum, struct perfectheadtexturelist *texture
 			g_Menus[playernum].fm.headtextures = textures;
 			g_Menus[playernum].fm.unke40_01 = false;
 		}
-	}
-
-	if (g_Menus[playernum].fm.headtextures == NULL) {
-#if VERSION >= VERSION_NTSC_1_0
-		faultAssert("tc != NULL", "gamefile.c", 458);
-#else
-		faultAssert("tc != NULL", "gamefile.c", 450);
-#endif
 	}
 
 	for (i = 0; i != ARRAYCOUNT(g_Menus[playernum].fm.headtextures->fileguids); i++) {

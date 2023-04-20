@@ -26,7 +26,6 @@
 #include <PR/rcp.h>
 #include <PR/os.h>
 #include <PR/region.h>
-#include <PR/rmon.h>
 #include <PR/sptask.h>
 #include <PR/mbi.h>
 #include <PR/libaudio.h>

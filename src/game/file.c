@@ -3,7 +3,6 @@
 #include "game/file.h"
 #include "game/stubs/game_175f50.h"
 #include "bss.h"
-#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/memp.h"
 #include "lib/rng.h"

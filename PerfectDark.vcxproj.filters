@@ -78,9 +78,6 @@
     <ClCompile Include="src\lib\dma.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\fault.c">
-      <Filter>Source Files\src\lib</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\joy.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
@@ -97,9 +94,6 @@
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\rdp.c">
-      <Filter>Source Files\src\lib</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\rmon.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\rzip.c">
@@ -1320,9 +1314,6 @@
     <ClCompile Include="src\lib\base.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\crash.c">
-      <Filter>Source Files\src\lib</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\debughud.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
@@ -1560,9 +1551,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\PR\region.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\PR\rmon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\PR\sched.h">
@@ -2291,16 +2279,10 @@
     <ClInclude Include="src\include\lib\collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\lib\crash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\lib\debughud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\lib\dma.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\lib\fault.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\lib\joy.h">
@@ -2379,9 +2361,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\lib\reset.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\lib\rmon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\lib\rng.h">

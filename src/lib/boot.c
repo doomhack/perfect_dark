@@ -8,12 +8,10 @@
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/rzip.h"
-#include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/pimgr.h"
 #include "lib/videbug.h"
-#include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "data.h"
 #include "types.h"
@@ -186,38 +184,6 @@ void *bootAllocateStack(s32 threadid, s32 size)
 	return NULL;
 }
 
-#if VERSION < VERSION_NTSC_1_0
-u8 *bootGetStackPos(void)
-{
-	return g_StackAllocatedPos;
-}
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-void func00001978(void)
-{
-	var8005ce4c = 1;
-	var8005ce50 = 0x10000000;
-}
-#endif
-
-void idleproc(void *data)
-{
-	while (true);
-}
-
-void bootCreateIdleThread(void)
-{
-	//osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, bootAllocateStack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
-	//osStartThread(&g_IdleThread);
-}
-
-void bootCreateRmonThread(void)
-{
-	//osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, bootAllocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
-	//osStartThread(&g_RmonThread);
-}
-
 void bootCreateSchedThread(void)
 {
 	osCreateMesgQueue(&g_SchedMesgQueue, var8008db48, ARRAYCOUNT(var8008db48));
@@ -234,12 +200,11 @@ void bootCreateSchedThread(void)
 
 void bootPhase2(void *arg)
 {
-	bootCreateIdleThread();
 	videbugCreate();
 	pimgrCreate();
-	bootCreateRmonThread();
 
-	if (argsParseDebugArgs()) {
+	if (argsParseDebugArgs())
+	{
 		osStopThread(NULL);
 	}
 
@@ -247,51 +212,3 @@ void bootPhase2(void *arg)
 	bootCreateSchedThread();
 	mainProc();
 }
-
-#if VERSION < VERSION_NTSC_1_0
-void bootCountUnusedStack(void)
-{
-	s32 threadid;
-
-	for (threadid = 0; threadid < 7; threadid++) {
-		u8 *left = g_StackLeftAddrs[threadid];
-		u8 *right = g_StackRightAddrs[threadid];
-
-		if (left != NULL) {
-			u32 byte = ((0xf - (threadid & 0xf)) << 4) | (threadid & 0xf);
-
-			left += 0x20;
-
-			while (*left == byte && left < right) {
-				left++;
-			}
-		}
-	}
-}
-
-void bootCheckStackOverflow(void)
-{
-	s32 threadid;
-
-	for (threadid = 0; threadid < 7; threadid++) {
-		if (g_StackLeftAddrs[threadid] != NULL) {
-			u32 *ptr = (u32 *) g_StackLeftAddrs[threadid];
-			s32 i;
-
-			for (i = 0; i < 8; i++) {
-				if (*ptr != 0xdeadbabe) {
-					char message[128];
-
-					bootCountUnusedStack();
-
-					sprintf(message, "Stack overflow thread %d", threadid);
-					crashSetMessage(message);
-					CRASH();
-				}
-
-				ptr++;
-			}
-		}
-	}
-}
-#endif

@@ -8,7 +8,6 @@
 #include "lib/rzip.h"
 #include "lib/args.h"
 #include "lib/audiomgr.h"
-#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/snd.h"
 #include "lib/memp.h"

@@ -3,7 +3,6 @@
 #include "game/tex.h"
 #include "game/texdecompress.h"
 #include "bss.h"
-#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/memp.h"
