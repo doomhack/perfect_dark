@@ -66,6 +66,7 @@
 #include "data.h"
 #include "types.h"
 
+
 // mainLoop calls rngSetSeed with a u32 argument,
 // but the function takes a u64 so an incorrect declaration is needed.
 void rngSetSeed(u32 seed);

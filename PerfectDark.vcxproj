@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;ROM_SIZE=32</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\SDL2\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -84,6 +84,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(SolutionDir)\SDL2\lib\x86\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -578,6 +579,7 @@
     <ClCompile Include="src\lib\zlib\inftrees.c" />
     <ClCompile Include="src\lib\zlib\uncompr.c" />
     <ClCompile Include="src\lib\zlib\zutil.c" />
+    <ClCompile Include="src\platform\platform.c" />
     <ClCompile Include="src\symbolmaps\symbols.c" />
     <ClCompile Include="src\textureconfig.c" />
   </ItemGroup>

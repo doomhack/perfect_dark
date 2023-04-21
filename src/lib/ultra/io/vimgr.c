@@ -18,12 +18,12 @@ void viMgrMain(void *args);
 
 void osCreateViManager(OSPri pri)
 {
-	/*
 	u32 savedMask;
 	OSPri oldPri;
 	OSPri myPri;
 
-	if (__osViDevMgr.active == 0) {
+	if (__osViDevMgr.active == 0)
+	{
 		__osTimerServicesInit();
 		var8005cefc = 0;
 		osCreateMesgQueue(&viEventQueue, viEventBuf, 5);
@@ -41,7 +41,8 @@ void osCreateViManager(OSPri pri)
 		oldPri = -1;
 		myPri = osGetThreadPri(NULL);
 
-		if (myPri < pri) {
+		if (myPri < pri)
+		{
 			oldPri = myPri;
 			osSetThreadPri(NULL, pri);
 		}
@@ -61,11 +62,11 @@ void osCreateViManager(OSPri pri)
 		osStartThread(&viThread);
 		__osRestoreInt(savedMask);
 
-		if (oldPri != -1) {
+		if (oldPri != -1) 
+		{
 			osSetThreadPri(0, oldPri);
 		}
 	}
-	*/
 }
 
 void viMgrMain(void *args)
@@ -82,24 +83,29 @@ void viMgrMain(void *args)
 	vc = __osViGetCurrentContext();
 	retrace = vc->retraceCount;
 
-	if (retrace == 0) {
+	if (retrace == 0)
+	{
 		retrace = 1;
 	}
 
 	dm = (OSDevMgr *)args;
 
-	while (TRUE) {
+	while (TRUE)
+	{
 		osRecvMesg(dm->evtQueue, (OSMesg) &mb, OS_MESG_BLOCK);
 
-		switch (mb->hdr.type) {
+		switch (mb->hdr.type)
+		{
 		case OS_MESG_TYPE_VRETRACE:
 			__osViSwapContext();
 			retrace--;
 
-			if (retrace == 0) {
+			if (retrace == 0)
+			{
 				vc = __osViGetCurrentContext();
 
-				if (vc->msgq != NULL) {
+				if (vc->msgq != NULL)
+				{
 					osSendMesg(vc->msgq, vc->msg, OS_MESG_NOBLOCK);
 				}
 
@@ -108,7 +114,8 @@ void viMgrMain(void *args)
 
 			__osViIntrCount++;
 
-			if (first) {
+			if (first)
+			{
 				count = osGetCount();
 				__osCurrentTime = count;
 				first = 0;

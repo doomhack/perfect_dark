@@ -480,7 +480,11 @@ The Indy development board use cartridge domain 1:
 /*************************************************************************
  * Video Interface (VI) Registers 
  */
-#define VI_BASE_REG		0x04400000
+
+extern u32 g_VIRegBase;
+
+//#define VI_BASE_REG		0x04400000
+#define VI_BASE_REG		g_VIRegBase
 
 /* VI status/control (R/W): [15-0] valid bits: 
  *	[1:0]   = type[1:0] (pixel size) 
@@ -868,8 +872,12 @@ The Indy development board use cartridge domain 1:
  * Common macros
  */
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
-#define	IO_READ(addr)		(*(vu32 *)PHYS_TO_K1(addr))
-#define	IO_WRITE(addr,data)	(*(vu32 *)PHYS_TO_K1(addr)=(u32)(data))
+//#define	IO_READ(addr)		(*(vu32 *)PHYS_TO_K1(addr))
+//#define	IO_WRITE(addr,data)	(*(vu32 *)PHYS_TO_K1(addr)=(u32)(data))
+
+#define	IO_READ(addr)		(*(vu32 *)(addr))
+#define	IO_WRITE(addr,data)	(*(vu32 *)(addr)=(u32)(data))
+
 #endif
 
 #endif  /* _RCP_H_ */

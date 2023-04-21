@@ -14,6 +14,9 @@
 #include "data.h"
 #include "types.h"
 
+#include "platform/platform.h"
+
+
 s32 osResetType = 0;	/* 0 = cold reset, 1 = NMI */
 s32 osTvType = 1;	/* 0 = PAL, 1 = NTSC, 2 = MPAL */
 
@@ -198,6 +201,8 @@ void bootCreateSchedThread(void)
 
 void bootPhase2(void *arg)
 {
+	InitPlatform();
+
 	pimgrCreate();
 
 	if (argsParseDebugArgs())
