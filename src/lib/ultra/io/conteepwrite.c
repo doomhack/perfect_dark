@@ -129,10 +129,10 @@ s32 __osEepStatus(OSMesgQueue *mq, OSContStatus *data)
 	*ptr = CONT_CMD_END;
 
 	ret = __osSiRawStartDma(OS_WRITE, &__osEepPifRam);
-	osRecvMesg(mq, NULL, OS_MESG_BLOCK);
+	//osRecvMesg(mq, NULL, OS_MESG_BLOCK);
 	__osContLastCmd = CONT_CMD_END;
 	ret = __osSiRawStartDma(OS_READ, &__osEepPifRam);
-	osRecvMesg(mq, NULL, OS_MESG_BLOCK);
+	//osRecvMesg(mq, NULL, OS_MESG_BLOCK);
 
 	if (ret != 0) {
 		return ret;

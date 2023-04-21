@@ -962,9 +962,10 @@ void joyEnableCyclicPolling(
 
 	g_JoyCyclicPollDisableCount--;
 
-	if (g_JoyCyclicPollDisableCount == 0) {
+	if (g_JoyCyclicPollDisableCount == 0)
+	{
 		osSendMesg(&g_JoyStartCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
-		osRecvMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
+		//osRecvMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 	}
 }
 

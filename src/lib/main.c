@@ -82,6 +82,9 @@ u32 g_MainNumGfxTasks = 0;
 bool g_MainIsEndscreen = false;
 s32 g_DoBootPakMenu = 0;
 
+extern u32 g_RDRam;
+
+
 struct stageallocation g_StageAllocations8Mb[] = {
 	{ STAGE_CITRAINING,    "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
 	{ STAGE_DEFECTION,     "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
@@ -268,7 +271,7 @@ void mainInit(void)
 		s32 numpages;
 		u8 scratch[1024 * 5 - 8];
 
-		addr = malloc(640 * 480 * 2);
+		addr = g_RDRam;
 
 		fb = addr;
 
@@ -386,8 +389,11 @@ void mainInit(void)
 		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
 	}
 
-	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_bssSegmentEnd));
-	end = g_VmMarker;
+	//start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_bssSegmentEnd));
+	//end = g_VmMarker;
+	start = (u8*)g_RDRam;
+	end = start + 8*1024*1024;
+
 	mempSetHeap(start, end - start);
 
 	mempResetPool(MEMPOOL_8);

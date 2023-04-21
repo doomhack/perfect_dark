@@ -167,16 +167,27 @@ The Indy development board use cartridge domain 1:
 /*************************************************************************
  * SP Memory
  */
-#define SP_DMEM_START		0x04000000	/* read/write */
-#define SP_DMEM_END		0x04000FFF
-#define SP_IMEM_START		0x04001000	/* read/write */
-#define SP_IMEM_END		0x04001FFF
+//#define SP_DMEM_START		0x04000000	/* read/write */
+//#define SP_DMEM_END		0x04000FFF
+//#define SP_IMEM_START		0x04001000	/* read/write */
+//#define SP_IMEM_END		0x04001FFF
+
+extern u32 g_SP_DMem;
+extern u32 g_SP_IMem;
+
+#define SP_DMEM_START	(g_SP_DMem)	/* read/write */
+#define SP_DMEM_END		(g_SP_DMem + 4095)
+#define SP_IMEM_START	(g_SP_IMem)	/* read/write */
+#define SP_IMEM_END		(g_SP_IMem + 4095)
 
 /*************************************************************************
  * SP CP0 Registers
  */
 
-#define SP_BASE_REG		0x04040000
+//#define SP_BASE_REG		0x04040000
+extern u32 g_SPRegBase;
+#define SP_BASE_REG		g_SPRegBase
+
 
 /* SP memory address (R/W): [11:0] DMEM/IMEM address; [12] 0=DMEM,1=IMEM */
 #define SP_MEM_ADDR_REG		(SP_BASE_REG+0x00)	/* Master */
@@ -302,7 +313,13 @@ The Indy development board use cartridge domain 1:
 /*************************************************************************
  * DP Command Registers 
  */
-#define DPC_BASE_REG		0x04100000
+
+extern u32 g_SP_DPC_RegBase;
+
+//#define DPC_BASE_REG		0x04100000
+
+
+#define DPC_BASE_REG		g_SP_DPC_RegBase
 
 /* DP CMD DMA start (R/W): [23:0] DMEM/RDRAM start address */
 #define DPC_START_REG		(DPC_BASE_REG+0x00)

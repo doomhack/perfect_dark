@@ -256,6 +256,8 @@ void vmInit(void)
 		// Expansion pak is being used
 		g_Is4Mb = numentries * false;
 
+		/*
+
 		numpages = (u32)((&_gameSegmentEnd - &_gameSegmentStart) + (PAGE_SIZE - 1)) / PAGE_SIZE;
 		s7 = (u8 *) STACK_START;
 
@@ -312,6 +314,8 @@ void vmInit(void)
 			s1p += 0x20000;
 			pagenum++;
 		}
+
+		*/
 	}
 
 	g_VmNumTlbMisses = 0;

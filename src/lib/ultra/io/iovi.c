@@ -7,6 +7,8 @@ __OSViContext var800608b0[2] = {0};
 __OSViContext *__osViCurr = &var800608b0[0];
 __OSViContext *__osViNext = &var800608b0[1];
 
+extern u32 g_RDRam;
+
 void __osViInit(void)
 {
 	//bzero(&var800608b0, sizeof(var800608b0));
@@ -17,8 +19,11 @@ void __osViInit(void)
 	__osViNext = &var800608b0[1];
 	__osViNext->retraceCount = 1;
 	__osViCurr->retraceCount = 1;
-	__osViNext->framep = (void*)K0BASE;
-	__osViCurr->framep = (void*)K0BASE;
+	//__osViNext->framep = (void*)K0BASE;
+	//__osViCurr->framep = (void*)K0BASE;
+
+	__osViNext->framep = g_RDRam;
+	__osViCurr->framep = g_RDRam;
 
 	if (osTvType == OS_TV_TYPE_PAL) {
 		__osViNext->modep = &osViModePalLan1;
@@ -33,8 +38,8 @@ void __osViInit(void)
 
 	/*
 	while (IO_READ(VI_CURRENT_REG) > 10);
-
-	IO_WRITE(VI_CONTROL_REG, 0);
 	*/
+	IO_WRITE(VI_CONTROL_REG, 0);
+
 	__osViSwapContext();
 }
