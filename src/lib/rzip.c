@@ -9,7 +9,7 @@ s32 rzipInflate(void *src, void *dst, void *scratch)
     if (!rzipIs1173(src))
         return 0;
 
-    u32 dstLen = ((u32)srcByte[2] << 16) | ((u32)srcByte[3] << 8) | srcByte[4];
+    u32 dstLen = rzip1173GetUncompressedLen(src);
 
     src = &srcByte[5];
 
@@ -46,6 +46,15 @@ bool rzipIs1173(void *buffer)
         return true;
 
     return false;
+}
+
+u32 rzip1173GetUncompressedLen(void* buffer)
+{
+    if (!rzipIs1173(buffer))
+        return 0;
+
+    u8* srcByte = buffer;
+    return ((u32)srcByte[2] << 16) | ((u32)srcByte[3] << 8) | srcByte[4]; 
 }
 
 void *rzipGetSomething(void)

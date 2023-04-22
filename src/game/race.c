@@ -92,22 +92,31 @@ void raceInitAnims(void)
 	s32 race;
 	s32 i;
 
-	for (race = 0; race < 5; race++) {
-		for (i = 0; g_AnimTablesByRace[race][i].hitpart != -1; i++) {
-			if (g_AnimTablesByRace[race][i].deathanims) {
+	for (race = 0; race < 5; race++)
+	{
+		for (i = 0; g_AnimTablesByRace[race][i].hitpart != -1; i++)
+		{
+			if (g_AnimTablesByRace[race][i].deathanims)
+			{
 				g_AnimTablesByRace[race][i].deathanimcount = raceCountAnims(g_AnimTablesByRace[race][i].deathanims);
-			} else {
+			}
+			else
+			{
 				g_AnimTablesByRace[race][i].deathanimcount = 0;
 			}
 
-			if (g_AnimTablesByRace[race][i].injuryanims) {
+			if (g_AnimTablesByRace[race][i].injuryanims)
+			{
 				g_AnimTablesByRace[race][i].injuryanimcount = raceCountAnims(g_AnimTablesByRace[race][i].injuryanims);
-			} else {
+			}
+			else
+			{
 				g_AnimTablesByRace[race][i].injuryanimcount = 0;
 			}
 		}
 
-		for (i = 0; var80067fdc[race][i].animnum >= 0; i++) {
+		for (i = 0; var80067fdc[race][i].animnum >= 0; i++)
+		{
 			var80067fdc[race][i].value = race0f0005c0(var80067fdc[race][i].animnum);
 		}
 	}

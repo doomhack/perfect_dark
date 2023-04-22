@@ -49,7 +49,7 @@ Uint32 VICallback(Uint32 interval, void* param)
 		osSendMesg(es->messageQueue, es->message, OS_MESG_NOBLOCK);
 	}
 
-	UpdateScreen();
+	//UpdateScreen();
 
 	return interval;
 }

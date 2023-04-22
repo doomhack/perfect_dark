@@ -39,31 +39,40 @@ s32 g_AnimMaxHeaderLength = 608;
 bool g_AnimHostEnabled = false;
 u8 *g_AnimHostSegment = NULL;
 
-u8 _animationsTableRomStart;
-u8 _animationsTableRomEnd;
+extern u32 _animationsTableRomStart;
+extern u32 _animationsTableRomEnd;
+
+extern u8* g_Rom;
 
 void animsInit(void)
 {
 	s32 i;
 	u32 *ptr;
-	u32 tablelen = ALIGN64(&_animationsTableRomEnd - &_animationsTableRomStart);
+	u32 tablelen = ALIGN64(_animationsTableRomEnd - _animationsTableRomStart);
 
 	ptr = mempAlloc(tablelen, MEMPOOL_PERMANENT);
-	dmaExec(ptr, (romptr_t) &_animationsTableRomStart, tablelen);
+	dmaExec(ptr, (romptr_t) &g_Rom[_animationsTableRomStart], tablelen);
 
-	g_NumAnimations = g_NumRomAnimations = ptr[0];
+	g_NumAnimations = g_NumRomAnimations = BSWAP32(ptr[0]);
 	g_Anims = g_RomAnims = (struct animtableentry *)&ptr[1];
 
 	g_AnimMaxHeaderLength = 1;
 	g_AnimMaxBytesPerFrame = 1;
 
-	for (i = 0; i < g_NumAnimations; i++) {
-		if (g_Anims[i].headerlen > g_AnimMaxHeaderLength) {
-			g_AnimMaxHeaderLength = g_Anims[i].headerlen;
+	for (i = 0; i < g_NumAnimations; i++)
+	{
+		u16 hlen = BSWAP16(g_Anims[i].headerlen);
+
+		if (hlen > g_AnimMaxHeaderLength)
+		{
+			g_AnimMaxHeaderLength = hlen;
 		}
 
-		if (g_Anims[i].bytesperframe > g_AnimMaxBytesPerFrame) {
-			g_AnimMaxBytesPerFrame = g_Anims[i].bytesperframe;
+		u16 flen = BSWAP16(g_Anims[i].bytesperframe);
+
+		if (flen > g_AnimMaxBytesPerFrame)
+		{
+			g_AnimMaxBytesPerFrame = flen;
 		}
 	}
 
