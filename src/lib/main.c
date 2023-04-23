@@ -10,18 +10,8 @@
 #include "game/lang.h"
 #include "game/race.h"
 #include "game/body.h"
-#include "game/stubs/game_000840.h"
-#include "game/stubs/game_000850.h"
-#include "game/stubs/game_000860.h"
-#include "game/stubs/game_000870.h"
 #include "game/smoke.h"
-#include "game/stubs/game_0008e0.h"
-#include "game/stubs/game_0008f0.h"
-#include "game/stubs/game_000900.h"
-#include "game/stubs/game_000910.h"
 #include "game/tex.h"
-#include "game/stubs/game_00b180.h"
-#include "game/stubs/game_00b200.h"
 #include "game/challenge.h"
 #include "game/title.h"
 #include "game/pdmode.h"
@@ -397,21 +387,11 @@ void mainInit(void)
 	langInit();
 	lvInit();
 	cheatsInit();
-	func0000e9c0();
-	textInit();
 	dhudInit();
 	playermgrInit();
 	frametimeInit();
-	stub0f00b200();
 	profileInit();
-	stub0f000870();
 	smokesInit();
-	stub0f0008e0();
-	stub0f0008f0();
-	stub0f000900();
-	stub0f00b180();
-	stub0f000910();
-	stub0f000840();
 	mpInit();
 	pheadInit();
 	paksInit();
@@ -419,8 +399,6 @@ void mainInit(void)
 	animsInit();
 	racesInit();
 	bodiesInit();
-	stub0f000850();
-	stub0f000860();
 	titleInit();
 	viConfigureForLegal();
 	viBlack(true);
@@ -858,7 +836,3 @@ void func0000e990(void)
 	mainEndStage();
 }
 
-void func0000e9c0(void)
-{
-	// empty
-}

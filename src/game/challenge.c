@@ -521,74 +521,78 @@ void challengeForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 
 	s32 numplayers;
 	s32 i;
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < 8; i++)
+	{
 		s32 simtype = mpFindBotProfile(config->simulants[i].type, BOTDIFF_NORMAL);
 
-		if (simtype >= 0) {
+		if (simtype >= 0)
+		{
 			featurenum = g_BotProfiles[simtype].requirefeature;
 
-			if (featurenum) {
+			if (featurenum)
+			{
 				index = challengeForceUnlockFeature(featurenum, array, index, len);
 			}
 		}
 
-		for (numplayers = 0; numplayers < 4; numplayers++) {
+		for (numplayers = 0; numplayers < 4; numplayers++)
+		{
 			simtype = mpFindBotProfile(0, config->simulants[i].difficulties[numplayers]);
 
-			if (simtype >= 0) {
+			if (simtype >= 0)
+			{
 				featurenum = g_BotProfiles[simtype].requirefeature;
 
-				if (featurenum) {
+				if (featurenum)
+				{
 					index = challengeForceUnlockFeature(featurenum, array, index, len);
 				}
 			}
 		}
 
-		if (config->simulants[i].mpbodynum < NUM_MPBODIES) {
+		if (config->simulants[i].mpbodynum < NUM_MPBODIES)
+		{
 			featurenum = g_MpBodies[config->simulants[i].mpbodynum].requirefeature;
 
-			if (featurenum) {
+			if (featurenum)
+			{
 				index = challengeForceUnlockFeature(featurenum, array, index, len);
 			}
 		}
 
-		if (config->simulants[i].mpheadnum < NUM_MPHEADS) {
+		if (config->simulants[i].mpheadnum < NUM_MPHEADS)
+		{
 			featurenum = g_MpHeads[config->simulants[i].mpheadnum].requirefeature;
 
-			if (featurenum) {
+			if (featurenum)
+			{
 				index = challengeForceUnlockFeature(featurenum, array, index, len);
 			}
 		}
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (challengeindex >= 25) {
+	if (challengeindex >= 25)
+	{
 		index = challengeForceUnlockFeature(MPFEATURE_BOTDIFF_DARK, array, index, len);
-	} else if (challengeindex >= 20) {
+	}
+	else if (challengeindex >= 20)
+	{
 		index = challengeForceUnlockFeature(MPFEATURE_STAGE_CARPARK, array, index, len);
-	} else if (challengeindex >= 15) {
+	}
+	else if (challengeindex >= 15)
+	{
 		index = challengeForceUnlockFeature(MPFEATURE_SCENARIO_PAC, array, index, len);
 	}
 
-	if (challengeindex >= 10) {
-		index = challengeForceUnlockFeature(MPFEATURE_8BOTS, array, index, len);
-	}
-#else
-	if (challengeindex >= 10) {
+	if (challengeindex >= 10)
+	{
 		index = challengeForceUnlockFeature(MPFEATURE_8BOTS, array, index, len);
 	}
 
-	if (challengeindex >= 15) {
-		index = challengeForceUnlockFeature(MPFEATURE_SCENARIO_PAC, array, index, len);
-	}
-
-	if (challengeindex >= 20) {
-		index = challengeForceUnlockFeature(MPFEATURE_STAGE_CARPARK, array, index, len);
-	}
-#endif
 
 	// Clear the remainder of the array
-	for (i = index; i < len; i++) {
+	for (i = index; i < len; i++)
+	{
 		array[i] = 0;
 	}
 }

@@ -225,40 +225,10 @@
     <ClCompile Include="src\game\texselect.c">
       <Filter>Source Files\src\game</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\stubs\game_00b180.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_00b200.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_0008e0.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_0008f0.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\stubs\game_11eff0.c">
       <Filter>Source Files\src\game\stubs</Filter>
     </ClCompile>
     <ClCompile Include="src\game\stubs\game_0153f0.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_000840.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_000850.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_000860.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_000870.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_000900.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_000910.c">
       <Filter>Source Files\src\game\stubs</Filter>
     </ClCompile>
     <ClCompile Include="src\game\stubs\game_013540.c">
@@ -1604,37 +1574,7 @@
     <ClInclude Include="src\include\game\mplayer\setup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_00b180.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_00b200.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_0008e0.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_0008f0.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\game\stubs\game_0153f0.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_000840.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_000850.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_000860.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_000870.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_000900.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_000910.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\game\stubs\game_013540.h">

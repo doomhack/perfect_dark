@@ -342,7 +342,8 @@ s32 langGetFileNumOffset(void)
 #else
 	s32 offset = 0;
 
-	if (g_Jpn) {
+	if (g_Jpn)
+	{
 		offset = 1;
 	}
 

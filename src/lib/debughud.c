@@ -114,32 +114,7 @@ void dhud00014000nb(void)
 
 void dhudInit(void)
 {
-#ifdef DEBUG
-	s32 i;
-	s32 x;
-	s32 y;
-	u32 stack;
 
-	Gfx cmd = {0, 0};
-
-	g_DHudCharBufferPtr = g_DHudCharBuffer;
-	g_DHudFgGbiPtrs = g_DHudFgGbi;
-	g_DHudBgGbiPtrs = g_DHudBgGbi;
-
-	g_DHudInitialised = true;
-
-	for (x = 0; x < NUM_COLS; x++) {
-		for (y = 0; y < NUM_ROWS; y++) {
-			g_DHudCharBufferPtr[x][y].c = '\0';
-			g_DHudCharBufferPtr[x][y].paletteindex = 0;
-		}
-	}
-
-	for (i = 0; i < MAX_COLOURS; i++) {
-		g_DHudFgGbiPtrs[i] = cmd;
-		g_DHudBgGbiPtrs[i] = cmd;
-	}
-#endif
 }
 
 void dhudReset(void)

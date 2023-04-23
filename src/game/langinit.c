@@ -22,7 +22,8 @@ void langInit(void)
 		g_JpnCacheCacheItems[i].codepoint = -1;
 	}
 #else
-	if (g_Jpn) {
+	if (g_Jpn)
+	{
 		g_JpnCharCachePixels = mempAlloc(MAX_JPN_CACHE_ITEMS() * (sizeof(struct jpncharpixels) * 8), MEMPOOL_PERMANENT);
 		g_JpnCacheCacheItems = mempAlloc(ALIGN16(MAX_JPN_CACHE_ITEMS() * sizeof(struct jpncacheitem)), MEMPOOL_PERMANENT);
 

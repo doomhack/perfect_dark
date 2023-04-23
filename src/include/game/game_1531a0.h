@@ -8,7 +8,6 @@
 #define DIAGMODE_REDRAW  1
 #define DIAGMODE_FADEOUT 2
 
-void textInit(void);
 void textSetRotation90(bool rotated);
 void textSetWrapIndent(s32 count);
 void text0f1531d0(s32 arg0);
