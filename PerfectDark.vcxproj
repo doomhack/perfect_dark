@@ -82,7 +82,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(SolutionDir)\SDL2\lib\x86\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -141,7 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cmain.cpp">
+    <ClCompile Include="cmain.c">
       <FileType>CppHeader</FileType>
     </ClCompile>
     <ClCompile Include="src\game\activemenu.c" />
@@ -579,7 +579,6 @@
     <ClCompile Include="src\lib\zlib\inftrees.c" />
     <ClCompile Include="src\lib\zlib\uncompr.c" />
     <ClCompile Include="src\lib\zlib\zutil.c" />
-    <ClCompile Include="src\platform\platform.c" />
     <ClCompile Include="src\symbolmaps\symbols.c" />
     <ClCompile Include="src\textureconfig.c" />
   </ItemGroup>
