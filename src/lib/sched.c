@@ -196,12 +196,16 @@ void schedAppendTasks(OSSched *sc, OSScTask *t)
 
 	__scAppendList(sc, t);
 
-	if (sc->doAudio && sc->curRSPTask) {
+	if (sc->doAudio && sc->curRSPTask)
+	{
 		__scYield(sc);
-	} else {
+	}
+	else
+	{
 		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
 
-		if (__scSchedule(sc, &sp, &dp, state) != state) {
+		if (__scSchedule(sc, &sp, &dp, state) != state)
+		{
 			__scExec(sc, sp, dp);
 		}
 	}

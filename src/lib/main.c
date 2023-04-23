@@ -34,7 +34,6 @@
 #include "game/lv.h"
 #include "game/timing.h"
 #include "game/music.h"
-#include "game/stubs/game_175f50.h"
 #include "game/game_175f90.h"
 #include "game/game_176080.h"
 #include "game/game_1a78b0.h"
@@ -59,12 +58,12 @@
 #include "lib/debughud.h"
 #include "lib/anim.h"
 #include "lib/rdp.h"
-#include "lib/lib_34d0.h"
 #include "lib/lib_2f490.h"
 #include "lib/rng.h"
 #include "lib/str.h"
 #include "data.h"
 #include "types.h"
+#include "rom.h"
 
 
 // mainLoop calls rngSetSeed with a u32 argument,
@@ -196,9 +195,6 @@ extern u32 _accessingpakSegmentRomEnd;
 extern u32 _copyrightSegmentRomStart;
 extern u32 _copyrightSegmentRomEnd;
 
-extern u8* g_Rom;
-extern u32 g_RomSize;
-
 u8 _bssSegmentEnd;
 
 /**
@@ -281,14 +277,14 @@ void mainInit(void)
 		// It's using the framebuffer as a temporary data buffer.
 		if (g_DoBootPakMenu)
 		{
-			start = g_Rom + _accessingpakSegmentRomStart;
-			end = g_Rom + _accessingpakSegmentRomEnd;
+			start = ROMPTR(_accessingpakSegmentRomStart);
+			end = ROMPTR(_accessingpakSegmentRomEnd);
 			dmaExec(fb, (romptr_t) start, end - start);
 		}
 		else
 		{
-			start = g_Rom + _copyrightSegmentRomStart;
-			end = g_Rom + _copyrightSegmentRomEnd;
+			start = ROMPTR(_copyrightSegmentRomStart);
+			end = ROMPTR(_copyrightSegmentRomEnd);
 			dmaExec(fb, (romptr_t) start, end - start);
 		}
 
@@ -380,10 +376,7 @@ void mainInit(void)
 #endif
 
 	vmInit();
-	func0f1a78b0();
 	filesInit();
-	stub0f175f50();
-	func0f175f90();
 
 	if (var8005d9b0) {
 		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
@@ -400,7 +393,6 @@ void mainInit(void)
 	mempResetPool(MEMPOOL_PERMANENT);
 	challengesInit();
 	utilsInit();
-	func000034d0();
 	texInit();
 	langInit();
 	lvInit();
@@ -748,7 +740,6 @@ void mainTick(void)
 		profile00009a98();
 		profileReset();
 		profileSetMarker(PROFILE_MAINTICK_START);
-		func000034d8();
 		joyDebugJoy();
 
 		if (g_MainGameLogicEnabled) {
@@ -776,7 +767,6 @@ void mainTick(void)
 			}
 
 			gdl = lvRender(gdl);
-			func000034e0(&gdl);
 
 
 			if (debugGetProfileMode() >= 2) {

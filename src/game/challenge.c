@@ -19,6 +19,8 @@
 #include "data.h"
 #include "types.h"
 
+#include "rom.h"
+
 u8 g_MpFeaturesForceUnlocked[40];
 u8 g_MpFeaturesUnlocked[80];
 
@@ -366,41 +368,47 @@ bool challengeIsCompletedByChrWithNumPlayersBySlot(s32 mpchrnum, s32 slot, s32 n
 	return false;
 }
 
-struct mpconfigfull *challengeLoadConfig(s32 confignum, u8 *buffer, s32 len)
+struct mpconfigfull* challengeLoadConfig(s32 confignum, u8* buffer, s32 len)
 {
-	struct mpconfigfull *mpconfig;
+	struct mpconfigfull* mpconfig;
 	u8 buffer2[sizeof(struct mpstrings) + 40];
-	struct mpstrings *loadedstrings;
+	struct mpstrings* loadedstrings;
 	s32 bank;
 	u32 language_id = langGetFileNumOffset();
-	struct mpconfig _mpconfigsSegmentRomStart[128];
-	struct mpstrings _mpstringsESegmentRomStart;
-	struct mpstrings _mpstringsJSegmentRomStart;
-	struct mpstrings _mpstringsPSegmentRomStart;
-	struct mpstrings _mpstringsGSegmentRomStart;
-	struct mpstrings _mpstringsFSegmentRomStart;
-	struct mpstrings _mpstringsSSegmentRomStart;
-	struct mpstrings _mpstringsISegmentRomStart;
-	struct mpstrings _mpstringsESegmentRomEnd;
-	struct mpstrings _mpstringsJSegmentRomEnd;
-	struct mpstrings _mpstringsPSegmentRomEnd;
-	struct mpstrings _mpstringsGSegmentRomEnd;
-	struct mpstrings _mpstringsFSegmentRomEnd;
-	struct mpstrings _mpstringsSSegmentRomEnd;
-	struct mpstrings _mpstringsISegmentRomEnd;
 
-	s32 banks[][2] = {
-		{ (s32)&_mpstringsESegmentRomStart, (s32)&_mpstringsESegmentRomEnd },
-		{ (s32)&_mpstringsJSegmentRomStart, (s32)&_mpstringsJSegmentRomEnd },
-		{ (s32)&_mpstringsPSegmentRomStart, (s32)&_mpstringsPSegmentRomEnd },
-		{ (s32)&_mpstringsGSegmentRomStart, (s32)&_mpstringsGSegmentRomEnd },
-		{ (s32)&_mpstringsFSegmentRomStart, (s32)&_mpstringsFSegmentRomEnd },
-		{ (s32)&_mpstringsSSegmentRomStart, (s32)&_mpstringsSSegmentRomEnd },
-		{ (s32)&_mpstringsISegmentRomStart, (s32)&_mpstringsISegmentRomEnd },
+	extern u32 _mpconfigsSegmentRomStart;
+	extern u32 _mpstringsESegmentRomStart;
+	extern u32 _mpstringsJSegmentRomStart;
+	extern u32 _mpstringsPSegmentRomStart;
+	extern u32 _mpstringsGSegmentRomStart;
+	extern u32 _mpstringsFSegmentRomStart;
+	extern u32 _mpstringsSSegmentRomStart;
+	extern u32 _mpstringsISegmentRomStart;
+	extern u32 _mpstringsESegmentRomEnd;
+	extern u32 _mpstringsJSegmentRomEnd;
+	extern u32 _mpstringsPSegmentRomEnd;
+	extern u32 _mpstringsGSegmentRomEnd;
+	extern u32 _mpstringsFSegmentRomEnd;
+	extern u32 _mpstringsSSegmentRomEnd;
+	extern u32 _mpstringsISegmentRomEnd;
+
+	s32 banks[][2] =
+	{
+		{ (s32)ROMPTR(_mpstringsESegmentRomStart), (s32)ROMPTR(_mpstringsESegmentRomEnd) },
+		{ (s32)ROMPTR(_mpstringsJSegmentRomStart), (s32)ROMPTR(_mpstringsJSegmentRomEnd) },
+		{ (s32)ROMPTR(_mpstringsPSegmentRomStart), (s32)ROMPTR(_mpstringsPSegmentRomEnd) },
+		{ (s32)ROMPTR(_mpstringsGSegmentRomStart), (s32)ROMPTR(_mpstringsGSegmentRomEnd) },
+		{ (s32)ROMPTR(_mpstringsFSegmentRomStart), (s32)ROMPTR(_mpstringsFSegmentRomEnd) },
+		{ (s32)ROMPTR(_mpstringsSSegmentRomStart), (s32)ROMPTR(_mpstringsSSegmentRomEnd) },
+		{ (s32)ROMPTR(_mpstringsISegmentRomStart), (s32)ROMPTR(_mpstringsISegmentRomEnd) },
 	};
 
+	struct mpconfig* mpConfigs = ROMPTR(_mpconfigsSegmentRomStart);
+
 	// Load mpconfigs
-	mpconfig = dmaExecWithAutoAlign(buffer, (s32)&_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
+	//mpconfig = dmaExecWithAutoAlign(buffer, (s32)&_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
+	mpconfig = dmaExecWithAutoAlign(buffer, (s32)&mpConfigs[confignum], sizeof(struct mpconfig));
+
 
 	// Load mpstrings
 	bank = banks[language_id][0];

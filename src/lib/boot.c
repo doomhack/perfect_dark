@@ -29,15 +29,8 @@ OSMesgQueue *g_SchedCmdQ;
 u32 var8008dbcc;
 OSSched g_Sched;
 OSScClient var8008dca8;
-#if VERSION >= VERSION_NTSC_1_0
 u32 g_OsMemSize = 0x800000;
-#else
-u16 *var800902e4;
-u16 var800902e8;
-#endif
 
-u8* g_Rom = NULL;
-u32 g_RomSize = 0;
 
 u32 var8005ce00 = 0;
 u32 var8005ce04 = 0;

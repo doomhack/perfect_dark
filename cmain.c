@@ -14,8 +14,8 @@
 
 extern void bootPhase1(void);
 
-extern u8 * g_Rom;
-extern u32 g_RomSize;
+u8 * g_Rom;
+u32 g_RomSize;
 
 extern __OSEventState __osEventStateTab[OS_NUM_EVENTS];
 

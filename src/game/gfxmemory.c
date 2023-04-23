@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/gfxmemory.h"
-#include "game/stubs/game_175f50.h"
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/rzip.h"

@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/file.h"
-#include "game/stubs/game_175f50.h"
 #include "bss.h"
 #include "lib/dma.h"
 #include "lib/memp.h"
@@ -9,6 +8,7 @@
 #include "lib/rzip.h"
 #include "data.h"
 #include "types.h"
+#include "rom.h"
 
 /**
  * This file contains functions relating to ROM asset files.
@@ -48,7 +48,6 @@
  * functions that support this theory.
  */
 
-extern u8* g_Rom;
 
 
 extern const u32 _file_bg_sev_seg;
@@ -4099,7 +4098,7 @@ const u32* g_FileTable[] = {
 
 romptr_t fileGetRomAddress(u32 filenum)
 {
-	return (romptr_t)g_Rom + *g_FileTable[filenum];
+	return (romptr_t)ROMPTR(*g_FileTable[filenum]);
 }
 
 s32 fileGetRomSize(u32 filenum)

@@ -138,9 +138,6 @@
     <ClCompile Include="src\game\file.c">
       <Filter>Source Files\src\game</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\game_1a78b0.c">
-      <Filter>Source Files\src\game</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\smoke.c">
       <Filter>Source Files\src\game</Filter>
     </ClCompile>
@@ -244,9 +241,6 @@
       <Filter>Source Files\src\game\stubs</Filter>
     </ClCompile>
     <ClCompile Include="src\game\stubs\game_0153f0.c">
-      <Filter>Source Files\src\game\stubs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\stubs\game_175f50.c">
       <Filter>Source Files\src\game\stubs</Filter>
     </ClCompile>
     <ClCompile Include="src\game\stubs\game_000840.c">
@@ -1320,9 +1314,6 @@
     <ClCompile Include="src\lib\lib_04f60nb.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\lib_034d0.c">
-      <Filter>Source Files\src\lib</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\lib_39c80.c">
       <Filter>Source Files\src\lib</Filter>
     </ClCompile>
@@ -1626,9 +1617,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\game\stubs\game_0153f0.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game\stubs\game_175f50.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\game\stubs\game_000840.h">
@@ -2301,9 +2289,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\lib\lib_17ce0.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\lib\lib_34d0.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\lib\lib_39c80.h">

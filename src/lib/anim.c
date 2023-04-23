@@ -12,6 +12,7 @@
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"
+#include "rom.h"
 
 #define ANIM_HEADER_CACHE_SIZE 40
 #define ANIM_FRAME_CACHE_SIZE  32
@@ -42,7 +43,6 @@ u8 *g_AnimHostSegment = NULL;
 extern u32 _animationsTableRomStart;
 extern u32 _animationsTableRomEnd;
 
-extern u8* g_Rom;
 
 void animsInit(void)
 {
@@ -51,7 +51,7 @@ void animsInit(void)
 	u32 tablelen = ALIGN64(_animationsTableRomEnd - _animationsTableRomStart);
 
 	ptr = mempAlloc(tablelen, MEMPOOL_PERMANENT);
-	dmaExec(ptr, (romptr_t) &g_Rom[_animationsTableRomStart], tablelen);
+	dmaExec(ptr, (romptr_t) ROMPTR(_animationsTableRomStart), tablelen);
 
 	g_NumAnimations = g_NumRomAnimations = BSWAP32(ptr[0]);
 	g_Anims = g_RomAnims = (struct animtableentry *)&ptr[1];

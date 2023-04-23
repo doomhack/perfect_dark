@@ -465,12 +465,10 @@ char *menuResolveText(uintptr_t thing, void *dialogoritem)
 		return langGet((u32)thing);
 	}
 
-	if (thing > (uintptr_t)func0f1a78b0) {
-#if VERSION < VERSION_NTSC_1_0
-		CRASH();
-#endif
-		return NULL;
-	}
+	//if (thing > (uintptr_t)func0f1a78b0)
+	//{
+	//	return NULL;
+	//}
 
 	// Function pointer
 	if (handler) {
