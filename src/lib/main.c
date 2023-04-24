@@ -74,7 +74,8 @@ s32 g_DoBootPakMenu = 0;
 extern u32 g_RDRam;
 
 
-struct stageallocation g_StageAllocations8Mb[] = {
+struct stageallocation g_StageAllocations8Mb[] =
+{
 	{ STAGE_CITRAINING,    "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
 	{ STAGE_DEFECTION,     "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
 	{ STAGE_INVESTIGATION, "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
@@ -141,7 +142,8 @@ struct stageallocation g_StageAllocations8Mb[] = {
 
 };
 
-struct stageallocation g_StageAllocations4Mb[] = {
+struct stageallocation g_StageAllocations4Mb[] =
+{
 	{ STAGE_MP_SKEDAR,     "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
 	{ STAGE_MP_PIPES,      "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
 	{ STAGE_MP_AREA52,     "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
@@ -406,7 +408,8 @@ void mainInit(void)
 	var8005dd18 = 0;
 
 #if VERSION >= VERSION_PAL_BETA && VERSION < VERSION_JPN_FINAL
-	if (g_DoBootPakMenu) {
+	if (g_DoBootPakMenu)
+	{
 		osGetCount();
 	}
 #endif
@@ -421,18 +424,6 @@ u32 var8005dd4c = 0x00000000;
 u32 var8005dd50 = 0x00000000;
 s32 g_MainChangeToStageNum = -1;
 bool g_MainIsDebugMenuOpen = false;
-
-#if VERSION < VERSION_NTSC_1_0
-void main000e000nb(void)
-{
-	var8005d9bc = true;
-}
-
-void main000e010nb(void)
-{
-	var8005d9c0 ^= 1;
-}
-#endif
 
 void mainProc(void)
 {
@@ -483,62 +474,75 @@ void mainLoop(void)
 	var8005d9c4 = 0;
 	argGetLevel(&g_StageNum);
 
-	if (g_DoBootPakMenu) {
-#if VERSION >= VERSION_NTSC_1_0
+	if (g_DoBootPakMenu)
+	{
 		g_Vars.unk0004e4 = 0xfd;
-#endif
 		g_StageNum = STAGE_BOOTPAKMENU;
 	}
 
-	if (g_StageNum != STAGE_TITLE) {
+	if (g_StageNum != STAGE_TITLE)
+	{
 		titleSetNextStage(g_StageNum);
 
-		if (g_StageNum < STAGE_TITLE) {
+		if (g_StageNum < STAGE_TITLE)
+		{
 			func0f01b148(0);
 
-			if (argFindByPrefix(1, "-hard")) {
+			if (argFindByPrefix(1, "-hard"))
+			{
 				lvSetDifficulty(argFindByPrefix(1, "-hard")[0] - '0');
 			}
 		}
 	}
 
-	if (g_StageNum == STAGE_CITRAINING && IS4MB()) {
+	if (g_StageNum == STAGE_CITRAINING && IS4MB())
+	{
 		g_StageNum = STAGE_4MBMENU;
 	}
 
 	rngSetSeed(osGetCount());
 
 	// Outer loop - this is infinite because ending is never changed
-	while (!ending) {
+	while (!ending)
+	{
 		g_MainNumGfxTasks = 0;
 		g_MainGameLogicEnabled = true;
 		msg = NULL;
 		g_MainIsEndscreen = false;
 
-		if (var8005d9b0 && var8005d9c4 == 0) {
+		if (var8005d9b0 && var8005d9c4 == 0)
+		{
 			index = -1;
 
-			if (IS4MB()) {
-				if (g_StageNum < STAGE_TITLE && getNumPlayers() >= 2) {
-					index = 0; \
-					while (g_StageAllocations4Mb[index].stagenum) { \
-						if (g_StageAllocations4Mb[index].stagenum == g_StageNum + 400) { \
-							break; \
-						} \
+			if (IS4MB())
+			{
+				if (g_StageNum < STAGE_TITLE && getNumPlayers() >= 2)
+				{
+					index = 0;
+					while (g_StageAllocations4Mb[index].stagenum)
+					{
+						if (g_StageAllocations4Mb[index].stagenum == g_StageNum + 400)
+						{
+							break;
+						}
 						index++;
 					}
 
-					if (g_StageAllocations4Mb[index].stagenum == 0) {
+					if (g_StageAllocations4Mb[index].stagenum == 0)
+					{
 						index = -1;
 					}
 				}
 
 				if (index);
 
-				if (index < 0) {
+				if (index < 0)
+				{
 					index = 0;
-					while (g_StageAllocations4Mb[index].stagenum) {
-						if (g_StageNum == g_StageAllocations4Mb[index].stagenum) {
+					while (g_StageAllocations4Mb[index].stagenum)
+					{
+						if (g_StageNum == g_StageAllocations4Mb[index].stagenum)
+						{
 							break;
 						}
 
@@ -547,27 +551,36 @@ void mainLoop(void)
 				}
 
 				argSetString(g_StageAllocations4Mb[index].string);
-			} else {
+			}
+			else
+			{
 				// 8MB
-				if (g_StageNum < STAGE_TITLE && getNumPlayers() >= 2) {
-					index = 0; \
-					while (g_StageAllocations8Mb[index].stagenum) { \
-						if (g_StageNum + 400 == g_StageAllocations8Mb[index].stagenum) { \
-							break; \
-						} \
+				if (g_StageNum < STAGE_TITLE && getNumPlayers() >= 2)
+				{
+					index = 0;
+					while (g_StageAllocations8Mb[index].stagenum)
+					{
+						if (g_StageNum + 400 == g_StageAllocations8Mb[index].stagenum)
+						{
+							break;
+						}
 						index++;
 					}
 
-					if (g_StageAllocations8Mb[index].stagenum == 0) {
+					if (g_StageAllocations8Mb[index].stagenum == 0)
+					{
 						index = -1;
 					}
 				}
 
-				if (index < 0) {
+				if (index < 0)
+				{
 					index = 0;
 
-					while (g_StageAllocations8Mb[index].stagenum) {
-						if (g_StageNum == g_StageAllocations8Mb[index].stagenum) {
+					while (g_StageAllocations8Mb[index].stagenum)
+					{
+						if (g_StageNum == g_StageAllocations8Mb[index].stagenum)
+						{
 							break;
 						}
 
@@ -585,7 +598,8 @@ void mainLoop(void)
 		mempResetPool(MEMPOOL_STAGE);
 		filesStop(4);
 
-		if (argFindByPrefix(1, "-ma")) {
+		if (argFindByPrefix(1, "-ma"))
+		{
 			g_MainMemaHeapSize = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
 		}
 
@@ -593,29 +607,41 @@ void mainLoop(void)
 		langReset(g_StageNum);
 		playermgrReset();
 
-		if (g_StageNum >= STAGE_TITLE) {
+		if (g_StageNum >= STAGE_TITLE)
+		{
 			numplayers = 0;
-		} else {
-			if (argFindByPrefix(1, "-play")) {
+		}
+		else
+		{
+			if (argFindByPrefix(1, "-play"))
+			{
 				numplayers = strtol(argFindByPrefix(1, "-play"), NULL, 0);
-			} else {
+			}
+			else
+			{
 				numplayers = 1;
 			}
 
-			if (getNumPlayers() >= 2) {
+			if (getNumPlayers() >= 2)
+			{
 				numplayers = getNumPlayers();
 			}
 		}
 
-		if (numplayers < 2) {
+		if (numplayers < 2)
+		{
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
-		} else if (argFindByPrefix(1, "-coop")) {
+		}
+		else if (argFindByPrefix(1, "-coop"))
+		{
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = 1;
 			g_Vars.antiplayernum = -1;
-		} else if (argFindByPrefix(1, "-anti")) {
+		}
+		else if (argFindByPrefix(1, "-anti"))
+		{
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = 1;
@@ -623,17 +649,22 @@ void mainLoop(void)
 
 		playermgrAllocatePlayers(numplayers);
 
-		if (argFindByPrefix(1, "-mpbots")) {
+		if (argFindByPrefix(1, "-mpbots"))
+		{
 			g_Vars.lvmpbotlevel = 1;
 		}
 
-		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
+		{
 			g_MpSetup.chrslots = 0x03;
 			mpReset();
-		} else if (g_Vars.perfectbuddynum) {
+		}
+		else if (g_Vars.perfectbuddynum)
+		{
 			mpReset();
-		} else if (g_Vars.mplayerisrunning == false
-				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || argFindByPrefix(1, "-play"))) {
+		}
+		else if (g_Vars.mplayerisrunning == false && (numplayers >= 2 || g_Vars.lvmpbotlevel || argFindByPrefix(1, "-play")))
+		{
 			g_MpSetup.chrslots = 1;
 
 			if (numplayers >= 2) {
@@ -661,20 +692,24 @@ void mainLoop(void)
 		frametimeCalculate();
 		profileReset();
 
-		while (osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_NOBLOCK) != -1) {
+		while (osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_NOBLOCK) != -1)
+		{
 			// empty
 		}
 
-		while (g_MainChangeToStageNum < 0 || g_MainNumGfxTasks != 0) {
+		while (g_MainChangeToStageNum < 0 || g_MainNumGfxTasks != 0)
+		{
 			s32 cycles;
 
 			osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_BLOCK);
 
-			switch (*(s16 *) msg) {
+			switch (*(s16 *) msg)
+			{
 			case OS_SC_RETRACE_MSG:
 				cycles = osGetCount() - g_Vars.thisframestartt;
 
-				if (cycles >= g_Vars.mininc60 * CYCLES_PER_FRAME - CYCLES_PER_FRAME / 2) {
+				if (cycles >= g_Vars.mininc60 * CYCLES_PER_FRAME - CYCLES_PER_FRAME / 2)
+				{
 					mainTick();
 				}
 				break;
@@ -694,9 +729,7 @@ void mainLoop(void)
 		mempDisablePool(MEMPOOL_7);
 		filesStop(4);
 		viBlack(true);
-#if VERSION >= VERSION_NTSC_1_0
 		pak0f116994();
-#endif
 
 		g_StageNum = g_MainChangeToStageNum;
 		g_MainChangeToStageNum = -1;
@@ -713,14 +746,16 @@ void mainTick(void)
 	OSScMsg msg = {OS_SC_DONE_MSG};
 	s32 i;
 
-	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
+	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2)
+	{
 		frametimeCalculate();
 		profile00009a98();
 		profileReset();
 		profileSetMarker(PROFILE_MAINTICK_START);
 		joyDebugJoy();
 
-		if (g_MainGameLogicEnabled) {
+		if (g_MainGameLogicEnabled)
+		{
 			gdl = gdlstart = gfxGetMasterDisplayList();
 
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -729,11 +764,14 @@ void mainTick(void)
 			lvTick();
 			playermgrShuffle();
 
-			if (g_StageNum < STAGE_TITLE) {
-				for (i = 0; i < PLAYERCOUNT(); i++) {
+			if (g_StageNum < STAGE_TITLE)
+			{
+				for (i = 0; i < PLAYERCOUNT(); i++)
+				{
 					setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
 
-					if (g_StageNum != STAGE_TEST_OLD || !titleIsKeepingMode()) {
+					if (g_StageNum != STAGE_TEST_OLD || !titleIsKeepingMode())
+					{
 						viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 						viSetFovAspectAndSize(
 								g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
@@ -747,7 +785,8 @@ void mainTick(void)
 			gdl = lvRender(gdl);
 
 
-			if (debugGetProfileMode() >= 2) {
+			if (debugGetProfileMode() >= 2)
+			{
 				gdl = profileRender(gdl);
 			}
 
@@ -755,7 +794,8 @@ void mainTick(void)
 			gSPEndDisplayList(gdl++);
 		}
 
-		if (g_MainGameLogicEnabled) {
+		if (g_MainGameLogicEnabled)
+		{
 			gfxSwapBuffers();
 			viUpdateMode();
 		}
@@ -773,37 +813,46 @@ void mainEndStage(void)
 {
 	sndStopNosedive();
 
-	if (!g_MainIsEndscreen) {
-#if VERSION >= VERSION_NTSC_1_0
+	if (!g_MainIsEndscreen)
+	{
 		pak0f11c6d0();
-#endif
+
 		joyDisableTemporarily();
 
-		if (g_Vars.coopplayernum >= 0) {
+		if (g_Vars.coopplayernum >= 0)
+		{
 			s32 prevplayernum = g_Vars.currentplayernum;
 			s32 i;
 
-			for (i = 0; i < PLAYERCOUNT(); i++) {
+			for (i = 0; i < PLAYERCOUNT(); i++)
+			{
 				setCurrentPlayerNum(i);
 				endscreenPushCoop();
 			}
 
 			setCurrentPlayerNum(prevplayernum);
 			musicStartMenu();
-		} else if (g_Vars.antiplayernum >= 0) {
+		}
+		else if (g_Vars.antiplayernum >= 0)
+		{
 			s32 prevplayernum = g_Vars.currentplayernum;
 			s32 i;
 
-			for (i = 0; i < PLAYERCOUNT(); i++) {
+			for (i = 0; i < PLAYERCOUNT(); i++)
+			{
 				setCurrentPlayerNum(i);
 				endscreenPushAnti();
 			}
 
 			setCurrentPlayerNum(prevplayernum);
 			musicStartMenu();
-		} else if (g_Vars.normmplayerisrunning) {
+		}
+		else if (g_Vars.normmplayerisrunning)
+		{
 			mpEndMatch();
-		} else {
+		}
+		else
+		{
 			endscreenPrepare();
 			musicStartMenu();
 		}
@@ -817,9 +866,7 @@ void mainEndStage(void)
  */
 void mainChangeToStage(s32 stagenum)
 {
-#if VERSION >= VERSION_NTSC_1_0
 	pak0f11c6d0();
-#endif
 
 	g_MainChangeToStageNum = stagenum;
 }

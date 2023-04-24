@@ -189,29 +189,35 @@ void viReset(s32 stagenum)
 
 	g_Vars.fourmeg2player = false;
 
-	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD) {
-		if (IS4MB()) {
+	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD)
+	{
+		if (IS4MB())
+		{
 			viSetMode(VIMODE_HI);
 			fbsize = 640 * 440 * 2;
-		} else {
+		}
+		else
+		{
 			viSetMode(VIMODE_HI);
 			fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
 		}
-	} else {
+	}
+	else
+	{
 		viSetMode(VIMODE_LO);
 
 		if (1);
 
 		fbsize = IS4MB() ? 320 * 220 * 2 : 320 * 220 * 4;
 
-		if (IS4MB() && PLAYERCOUNT() == 2) {
-#if VERSION >= VERSION_NTSC_1_0
+		if (IS4MB() && PLAYERCOUNT() == 2)
+		{
 			fbsize = 320 * 220;
-#else
-			fbsize = 320 * 240;
-#endif
+
 			g_Vars.fourmeg2player = true;
-		} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
+		}
+		else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2)
+		{
 #if VERSION >= VERSION_JPN_FINAL
 			fbsize = 320 * 220 * 2;
 #elif VERSION >= VERSION_PAL_FINAL
@@ -237,7 +243,8 @@ void viReset(s32 stagenum)
 	fb0 = (u8 *) g_FrameBuffers[0];
 	fb1 = (u8 *) g_FrameBuffers[1];
 
-	for (i = 0; i < fbsize; i++) {
+	for (i = 0; i < fbsize; i++)
+	{
 		fb0[i] = 0;
 		fb1[i] = 0;
 	}

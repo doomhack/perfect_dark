@@ -70,7 +70,8 @@ void rdpInit(void)
 {
 	s32 size = 0x10000;
 
-	if (IS4MB()) {
+	if (IS4MB())
+	{
 		size = 0x8000;
 	}
 

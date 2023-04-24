@@ -3,7 +3,6 @@
 #include "game/camdraw.h"
 #include "game/tex.h"
 #include "game/menu.h"
-#include "game/stubs/game_102230.h"
 #include "game/bg.h"
 #include "game/lang.h"
 #include "game/pak.h"
@@ -1427,7 +1426,6 @@ void func0f14bec8(s32 index)
 		func0f14a678();
 		thing2->unk3f4_00 = true;
 		g_MpPlayerNum = index;
-		stub0f102230();
 		g_MpPlayerNum = 0;
 		thing->unk0f4 = 6;
 		break;

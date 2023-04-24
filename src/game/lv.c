@@ -64,12 +64,6 @@
 #include "game/sparks.h"
 #include "game/splat.h"
 #include "game/stars.h"
-#include "game/stubs/game_013540.h"
-#include "game/stubs/game_015260.h"
-#include "game/stubs/game_015270.h"
-#include "game/stubs/game_0153f0.h"
-#include "game/stubs/game_015400.h"
-#include "game/stubs/game_015410.h"
 #include "game/tex.h"
 #include "game/texdecompress.h"
 #include "game/tiles.h"
@@ -394,7 +388,6 @@ void lvReset(s32 stagenum)
 	func0f0099a4();
 	boltbeamsReset();
 	lasersightsReset();
-	stub0f013540();
 	shardsReset();
 	frReset();
 
@@ -2379,21 +2372,16 @@ void lvStop(void)
 	if (g_Vars.stagenum < NUM_STAGES) {
 		s32 bank = langGetLangBankIndexFromStagenum(g_Vars.stagenum);
 		langClearBank(bank);
-		stub0f015270();
 	}
 
 	chrmgrStop();
 	explosionsStop();
 	smokeStop();
-	stub0f015400();
-	stub0f015410();
 	shardsStop();
-	stub0f0153f0();
 	propsStop();
 	objsStop();
 	weatherStop();
 	objectivesStop();
-	stub0f015260();
 	bgunStop();
 	propsndStop();
 	musicStop();
