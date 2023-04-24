@@ -937,13 +937,24 @@ void sndLoadSfxCtl(void)
 	// Get the ROM address of the first (and only) bank,
 	// then load the first 256 bytes of the bank.
 	file = (ALBankFile *) buffer;
+
+	file->bankCount = BSWAP16(file->bankCount);
+	file->revision = BSWAP16(file->revision);
+	file->bankArray[0] = (ALBank*)BSWAP32((u32)file->bankArray[0]);
+
 	romaddr = (romptr_t)ROMPTR(_sfxctlSegmentRomStart);
 	romaddr += (u32)file->bankArray[0];
 	dmaExec(buffer, romaddr, size);
 
 	// Get the ROM address of the first (and only) instrument,
 	// then load the first 256 bytes of the instrument.
-	bank = (ALBank *) buffer;
+	bank = (ALBank*) buffer;
+
+	bank->instCount = BSWAP16(bank->instCount);
+	bank->sampleRate = BSWAP32(bank->sampleRate);
+	bank->instArray[0] = (ALBank*)BSWAP32((u32)bank->instArray[0]);
+	bank->percussion = (ALBank*)BSWAP32((u32)bank->percussion);
+
 	romaddr = (romptr_t)ROMPTR(_sfxctlSegmentRomStart);
 	romaddr += (u32)bank->instArray[0];
 	dmaExec(buffer, romaddr, size);
@@ -951,7 +962,14 @@ void sndLoadSfxCtl(void)
 	// Get the soundCount (spoiler: there's 1545+1).
 	// The final one might be a null terminator?
 	// Or accounting for 1-based indexing of soundnums.
-	g_NumSounds = ((ALInstrument *)buffer)->soundCount + 1;
+
+	ALInstrument* instruments = (ALInstrument*)buffer;
+	instruments->bendRange = BSWAP16(instruments->bendRange);
+	instruments->soundCount = BSWAP16(instruments->soundCount);
+	instruments->soundArray[0] = (ALSound*)BSWAP32((u32)instruments->soundArray[0]);
+
+	g_NumSounds = instruments->soundCount + 1;
+	//g_NumSounds = ((ALInstrument *)buffer)->soundCount + 1;
 
 	// Calculate the size of the ALInstrument and load it. The pointer is then
 	// shifted forward to point to the instrument's ALSound array. This leaks
@@ -1419,7 +1437,7 @@ void sndInit(void)
 	u32 heaplen = 1024 * 441;
 #elif VERSION >= VERSION_PAL_BETA
 	u32 heaplen = 1024 * 446;
-#else VERSION >= VERSION_NTSC_1_0
+#else
 	u32 heaplen = 1024 * 441;
 #endif
 
@@ -1480,10 +1498,13 @@ void sndInit(void)
 		// Load seq.ctl
 		var80095200 = 0xffffffff;
 		bankfile = alHeapAlloc(&g_SndHeap, 1, len);
-		dmaExec(bankfile, (romptr_t) &_seqctlSegmentRomStart, len);
+		dmaExec(bankfile, (romptr_t) ROMPTR(_seqctlSegmentRomStart), len);
+
+		bankfile->revision = BSWAP16(bankfile->revision);
+		bankfile->bankCount = BSWAP16(bankfile->bankCount);
 
 		// Load seq.tbl
-		alBnkfNew(bankfile, &_seqtblSegmentRomStart);
+		alBnkfNew(bankfile, ROMPTR(_seqtblSegmentRomStart));
 
 		// Load the sequences table. To do this, load the header of the
 		// sequences segment and read the number of sequences, then allocate
