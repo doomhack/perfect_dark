@@ -217,7 +217,13 @@ extern u32 g_SPRegBase;
 #define SP_SEMAPHORE_REG	(SP_BASE_REG+0x1C)
 
 /* SP PC (R/W): [11:0] program counter */
-#define SP_PC_REG		0x04080000
+
+//#define SP_PC_REG		0x04080000
+
+extern u32 g_SPPCReg;
+#define SP_PC_REG		(g_SPPCReg)
+
+
 
 /* SP MEM address: bit 12 specifies if address is IMEM or DMEM */
 #define SP_DMA_DMEM		0x0000		/* Bit 12: 0=DMEM, 1=IMEM */

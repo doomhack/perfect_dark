@@ -61,18 +61,19 @@ void animsInit(void)
 
 	for (i = 0; i < g_NumAnimations; i++)
 	{
-		u16 hlen = BSWAP16(g_Anims[i].headerlen);
+		g_Anims[i].bytesperframe = BSWAP16(g_Anims[i].bytesperframe);
+		g_Anims[i].data = BSWAP32(g_Anims[i].data);
+		g_Anims[i].headerlen = BSWAP16(g_Anims[i].headerlen);
+		g_Anims[i].numframes = BSWAP16(g_Anims[i].numframes);
 
-		if (hlen > g_AnimMaxHeaderLength)
+		if (g_Anims[i].headerlen > g_AnimMaxHeaderLength)
 		{
-			g_AnimMaxHeaderLength = hlen;
+			g_AnimMaxHeaderLength = g_Anims[i].headerlen;
 		}
 
-		u16 flen = BSWAP16(g_Anims[i].bytesperframe);
-
-		if (flen > g_AnimMaxBytesPerFrame)
+		if (g_Anims[i].bytesperframe > g_AnimMaxBytesPerFrame)
 		{
-			g_AnimMaxBytesPerFrame = flen;
+			g_AnimMaxBytesPerFrame = g_Anims[i].bytesperframe;
 		}
 	}
 
@@ -101,18 +102,21 @@ void animsInitTables(void)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumAnimations; i++) {
+	for (i = 0; i < g_NumAnimations; i++)
+	{
 		g_AnimToHeaderSlot[i] = 0xff;
 		var8005f014[i] = 0;
 	}
 
-	for (i = 0; i < ANIM_FRAME_CACHE_SIZE; i++) {
+	for (i = 0; i < ANIM_FRAME_CACHE_SIZE; i++)
+	{
 		g_AnimFrameAnimNums[i] = 0;
 		g_AnimFrameFrameNums[i] = 0;
 		g_AnimFrameBirths[i] = 0;
 	}
 
-	for (i = 0; i < ANIM_HEADER_CACHE_SIZE; i++) {
+	for (i = 0; i < ANIM_HEADER_CACHE_SIZE; i++)
+	{
 		g_AnimHeaderAnimNums[i] = 0;
 		g_AnimHeaderBirths[i] = -2;
 	}
@@ -140,7 +144,7 @@ s32 animGetNumAnimations(void)
 	return g_NumAnimations;
 }
 
-u8 _animationsSegmentRomStart;
+extern u32 _animationsSegmentRomStart;
 
 u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 {
@@ -149,7 +153,11 @@ u8 *animDma(u8 *dst, u32 segoffset, u32 len)
 		return dst;
 	}
 
-	return dmaExecWithAutoAlign(dst, (romptr_t) &_animationsSegmentRomStart + segoffset, len);
+	u8* animRomStart = ROMPTR(_animationsSegmentRomStart);
+
+	return dmaExecWithAutoAlign(dst, (romptr_t) (animRomStart + segoffset), len);
+
+	//return dmaExecWithAutoAlign(dst, (romptr_t) &_animationsSegmentRomStart + segoffset, len);
 }
 
 /**

@@ -20,6 +20,7 @@
 #include "lib/speaker.h"
 #include "data.h"
 #include "types.h"
+#include "rom.h"
 
 struct curmp3 {
 	union soundnumhack sfxref;
@@ -841,12 +842,12 @@ s16 var8005ecf8[] = {
 	-1,
 };
 
-u8 _sfxctlSegmentRomStart;
-u8 _sfxtblSegmentRomStart;
-u8 _seqctlSegmentRomStart;
-u8 _seqctlSegmentRomEnd;
-u8 _seqtblSegmentRomStart;
-u8 _sequencesSegmentRomStart;
+extern const u32 _sfxctlSegmentRomStart;
+extern const u32 _sfxtblSegmentRomStart;
+extern const u32 _seqctlSegmentRomStart;
+extern const u32 _seqctlSegmentRomEnd;
+extern const u32 _seqtblSegmentRomStart;
+extern const u32 _sequencesSegmentRomStart;
 
 bool sndIsPlayingMp3(void)
 {
@@ -931,19 +932,19 @@ void sndLoadSfxCtl(void)
 
 	// Load the first 256 bytes of the ctl file.
 	size = 256;
-	dmaExec(buffer, (romptr_t) &_sfxctlSegmentRomStart, size);
+	dmaExec(buffer, (romptr_t) ROMPTR(_sfxctlSegmentRomStart), size);
 
 	// Get the ROM address of the first (and only) bank,
 	// then load the first 256 bytes of the bank.
 	file = (ALBankFile *) buffer;
-	romaddr = (romptr_t)&_sfxctlSegmentRomStart;
+	romaddr = (romptr_t)ROMPTR(_sfxctlSegmentRomStart);
 	romaddr += (u32)file->bankArray[0];
 	dmaExec(buffer, romaddr, size);
 
 	// Get the ROM address of the first (and only) instrument,
 	// then load the first 256 bytes of the instrument.
 	bank = (ALBank *) buffer;
-	romaddr = (romptr_t)&_sfxctlSegmentRomStart;
+	romaddr = (romptr_t)ROMPTR(_sfxctlSegmentRomStart);
 	romaddr += (u32)bank->instArray[0];
 	dmaExec(buffer, romaddr, size);
 
@@ -963,29 +964,26 @@ void sndLoadSfxCtl(void)
 	*(u32 *)&g_ALSoundRomOffsets += 0x10;
 
 	// Convert ctl-local offsets to ROM offsets
-	for (i = 0; i < g_NumSounds; i++) {
-		g_ALSoundRomOffsets[i] += (romptr_t) &_sfxctlSegmentRomStart;
+	for (i = 0; i < g_NumSounds; i++)
+	{
+		g_ALSoundRomOffsets[i] += (romptr_t) ROMPTR(_sfxctlSegmentRomStart);
 	}
 
 	// Allocate and initialise cache
 	g_SndCache.indexes = alHeapAlloc(&g_SndHeap, sizeof(u16), g_NumSounds);
 
-	for (i = 0; i < (u32)g_NumSounds; i++) {
+	for (i = 0; i < (u32)g_NumSounds; i++)
+	{
 		g_SndCache.indexes[i] = -1;
 	}
 
-	for (i = 0; i < 45; i++) {
-#if VERSION >= VERSION_NTSC_1_0
+	for (i = 0; i < 45; i++)
+	{
 		g_SndCache.ages[i] = 1;
-#else
-		g_SndCache.ages[i] = g_Vars.updateframe;
-#endif
-
 		g_SndCache.refcounts[i] = 0;
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void sndIncrementAges(void)
 {
 	s32 i;
@@ -996,7 +994,6 @@ void sndIncrementAges(void)
 		}
 	}
 }
-#endif
 
 ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 {
@@ -1422,15 +1419,14 @@ void sndInit(void)
 	u32 heaplen = 1024 * 441;
 #elif VERSION >= VERSION_PAL_BETA
 	u32 heaplen = 1024 * 446;
-#elif VERSION >= VERSION_NTSC_1_0
+#else VERSION >= VERSION_NTSC_1_0
 	u32 heaplen = 1024 * 441;
-#else
-	u32 heaplen = 1024 * 438;
 #endif
 
 	g_Vars.langfilteron = false;
 
-	if (IS4MB()) {
+	if (IS4MB())
+	{
 		g_SndMaxFxBusses = 1;
 
 		heaplen -= 1024 * (PAL ? 6 : 38);
@@ -1439,26 +1435,34 @@ void sndInit(void)
 		heaplen -= 1024 * 23;
 
 		g_SndMp3Enabled = false;
-	} else {
+	}
+	else
+	{
 		g_SndMp3Enabled = true;
 		g_SndMaxFxBusses = 2;
 
-		if (argFindByPrefix(1, "-nomp3")) {
+		if (argFindByPrefix(1, "-nomp3"))
+		{
 			g_SndMp3Enabled = false;
 		}
 	}
 
-	if (!g_SndDisabled) {
+	if (!g_SndDisabled)
+	{
 		// Allocate memory for the audio heap,
 		// clear it and give it to the audio library
-		u32 len = &_seqctlSegmentRomEnd - &_seqctlSegmentRomStart;
+		u32 len = _seqctlSegmentRomEnd - _seqctlSegmentRomStart;
+
+
+
 		u8 *ptr = mempAlloc(heaplen, MEMPOOL_PERMANENT);
 		s32 i;
 		u8 *heapstart = ptr;
 		u8 *end = heapstart + heaplen;
 		ALBankFile *bankfile;
 
-		while (ptr < end) {
+		while (ptr < end)
+		{
 			*ptr = 0;
 			ptr++;
 		}

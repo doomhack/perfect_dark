@@ -37,9 +37,6 @@
     <Filter Include="Source Files\src\game\modeldata">
       <UniqueIdentifier>{f2b8f64d-b6e3-4091-a202-6f68f6898337}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\src\game\stubs">
-      <UniqueIdentifier>{c3a3b391-efa9-4cb0-b222-c30eef87aa3c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\src\lib\naudio">
       <UniqueIdentifier>{ecbbc0d2-0e91-4cfe-8e36-ed573df22817}</UniqueIdentifier>
     </Filter>
