@@ -44,6 +44,10 @@ extern const u32 _textureconfigSegmentEnd;
 
 void texReset(void)
 {
+	//What is this nonsense?
+	//Thomas had never heard such bullshit.
+
+
 	s32 stage;
 	u32 len = _textureconfigSegmentEnd - _textureconfigSegmentStart;
 	s32 i;
