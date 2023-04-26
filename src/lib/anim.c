@@ -53,7 +53,7 @@ void animsInit(void)
 	ptr = mempAlloc(tablelen, MEMPOOL_PERMANENT);
 	dmaExec(ptr, (romptr_t) ROMPTR(_animationsTableRomStart), tablelen);
 
-	g_NumAnimations = g_NumRomAnimations = BSWAP32(ptr[0]);
+	g_NumAnimations = g_NumRomAnimations = ptr[0];
 	g_Anims = g_RomAnims = (struct animtableentry *)&ptr[1];
 
 	g_AnimMaxHeaderLength = 1;
@@ -61,11 +61,6 @@ void animsInit(void)
 
 	for (i = 0; i < g_NumAnimations; i++)
 	{
-		g_Anims[i].bytesperframe = BSWAP16(g_Anims[i].bytesperframe);
-		g_Anims[i].data = BSWAP32(g_Anims[i].data);
-		g_Anims[i].headerlen = BSWAP16(g_Anims[i].headerlen);
-		g_Anims[i].numframes = BSWAP16(g_Anims[i].numframes);
-
 		if (g_Anims[i].headerlen > g_AnimMaxHeaderLength)
 		{
 			g_AnimMaxHeaderLength = g_Anims[i].headerlen;

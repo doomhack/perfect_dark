@@ -1311,6 +1311,9 @@
     <ClCompile Include="src\lib\zlib\inftrees.c">
       <Filter>Source Files\src\lib\zlib</Filter>
     </ClCompile>
+    <ClCompile Include="byteswaprom.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PR\abi.h">
@@ -2694,6 +2697,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\include\versions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="byteswaprom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,6 +12,8 @@
 
 #include "tinycthread.h"
 
+#include "byteswaprom.h"
+
 extern void bootPhase1(void);
 
 u8 * g_Rom;
@@ -235,6 +237,8 @@ int startGame()
     SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
 
     loadRom();
+
+    byteSwapRom();
 
     openWindow();
 

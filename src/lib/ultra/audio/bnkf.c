@@ -39,7 +39,7 @@ void alBnkfNew(ALBankFile *file, u8 *table)
 	 */
 	for (i = 0; i < file->bankCount; i++)
 	{
-		u32 bankOffset = BSWAP32((u32)file->bankArray[i]);
+		u32 bankOffset = (u32)file->bankArray[i];
 
 		file->bankArray[i] = (ALBank *)((u8 *) (bankOffset + offset));
 

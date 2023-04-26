@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="byteswaprom.c" />
     <ClCompile Include="cmain.c">
       <FileType>CppHeader</FileType>
     </ClCompile>
@@ -561,6 +562,7 @@
     <ClCompile Include="src\textureconfig.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="byteswaprom.h" />
     <ClInclude Include="include\PR\abi.h" />
     <ClInclude Include="include\PR\gbi.h" />
     <ClInclude Include="include\PR\gbiex.h" />

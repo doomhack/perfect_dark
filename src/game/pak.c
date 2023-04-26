@@ -1086,14 +1086,6 @@ PakErr1 _pakReadWriteBlock(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 le
 
 	newaddress = address / 8;
 
-	if (newaddress >= 256) {
-#if VERSION < VERSION_NTSC_1_0
-		u32 stack;
-		crashSetMessage("ILLEGAL EEPROM ADDRESS (>=256)");
-		CRASH();
-#endif
-	}
-
 	if (!g_PakHasEeprom) {
 		return PAK_ERR1_EEPROMMISSING;
 	}
@@ -5881,6 +5873,12 @@ void pakProbeEeprom(void)
 
 PakErr1 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 {
+	//Stub this out for now.
+	memset(buffer, 0, len);
+	return PAK_ERR1_OK;
+	//
+
+
 	s32 result;
 
 	joyDisableCyclicPolling(JOYARGS(6234));
@@ -5892,6 +5890,8 @@ PakErr1 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 
 PakErr1 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
 {
+	return PAK_ERR1_OK;
+
 	s32 result;
 
 	joyDisableCyclicPolling(JOYARGS(6269));

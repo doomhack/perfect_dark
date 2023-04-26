@@ -14,6 +14,8 @@
 #include "data.h"
 #include "types.h"
 
+#include "rom.h"
+
 #define SPACE_WIDTH 5
 
 #define BLENDTYPE_DIAGONAL   0x01
@@ -195,9 +197,9 @@ void text0f1531dc(bool arg0)
 
 void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace)
 {
-	extern u8 _fonthandelgothicsmSegmentRomStart;
-	extern u8 _fonthandelgothicxsSegmentRomStart;
-	extern u8 _fonthandelgothicmdSegmentRomStart;
+	extern const u32 _fonthandelgothicsmSegmentRomStart;
+	extern const u32 _fonthandelgothicxsSegmentRomStart;
+	extern const u32 _fonthandelgothicmdSegmentRomStart;
 
 	u32 len;
 	s32 maxwidth;
@@ -228,7 +230,8 @@ void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontch
 	dmaExec(font, (romptr_t) romstart, len);
 
 	// Convert pointers
-	for (i = 0; i < NUMCHARS(); i++) {
+	for (i = 0; i < NUMCHARS(); i++)
+	{
 		chars[i].pixeldata += (uintptr_t)font;
 	}
 
@@ -275,16 +278,16 @@ void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontch
 
 void textReset(void)
 {
-	u8 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
-	u8 _fontzurichSegmentRomStart,         _fontzurichSegmentRomEnd;
-	u8 _fonttahomaSegmentRomStart,         _fonttahomaSegmentRomEnd;
-	u8 _fontnumericSegmentRomStart,        _fontnumericSegmentRomEnd;
-	u8 _fonthandelgothicsmSegmentRomStart, _fonthandelgothicsmSegmentRomEnd;
-	u8 _fonthandelgothicxsSegmentRomStart, _fonthandelgothicxsSegmentRomEnd;
-	u8 _fonthandelgothicmdSegmentRomStart, _fonthandelgothicmdSegmentRomEnd;
-	u8 _fonthandelgothiclgSegmentRomStart, _fonthandelgothiclgSegmentRomEnd;
-	u8 _fontocramdSegmentRomStart,         _fontocramdSegmentRomEnd;
-	u8 _fontocralgSegmentRomStart,         _fontocralgSegmentRomEnd;
+	extern const u32 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
+	extern const u32 _fontzurichSegmentRomStart,         _fontzurichSegmentRomEnd;
+	extern const u32 _fonttahomaSegmentRomStart,         _fonttahomaSegmentRomEnd;
+	extern const u32 _fontnumericSegmentRomStart,        _fontnumericSegmentRomEnd;
+	extern const u32 _fonthandelgothicsmSegmentRomStart, _fonthandelgothicsmSegmentRomEnd;
+	extern const u32 _fonthandelgothicxsSegmentRomStart, _fonthandelgothicxsSegmentRomEnd;
+	extern const u32 _fonthandelgothicmdSegmentRomStart, _fonthandelgothicmdSegmentRomEnd;
+	extern const u32 _fonthandelgothiclgSegmentRomStart, _fonthandelgothiclgSegmentRomEnd;
+	extern const u32 _fontocramdSegmentRomStart,         _fontocramdSegmentRomEnd;
+	extern const u32 _fontocralgSegmentRomStart,         _fontocralgSegmentRomEnd;
 
 	var8007faec = 0;
 	g_FontTahoma2 = NULL;
@@ -318,16 +321,21 @@ void textReset(void)
 	var8007fae4 = 0;
 	var8007fae8 = 0;
 
-	if (g_Vars.stagenum == STAGE_TITLE) {
-		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
-		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
-		textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
-	} else if (g_Vars.stagenum == STAGE_CREDITS) {
-		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
-		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
-		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
-		textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
-	} else {
+	if (g_Vars.stagenum == STAGE_TITLE)
+	{
+		textLoadFont(ROMPTR(_fonthandelgothicsmSegmentRomStart), ROMPTR(_fonthandelgothicsmSegmentRomEnd), &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		textLoadFont(ROMPTR(_fonthandelgothicmdSegmentRomStart), ROMPTR(_fonthandelgothicmdSegmentRomEnd), &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		textLoadFont(ROMPTR(_fonthandelgothiclgSegmentRomStart), ROMPTR(_fonthandelgothiclgSegmentRomEnd), &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+	}
+	else if (g_Vars.stagenum == STAGE_CREDITS)
+	{
+		textLoadFont(ROMPTR(_fonthandelgothicxsSegmentRomStart), ROMPTR(_fonthandelgothicxsSegmentRomEnd), &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		textLoadFont(ROMPTR(_fonthandelgothicsmSegmentRomStart), ROMPTR(_fonthandelgothicsmSegmentRomEnd), &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		textLoadFont(ROMPTR(_fonthandelgothicmdSegmentRomStart), ROMPTR(_fonthandelgothicmdSegmentRomEnd), &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		textLoadFont(ROMPTR(_fonthandelgothiclgSegmentRomStart), ROMPTR(_fonthandelgothiclgSegmentRomEnd), &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+	}
+	else
+	{
 #if VERSION >= VERSION_JPN_FINAL
 		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
 
@@ -369,15 +377,16 @@ void textReset(void)
 		}
 #else
 		// This unused GE font exists in NTSC but was removed in the PAL version
-		textLoadFont(&_fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
+		textLoadFont(ROMPTR(_fonttahomaSegmentRomStart), ROMPTR(_fonttahomaSegmentRomEnd), &g_FontTahoma2, &g_FontTahoma1, false);
 
-		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
-		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
-		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
-		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		textLoadFont(ROMPTR(_fontnumericSegmentRomStart), ROMPTR(_fontnumericSegmentRomEnd), &g_FontNumeric, &g_CharsNumeric, false);
+		textLoadFont(ROMPTR(_fonthandelgothicxsSegmentRomStart), ROMPTR(_fonthandelgothicxsSegmentRomEnd), &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		textLoadFont(ROMPTR(_fonthandelgothicsmSegmentRomStart), ROMPTR(_fonthandelgothicsmSegmentRomEnd), &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		textLoadFont(ROMPTR(_fonthandelgothicmdSegmentRomStart), ROMPTR(_fonthandelgothicmdSegmentRomEnd), &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 
-		if (g_Vars.stagenum == STAGE_TEST_OLD) {
-			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+		if (g_Vars.stagenum == STAGE_TEST_OLD)
+		{
+			textLoadFont(ROMPTR(_fonthandelgothiclgSegmentRomStart), ROMPTR(_fonthandelgothiclgSegmentRomEnd), &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 		}
 #endif
 	}
