@@ -249,6 +249,41 @@ void byteSwapAnims()
 	}
 };
 
+void byteSwapFont(struct font* font, u8* base)
+{
+	for (int i = 0; i < 13 * 13; i++)
+	{
+		BS32(font->kerning[i]);
+	}
+
+	for (int i = 0; i < 94; i++)
+	{
+		BS32(font->chars[i].kerningindex);
+		BS32(font->chars[i].pixeldata);
+	}
+}
+
+void byteSwapFonts()
+{
+	extern const u32 _fonthandelgothicsmSegmentRomStart;
+	extern const u32 _fonthandelgothicmdSegmentRomStart;
+	extern const u32 _fonthandelgothiclgSegmentRomStart;
+	extern const u32 _fonthandelgothicxsSegmentRomStart;
+
+	struct font* font = ROMPTR(_fonthandelgothicsmSegmentRomStart);
+	byteSwapFont(font, (u8*)font);
+
+	font = ROMPTR(_fonthandelgothicmdSegmentRomStart);
+	byteSwapFont(font, (u8*)font);
+
+	font = ROMPTR(_fonthandelgothiclgSegmentRomStart);
+	byteSwapFont(font, (u8*)font);
+
+	font = ROMPTR(_fonthandelgothicxsSegmentRomStart);
+	byteSwapFont(font, (u8*)font);
+
+}
+
 
 void byteSwapRom()
 {
@@ -256,6 +291,7 @@ void byteSwapRom()
 
 	byteSwapAnims();
 	byteSwapSound();
+	byteSwapFonts();
 
 	free(swapMap);
 }

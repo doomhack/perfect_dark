@@ -11,6 +11,11 @@ void __osPfsGetInitData(u8 *pattern, OSContStatus *data);
 
 s32 osPfsIsPlug(OSMesgQueue *queue, u8 *pattern)
 {
+	*pattern = 0;
+	return 0;
+
+
+
 	s32 ret;
 	OSMesg dummy;
 	u8 bitpattern;

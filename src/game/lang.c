@@ -404,7 +404,7 @@ char *langGet(s32 textid)
 	u32 addr;
 
 	if (bank && bank[textindex]) {
-		addr = (uintptr_t)bank + bank[textindex];
+		addr = (uintptr_t)bank + BSWAP32(bank[textindex]);
 	} else {
 		addr = 0;
 	}

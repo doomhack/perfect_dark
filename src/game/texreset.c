@@ -10,6 +10,7 @@
 #include "data.h"
 #include "textureconfig.h"
 #include "types.h"
+#include "rom.h"
 
 void texSetBitstring(u8 *arg0)
 {
@@ -37,18 +38,18 @@ extern Gfx *g_TexGdl3;
 extern struct textureconfig *g_TexRedLinesConfigs;
 extern struct textureconfig *g_TexSkyConfigs;
 
-u8 _textureconfigSegmentRomStart;
-u8 _textureconfigSegmentStart;
-u8 _textureconfigSegmentEnd;
+extern const u32 _textureconfigSegmentRomStart;
+extern const u32 _textureconfigSegmentStart;
+extern const u32 _textureconfigSegmentEnd;
 
 void texReset(void)
 {
 	s32 stage;
-	u32 len = &_textureconfigSegmentEnd - &_textureconfigSegmentStart;
+	u32 len = _textureconfigSegmentEnd - _textureconfigSegmentStart;
 	s32 i;
 
 	g_TextureConfigSegment = mempAlloc(len, MEMPOOL_STAGE);
-	dmaExec(g_TextureConfigSegment, (romptr_t)&_textureconfigSegmentRomStart, len);
+	dmaExec(g_TextureConfigSegment, (romptr_t)ROMPTR(_textureconfigSegmentRomStart), len);
 
 	g_TexBase = (uintptr_t)g_TextureConfigSegment - ROM_SIZE * 1024 * 1024;
 	g_TexGdl1 = (Gfx *)(g_TexBase + (uintptr_t)g_TcGdl1);
