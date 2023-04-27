@@ -2205,8 +2205,10 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 				freebytes = texGetPoolFreeBytes(pool);
 			}
 
-			if ((!iszlib && freebytes < 4300) || (iszlib && freebytes < 2600)) {
-				*updateword = osVirtualToPhysical(pool->start);
+			if ((!iszlib && freebytes < 4300) || (iszlib && freebytes < 2600))
+			{
+				//*updateword = osVirtualToPhysical(pool->start);
+				*updateword = pool->start;
 				return;
 			}
 
@@ -2214,13 +2216,16 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 			// - rightpos is the head of a linked list, so grab it and find the tail
 			// - set rightpos to a spot in the buffer that can fit a tex before it
 			// - set leftpos to 0x10 after rightpos
-			if (usingsharedpool) {
+			if (usingsharedpool)
+			{
 				tail = pool->rightpos;
 				pool->rightpos = (struct tex *) ((((uintptr_t) buffer5kb + 0xf) >> 4 << 4) + sizeof(struct tex));
 				pool->leftpos = ((u8 *) pool->rightpos + sizeof(struct tex));
 
-				while (tail) {
-					if (tail->next == 0) {
+				while (tail)
+				{
+					if (tail->next == 0)
+					{
 						break;
 					}
 
@@ -2241,9 +2246,12 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 			tex->unk0c_03 = false;
 
 			// Extract the texture data to the allocation (pool->leftpos)
-			if (iszlib) {
+			if (iszlib)
+			{
 				bytesout = texInflateZlib(compptr, pool->leftpos, sp14a8, lod, pool, arg2);
-			} else {
+			}
+			else
+			{
 				bytesout = texInflateNonZlib(compptr, pool->leftpos, sp14a8, lod, pool, arg2);
 			}
 
@@ -2279,7 +2287,8 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 
 			pool->leftpos += bytesout;
 
-			if (!usingsharedpool) {
+			if (!usingsharedpool)
+			{
 				texGetPoolFreeBytes(pool);
 			}
 		}

@@ -299,8 +299,6 @@ void byteSwapTextures()
 
 	for (int i = 0; i < count; i++)
 	{
-		u64 v = *(u64*)&tex[i];
-
 		u8 soundsurfacetype =	tex[i].soundsurfacetype;
 		u8 surfacetype =		tex[i].surfacetype;
 		u32 dataoffset =		tex[i].dataoffset << 8;
