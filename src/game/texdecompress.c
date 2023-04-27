@@ -10,6 +10,8 @@
 #include "data.h"
 #include "types.h"
 
+#include "rom.h"
+
 struct texture *g_Textures;
 u32 var800aabc4;
 struct texpool g_TexSharedPool;
@@ -208,18 +210,9 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 			g_TexCacheItems[g_TexCacheCount].heights[j - 1] = height;
 		}
 
-		if (rzipInflate(var800ab540, scratch2, scratch) == 0) {
-#if VERSION < VERSION_NTSC_1_0
-			char message[128];
-			sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-					"texdecompress.c", 357,
-					var800ab540[0], var800ab540[1], var800ab540[2], var800ab540[3],
-					var800ab540[4], var800ab540[5], var800ab540[6], var800ab540[7],
-					var800ab540[8], var800ab540[9], var800ab540[10], var800ab540[11],
-					var800ab540[12], var800ab540[13], var800ab540[14], var800ab540[15]);
-			crashSetMessage(message);
-			CRASH();
-#endif
+		if (rzipInflate(var800ab540, scratch2, scratch) == 0)
+		{
+
 		}
 
 		imagebytesout = texAlignIndices(scratch2, width, height, format, &dst[totalbytesout]);
@@ -2027,19 +2020,23 @@ struct tex *texFindInPool(s32 texturenum, struct texpool *pool)
 		pool = &g_TexSharedPool;
 	}
 
-	if (pool == &g_TexSharedPool) {
+	if (pool == &g_TexSharedPool)
+	{
 		cur = pool->head;
 
-		while (cur) {
-			if (cur->texturenum == texturenum) {
+		while (cur)
+		{
+			if (cur->texturenum == texturenum)
+			{
 				return cur;
 			}
 
-			if (!cur->next) {
+			if (!cur->next)
+			{
 				return NULL;
 			}
 
-			cur = (struct tex *) PHYS_TO_K0(cur->next);
+			cur = (struct tex *)RD_OFFSET_TO_PTR(cur->next);
 		}
 
 		return NULL;
@@ -2083,7 +2080,6 @@ void texLoadFromDisplayList(Gfx *gdl, struct texpool *pool, s32 arg2)
 	}
 }
 
-u8 _texturesdataSegmentRomStart;
 
 /**
  * Load and decompress a texture from ROM.
@@ -2122,6 +2118,8 @@ u8 _texturesdataSegmentRomStart;
  */
 void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 {
+	extern const u32 _texturesdataSegmentRomStart;
+
 	u8 compbuffer[4 * 1024 + 0x40];
 	u8 *compptr;
 	s32 sp14a8;
@@ -2150,13 +2148,16 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 	}
 
 	// If the value at updateword isn't already a pointer
-	if ((*updateword & 0xffff0000) == 0 || (*updateword & 0xffff0000) == 0xabcd0000) {
+	if ((*updateword & 0xffff0000) == 0 || (*updateword & 0xffff0000) == 0xabcd0000)
+	{
 		g_TexNumToLoad = *updateword & 0xffff;
 
 		tex = texFindInPool(g_TexNumToLoad, pool);
 
-		if (tex == NULL) {
-			if (g_TexNumToLoad >= NUM_TEXTURES) {
+		if (tex == NULL)
+		{
+			if (g_TexNumToLoad >= NUM_TEXTURES)
+			{
 				return;
 			}
 
@@ -2171,15 +2172,16 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 			thisoffset = g_Textures[g_TexNumToLoad].dataoffset;
 			nextoffset = g_Textures[g_TexNumToLoad + 1].dataoffset;
 
-			if (thisoffset == nextoffset) {
+			if (thisoffset == nextoffset)
+			{
 				// The texture has no data
 				return;
 			}
 
+			u32 tlen = (((u32)(nextoffset - thisoffset) + 0x1f) >> 4) << 4;
+
 			// Copy the compressed texture to RAM
-			dmaExec(alignedcompbuffer,
-					(romptr_t) &_texturesdataSegmentRomStart + (thisoffset & 0xfffffff8),
-					((u32) (nextoffset - thisoffset) + 0x1f) >> 4 << 4);
+			dmaExec(alignedcompbuffer,(romptr_t)ROMPTR(_texturesdataSegmentRomStart) + (thisoffset & 0xfffffff8), tlen);
 
 			compptr = (u8 *) alignedcompbuffer + (thisoffset & 7);
 			thisoffset = 0;
@@ -2247,7 +2249,8 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 
 			// If we're using the shared pool, the data must be copied out of
 			// the stack and into the heap.
-			if (usingsharedpool) {
+			if (usingsharedpool)
+			{
 				u8 *ptr = mempAllocFromRight(ALIGN16(bytesout + 2 * sizeof(struct tex)), MEMPOOL_STAGE);
 				pool->rightpos = (struct tex *) ptr;
 
@@ -2261,9 +2264,13 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 				pool->rightpos->data = ptr + 8;
 				pool->rightpos->next = 0;
 
-				if (tail != NULL) {
-					tail->next = (uintptr_t) pool->rightpos & 0xffffff;
-				} else {
+				if (tail != NULL)
+				{
+					//tail->next = (uintptr_t) pool->rightpos & 0xffffff;
+					tail->next = (uintptr_t) PTR_TO_RD_OFFSET(pool->rightpos);
+				}
+				else
+				{
 					pool->head = pool->rightpos;
 				}
 
@@ -2277,7 +2284,8 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 			}
 		}
 
-		*updateword = osVirtualToPhysical(tex->data);
+		*updateword = tex->data;
+		//*updateword = osVirtualToPhysical(tex->data);
 	}
 }
 

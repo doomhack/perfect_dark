@@ -68,6 +68,12 @@
 #define	PHYS_TO_K0(x)	((u32)(x)|0x80000000)	/* physical to kseg0 */
 #define	PHYS_TO_K1(x)	((u32)(x)|0xA0000000)	/* physical to kseg1 */
 
+
+extern u32 g_RDRam;
+#define PTR_TO_RD_OFFSET(x) ((u32)x - ((u32)g_RDRam))
+#define RD_OFFSET_TO_PTR(x) ((u32) &((u8*)g_RDRam)[x])
+
+
 #endif	/* _LANGUAGE_ASSEMBLY */
 
 /*

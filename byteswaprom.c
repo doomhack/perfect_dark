@@ -284,6 +284,37 @@ void byteSwapFonts()
 
 }
 
+void byteSwapTextures()
+{
+	//Texture is a bitfield.
+
+	extern const u32 _textureslistSegmentRomStart;
+	extern const u32 _textureslistSegmentRomEnd;
+
+	u32 len = _textureslistSegmentRomEnd - _textureslistSegmentRomStart;
+
+	struct texture* tex = ROMPTR(_textureslistSegmentRomStart);
+
+	u32 count = len / sizeof(struct texture);
+
+	for (int i = 0; i < count; i++)
+	{
+		u64 v = *(u64*)&tex[i];
+
+		u8 soundsurfacetype =	tex[i].soundsurfacetype;
+		u8 surfacetype =		tex[i].surfacetype;
+		u32 dataoffset =		tex[i].dataoffset << 8;
+
+		u8 unk04_00 =			tex[i].unk04_00;
+		u8 unk04_04 =			tex[i].unk04_04;
+		u8 unk04_08 =			tex[i].unk04_08;
+		u8 unk04_0c =			tex[i].unk04_0c;
+
+		dataoffset = BSWAP32(dataoffset);
+
+		tex[i].dataoffset = dataoffset;
+	}
+}
 
 void byteSwapRom()
 {
@@ -292,6 +323,7 @@ void byteSwapRom()
 	byteSwapAnims();
 	byteSwapSound();
 	byteSwapFonts();
+	byteSwapTextures();
 
 	free(swapMap);
 }
