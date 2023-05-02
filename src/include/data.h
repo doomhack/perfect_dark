@@ -45,12 +45,11 @@ extern s32 g_NumLvAilists;
 extern u32 var8005ef40;
 extern u32 var8005ef5c;
 extern u32 var8005ef7c;
-extern u32 var8005ef90;
+extern u8 var8005ef90[];
 
 extern u32 var8005ef40;
 extern u32 var8005ef5c;
 extern u32 var8005ef7c;
-extern u32 var8005ef90;
 extern bool g_ModelDistanceDisabled;
 extern f32 g_ModelDistanceScale;
 extern bool var8005efbc;
