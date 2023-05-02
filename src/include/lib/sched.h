@@ -4,7 +4,7 @@
 #include <sched.h>
 #include "types.h"
 
-void schedAppendTasks(OSSched *sc, OSScTask *t);
+void schedSubmitTask(OSSched* sc, OSScTask* t); 
 void __scHandleRetrace(OSSched *sc);
 void __scHandleRSP(OSSched *sc);
 void __scHandleRDP(OSSched *sc);

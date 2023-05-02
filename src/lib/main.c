@@ -324,7 +324,7 @@ void mainInit(void)
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
 
-		while (osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0)
+		while (osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_NOBLOCK) == 0)
 		{
 			// empty
 		}
@@ -333,11 +333,11 @@ void mainInit(void)
 
 		while (j < 6)
 		{
-			osRecvMesg(&g_SchedMesgQueue, &receivedmsg, OS_MESG_BLOCK);
+			osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_BLOCK);
 
 			i = (s32) &scdonemsg;
 
-			if (*(s16 *) receivedmsg == 1)
+			if (*(s16*)receivedmsg == OS_SC_RETRACE_MSG)
 			{
 				viUpdateMode();
 				rdpCreateTask(var8005dcc8, var8005dcf0, 0, (void *) i);
@@ -692,7 +692,7 @@ void mainLoop(void)
 		frametimeCalculate();
 		profileReset();
 
-		while (osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_NOBLOCK) != -1)
+		while (osRecvMesg(&g_MainMesgQueue, &msg, OS_MESG_NOBLOCK) != -1)
 		{
 			// empty
 		}
@@ -701,7 +701,7 @@ void mainLoop(void)
 		{
 			s32 cycles;
 
-			osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_BLOCK);
+			osRecvMesg(&g_MainMesgQueue, &msg, OS_MESG_BLOCK);
 
 			switch (*(s16 *) msg)
 			{

@@ -128,14 +128,14 @@ void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 	osStartThread(sc->thread);
 }
 
-void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, int is8mb)
+void osScAddClient(OSSched* sc, OSScClient* c, OSMesgQueue* msgQ, bool is30fps) 
 {
 	OSIntMask mask;
 
 	mask = osSetIntMask(1);
 
 	c->msgQ = msgQ;
-	c->is8mb = is8mb;
+	c->is30fps = is30fps;
 	c->next = sc->clientList;
 	sc->clientList = c;
 
@@ -166,8 +166,15 @@ void __scMain(void *arg)
 
 		switch ((int) msg) {
 		case VIDEO_MSG:
+
+			/**
+			 * The freeze bit is set when a VI swap is pending, and unset here
+			 * when the swap is completed. It prevents the scheduler from
+			 * executing another graphics task during a VI swap.
+			 */
+
 			if (osViGetCurrentFramebuffer() == osViGetNextFramebuffer()) {
-				osDpSetStatus(DPC_STATUS_FLUSH);
+				osDpSetStatus(DPC_CLR_FREEZE);
 			}
 
 			__scHandleRetrace(sc);
@@ -177,7 +184,12 @@ void __scMain(void *arg)
 			__scHandleRSP(sc);
 			break;
 		case RDP_DONE_MSG:
-			osDpSetStatus(DPC_STATUS_START_GCLK);
+
+			/**
+			* The RDP has completed a graphics task. Set the freeze bit so the
+			* scheduler doesn't executing another task until the swap is done.
+			*/
+			osDpSetStatus(DPC_SET_FREEZE);
 			__scHandleRDP(sc);
 			__scHandleTasks(sc);
 			break;
@@ -185,7 +197,17 @@ void __scMain(void *arg)
 	}
 }
 
-void schedAppendTasks(OSSched *sc, OSScTask *t)
+/**
+ * Nintendo's sheduler accepts tasks on a "command" message queue.
+ * This isn't used here.
+ *
+ * In PD, the main and audio threads submit tasks by calling this function
+ * instead. It temporarily increases the calling thread's priority above the
+ * scheduler, adds the task to the linked list directly and attempts to execute
+ * it. This is faster than the queue method because it avoids switching threads.
+ */
+
+void schedSubmitTask(OSSched* sc, OSScTask* t) 
 {
 	s32 state;
 	OSScTask *sp = 0;
@@ -198,6 +220,13 @@ void schedAppendTasks(OSSched *sc, OSScTask *t)
 
 	if (sc->doAudio && sc->curRSPTask)
 	{
+		/**
+		 * Preempt the running gfx task.  Note: if the RSP
+		 * component of the graphics task has finished, but the
+		 * RDP component is still running, we can start an audio
+		 * task which will freeze the RDP (and save the RDP cmd
+		 * FIFO) while the audio RSP code is running.
+		 */
 		__scYield(sc);
 	}
 	else
@@ -245,10 +274,10 @@ void __scHandleRetrace(OSSched *sc)
 	}
 #endif
 
-	vi00009ed4();
+	viHandleRetrace();
 
-	joysTick();
-	snd0000fe18();
+	joysHandleRetrace();
+	sndHandleRetrace();
 }
 
 extern struct sndcache g_SndCache;
@@ -267,7 +296,9 @@ void __scHandleTasks(OSSched *sc)
 	profileTick();
 
 	/**
-	 * Read the task command queue and schedule tasks
+	* This is default scheduler code. In PD, clients pass tasks to the
+	 * scheduler using schedSubmitTask. Nothing writes to the cmdQ in PD
+	 * so the condition in this loop never passes.
 	 */
 	while (osRecvMesg(&sc->cmdQ, (OSMesg*)&rspTask, OS_MESG_NOBLOCK) != -1) {
 		__scAppendList(sc, rspTask);
@@ -281,6 +312,7 @@ void __scHandleTasks(OSSched *sc)
 		 * task which will freeze the RDP (and save the RDP cmd
 		 * FIFO) while the audio RSP code is running.
 		 */
+		 // This is unreachable because no tasks are submitted above
 		__scYield(sc);
 	} else {
 		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
@@ -296,7 +328,8 @@ void __scHandleTasks(OSSched *sc)
 	 * build the list in overrun case)
 	 */
 	for (client = sc->clientList; client != 0; client = client->next) {
-		if ((*((s32*)client + 2) == 0) || ((sc->frameCount & 1) == 0)) {
+		if (!client->is30fps || (sc->frameCount & 1) == 0)
+		{
 			osSendMesg(client->msgQ, (OSMesg) &sc->retraceMsg, OS_MESG_NOBLOCK);
 		}
 	}
@@ -506,7 +539,7 @@ OSScTask *__scTaskReady(OSScTask *t)
 s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 {
 	if ((t->state & OS_SC_RCP_MASK) == 0) {
-		if (t->list.t.type == 1
+		if (t->list.t.type == M_GFXTASK
 				&& (t->flags & OS_SC_SWAPBUFFER)
 				&& (t->flags & OS_SC_LAST_TASK)) {
 			if (g_SchedIsFirstTask) {
@@ -523,7 +556,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 						|| var8008dd60[1 - var8005ce74]->fldRegs[1].yScale != var8008dcc0[1 - var8005ce74].fldRegs[1].yScale
 						|| var8008dd60[1 - var8005ce74]->fldRegs[0].origin != var8008dcc0[1 - var8005ce74].fldRegs[0].origin
 						|| var8008dd60[1 - var8005ce74]->fldRegs[1].origin != var8008dcc0[1 - var8005ce74].fldRegs[1].origin) {
-					s32 mask = osSetIntMask(0x80401);
+					s32 mask = osSetIntMask(OS_IM_VI);
 
 					*var8008dd60[1 - var8005ce74] = var8008dcc0[1 - var8005ce74];
 
@@ -584,6 +617,13 @@ void __scAppendList(OSSched *sc, OSScTask *t)
 	t->state = t->flags & OS_SC_RCP_MASK;
 }
 
+/**
+ * Execute a task on the RCP.
+ *
+ * Audio tasks use the RSP only, while graphics tasks use both the RSP and RDP.
+ * Graphics tasks commonly finish the RSP work before the RDP work, in which
+ * case the RSP can be given an audio task while the graphics task is completing.
+ */
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 {
 	if (sp) {
@@ -592,7 +632,7 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 		}
 
 		if (sp->list.t.type != M_AUDTASK && (sp->state & OS_SC_YIELD) == 0) {
-			osDpSetStatus(DPC_STATUS_CMD_BUSY | DPC_STATUS_CBUF_READY | DPC_STATUS_DMA_BUSY | DPC_STATUS_END_VALID);
+			osDpSetStatus(DPC_CLR_TMEM_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_CMD_CTR | DPC_CLR_CLOCK_CTR);
 		}
 
 		if (sp->list.t.type == M_AUDTASK) {
@@ -615,6 +655,13 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 	}
 }
 
+/**
+ * Tell the RSP to pause the currently executing graphics task.
+ * The RSP will pause it shortly and __scHandleRSP will be called.
+ *
+ * Graphics tasks are yielded so an audio task can take priority.
+ * The graphics task is resumed afterwards.
+ */
 void __scYield(OSSched *sc)
 {
 	if (sc->curRSPTask->list.t.type == M_GFXTASK) {
