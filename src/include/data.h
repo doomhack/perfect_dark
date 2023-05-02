@@ -41,6 +41,12 @@ extern bool var8005eedc;
 extern f32 var8005ef10[2];
 extern s32 g_NumGlobalAilists;
 extern s32 g_NumLvAilists;
+
+extern u32 var8005ef40;
+extern u32 var8005ef5c;
+extern u32 var8005ef7c;
+extern u32 var8005ef90;
+
 extern u32 var8005ef40;
 extern u32 var8005ef5c;
 extern u32 var8005ef7c;
