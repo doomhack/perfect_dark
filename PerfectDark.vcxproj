@@ -74,9 +74,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;ROM_SIZE=32</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);VERSION=2;_LANGUAGE_C;PAL=0;AVOID_UB;_CRT_SECURE_NO_WARNINGS;ROM_SIZE=32;ENABLE_OPENGL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\SDL2\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Zak\Documents\GitProjects\perfect_dark\glew-2.1.0\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\SDL2\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\src\include;C:\Users\Zak\Documents\GitProjects\perfect_dark\include\PR;C:\Users\Zak\Documents\GitProjects\perfect_dark\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -84,7 +84,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)\SDL2\lib\x86\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)\SDL2\lib\x86\SDL2.lib;$(SolutionDir)\glew-2.1.0\lib\Release\Win32\glew32.lib;Opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -145,6 +145,14 @@
     <ClCompile Include="cmain.c">
       <FileType>CppHeader</FileType>
     </ClCompile>
+    <ClCompile Include="n64-fast3d-engine\gfx_cc.c" />
+    <ClCompile Include="n64-fast3d-engine\gfx_direct3d11.cpp" />
+    <ClCompile Include="n64-fast3d-engine\gfx_direct3d12.cpp" />
+    <ClCompile Include="n64-fast3d-engine\gfx_direct3d_common.cpp" />
+    <ClCompile Include="n64-fast3d-engine\gfx_dxgi.cpp" />
+    <ClCompile Include="n64-fast3d-engine\gfx_opengl.c" />
+    <ClCompile Include="n64-fast3d-engine\gfx_pc.c" />
+    <ClCompile Include="n64-fast3d-engine\gfx_sdl2.c" />
     <ClCompile Include="src\game\activemenu.c" />
     <ClCompile Include="src\game\activemenutick.c" />
     <ClCompile Include="src\game\bg.c" />

@@ -6,6 +6,8 @@
 #include "lib/memp.h"
 #include "lib/sched.h"
 
+#include "../n64-fast3d-engine/gfx_pc.h"
+
 ALIGNED16 u8 g_RdpDramStack[SP_DRAM_STACK_SIZE8];
 ALIGNED16 u8 g_RdpYieldData[0xb00];
 
@@ -112,4 +114,6 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 
 	// Swap g_RdpCurTask
 	g_RdpCurTask = (struct rdptask *)((uintptr_t) g_RdpCurTask ^ (uintptr_t) &g_RdpTaskA ^ (uintptr_t) &g_RdpTaskB);
+
+	gfx_run(gdlstart);
 }

@@ -19,8 +19,8 @@ s32 osAiSetFrequency(u32 frequency)
 		bitRate = AI_MAX_BIT_RATE;
 	}
 
-	IO_WRITE(AI_DACRATE_REG, dacRate - 1);
-	IO_WRITE(AI_BITRATE_REG, bitRate - 1);
+	//IO_WRITE(AI_DACRATE_REG, dacRate - 1);
+	//IO_WRITE(AI_BITRATE_REG, bitRate - 1);
 
 	return osViClock / (s32)dacRate;
 }
