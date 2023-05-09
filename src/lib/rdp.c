@@ -115,5 +115,7 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 	// Swap g_RdpCurTask
 	g_RdpCurTask = (struct rdptask *)((uintptr_t) g_RdpCurTask ^ (uintptr_t) &g_RdpTaskA ^ (uintptr_t) &g_RdpTaskB);
 
+	gfx_start_frame();
 	gfx_run(gdlstart);
+	gfx_end_frame();
 }
