@@ -2262,7 +2262,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 				tex = (struct tex *) ptr;
 				ptr += sizeof(struct tex);
 
-				memcpy(pool->leftpos - 8, ptr, bytesout + 8);
+				memcpy(ptr, pool->leftpos - 8, bytesout + 8);
 
 				pool->rightpos->data = ptr + 8;
 				pool->rightpos->next = 0;

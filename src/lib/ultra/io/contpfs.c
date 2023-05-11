@@ -214,7 +214,7 @@ s32 __osGetId(OSPfs *pfs)
 		}
 	}
 
-	memcpy(id, pfs->id, 0x20);
+	memcpy(pfs->id, id, 0x20);
 
 	pfs->version = id->version;
 	pfs->banks = id->banks;
@@ -273,7 +273,7 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank)
 	static __OSInode prevnode;
 
 	if (flag == 0 && bank == g_PfsPrevBank && pfs->channel == g_PfsPrevChannel) {
-		memcpy(&prevnode, inode, sizeof(__OSInode));
+		memcpy(inode, &prevnode, sizeof(__OSInode));
 		return 0;
 	}
 
@@ -325,7 +325,7 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank)
 	}
 
 	g_PfsPrevBank = bank;
-	memcpy(inode, &prevnode, sizeof(__OSInode));
+	memcpy(&prevnode, inode, sizeof(__OSInode));
 	g_PfsPrevChannel = pfs->channel;
 
 	return 0;

@@ -76,7 +76,7 @@ s32 osGbpakReadId(OSPfs *pfs, OSGbpakId *id, u8 *status)
 			return PFS_ERR_CONTRFAIL;
 		}
 
-		memcpy(buffer, id, sizeof(OSGbpakId));
+		memcpy(id, buffer, sizeof(OSGbpakId));
 
 		if (id->cart_type < 20) {
 			pfs->version = g_OsGbCartVersions[id->cart_type];

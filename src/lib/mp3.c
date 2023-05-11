@@ -385,7 +385,7 @@ s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 	proc = n_syn->dma(&sp1c);
 	sp1c = OS_K0_TO_PHYSICAL(proc(g_Mp3Vars.romaddr + g_Mp3Vars.var8009c3c4, arg2, 0));
 
-	memcpy((u8 *)sp1c, arg1, arg2);
+	memcpy(arg1, (u8 *)sp1c, arg2);
 
 	g_Mp3Vars.var8009c3c4 += arg2;
 

@@ -63,8 +63,8 @@ s32 osPfsFileState(OSPfs *pfs, s32 fileNo, OSPfsState *state)
 	state->company_code = dir.company_code;
 	state->game_code = dir.game_code;
 
-	memcpy(&dir.game_name, state->game_name, PFS_FILE_NAME_LEN);
-	memcpy(&dir.ext_name, state->ext_name, PFS_FILE_EXT_LEN);
+	memcpy(state->game_name, &dir.game_name, PFS_FILE_NAME_LEN);
+	memcpy(state->ext_name, &dir.ext_name, PFS_FILE_EXT_LEN);
 
 	return __osPfsGetStatus(pfs->queue, pfs->channel);
 }

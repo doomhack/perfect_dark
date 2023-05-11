@@ -56,7 +56,7 @@ s32 __osContRamRead(OSMesgQueue* ctrlrqueue, int channel, u16 addr, u8* data)
 
 				ret = 4; // Retry
 			} else {
-				memcpy(bufptr + 6, data, BLOCKSIZE);
+				memcpy(data, bufptr + 6, BLOCKSIZE);
 			}
 		} else {
 			ret = 1; // Error

@@ -25,7 +25,7 @@ s32 mp3main00043dd0(struct asistream *stream)
 	s32 sp18;
 
 	if (stream->unk201c + stream->unk3f88 > 0x1ffb) {
-		memcpy(&stream->unk1c[sp1c], &stream->unk1c, sp1c);
+		memcpy(&stream->unk1c, &stream->unk1c[sp1c], sp1c);
 		stream->unk201c -= sp1c;
 		stream->unk2020 -= sp1c * 8;
 	}

@@ -210,7 +210,7 @@ s32 n_alLoadParam(N_PVoice *filter, s32 paramID, void *param)
 				a->dc_loop.end = a->dc_table->waveInfo.adpcmWave.loop->end;
 				a->dc_loop.count = a->dc_table->waveInfo.adpcmWave.loop->count;
 
-				memcpy(a->dc_table->waveInfo.adpcmWave.loop->state, a->dc_lstate, sizeof(ADPCM_STATE));
+				memcpy(a->dc_lstate, a->dc_table->waveInfo.adpcmWave.loop->state, sizeof(ADPCM_STATE));
 			} else {
 				a->dc_loop.start = a->dc_loop.end = a->dc_loop.count = 0;
 			}

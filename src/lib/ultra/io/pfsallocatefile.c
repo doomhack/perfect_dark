@@ -78,7 +78,7 @@ s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name
 			}
 
 			if (fileSizeInPages > decleared) {
-				memcpy(&inode, &backupInode, sizeof(__OSInode));
+				memcpy(&backupInode, &inode, sizeof(__OSInode));
 				oldPrevPage = prevPage;
 				prevBank = bank;
 				fileSizeInPages -= decleared;
@@ -104,8 +104,8 @@ s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name
 	dir.game_code = game_code;
 	dir.data_sum = 0;
 
-	memcpy(game_name, dir.game_name, PFS_FILE_NAME_LEN);
-	memcpy(ext_name, dir.ext_name, PFS_FILE_EXT_LEN);
+	memcpy(dir.game_name, game_name, PFS_FILE_NAME_LEN);
+	memcpy(dir.ext_name, ext_name, PFS_FILE_EXT_LEN);
 
 	return __osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + *file_no, (u8*)&dir, 0);
 }

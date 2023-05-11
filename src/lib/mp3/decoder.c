@@ -2550,9 +2550,9 @@ bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch)
 	}
 
 	if (window_switching && block_type == 2) {
-		memcpy(sp70[sp48][sp44][mixed + 1], sp28, 0x10);
+		memcpy(sp28, sp70[sp48][sp44][mixed + 1], 0x10);
 	} else {
-		memcpy(sp70[sp48][sp44][0], sp28, 0x10);
+		memcpy(sp28, sp70[sp48][sp44][0], 0x10);
 	}
 
 	sfb = 0;

@@ -75,7 +75,7 @@ s32 osPfsInitPak2(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 		}
 	}
 
-	memcpy(id, pfs->id, sizeof(*id));
+	memcpy(pfs->id, id, sizeof(*id));
 
 	pfs->version = id->version;
 	pfs->banks = id->banks;

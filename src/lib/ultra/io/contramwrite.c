@@ -44,7 +44,7 @@ s32 __osContRamWrite(OSMesgQueue* mq, int channel, u16 address, u8* buffer, int 
 		((__OSContRamReadFormat*)ptr)->hi = address >> 3;
 		((__OSContRamReadFormat*)ptr)->lo = ((address << 5) | __osContAddressCrc(address));
 
-		memcpy(buffer, ((__OSContRamReadFormat*)ptr)->data, BLOCKSIZE);
+		memcpy(((__OSContRamReadFormat*)ptr)->data, buffer, BLOCKSIZE);
 
 		ret = __osSiRawStartDma(OS_WRITE, &__osPfsPifRam);
 		crc = __osContDataCrc(buffer);
