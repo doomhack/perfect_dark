@@ -1668,7 +1668,7 @@ Gfx *bgRenderArtifacts(Gfx *gdl)
 void bgLoadFile(void *memaddr, u32 offset, u32 len)
 {
 	if (var8007fc04) {
-		memcpy(var8007fc08 + offset, memaddr, len);
+		memcpy( memaddr, var8007fc08 + offset, len);
 	} else {
 		fileLoadPartToAddr(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
 	}
@@ -3002,7 +3002,7 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 #endif
 	} else {
 		result = len;
-		memcpy(src, dst, len);
+		memcpy(dst, src, len);
 	}
 
 	return result;
