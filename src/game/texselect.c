@@ -256,17 +256,23 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 	gdl = *gdlptr;
 
-	if (tconfig == NULL) {
+	if (tconfig == NULL)
+	{
 		texSetRenderMode(&gdl, arg2, 1, arg3);
 
-		if (arg3 >= 2) {
+		if (arg3 >= 2)
+		{
 			gSPTextureL(gdl++, 0xffff, 0xffff, 0, arg3, G_TX_RENDERTILE, G_ON);
-		} else {
+		}
+		else
+		{
 			gSPTextureL(gdl++, 0xffff, 0xffff, 0, 0, G_TX_RENDERTILE, G_ON);
 		}
 
 		gDPSetCombineMode(gdl++, G_CC_SHADE, G_CC_SHADE);
-	} else {
+	}
+	else
+	{
 		s32 width = tconfig->width;
 		s32 height = tconfig->height;
 		u16 *ptr;
@@ -281,11 +287,11 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 		tex = NULL;
 
-		if ((u32)tconfig->texturenum < NUM_TEXTURES) {
+		if ((u32)tconfig->texturenum < NUM_TEXTURES)
 			texLoadFromConfigs(tconfig, 1, pool, 0);
-		}
 
-		if (tconfig->unk0b == 1) {
+		if (tconfig->unk0b == 1)
+		{
 			ptr = (u16 *)tconfig->textureptr;
 			//texturenum = ((u16 *)PHYS_TO_K0(ptr))[-4];
 			texturenum = ((u16 *)(ptr))[-4];
@@ -305,94 +311,106 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			index = ((s32) tconfig - (s32) g_TexWallhitConfigs) / sizeof(struct textureconfig);
 #endif
 
-			if (index >= 0 && index < g_TexNumConfigs) {
+			if (index >= 0 && index < g_TexNumConfigs)
 				tex = g_TexWords[index];
-			}
 
-			if (tex == NULL) {
+
+			if (tex == NULL)
+			{
 				tex = texFindInPool(texturenum, pool);
 
-				if (index >= 0 && index < g_TexNumConfigs) {
+				if (index >= 0 && index < g_TexNumConfigs)
 					g_TexWords[index] = tex;
-				}
 			}
 		}
 
-		if (tconfig->level == 0) {
-			if (tex) {
+		if (tconfig->level == 0)
+		{
+			if (tex)
+			{
 				format = tex->gbiformat;
 				depth = tex->depth;
 				lutmode = tex->lutmodeindex << G_MDSFT_TEXTLUT;
-			} else {
+			}
+			else
+			{
 				format = tconfig->format;
 				depth = tconfig->depth;
 			}
 
-			switch (depth) {
-			default:
-				break;
-			case G_IM_SIZ_32b:
-				depth2 = G_IM_SIZ_32b;
-				lrs = tex0f0b3548(width, height, 1) - 1;
-				line = (width + 3) >> 2;
-				break;
-			case G_IM_SIZ_16b:
-				depth2 = G_IM_SIZ_16b;
-				lrs = tex0f0b34d8(width, height, 1) - 1;
-				line = (width + 3) >> 2;
-				break;
-			case G_IM_SIZ_8b:
-				depth2 = G_IM_SIZ_16b;
-				lrs = tex0f0b3468(width, height, 1) - 1;
-				line = (width + 7) >> 3;
-				break;
-			case G_IM_SIZ_4b:
-				depth2 = G_IM_SIZ_16b;
-				lrs = tex0f0b33f8(width, height, 1) - 1;
-				line = (width + 15) >> 4;
-				break;
+			switch (depth)
+			{
+				case G_IM_SIZ_32b:
+					depth2 = G_IM_SIZ_32b;
+					lrs = tex0f0b3548(width, height, 1) - 1;
+					line = (width + 3) >> 2;
+					break;
+				case G_IM_SIZ_16b:
+					depth2 = G_IM_SIZ_16b;
+					lrs = tex0f0b34d8(width, height, 1) - 1;
+					line = (width + 3) >> 2;
+					break;
+				case G_IM_SIZ_8b:
+					depth2 = G_IM_SIZ_16b;
+					lrs = tex0f0b3468(width, height, 1) - 1;
+					line = (width + 7) >> 3;
+					break;
+				case G_IM_SIZ_4b:
+					depth2 = G_IM_SIZ_16b;
+					lrs = tex0f0b33f8(width, height, 1) - 1;
+					line = (width + 15) >> 4;
+					break;
 			}
 
-			if (arg5) {
+			if (arg5)
+			{
 				texSetRenderMode(&gdl, arg2, 1, arg3);
 
-				if (arg3 >= 2) {
+				if (arg3 >= 2)
+				{
 					gSPTextureL(gdl++, 0xffff, 0xffff, 0, arg3, G_TX_RENDERTILE, G_ON);
-				} else {
+				}
+				else
+				{
 					gSPTextureL(gdl++, 0xffff, 0xffff, 0, 0, G_TX_RENDERTILE, G_ON);
 				}
 
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 
-				switch (format) {
-				case G_IM_FMT_RGBA:
-					gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
-					break;
-				case G_IM_FMT_IA:
-					gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
-					break;
-				case G_IM_FMT_I:
-					gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
-					break;
-				case G_IM_FMT_CI:
-					switch (lutmode) {
-					case G_TT_RGBA16:
+				switch (format)
+				{
+					case G_IM_FMT_RGBA:
 						gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 						break;
-					case G_TT_IA16:
+					case G_IM_FMT_IA:
 						gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 						break;
-					}
-					break;
+					case G_IM_FMT_I:
+						gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+						break;
+					case G_IM_FMT_CI:
+						switch (lutmode)
+						{
+							case G_TT_RGBA16:
+								gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+								break;
+							case G_TT_IA16:
+								gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+								break;
+						}
+						break;
 				}
 			}
 
 			gDPSetTextureImage(gdl++, format, depth2, 1, tconfig->textureptr);
 
-			if (depth2 == G_IM_SIZ_16b) {
+			if (depth2 == G_IM_SIZ_16b)
+			{
 				gDPLoadSync(gdl++);
 				gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, lrs, 0);
-			} else {
+			}
+			else
+			{
 				gDPSetTile(gdl++, G_IM_FMT_RGBA, depth2, 0, 0x0000, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 				gDPLoadSync(gdl++);
 				gDPLoadBlock(gdl++, 5, 0, 0, lrs, 0);
@@ -400,7 +418,8 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 			gDPPipeSync(gdl++);
 
-			if (format == G_IM_FMT_CI) {
+			if (format == G_IM_FMT_CI)
+			{
 				u32 a3 = lrs + 1;
 				u32 t0 = (0x3ff - tex->unk0a) < a3 ? (0x3ff - tex->unk0a) : 0;
 
@@ -410,23 +429,26 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 				gDPLoadTLUT06(gdl++, a3, t0, tex->unk0a + a3, t0);
 				gDPPipeSync(gdl++);
 
-				if (arg5) {
+				if (arg5)
 					gDPSetTextureLUT(gdl++, lutmode);
-				}
-			} else {
-				if (arg5) {
+			}
+			else
+			{
+				if (arg5)
 					gDPSetTextureLUT(gdl++, G_TT_NONE);
-				}
 			}
 
-			if (arg5) {
+			if (arg5)
+			{
 				gDPSetTile(gdl++, format, depth, line, 0x0000, G_TX_RENDERTILE, 0,
 						tconfig->t, texGetMask(height), G_TX_NOLOD,
 						tconfig->s, texGetMask(width), G_TX_NOLOD);
 
 				gDPSetTileSize(gdl++, G_TX_RENDERTILE, ulst, ulst, ((width - 1) << 2) + ulst, ((height - 1) << 2) + ulst);
 			}
-		} else {
+		}
+		else
+		{
 			s32 tmem = 0;
 			s32 lod = tconfig->level;
 			u8 format;
@@ -435,82 +457,97 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			s32 depth2;
 			s32 lrs;
 
-			if (lod > 6) {
+			if (lod > 6)
 				lod = 6;
-			}
 
-			if (tex) {
+			if (tex)
+			{
 				format = tex->gbiformat;
 				depth = tex->depth;
 				lutmode = tex->lutmodeindex << G_MDSFT_TEXTLUT;
-			} else {
+			}
+			else
+			{
 				format = tconfig->format;
 				depth = tconfig->depth;
 			}
 
-			if (tex && tex->unk0c_02) {
+			if (tex && tex->unk0c_02)
+			{
 				tex0f173e50(tex, &depth2, &lrs);
-			} else {
-				switch (depth) {
-				case G_IM_SIZ_32b:
-					depth2 = G_IM_SIZ_32b;
-					lrs = tex0f0b3548(width, height, lod) - 1;
-					break;
-				case G_IM_SIZ_16b:
-					depth2 = G_IM_SIZ_16b;
-					lrs = tex0f0b34d8(width, height, lod) - 1;
-					break;
-				case G_IM_SIZ_8b:
-					depth2 = G_IM_SIZ_16b;
-					lrs = tex0f0b3468(width, height, lod) - 1;
-					break;
-				case G_IM_SIZ_4b:
-					depth2 = G_IM_SIZ_16b;
-					lrs = tex0f0b33f8(width, height, lod) - 1;
-					break;
+			}
+			else
+			{
+				switch (depth)
+				{
+					case G_IM_SIZ_32b:
+						depth2 = G_IM_SIZ_32b;
+						lrs = tex0f0b3548(width, height, lod) - 1;
+						break;
+					case G_IM_SIZ_16b:
+						depth2 = G_IM_SIZ_16b;
+						lrs = tex0f0b34d8(width, height, lod) - 1;
+						break;
+					case G_IM_SIZ_8b:
+						depth2 = G_IM_SIZ_16b;
+						lrs = tex0f0b3468(width, height, lod) - 1;
+						break;
+					case G_IM_SIZ_4b:
+						depth2 = G_IM_SIZ_16b;
+						lrs = tex0f0b33f8(width, height, lod) - 1;
+						break;
 				}
 			}
 
-			if (arg5) {
+			if (arg5)
+			{
 				texSetRenderMode(&gdl, arg2, 2, arg3);
 
-				if (arg3 >= 2) {
+				if (arg3 >= 2)
+				{
 					gSPTextureL(gdl++, 0xffff, 0xffff, lod - 1, arg3, G_TX_RENDERTILE, G_ON);
-				} else {
+				}
+				else
+				{
 					gSPTexture(gdl++, 0xffff, 0xffff, lod - 1, G_TX_RENDERTILE, G_ON);
 				}
 
 				gDPSetTextureLOD(gdl++, G_TL_LOD);
 
-				switch (format) {
-				case G_IM_FMT_RGBA:
-					gDPSetCombineMode(gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
-					break;
-				case G_IM_FMT_IA:
-					gDPSetCombineMode(gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
-					break;
-				case G_IM_FMT_I:
-					gDPSetCombineMode(gdl++, G_CC_TRILERP, G_CC_MODULATEI2);
-					break;
-				case G_IM_FMT_CI:
-					switch (lutmode) {
-					case G_TT_RGBA16:
-						gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+				switch (format)
+				{
+					case G_IM_FMT_RGBA:
+						gDPSetCombineMode(gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 						break;
-					case G_TT_IA16:
-						gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+					case G_IM_FMT_IA:
+						gDPSetCombineMode(gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 						break;
-					}
-					break;
+					case G_IM_FMT_I:
+						gDPSetCombineMode(gdl++, G_CC_TRILERP, G_CC_MODULATEI2);
+						break;
+					case G_IM_FMT_CI:
+						switch (lutmode)
+						{
+						case G_TT_RGBA16:
+							gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+							break;
+						case G_TT_IA16:
+							gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+							break;
+						}
+						break;
 				}
 			}
 
 			gDPSetTextureImage(gdl++, format, depth2, 1, tconfig->textureptr);
 
-			if (depth2 == G_IM_SIZ_16b) {
+			if (depth2 == G_IM_SIZ_16b)
+			{
 				gDPLoadSync(gdl++);
 				gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, lrs, 0);
-			} else {
+			}
+			else
+			{
 				gDPSetTile(gdl++, G_IM_FMT_RGBA, depth2, 0, 0x0000, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 				gDPLoadSync(gdl++);
 				gDPLoadBlock(gdl++, 5, 0, 0, lrs, 0);
@@ -518,7 +555,8 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 			gDPPipeSync(gdl++);
 
-			if (format == G_IM_FMT_CI) {
+			if (format == G_IM_FMT_CI)
+			{
 				u32 a2 = lrs + 1;
 				u32 a3 = (0x3ff - tex->unk0a) < a2 ? (0x3ff - tex->unk0a) : 0;
 
@@ -528,51 +566,54 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 				gDPLoadTLUT06(gdl++, a2, a3, tex->unk0a + a2, a3);
 				gDPPipeSync(gdl++);
 
-				if (arg5) {
+				if (arg5)
 					gDPSetTextureLUT(gdl++, lutmode);
-				}
-			} else {
-				if (arg5) {
+			}
+			else
+			{
+				if (arg5)
 					gDPSetTextureLUT(gdl++, G_TT_NONE);
-				}
 			}
 
-			for (tile = 0; tile < lod; tile++) {
+			for (tile = 0; tile < lod; tile++)
+			{
 				s32 line;
 
-				if (tile > 0) {
-					if (tex && tex->unk0c_02) {
+				if (tile > 0)
+				{
+					if (tex && tex->unk0c_02)
+					{
 						width = texGetWidthAtLod(tex, tile);
 						height = texGetHeightAtLod(tex, tile);
-					} else {
-						if (width >= 2) {
+					}
+					else
+					{
+						if (width >= 2)
 							width >>= 1;
-						}
 
-						if (height >= 2) {
+						if (height >= 2)
 							height >>= 1;
-						}
 					}
 				}
 
-				switch (depth) {
-				default:
-					break;
-				case G_IM_SIZ_32b:
-					line = (width + 3) / 4;
-					break;
-				case G_IM_SIZ_16b:
-					line = (width + 3) / 4;
-					break;
-				case G_IM_SIZ_8b:
-					line = (width + 7) / 8;
-					break;
-				case G_IM_SIZ_4b:
-					line = (width + 15) / 16;
-					break;
+				switch (depth)
+				{
+					case G_IM_SIZ_32b:
+						line = (width + 3) / 4;
+						break;
+					case G_IM_SIZ_16b:
+						line = (width + 3) / 4;
+						break;
+					case G_IM_SIZ_8b:
+						line = (width + 7) / 8;
+						break;
+					case G_IM_SIZ_4b:
+						line = (width + 15) / 16;
+						break;
 				}
 
-				if (arg5) {
+				if (arg5)
+				{
 					gDPSetTile(gdl++, format, depth, line, tmem, tile, 0,
 							tconfig->t, texGetMask(height), tile,
 							tconfig->s, texGetMask(width), tile);

@@ -801,7 +801,7 @@ void mainTick(void)
 		}
 
 		rdpCreateTask(gdlstart, gdl, 0, &msg);
-		g_MainNumGfxTasks++;
+		//g_MainNumGfxTasks++;
 		memaPrint();
 		func0f16cf94();
 		profileSetMarker(PROFILE_MAINTICK_END);

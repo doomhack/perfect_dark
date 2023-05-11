@@ -2139,14 +2139,12 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 
 	usingsharedpool = 0;
 
-	if (pool == NULL) {
+	if (pool == NULL)
+	{
 		pool = &g_TexSharedPool;
-	}
-
-	if (pool == &g_TexSharedPool) {
 		usingsharedpool = 1;
 	}
-
+	
 	// If the value at updateword isn't already a pointer
 	if ((*updateword & 0xffff0000) == 0 || (*updateword & 0xffff0000) == 0xabcd0000)
 	{
@@ -2157,14 +2155,9 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 		if (tex == NULL)
 		{
 			if (g_TexNumToLoad >= NUM_TEXTURES)
-			{
 				return;
-			}
 
 			alignedcompbuffer = (u8 *) (((uintptr_t)compbuffer + 0xf) >> 4 << 4);
-
-			if (alignedcompbuffer);
-			if (tex);
 
 			osWritebackDCacheAll();
 			osInvalDCache(alignedcompbuffer, DCACHE_SIZE);
@@ -2189,9 +2182,8 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 			iszlib = (*compptr & 0x40) >> 6;
 			lod = *compptr & 0x3f;
 
-			if (lod > 5) {
+			if (lod > 5)
 				lod = 5;
-			}
 
 			compptr++;
 
@@ -2199,9 +2191,12 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 			// pointer to the start of the pool. It'll be garbage data but the
 			// only other option is a crash. GBI commands contain texture IDs
 			// instead of pointers, and they must be replaced with pointers.
-			if (usingsharedpool) {
+			if (usingsharedpool)
+			{
 				freebytes = mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_ONBOARD) + mempGetPoolFree(MEMPOOL_STAGE, MEMBANK_EXPANSION);
-			} else {
+			}
+			else
+			{
 				freebytes = texGetPoolFreeBytes(pool);
 			}
 
@@ -2262,7 +2257,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 				u8 *ptr = mempAllocFromRight(ALIGN16(bytesout + 2 * sizeof(struct tex)), MEMPOOL_STAGE);
 				pool->rightpos = (struct tex *) ptr;
 
-				memcpy(tex, ptr, sizeof(struct tex));
+				memcpy(ptr, tex, sizeof(struct tex));
 
 				tex = (struct tex *) ptr;
 				ptr += sizeof(struct tex);
@@ -2302,11 +2297,15 @@ void texLoadFromConfigs(struct textureconfig *configs, s32 numconfigs, struct te
 {
 	s32 i;
 
-	for (i = 0; i < numconfigs; i++) {
-		if ((s32)configs[i].texturenum < NUM_TEXTURES) {
+	for (i = 0; i < numconfigs; i++)
+	{
+		if ((s32)configs[i].texturenum < NUM_TEXTURES)
+		{
 			texLoad(&configs[i].texturenum, pool, true);
 			configs[i].unk0b = 1;
-		} else {
+		}
+		else
+		{
 			configs[i].texturenum += arg3;
 		}
 	}
