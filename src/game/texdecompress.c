@@ -2224,7 +2224,7 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 						break;
 					}
 
-					tail = (struct tex *)RD_OFFSET_TO_PTR(tail->next);
+					tail = tail->next;
 				}
 			}
 
