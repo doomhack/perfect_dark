@@ -16,4 +16,4 @@ So here's my simple 3-step plan to make this happen;
 
 ## Status
 
-<img src="[https://i.imgflip.com/7ie4jf.jpg](https://github.com/doomhack/perfect_dark/blob/master/screenshot.png)" title="What have I started?"/>
+<img src="https://github.com/doomhack/perfect_dark/blob/master/screenshot.png" title="What have I started?"/>
