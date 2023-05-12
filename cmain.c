@@ -79,16 +79,20 @@ void allocateMemoryAreas()
 
 int startGameOnThread(void* p)
 {
+    openWindow();
+
     bootPhase1();
 
     return 0;
 }
 
-void startGameThread()
+thrd_t startGameThread()
 {
     thrd_t t;
 
     thrd_create(&t, &startGameOnThread, NULL);
+
+    return t;
 }
 
 Uint32 viCallback(Uint32 interval, void* param)
@@ -99,7 +103,6 @@ Uint32 viCallback(Uint32 interval, void* param)
     {
         osSendMesg(es->messageQueue, es->message, OS_MESG_NOBLOCK);
     }
-
 
     return interval;
 }
@@ -117,27 +120,13 @@ int startGame()
 
     byteSwapRom();
 
-    openWindow();
-
     allocateMemoryAreas();
 
     startVITimer();
 
-    startGameThread();
+    thrd_t t = startGameThread();
 
-    while (1)
-    {
-        SDL_Event e;
-
-        while (SDL_PollEvent(&e))
-        {
-            switch (e.type)
-            {
-            case SDL_QUIT:
-                return 0;
-            }
-        }
-    }
+    thrd_join(t, NULL);
 }
 
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, int ncmdshow)
