@@ -3008,7 +3008,7 @@ bool mp3decDecodeFrame(struct asistream *stream)
 		}
 
 		while (i < 32) {
-			memcpy(&stream->unk6a64[ch][i], &sp34[i], sizeof(struct asistream_4f64));
+			memcpy(&sp34[i], &stream->unk6a64[ch][i], sizeof(struct asistream_4f64));
 			//bzero(&stream->unk6a64[ch][i], sizeof(struct asistream_4f64));
 			memset(&stream->unk6a64[ch][i], 0, sizeof(struct asistream_4f64));
 			i++;
