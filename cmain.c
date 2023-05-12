@@ -127,6 +127,8 @@ int startGame()
     thrd_t t = startGameThread();
 
     thrd_join(t, NULL);
+
+    return 0;
 }
 
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, int ncmdshow)
