@@ -58,10 +58,7 @@
     <Filter Include="Source Files\src\lib\zlib">
       <UniqueIdentifier>{6cffa558-206a-45d9-8e0a-1309bd674435}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\src\platform">
-      <UniqueIdentifier>{0e5f6def-8cc8-4a5f-8300-0f7778374ed9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\fast3d-game-engine">
+    <Filter Include="Source Files\n64-fast3d-engine">
       <UniqueIdentifier>{aad6df95-9d38-4ea1-8557-8c463ab4c7ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -1318,28 +1315,28 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_cc.c">
-      <Filter>Source Files\fast3d-game-engine</Filter>
+      <Filter>Source Files\n64-fast3d-engine</Filter>
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_direct3d_common.cpp">
-      <Filter>Source Files\fast3d-game-engine</Filter>
+      <Filter>Source Files\n64-fast3d-engine</Filter>
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_direct3d11.cpp">
-      <Filter>Source Files\fast3d-game-engine</Filter>
+      <Filter>Source Files\n64-fast3d-engine</Filter>
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_direct3d12.cpp">
-      <Filter>Source Files\fast3d-game-engine</Filter>
+      <Filter>Source Files\n64-fast3d-engine</Filter>
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_dxgi.cpp">
-      <Filter>Source Files\fast3d-game-engine</Filter>
+      <Filter>Source Files\n64-fast3d-engine</Filter>
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_opengl.c">
-      <Filter>Source Files\fast3d-game-engine</Filter>
+      <Filter>Source Files\n64-fast3d-engine</Filter>
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_pc.c">
-      <Filter>Source Files\fast3d-game-engine</Filter>
+      <Filter>Source Files\n64-fast3d-engine</Filter>
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_sdl2.c">
-      <Filter>Source Files\fast3d-game-engine</Filter>
+      <Filter>Source Files\n64-fast3d-engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4518,7 +4518,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 		s32 d = viGetViewTop() + viGetViewHeight();
 
 		gdl = text0f153628(gdl);
-		gdl = text0f153a34(gdl, a, b, c, d, 0x000000a0);
+		gdl = textRenderRect(gdl, a, b, c, d, 0x000000a0);
 		gdl = text0f153780(gdl);
 	}
 
@@ -4768,7 +4768,7 @@ Gfx *playerRenderHud(Gfx *gdl)
 			s32 d = viGetViewTop() + viGetViewHeight();
 
 			gdl = text0f153628(gdl);
-			gdl = text0f153a34(gdl, a, b, c, d, 0x000000a0);
+			gdl = textRenderRect(gdl, a, b, c, d, 0x000000a0);
 			gdl = text0f153780(gdl);
 		}
 

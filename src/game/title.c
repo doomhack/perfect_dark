@@ -178,14 +178,6 @@ void titleInitLegal(void)
 	g_TitleTimer = 0;
 	g_TitleButtonPressed = false;
 	g_TitleFastForward = false;
-
-#if VERSION == VERSION_PAL_BETA
-	// Play a sound if player has successfully enabled the crash screen.
-	// This is done in mainInit by holding all four C buttons.
-	if (g_CrashEnabled) {
-		sndStart(var80095200, SFX_8113, 0, -1, -1, -1.0f, -1, -1);
-	}
-#endif
 }
 
 void titleExitLegal(void)
@@ -410,7 +402,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 #if VERSION == VERSION_JPN_FINAL
 				gdl = text0f153a34(gdl, elem->x, elem->y - 1, viGetWidth(), elem->y + 1, 0x7f7fff7f);
 #else
-				gdl = text0f153a34(gdl, elem->x, elem->y, viGetWidth(), elem->y + 2, 0x7f7fff7f);
+				gdl = textRenderRect(gdl, elem->x, elem->y, viGetWidth(), elem->y + 2, 0x7f7fff7f);
 #endif
 				gdl = text0f153628(gdl);
 			} else if (elem->type == LEGALELEMENTTYPE_DOLBYLOGO) {
@@ -7835,7 +7827,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 
 	if (((s32)(g_20SecIntervalFrac * 80.0f) % 2) == 0) {
 		u32 colour = (colourcomponent << 8) | 0x7f7fffff | (colourcomponent << 16);
-		gdl = text0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
+		gdl = textRenderRect(gdl, x + 2, y, x + 12, y + 20, colour);
 	}
 
 	gdl = bviewDrawIntroText(gdl);
@@ -7844,7 +7836,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		f32 alpha = ((g_TitleTimer - TICKS(222.0f)) / TICKS(78.0f));
 		u32 stack;
 
-		gdl = text0f153a34(gdl, viGetViewLeft(), viGetViewTop(),
+		gdl = textRenderRect(gdl, viGetViewLeft(), viGetViewTop(),
 				viGetViewLeft() + viGetViewWidth(),
 				viGetViewTop() + viGetViewHeight(),
 				255.0f * alpha);

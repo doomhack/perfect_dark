@@ -1570,7 +1570,7 @@ Gfx *lvRender(Gfx *gdl)
 
 						if (alpha) {
 							gdl = text0f153628(gdl);
-							gdl = text0f153a34(gdl,
+							gdl = textRenderRect(gdl,
 									viGetViewLeft(), viGetViewTop(),
 									viGetViewLeft() + viGetViewWidth(),
 									viGetViewTop() + viGetViewHeight(), 0xffffff00 | alpha);

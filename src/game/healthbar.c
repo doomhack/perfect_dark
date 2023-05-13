@@ -531,7 +531,7 @@ Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offyarg, f32 heightfracarg
 	}
 
 	gdl = text0f153628(gdl);
-	gdl = text0f153a34(gdl, underleft, undertop, underright, underbottom, undercol);
+	gdl = textRenderRect(gdl, underleft, undertop, underright, underbottom, undercol);
 	gdl = text0f153780(gdl);
 
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);

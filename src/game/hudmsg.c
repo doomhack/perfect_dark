@@ -331,7 +331,7 @@ Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u3
 		f32 width = (x1 + x2) * 0.5f;
 		f32 height = (y1 + y2) * 0.5f;
 
-		gdl = text0f153a34(gdl,
+		gdl = textRenderRect(gdl,
 				(s32)((width - f22) + 1.0f) * g_ScaleX,
 				(height - f20) + 1.0f,
 				(s32)(width + f22) * g_ScaleX,
@@ -1478,7 +1478,7 @@ Gfx *hudmsgsRender(Gfx *gdl)
 
 					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 				} else {
-					gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
+					gdl = textRenderRect(gdl, x, y, x + msg->width, y + msg->height, 0);
 
 #if VERSION >= VERSION_JPN_FINAL
 					gdl = func0f1574d0jf(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
@@ -1511,7 +1511,7 @@ Gfx *hudmsgsRender(Gfx *gdl)
 
 				gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 			} else {
-				gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
+				gdl = textRenderRect(gdl, x, y, x + msg->width, y + msg->height, 0);
 
 #if VERSION >= VERSION_JPN_FINAL
 				gdl = func0f1574d0jf(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
@@ -1560,7 +1560,7 @@ Gfx *hudmsgsRender(Gfx *gdl)
 
 					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 				} else {
-					gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
+					gdl = textRenderRect(gdl, x, y, x + msg->width, y + msg->height, 0);
 
 #if VERSION >= VERSION_JPN_FINAL
 					gdl = func0f1574d0jf(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);

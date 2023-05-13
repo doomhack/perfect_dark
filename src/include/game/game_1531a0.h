@@ -21,7 +21,7 @@ Gfx *text0f153838(Gfx *gdl);
 Gfx *text0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2);
 Gfx *text0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2);
 Gfx *text0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height);
-Gfx *text0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour);
+Gfx *textRenderRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour);
 Gfx *text0f153ab0(Gfx *gdl);
 void text0f153b40(void);
 void text0f153b6c(s32 arg0);
