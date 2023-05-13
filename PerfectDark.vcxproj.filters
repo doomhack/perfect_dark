@@ -831,19 +831,7 @@
     <ClCompile Include="src\lib\ultra\io\aisetnextbuf.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\conteeplongread.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\conteeplongwrite.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\conteepprobe.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\conteepread.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\conteepwrite.c">
+    <ClCompile Include="src\lib\ultra\io\eeprom.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\contpfs.c">

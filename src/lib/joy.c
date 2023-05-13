@@ -808,8 +808,8 @@ void joyDisableCyclicPolling(void)
 	OSMesg msg;
 
 	if (g_JoyCyclicPollDisableCount == 0) {
-		osSendMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
-		osRecvMesg(&g_JoyStopCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
+		//osSendMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
+		//osRecvMesg(&g_JoyStopCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 	}
 
 	g_JoyCyclicPollDisableCount++;

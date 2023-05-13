@@ -460,11 +460,7 @@
     <ClCompile Include="src\lib\ultra\io\aigetlen.c" />
     <ClCompile Include="src\lib\ultra\io\aisetfreq.c" />
     <ClCompile Include="src\lib\ultra\io\aisetnextbuf.c" />
-    <ClCompile Include="src\lib\ultra\io\conteeplongread.c" />
-    <ClCompile Include="src\lib\ultra\io\conteeplongwrite.c" />
-    <ClCompile Include="src\lib\ultra\io\conteepprobe.c" />
-    <ClCompile Include="src\lib\ultra\io\conteepread.c" />
-    <ClCompile Include="src\lib\ultra\io\conteepwrite.c" />
+    <ClCompile Include="src\lib\ultra\io\eeprom.c" />
     <ClCompile Include="src\lib\ultra\io\contpfs.c" />
     <ClCompile Include="src\lib\ultra\io\contquery.c" />
     <ClCompile Include="src\lib\ultra\io\contramread.c" />

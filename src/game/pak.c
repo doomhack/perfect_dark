@@ -5873,12 +5873,6 @@ void pakProbeEeprom(void)
 
 PakErr1 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 {
-	//Stub this out for now.
-	memset(buffer, 0, len);
-	return PAK_ERR1_OK;
-	//
-
-
 	s32 result;
 
 	joyDisableCyclicPolling(JOYARGS(6234));
