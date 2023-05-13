@@ -17,7 +17,7 @@ void joySetPfsTemporarilyPlugged(s8 index);
 void joyInit(void);
 void joyDisableTemporarily(void);
 void joyReset(void);
-void joy00013e84(void);
+void joyUpdateConnectedControllers(void);
 u32 joyGetConnectedControllers(void);
 void joyConsumeSamples(struct joydata *joydata);
 void joy00014238(void);

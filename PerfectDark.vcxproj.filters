@@ -837,9 +837,6 @@
     <ClCompile Include="src\lib\ultra\io\contpfs.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\contquery.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\io\contramread.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>

@@ -43,7 +43,7 @@ OSMesg g_JoyStartCyclicPollingMesgBuf[1];
 OSMesgQueue g_JoyStartCyclicPollingMesgQueue;
 OSMesg g_JoyStartCyclicPollingDoneMesgBuf[1]; 
 OSMesgQueue g_JoyStartCyclicPollingDoneMesgQueue;
-OSContStatus var80099f38[4];
+OSContStatus g_JoyControllerStatus[4];
 u8 g_JoyPfsStates[100];
 u32 var80099fac;
 u32 var80099fb0;
@@ -311,32 +311,38 @@ void joyReset(void)
 	}
 }
 
-void joy00013e84(void)
+void joyUpdateConnectedControllers(void)
 {
-	static u8 var8005ef00 = 0xff;
+	static u8 prevConnectedControllers = 0xff;
 
 	// osContInit should be called only once. The first time this function is
 	// called it'll take the first branch here, and all subsequent calls will
 	// take the second branch.
-	if (g_JoyNeedsInit) {
+	if (g_JoyNeedsInit)
+	{
 		s32 i;
 		g_JoyNeedsInit = false;
-		osContInit(&g_PiMesgQueue, &g_JoyConnectedControllers, var80099f38);
+		osContInit(&g_PiMesgQueue, &g_JoyConnectedControllers, g_JoyControllerStatus);
 		g_JoyInitDone = true;
 
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < 4; i++)
+		{
 			joyStopRumble(i, false);
 		}
-	} else {
+	}
+	else
+	{
 		u32 slots = 0xf;
 		s32 i;
 
 		osContStartQuery(&g_PiMesgQueue);
 		osRecvMesg(&g_PiMesgQueue, NULL, OS_MESG_BLOCK);
-		osContGetQuery(var80099f38);
+		osContGetQuery(g_JoyControllerStatus);
 
-		for (i = 0; i < 4; i++) {
-			if (var80099f38[i].error & CONT_NO_RESPONSE_ERROR) {
+		for (i = 0; i < 4; i++)
+		{
+			if (g_JoyControllerStatus[i].error & CONT_NO_RESPONSE_ERROR)
+			{
 				slots -= 1 << i;
 			}
 		}
@@ -344,17 +350,20 @@ void joy00013e84(void)
 		g_JoyConnectedControllers = slots;
 	}
 
-	if (var8005ef00 != g_JoyConnectedControllers) {
+	if (prevConnectedControllers != g_JoyConnectedControllers)
+	{
 		s32 i = 0;
 		s32 index = 0;
 
-		for (; i < 4; i++) {
-			if (g_JoyConnectedControllers & (1 << i)) {
+		for (; i < 4; i++)
+		{
+			if (g_JoyConnectedControllers & (1 << i))
+			{
 				g_Vars.playertojoymap[index++] = i;
 			}
 		}
 
-		var8005ef00 = g_JoyConnectedControllers;
+		prevConnectedControllers = g_JoyConnectedControllers;
 	}
 }
 
@@ -515,7 +524,8 @@ void joysHandleRetrace(void)
 	OSMesg msg;
 	s8 i;
 
-	if (osRecvMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK) == 0) {
+	if (osRecvMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK) == 0)
+	{
 		if (g_JoyBusy) {
 			osRecvMesg(&g_PiMesgQueue, &msg, OS_MESG_BLOCK);
 
@@ -526,7 +536,7 @@ void joysHandleRetrace(void)
 			for (i = 0; i < 4; i++) {
 				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].error == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].error != 0)
 						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].error != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].error == 0)) {
-					joy00013e84();
+					joyUpdateConnectedControllers();
 					break;
 				}
 			}
@@ -568,7 +578,7 @@ void joysHandleRetrace(void)
 			for (i = 0; i < 4; i++) {
 				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].error == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].error != 0)
 						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].error != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].error == 0)) {
-					joy00013e84();
+					joyUpdateConnectedControllers();
 					break;
 				}
 			}
