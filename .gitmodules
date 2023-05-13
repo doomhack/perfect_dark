@@ -1,3 +1,6 @@
 [submodule "tools/recomp"]
 	path = tools/recomp
 	url = https://github.com/Emill/ido-static-recomp.git
+[submodule "n64-fast3d-engine"]
+	path = n64-fast3d-engine
+	url = https://github.com/doomhack/n64-fast3d-engine
