@@ -472,7 +472,6 @@
     <ClCompile Include="src\lib\ultra\io\pidma.c" />
     <ClCompile Include="src\lib\ultra\io\pigetcmdq.c" />
     <ClCompile Include="src\lib\ultra\io\pirawdma.c" />
-    <ClCompile Include="src\lib\ultra\io\pirawread.c" />
     <ClCompile Include="src\lib\ultra\io\si.c" />
     <ClCompile Include="src\lib\ultra\io\siacs.c" />
     <ClCompile Include="src\lib\ultra\io\sirawdma.c" />

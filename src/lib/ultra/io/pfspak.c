@@ -4,9 +4,6 @@
 #include "siint.h"
 #include "constants.h"
 
-
-ALIGNED16 OSPifRam __osPfsPifRam;
-
 s32 osPfsIsPlug(OSMesgQueue* queue, u8* pattern)
 {
 	*pattern = 0;

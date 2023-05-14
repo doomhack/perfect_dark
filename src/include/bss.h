@@ -16,8 +16,6 @@ extern u8 g_SchedSpecialArtifactIndexes[3];
 extern s32 g_SchedWriteArtifactsIndex;
 extern OSPiHandle CartRomHandle;
 extern OSPiHandle LeoDiskHandle;
-extern OSMesgQueue g_GbpakMesgQueue;
-extern OSMesg g_GbpakMesg; 
 extern u8 g_Is4Mb;
 extern u32 g_VmNumTlbMisses;
 extern u32 g_VmNumPageMisses;

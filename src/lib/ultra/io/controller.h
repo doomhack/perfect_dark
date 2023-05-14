@@ -153,7 +153,6 @@ u8 __osContDataCrc(u8 *data);
 extern u8 __osContLastCmd;
 extern OSPifRam __osEepPifRam;
 extern OSPifRam __osContPifRam;
-extern OSPifRam __osPfsPifRam;
 extern u8 __osMaxControllers;
 
 //some version of this almost certainly existed since there's plenty of times where it's used right before a return 0

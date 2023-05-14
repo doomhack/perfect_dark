@@ -858,9 +858,6 @@
     <ClCompile Include="src\lib\ultra\io\pirawdma.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pirawread.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\io\si.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>

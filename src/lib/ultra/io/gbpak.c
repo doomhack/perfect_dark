@@ -2,9 +2,6 @@
 #include "controller.h"
 #include "siint.h"
 
-OSMesgQueue g_GbpakMesgQueue;
-OSMesg g_GbpakMesg;
-
 s32 osGbpakInit(OSMesgQueue *queue, OSPfs *pfs, int channel)
 {
 	return PFS_ERR_NOPACK;
