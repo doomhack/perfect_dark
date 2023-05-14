@@ -302,7 +302,7 @@ void joyReset(void)
 		osSendMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
 		osRecvMesg(&g_JoyStopCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 
-		//joy00013e84();
+		joyUpdateConnectedControllers();
 
 		osSendMesg(&g_JoyStartCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
 		osRecvMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
@@ -818,8 +818,8 @@ void joyDisableCyclicPolling(void)
 	OSMesg msg;
 
 	if (g_JoyCyclicPollDisableCount == 0) {
-		//osSendMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
-		//osRecvMesg(&g_JoyStopCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
+		osSendMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
+		osRecvMesg(&g_JoyStopCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 	}
 
 	g_JoyCyclicPollDisableCount++;
@@ -838,7 +838,7 @@ void joyEnableCyclicPolling(void)
 	if (g_JoyCyclicPollDisableCount == 0)
 	{
 		osSendMesg(&g_JoyStartCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
-		//osRecvMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
+		osRecvMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 	}
 }
 

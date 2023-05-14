@@ -53,6 +53,8 @@ void loadRom()
     fseek(f, 0, SEEK_SET);
 
     fread(g_Rom, 1, size, f);
+
+    fclose(f);
 }
 
 void openWindow()
