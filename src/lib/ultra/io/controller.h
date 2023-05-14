@@ -156,7 +156,6 @@ s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int 
 u8 __osContAddressCrc(u16 addr);
 u8 __osContDataCrc(u8 *data);
 s32 __osPfsGetStatus(OSMesgQueue *queue, int channel);
-s32 __osGbpakSelectBank(OSPfs *pfs, u8 bank);
 
 extern u8 __osContLastCmd;
 extern OSPifRam __osEepPifRam;

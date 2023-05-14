@@ -9,7 +9,6 @@ OSMesgQueue piEventQueue;
 OSMesg piEventBuf[4];
 
 s32 osPiRawStartDma(s32 direction, u32 devAddr, void *dramAddr, u32 size);
-s32 osEPiRawStartDma(OSPiHandle *handle, s32 direction, u32 devAddr, void *dramAddr, u32 size);
 
 OSDevMgr __osPiDevMgr = {0};
 OSPiHandle *__osPiTable = NULL;
@@ -47,7 +46,7 @@ void osCreatePiManager(OSPri pri, OSMesgQueue *cmdQ, OSMesg *cmdBuf, s32 cmdMsgC
 		__osPiDevMgr.evtQueue = &piEventQueue;
 		__osPiDevMgr.acsQueue = &__osPiAccessQueue;
 		__osPiDevMgr.dma = osPiRawStartDma;
-		__osPiDevMgr.edma = osEPiRawStartDma;
+		__osPiDevMgr.edma = NULL;
 
 		osCreateThread(&piThread, 0, __osDevMgrMain, &__osPiDevMgr, &piThreadStack[512], pri);
 		osStartThread(&piThread);

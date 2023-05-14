@@ -846,22 +846,7 @@
     <ClCompile Include="src\lib\ultra\io\devmgr.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\dpctr.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\dpgetstat.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\dpsetstat.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\epirawdma.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\epirawread.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\epirawwrite.c">
+    <ClCompile Include="src\lib\ultra\io\dpstat.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\gbpakcheckconnector.c">
@@ -870,19 +855,7 @@
     <ClCompile Include="src\lib\ultra\io\gbpakgetstatus.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\gbpakinit.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\gbpakpower.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\gbpakreadid.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\gbpakreadwrite.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\gbpakselectbank.c">
+    <ClCompile Include="src\lib\ultra\io\gbpak.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\motor.c">

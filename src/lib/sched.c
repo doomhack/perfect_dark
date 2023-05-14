@@ -65,7 +65,6 @@ s32 var8008de0c;
 s32 var8008de10;
 u32 var8008de14;
 OSTimer g_SchedRspTimer;
-u32 g_SchedDpCounters[4];
 struct artifact g_ArtifactLists[3][120];
 u8 g_SchedSpecialArtifactIndexes[3];
 s32 g_SchedWriteArtifactsIndex;
@@ -375,11 +374,6 @@ void __scHandleRSP(OSSched *sc)
 
 }
 
-u32 *schedGetDpCounters(void)
-{
-	return g_SchedDpCounters;
-}
-
 void schedInitArtifacts(void)
 {
 	s32 i;
@@ -493,7 +487,6 @@ void __scHandleRDP(OSSched *sc)
 		}
 
 		profileSetMarker(PROFILE_RDP_END);
-		osDpGetCounters(g_SchedDpCounters);
 
 		t = sc->curRDPTask;
 		sc->curRDPTask = NULL;

@@ -105,8 +105,6 @@ void __osPiCreateAccessQueue(void);
 void __osPiRelAccess(void);
 void __osPiGetAccess(void);
 s32 osPiRawReadIo(u32 devAddr, u32 *data);
-s32 osEPiRawReadIo(OSPiHandle *handle, u32 devAddr, u32 *data);
-s32 osEPiRawWriteIo(OSPiHandle *handle, u32 devAddr, u32 data);
 OSMesgQueue *osPiGetCmdQueue(void);
 
 #define OS_RAMROM_STACKSIZE 1024
