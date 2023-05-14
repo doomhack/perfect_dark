@@ -169,9 +169,6 @@ s32 __osPfsGetStatus(OSMesgQueue *queue, int channel);
 s32 __osGbpakSelectBank(OSPfs *pfs, u8 bank);
 
 extern u8 __osContLastCmd;
-extern OSTimer __osEepromTimer;
-extern OSMesg __osEepromTimerMsg;
-extern OSMesgQueue __osEepromTimerQ;
 extern OSPifRam __osEepPifRam;
 extern OSPifRam __osContPifRam;
 extern OSPifRam __osPfsPifRam;

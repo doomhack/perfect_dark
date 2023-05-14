@@ -5,33 +5,6 @@
 
 void __osPackReadData(void);
 
-s32 osContStartReadData(OSMesgQueue *mq)
-{
-	OSMesg msg = 0;
-
-	osSendMesg(mq, msg, OS_MESG_NOBLOCK);
-
-	return 0;
-}
-
-void osContGetReadData(OSContPad *data)
-{
-	u8 *ptr;
-	__OSContReadFormat readformat;
-	int i;
-	ptr = (u8 *)&__osContPifRam.ramarray;
-
-	for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContReadFormat), data++) {
-		readformat = *(__OSContReadFormat *)ptr;
-		data->error = CHNL_ERR(readformat);
-
-		if (data->error == 0) {
-			data->button = readformat.button;
-			data->stick_x = readformat.stick_x;
-			data->stick_y = readformat.stick_y;
-		}
-	}
-}
 
 void __osPackReadData(void)
 {
