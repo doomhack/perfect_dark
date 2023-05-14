@@ -148,14 +148,7 @@ typedef struct
 } __OSInodeCache;
 
 extern s32 __osEepStatus(OSMesgQueue *, OSContStatus *);
-u16 __osSumcalc(u8 *ptr, int length);
-s32 __osPfsSelectBank(OSPfs *pfs, u8 bank);
-s32 __osBlockSum(OSPfs *pfs, u8 page_no, u16 *sum, u8 bank);
-s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
-s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int force);
-u8 __osContAddressCrc(u16 addr);
 u8 __osContDataCrc(u8 *data);
-s32 __osPfsGetStatus(OSMesgQueue *queue, int channel);
 
 extern u8 __osContLastCmd;
 extern OSPifRam __osEepPifRam;
@@ -169,21 +162,9 @@ extern u8 __osMaxControllers;
 	if (ret != 0) \
 		return ret;
 
-#define SET_ACTIVEBANK_TO_ZERO        \
-	if (pfs->activebank != 0)         \
-	{                                 \
-		pfs->activebank = 0;          \
-		ERRCK(__osPfsSelectBank(pfs)) \
-	}
 
 #define PFS_CHECK_STATUS                          \
 	if ((pfs->status & PFS_INITIALIZED) == 0) \
 		return PFS_ERR_INVALID;
 
-#define PFS_GET_STATUS                      \
-	__osSiGetAccess();                      \
-	ret = __osPfsGetStatus(queue, channel); \
-	__osSiRelAccess();                      \
-	if (ret != 0)                           \
-		return ret;
 #endif

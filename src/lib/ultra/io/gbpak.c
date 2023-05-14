@@ -24,3 +24,13 @@ s32 osGbpakReadWrite(OSPfs* pfs, u16 flag, u16 address, u8* buffer, u16 size)
 {
 	return PFS_ERR_NOPACK;
 }
+
+s32 osGbpakGetStatus(OSPfs* pfs, u8* status)
+{
+	return PFS_ERR_NOPACK;
+}
+
+s32 osGbpakCheckConnector(OSPfs* pfs, u8* status)
+{
+	return PFS_ERR_NOPACK;
+}

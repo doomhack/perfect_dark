@@ -828,19 +828,7 @@
     <ClCompile Include="src\lib\ultra\io\eeprom.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\contpfs.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\contramread.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\contramwrite.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\io\controller.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\iocrc.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\devmgr.c">
@@ -849,25 +837,13 @@
     <ClCompile Include="src\lib\ultra\io\dpstat.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\gbpakcheckconnector.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\gbpakgetstatus.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\io\gbpak.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\motor.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsgetstatus.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\io\pfspak.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsselectbank.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\piacs.c">
@@ -883,9 +859,6 @@
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\pirawread.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\piread.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\si.c">

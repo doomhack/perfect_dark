@@ -197,7 +197,6 @@ extern OSPiHandle      *__osPiTable;    /* The head of OSPiHandle link list */
 extern u32 		osPiGetStatus(void);
 extern s32		osPiGetDeviceType(void);
 extern s32		osPiWriteIo(u32, u32);
-extern s32		osPiReadIo(u32, u32 *);
 extern s32		osPiStartDma(OSIoMesg *, s32, s32, u32, void *, u32,
 				     OSMesgQueue *);
 extern void		osCreatePiManager(OSPri, OSMesgQueue *, OSMesg *, s32);
