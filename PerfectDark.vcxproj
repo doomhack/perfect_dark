@@ -490,9 +490,7 @@
     <ClCompile Include="src\lib\ultra\io\pfsfindfile.c" />
     <ClCompile Include="src\lib\ultra\io\pfsfreeblocks.c" />
     <ClCompile Include="src\lib\ultra\io\pfsgetstatus.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsinitpak.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsinitpak2.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsisplug.c" />
+    <ClCompile Include="src\lib\ultra\io\pfspak.c" />
     <ClCompile Include="src\lib\ultra\io\pfsnumfiles.c" />
     <ClCompile Include="src\lib\ultra\io\pfsreadwritefile.c" />
     <ClCompile Include="src\lib\ultra\io\pfsresizefile.c" />

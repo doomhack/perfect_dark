@@ -912,13 +912,7 @@
     <ClCompile Include="src\lib\ultra\io\pfsgetstatus.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsinitpak.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsinitpak2.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsisplug.c">
+    <ClCompile Include="src\lib\ultra\io\pfspak.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\pfsnumfiles.c">
