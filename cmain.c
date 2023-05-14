@@ -38,8 +38,6 @@ u32 g_SPPCReg = 0;
 
 u32 g_RDRam = 0;
 
-HWND g_Hwnd = NULL;
-
 void loadRom()
 {
     FILE* f = fopen("C:\\Users\\Zak\\Documents\\GitProjects\\perfect_dark\\pd.ntsc-final.z64", "r");
