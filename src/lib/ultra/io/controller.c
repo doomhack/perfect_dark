@@ -19,43 +19,20 @@ void __osPackRequestData(u8 cmd);
 
 s32 osContInit(OSMesgQueue *mq, u8 *bitpattern, OSContStatus *data)
 {
-	OSMesg dummy;
-	s32 ret;
-	OSTime t;
-	OSTimer mytimer;
-	OSMesgQueue timerMesgQueue;
+	OSMesg msg = 0;
 
-	ret = 0;
+	*bitpattern = 0; //No controllers plugged in.
 
-	if (__osContInitialized) {
-		return ret;
+	for (int i = 0; i < MAXCONTROLLERS; i++)
+	{
+		data[i].type = 0;
+		data[i].status = 0;
+		data[i].error = CONT_NO_RESPONSE_ERROR;
 	}
 
-	__osContInitialized = TRUE;
-	t = osGetTime();
+	osSendMesg(mq, msg, 0);
 
-	if (t < OS_CPU_COUNTER / 2) {
-		osCreateMesgQueue(&timerMesgQueue, &dummy, 1);
-		osSetTimer(&mytimer, OS_CPU_COUNTER / 2 - t, 0, &timerMesgQueue, &dummy);
-		osRecvMesg(&timerMesgQueue, &dummy, OS_MESG_BLOCK);
-	}
-
-	__osMaxControllers = MAXCONTROLLERS;
-	__osPackRequestData(CONT_CMD_REQUEST_STATUS);
-
-	ret = __osSiRawStartDma(OS_WRITE, &__osContPifRam);
-	osRecvMesg(mq, &dummy, OS_MESG_BLOCK);
-
-	ret = __osSiRawStartDma(OS_READ, &__osContPifRam);
-	osRecvMesg(mq, &dummy, OS_MESG_BLOCK);
-
-	__osContGetInitData(bitpattern, data);
-	__osContLastCmd = CONT_CMD_REQUEST_STATUS;
-	__osSiCreateAccessQueue();
-
-	osCreateMesgQueue(&__osEepromTimerQ, &__osEepromTimerMsg, 1);
-
-	return ret;
+	return 0;
 }
 
 s32 osContStartQuery(OSMesgQueue* mq)
