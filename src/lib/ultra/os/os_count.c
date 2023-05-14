@@ -1,10 +1,7 @@
 #include <PR/ultratypes.h>
 #include <os_internal.h>
 #include "osint.h"
-
-#ifdef _WIN32
-	#include <Windows.h>
-#endif
+#include <SDL.h>
 
 const u64 os_count_freq = 46875000; //48.875mhz, 21.33ns
 
@@ -16,13 +13,13 @@ u32	osGetCount(void)
 
 	if (timer_freq == 0)
 	{
-		QueryPerformanceFrequency(&timer_freq);
+		timer_freq = SDL_GetPerformanceFrequency();
+
 		ratio = (double)os_count_freq / (double)timer_freq;
 	}
 		
-	u64 current_tick = 0;
-	QueryPerformanceCounter(&current_tick);
-
+	u64 current_tick = SDL_GetPerformanceCounter();
+	
 	double count = (double)current_tick * ratio;
 
 	return (u32)count;
