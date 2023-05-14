@@ -5,12 +5,7 @@
 
 #include <malloc.h>
 
-//Soooo....it's 2023 and still no C11 thread support....
-#ifndef __STDC_NO_THREADS__
-	#include <threads.h>
-#else
-	#include <PR/tinycthread.h>
-#endif
+#include <PR/crt_thread.h>
 
 
 struct __osThreadTail __osThreadTail = {0, -1};

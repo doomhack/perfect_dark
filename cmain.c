@@ -10,7 +10,7 @@
 #include "../src/lib/ultra/os/osint.h"
 #include <rcp.h>
 
-#include "tinycthread.h"
+#include <PR/crt_thread.h>
 
 #include "byteswaprom.h"
 

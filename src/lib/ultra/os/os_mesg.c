@@ -1,14 +1,6 @@
 #include <os_internal.h>
 #include "osint.h"
-
-//Soooo....it's 2023 and still no C11 thread support....
-#ifndef __STDC_NO_THREADS__
-	#include <threads.h>
-#else
-	#include <PR/tinycthread.h>
-#endif
-
-
+#include <PR/crt_thread.h>
 
 void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 msgCount)
 {

@@ -52,14 +52,14 @@
     <Filter Include="Source Files\src\symbolmaps">
       <UniqueIdentifier>{f887f2e8-e8af-442e-bbc4-46479a15daeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\src\lib\ultra\os\tinycthread">
-      <UniqueIdentifier>{5be1d45e-088f-46b3-b05f-2db2eb74b5b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\src\lib\zlib">
       <UniqueIdentifier>{6cffa558-206a-45d9-8e0a-1309bd674435}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\n64-fast3d-engine">
       <UniqueIdentifier>{aad6df95-9d38-4ea1-8557-8c463ab4c7ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tinycthread">
+      <UniqueIdentifier>{1ccda45d-7e1a-41a1-8ec2-984c8eb838c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1272,9 +1272,6 @@
     <ClCompile Include="src\symbolmaps\symbols.c">
       <Filter>Source Files\src\symbolmaps</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\tinycthread\tinycthread.c">
-      <Filter>Source Files\src\lib\ultra\os\tinycthread</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\zlib\uncompr.c">
       <Filter>Source Files\src\lib\zlib</Filter>
     </ClCompile>
@@ -1322,6 +1319,9 @@
     </ClCompile>
     <ClCompile Include="n64-fast3d-engine\gfx_sdl2.c">
       <Filter>Source Files\n64-fast3d-engine</Filter>
+    </ClCompile>
+    <ClCompile Include="tinycthread\tinycthread.c">
+      <Filter>Source Files\tinycthread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
