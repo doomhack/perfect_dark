@@ -149,15 +149,7 @@ typedef struct
 
 extern s32 __osEepStatus(OSMesgQueue *, OSContStatus *);
 u16 __osSumcalc(u8 *ptr, int length);
-s32 __osIdCheckSum(u16 *ptr, u16 *csum, u16 *icsum);
-s32 __osRepairPackId(OSPfs *pfs, __OSPackId *badid, __OSPackId *newid);
-s32 __osCheckPackId(OSPfs *pfs, __OSPackId *temp);
-s32 __osGetId(OSPfs *pfs);
-s32 __osCheckId(OSPfs *pfs);
-s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank);
 s32 __osPfsSelectBank(OSPfs *pfs, u8 bank);
-s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, int file_size_in_pages, int *first_page, u8 bank, int *decleared, int *last_page);
-s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u8 bank, __OSInodeUnit *last_page);
 s32 __osBlockSum(OSPfs *pfs, u8 page_no, u16 *sum, u8 bank);
 s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
 s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int force);
@@ -185,11 +177,6 @@ extern u8 __osMaxControllers;
 		ERRCK(__osPfsSelectBank(pfs)) \
 	}
 
-#define PFS_CHECK_ID                              \
-	if (__osCheckId(pfs) == PFS_ERR_NEW_PACK) \
-		return PFS_ERR_NEW_PACK;
-#endif
-
 #define PFS_CHECK_STATUS                          \
 	if ((pfs->status & PFS_INITIALIZED) == 0) \
 		return PFS_ERR_INVALID;
@@ -200,3 +187,4 @@ extern u8 __osMaxControllers;
 	__osSiRelAccess();                      \
 	if (ret != 0)                           \
 		return ret;
+#endif

@@ -92,7 +92,6 @@ extern OSThread *__osRunningThread;
 extern OSThread *__osFaultedThread;
 extern u32 __osSiAccessQueueEnabled;
 extern s32 __osPfsLastChannel;
-extern s32 g_PfsPrevChannel;
 extern u8 g_PfsPrevBank;
 extern u32 var80060990;
 extern u32 var800609a0;

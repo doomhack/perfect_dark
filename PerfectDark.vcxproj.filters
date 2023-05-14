@@ -579,9 +579,6 @@
     <ClCompile Include="src\game\modeldata\weapon.c">
       <Filter>Source Files\src\game\modeldata</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsallocatefile.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\modeldata\basic.c">
       <Filter>Source Files\src\game\modeldata</Filter>
     </ClCompile>
@@ -840,9 +837,6 @@
     <ClCompile Include="src\lib\ultra\io\contramwrite.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\contreaddata.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\io\controller.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
@@ -894,34 +888,10 @@
     <ClCompile Include="src\lib\ultra\io\motor.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfschecker.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsdeletefile.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsfilestate.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsfindfile.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsfreeblocks.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\io\pfsgetstatus.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\pfspak.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsnumfiles.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsreadwritefile.c">
-      <Filter>Source Files\src\lib\ultra\io</Filter>
-    </ClCompile>
-    <ClCompile Include="src\lib\ultra\io\pfsresizefile.c">
       <Filter>Source Files\src\lib\ultra\io</Filter>
     </ClCompile>
     <ClCompile Include="src\lib\ultra\io\pfsselectbank.c">

@@ -464,7 +464,6 @@
     <ClCompile Include="src\lib\ultra\io\contpfs.c" />
     <ClCompile Include="src\lib\ultra\io\contramread.c" />
     <ClCompile Include="src\lib\ultra\io\contramwrite.c" />
-    <ClCompile Include="src\lib\ultra\io\contreaddata.c" />
     <ClCompile Include="src\lib\ultra\io\controller.c" />
     <ClCompile Include="src\lib\ultra\io\iocrc.c" />
     <ClCompile Include="src\lib\ultra\io\devmgr.c" />
@@ -483,17 +482,8 @@
     <ClCompile Include="src\lib\ultra\io\gbpakselectbank.c" />
     <ClCompile Include="src\lib\ultra\io\iopimgr.c" />
     <ClCompile Include="src\lib\ultra\io\motor.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsallocatefile.c" />
-    <ClCompile Include="src\lib\ultra\io\pfschecker.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsdeletefile.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsfilestate.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsfindfile.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsfreeblocks.c" />
     <ClCompile Include="src\lib\ultra\io\pfsgetstatus.c" />
     <ClCompile Include="src\lib\ultra\io\pfspak.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsnumfiles.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsreadwritefile.c" />
-    <ClCompile Include="src\lib\ultra\io\pfsresizefile.c" />
     <ClCompile Include="src\lib\ultra\io\pfsselectbank.c" />
     <ClCompile Include="src\lib\ultra\io\piacs.c" />
     <ClCompile Include="src\lib\ultra\io\pidma.c" />
