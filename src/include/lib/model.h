@@ -107,4 +107,7 @@ void modelAttachHead(struct model *model, struct modeldef *arg1, struct modelnod
 void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **nodeptr, Gfx **gdlptr);
 void modelNodeReplaceGdl(struct modeldef *modeldef, struct modelnode *node, Gfx *find, Gfx *replacement);
 
+void modelByteSwapModel(struct modeldef* modeldef, u32 baseAddr);
+
+
 #endif

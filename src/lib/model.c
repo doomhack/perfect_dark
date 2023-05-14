@@ -124,17 +124,19 @@ s32 modelFindNodeMtxIndex(struct modelnode *node, s32 arg1)
 	union modelrodata *rodata2;
 	union modelrodata *rodata3;
 
-	while (node) {
-		switch (node->type & 0xff) {
-		case MODELNODETYPE_CHRINFO:
-			rodata1 = node->rodata;
-			return rodata1->chrinfo.mtxindex;
-		case MODELNODETYPE_POSITION:
-			rodata2 = node->rodata;
-			return rodata2->position.mtxindexes[arg1 == 0x200 ? 2 : (arg1 == 0x100 ? 1 : 0)];
-		case MODELNODETYPE_POSITIONHELD:
-			rodata3 = node->rodata;
-			return rodata3->positionheld.mtxindex;
+	while (node)
+	{
+		switch (node->type & 0xff)
+		{
+			case MODELNODETYPE_CHRINFO:
+				rodata1 = node->rodata;
+				return rodata1->chrinfo.mtxindex;
+			case MODELNODETYPE_POSITION:
+				rodata2 = node->rodata;
+				return rodata2->position.mtxindexes[arg1 == 0x200 ? 2 : (arg1 == 0x100 ? 1 : 0)];
+			case MODELNODETYPE_POSITIONHELD:
+				rodata3 = node->rodata;
+				return rodata3->positionheld.mtxindex;
 		}
 
 		node = node->parent;
@@ -147,7 +149,8 @@ Mtxf *modelFindNodeMtx(struct model *model, struct modelnode *node, s32 arg2)
 {
 	s32 index = modelFindNodeMtxIndex(node, arg2);
 
-	if (index >= 0) {
+	if (index >= 0)
+	{
 		return &model->matrices[index];
 	}
 
@@ -166,11 +169,14 @@ struct modelnode *modelFindNodeByMtxIndex(struct model *model, s32 mtxindex)
 	union modelrodata *rodata2;
 	union modelrodata *rodata3;
 
-	while (node) {
-		switch (node->type & 0xff) {
+	while (node)
+	{
+		switch (node->type & 0xff)
+		{
 		case MODELNODETYPE_CHRINFO:
 			rodata1 = node->rodata;
-			if (mtxindex == rodata1->chrinfo.mtxindex) {
+			if (mtxindex == rodata1->chrinfo.mtxindex)
+			{
 				return node;
 			}
 			break;
@@ -178,23 +184,30 @@ struct modelnode *modelFindNodeByMtxIndex(struct model *model, s32 mtxindex)
 			rodata2 = node->rodata;
 			if (mtxindex == rodata2->position.mtxindexes[0]
 					|| mtxindex == rodata2->position.mtxindexes[1]
-					|| mtxindex == rodata2->position.mtxindexes[2]) {
+					|| mtxindex == rodata2->position.mtxindexes[2])
+			{
 				return node;
 			}
 			break;
 		case MODELNODETYPE_POSITIONHELD:
 			rodata3 = node->rodata;
-			if (mtxindex == rodata3->positionheld.mtxindex) {
+			if (mtxindex == rodata3->positionheld.mtxindex)
+			{
 				return node;
 			}
 			break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node && node->next) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node && node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -209,12 +222,14 @@ struct modelnode *modelFindNodeByMtxIndex(struct model *model, s32 mtxindex)
 
 struct modelnode *modelNodeFindMtxNode(struct modelnode *node)
 {
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
 		if (type == MODELNODETYPE_CHRINFO
 				|| type == MODELNODETYPE_POSITION
-				|| type == MODELNODETYPE_POSITIONHELD) {
+				|| type == MODELNODETYPE_POSITIONHELD)
+		{
 			break;
 		}
 
@@ -226,12 +241,14 @@ struct modelnode *modelNodeFindMtxNode(struct modelnode *node)
 
 struct modelnode *modelNodeFindParentMtxNode(struct modelnode *node)
 {
-	while ((node = node->parent)) {
+	while ((node = node->parent))
+	{
 		u32 type = node->type & 0xff;
 
 		if (type == MODELNODETYPE_CHRINFO
 				|| type == MODELNODETYPE_POSITION
-				|| type == MODELNODETYPE_POSITIONHELD) {
+				|| type == MODELNODETYPE_POSITIONHELD)
+		{
 			break;
 		}
 	}
@@ -243,25 +260,33 @@ struct modelnode *modelNodeFindChildMtxNode(struct modelnode *basenode)
 {
 	struct modelnode *node = basenode->child;
 
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
 		if (type == MODELNODETYPE_CHRINFO
 				|| type == MODELNODETYPE_POSITION
-				|| type == MODELNODETYPE_POSITIONHELD) {
+				|| type == MODELNODETYPE_POSITIONHELD)
+		{
 			break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node == basenode) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node == basenode)
+				{
 					node = NULL;
 					break;
 				}
 
-				if (node->next) {
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -280,23 +305,31 @@ struct modelnode *modelNodeFindChildOrParentMtxNode(struct modelnode *basenode)
 	struct modelnode *next;
 	u32 type;
 
-	while (node) {
-		if (node != basenode && node->child) {
+	while (node)
+	{
+		if (node != basenode && node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node != basenode) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node != basenode)
+				{
 					type = node->type & 0xff;
 
 					if (type == MODELNODETYPE_CHRINFO
 							|| type == MODELNODETYPE_POSITION
-							|| type == MODELNODETYPE_POSITIONHELD) {
+							|| type == MODELNODETYPE_POSITIONHELD)
+					{
 						node = NULL;
 						break;
 					}
 				}
 
-				if (node->next) {
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -304,7 +337,8 @@ struct modelnode *modelNodeFindChildOrParentMtxNode(struct modelnode *basenode)
 				node = node->parent;
 			}
 
-			if (!node) {
+			if (!node)
+			{
 				break;
 			}
 		}
@@ -313,7 +347,8 @@ struct modelnode *modelNodeFindChildOrParentMtxNode(struct modelnode *basenode)
 
 		if (type == MODELNODETYPE_CHRINFO
 				|| type == MODELNODETYPE_POSITION
-				|| type == MODELNODETYPE_POSITIONHELD) {
+				|| type == MODELNODETYPE_POSITIONHELD)
+		{
 			break;
 		}
 	}
@@ -328,7 +363,8 @@ struct modelnode *modelGetPart(struct modeldef *modeldef, s32 partnum)
 	u32 i;
 	s16 *partnums;
 
-	if (modeldef->numparts == 0) {
+	if (modeldef->numparts == 0)
+	{
 		return NULL;
 	}
 
@@ -336,16 +372,21 @@ struct modelnode *modelGetPart(struct modeldef *modeldef, s32 partnum)
 	lower = 0;
 	upper = modeldef->numparts;
 
-	while (upper >= lower) {
+	while (upper >= lower)
+	{
 		i = (lower + upper) / 2;
 
-		if (partnum == partnums[i]) {
+		if (partnum == partnums[i])
+		{
 			return modeldef->parts[i];
 		}
 
-		if (partnum < partnums[i]) {
+		if (partnum < partnums[i])
+		{
 			upper = i - 1;
-		} else {
+		}
+		else
+		{
 			lower = i + 1;
 		}
 	}
@@ -357,7 +398,8 @@ void *modelGetPartRodata(struct modeldef *modeldef, s32 partnum)
 {
 	struct modelnode *node = modelGetPart(modeldef, partnum);
 
-	if (node) {
+	if (node)
+	{
 		return node->rodata;
 	}
 
@@ -368,51 +410,53 @@ f32 modelGetScreenDistance(struct model *model)
 {
 	Mtxf *mtx = modelGetRootMtx(model);
 
-	if (mtx) {
+	if (mtx)
+	{
 		return -mtx->m[3][2];
 	}
 
 	return 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-// ntsc-beta has this function in another file
 void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
 	union modelrwdata **rwdatas = model->rwdatas;
 
-	switch (node->type & 0xff) {
-	case MODELNODETYPE_CHRINFO:
-		index = node->rodata->chrinfo.rwdataindex;
-		break;
-	case MODELNODETYPE_DL:
-		index = node->rodata->dl.rwdataindex;
-		break;
-	case MODELNODETYPE_DISTANCE:
-		index = node->rodata->distance.rwdataindex;
-		break;
-	case MODELNODETYPE_TOGGLE:
-		index = node->rodata->toggle.rwdataindex;
-		break;
-	case MODELNODETYPE_REORDER:
-		index = node->rodata->reorder.rwdataindex;
-		break;
-	case MODELNODETYPE_0B:
-		index = node->rodata->type0b.rwdataindex;
-		break;
-	case MODELNODETYPE_CHRGUNFIRE:
-		index = node->rodata->chrgunfire.rwdataindex;
-		break;
-	case MODELNODETYPE_HEADSPOT:
-		index = node->rodata->headspot.rwdataindex;
-		break;
+	switch (node->type & 0xff)
+	{
+		case MODELNODETYPE_CHRINFO:
+			index = node->rodata->chrinfo.rwdataindex;
+			break;
+		case MODELNODETYPE_DL:
+			index = node->rodata->dl.rwdataindex;
+			break;
+		case MODELNODETYPE_DISTANCE:
+			index = node->rodata->distance.rwdataindex;
+			break;
+		case MODELNODETYPE_TOGGLE:
+			index = node->rodata->toggle.rwdataindex;
+			break;
+		case MODELNODETYPE_REORDER:
+			index = node->rodata->reorder.rwdataindex;
+			break;
+		case MODELNODETYPE_0B:
+			index = node->rodata->type0b.rwdataindex;
+			break;
+		case MODELNODETYPE_CHRGUNFIRE:
+			index = node->rodata->chrgunfire.rwdataindex;
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			index = node->rodata->headspot.rwdataindex;
+			break;
 	}
 
-	while (node->parent) {
+	while (node->parent)
+	{
 		node = node->parent;
 
-		if ((node->type & 0xff) == MODELNODETYPE_HEADSPOT) {
+		if ((node->type & 0xff) == MODELNODETYPE_HEADSPOT)
+		{
 			struct modelrwdata_headspot *tmp = modelGetNodeRwData(model, node);
 			rwdatas = tmp->rwdatas;
 			break;
@@ -421,80 +465,81 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 
 	return &rwdatas[index];
 }
-#endif
 
 void modelNodeGetPosition(struct model *model, struct modelnode *node, struct coord *pos)
 {
-	switch (node->type & 0xff) {
-	case MODELNODETYPE_CHRINFO:
-		{
-			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
-			pos->x = rwdata->pos.x;
-			pos->y = rwdata->pos.y;
-			pos->z = rwdata->pos.z;
-		}
-		break;
-	case MODELNODETYPE_POSITION:
-		{
-			struct modelrodata_position *rodata = &node->rodata->position;
-			pos->x = rodata->pos.x;
-			pos->y = rodata->pos.y;
-			pos->z = rodata->pos.z;
-		}
-		break;
-	case MODELNODETYPE_POSITIONHELD:
-		{
-			struct modelrodata_positionheld *rodata = &node->rodata->positionheld;
-			pos->x = rodata->pos.x;
-			pos->y = rodata->pos.y;
-			pos->z = rodata->pos.z;
-		}
-		break;
-	default:
-		pos->x = 0;
-		pos->y = 0;
-		pos->z = 0;
-		break;
+	switch (node->type & 0xff)
+	{
+		case MODELNODETYPE_CHRINFO:
+			{
+				struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
+				pos->x = rwdata->pos.x;
+				pos->y = rwdata->pos.y;
+				pos->z = rwdata->pos.z;
+			}
+			break;
+		case MODELNODETYPE_POSITION:
+			{
+				struct modelrodata_position *rodata = &node->rodata->position;
+				pos->x = rodata->pos.x;
+				pos->y = rodata->pos.y;
+				pos->z = rodata->pos.z;
+			}
+			break;
+		case MODELNODETYPE_POSITIONHELD:
+			{
+				struct modelrodata_positionheld *rodata = &node->rodata->positionheld;
+				pos->x = rodata->pos.x;
+				pos->y = rodata->pos.y;
+				pos->z = rodata->pos.z;
+			}
+			break;
+		default:
+			pos->x = 0;
+			pos->y = 0;
+			pos->z = 0;
+			break;
 	}
 }
 
 void modelNodeSetPosition(struct model *model, struct modelnode *node, struct coord *pos)
 {
-	switch (node->type & 0xff) {
-	case MODELNODETYPE_CHRINFO:
-		{
-			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
-			struct coord diff[1];
+	switch (node->type & 0xff)
+	{
+		case MODELNODETYPE_CHRINFO:
+			{
+				struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
+				struct coord diff[1];
 
-			diff[0].x = pos->x - rwdata->pos.x;
-			diff[0].z = pos->z - rwdata->pos.z;
+				diff[0].x = pos->x - rwdata->pos.x;
+				diff[0].z = pos->z - rwdata->pos.z;
 
-			rwdata->pos.x = pos->x;
-			rwdata->pos.y = pos->y;
-			rwdata->pos.z = pos->z;
+				rwdata->pos.x = pos->x;
+				rwdata->pos.y = pos->y;
+				rwdata->pos.z = pos->z;
 
-			rwdata->unk24.x += diff[0].x; rwdata->unk24.z += diff[0].z;
-			rwdata->unk34.x += diff[0].x; rwdata->unk34.z += diff[0].z;
-			rwdata->unk40.x += diff[0].x; rwdata->unk40.z += diff[0].z;
-			rwdata->unk4c.x += diff[0].x; rwdata->unk4c.z += diff[0].z;
-		}
-		break;
-	case MODELNODETYPE_POSITION:
-		{
-			struct modelrodata_position *rodata = &node->rodata->position;
-			rodata->pos.x = pos->x;
-			rodata->pos.y = pos->y;
-			rodata->pos.z = pos->z;
-		}
-		break;
-	case MODELNODETYPE_POSITIONHELD:
-		{
-			struct modelrodata_positionheld *rodata = &node->rodata->positionheld;
-			rodata->pos.x = pos->x;
-			rodata->pos.y = pos->y;
-			rodata->pos.z = pos->z;
-		}
-		break;
+				rwdata->unk24.x += diff[0].x; rwdata->unk24.z += diff[0].z;
+				rwdata->unk34.x += diff[0].x; rwdata->unk34.z += diff[0].z;
+				rwdata->unk40.x += diff[0].x; rwdata->unk40.z += diff[0].z;
+				rwdata->unk4c.x += diff[0].x; rwdata->unk4c.z += diff[0].z;
+			}
+			break;
+		case MODELNODETYPE_POSITION:
+			{
+				struct modelrodata_position *rodata = &node->rodata->position;
+				rodata->pos.x = pos->x;
+				rodata->pos.y = pos->y;
+				rodata->pos.z = pos->z;
+			}
+			break;
+		case MODELNODETYPE_POSITIONHELD:
+			{
+				struct modelrodata_positionheld *rodata = &node->rodata->positionheld;
+				rodata->pos.x = pos->x;
+				rodata->pos.y = pos->y;
+				rodata->pos.z = pos->z;
+			}
+			break;
 	}
 }
 
@@ -514,13 +559,15 @@ void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *no
 	pos->y = 0;
 	pos->z = 0;
 
-	while (node) {
+	while (node)
+	{
 		struct coord nodepos;
 		u32 type = node->type & 0xff;
 
 		if (type == MODELNODETYPE_CHRINFO
 				|| type == MODELNODETYPE_POSITION
-				|| type == MODELNODETYPE_POSITIONHELD) {
+				|| type == MODELNODETYPE_POSITIONHELD)
+		{
 			modelNodeGetPosition(model, node, &nodepos);
 			pos->x += nodepos.x;
 			pos->y += nodepos.y;
@@ -533,7 +580,8 @@ void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *no
 
 f32 modelGetChrRotY(struct model *model)
 {
-	if ((model->definition->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
+	if ((model->definition->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO)
+	{
 		union modelrwdata *rwdata = modelGetNodeRwData(model, model->definition->rootnode);
 		return rwdata->chrinfo.yrot;
 	}
@@ -543,23 +591,27 @@ f32 modelGetChrRotY(struct model *model)
 
 void modelSetChrRotY(struct model *model, f32 angle)
 {
-	if ((model->definition->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
+	if ((model->definition->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO)
+	{
 		struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, model->definition->rootnode);
 		f32 diff = angle - rwdata->yrot;
 
-		if (diff < 0) {
+		if (diff < 0)
+		{
 			diff += M_BADTAU;
 		}
 
 		rwdata->unk30 += diff;
 
-		if (rwdata->unk30 >= M_BADTAU) {
+		if (rwdata->unk30 >= M_BADTAU)
+		{
 			rwdata->unk30 -= M_BADTAU;
 		}
 
 		rwdata->unk20 += diff;
 
-		if (rwdata->unk20 >= M_BADTAU) {
+		if (rwdata->unk20 >= M_BADTAU)
+		{
 			rwdata->unk20 -= M_BADTAU;
 		}
 
@@ -574,7 +626,8 @@ void modelSetScale(struct model *model, f32 scale)
 
 void modelSetAnimScale(struct model *model, f32 scale)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		model->anim->animscale = scale;
 	}
 }
@@ -595,20 +648,26 @@ f32 modelTweenRotAxis(f32 curangle, f32 goalangle, f32 mult)
 {
 	f32 diff = goalangle - curangle;
 
-	if (goalangle < curangle) {
+	if (goalangle < curangle)
+	{
 		diff += M_BADTAU;
 	}
 
-	if (diff < M_PI) {
+	if (diff < M_PI)
+	{
 		curangle += diff * mult;
 
-		if (curangle >= M_BADTAU) {
+		if (curangle >= M_BADTAU)
+		{
 			curangle -= M_BADTAU;
 		}
-	} else {
+	}
+	else
+	{
 		curangle -= (M_BADTAU - diff) * mult;
 
-		if (curangle < 0) {
+		if (curangle < 0)
+		{
 			curangle += M_BADTAU;
 		}
 	}
@@ -631,13 +690,15 @@ void modelUpdateChrInfo(struct model *model, struct modelnode *node)
 	struct coord sp28;
 	f32 frac;
 
-	if (!anim) {
+	if (!anim)
+	{
 		return;
 	}
 
 	rwdata = modelGetNodeRwData(model, node);
 
-	if (rwdata->chrinfo.unk00) {
+	if (rwdata->chrinfo.unk00)
+	{
 		return;
 	}
 
@@ -647,27 +708,34 @@ void modelUpdateChrInfo(struct model *model, struct modelnode *node)
 
 	rwdata->chrinfo.yrot = rwdata->chrinfo.unk30;
 
-	if (g_Vars.in_cutscene && anim->speed > 0.0f) {
+	if (g_Vars.in_cutscene && anim->speed > 0.0f)
+	{
 #if VERSION >= VERSION_PAL_BETA
 		frac = floorf(anim->frac / anim->speed + 0.01f) * anim->speed;
 #else
 		frac = floorf(anim->frac / anim->speed) * anim->speed;
 #endif
-	} else {
+	}
+	else
+	{
 		frac = anim->frac;
 	}
 
-	if (frac != 0.0f && rwdata->chrinfo.unk01) {
+	if (frac != 0.0f && rwdata->chrinfo.unk01)
+	{
 		modelTweenPos(&sp34, &rwdata->chrinfo.unk24, frac);
 
 		rwdata->chrinfo.yrot = modelTweenRotAxis(rwdata->chrinfo.unk30, rwdata->chrinfo.unk20, frac);
 	}
 
-	if (anim->animnum2 || anim->fracmerge) {
-		if (rwdata->chrinfo.unk02) {
+	if (anim->animnum2 || anim->fracmerge)
+	{
+		if (rwdata->chrinfo.unk02)
+		{
 			f32 y = rwdata->chrinfo.unk4c.y;
 
-			if (anim->frac2 != 0.0f) {
+			if (anim->frac2 != 0.0f)
+			{
 				y += (rwdata->chrinfo.unk40.y - y) * anim->frac2;
 			}
 
@@ -675,16 +743,20 @@ void modelUpdateChrInfo(struct model *model, struct modelnode *node)
 		}
 	}
 
-	if (anim->unk70 == NULL) {
+	if (anim->unk70 == NULL)
+	{
 		rwdata->chrinfo.pos.x = sp34.x;
 		rwdata->chrinfo.pos.y = rwdata->chrinfo.ground + sp34.f[1];
 		rwdata->chrinfo.pos.z = sp34.z;
-	} else {
+	}
+	else
+	{
 		sp28.x = sp34.x;
 		sp28.y = sp34.y;
 		sp28.z = sp34.z;
 
-		if (anim->unk70(model, &rwdata->chrinfo.pos, &sp28, &rwdata->chrinfo.ground)) {
+		if (anim->unk70(model, &rwdata->chrinfo.pos, &sp28, &rwdata->chrinfo.ground))
+		{
 			rwdata->chrinfo.pos.x = sp28.x;
 			rwdata->chrinfo.pos.y = rwdata->chrinfo.ground + sp28.f[1];
 			rwdata->chrinfo.pos.z = sp28.z;
@@ -695,12 +767,14 @@ void modelUpdateChrInfo(struct model *model, struct modelnode *node)
 			rwdata->chrinfo.unk34.x += sp34.x;
 			rwdata->chrinfo.unk34.z += sp34.z;
 
-			if (rwdata->chrinfo.unk01) {
+			if (rwdata->chrinfo.unk01)
+			{
 				rwdata->chrinfo.unk24.x += sp34.x;
 				rwdata->chrinfo.unk24.z += sp34.z;
 			}
 
-			if (rwdata->chrinfo.unk02) {
+			if (rwdata->chrinfo.unk02)
+			{
 				rwdata->chrinfo.unk4c.x += sp34.x;
 				rwdata->chrinfo.unk4c.z += sp34.z;
 
@@ -715,7 +789,8 @@ void modelUpdateInfo(struct model *model)
 {
 	struct modelnode *node = model->definition->rootnode;
 
-	if (node && (node->type & 0xff) == MODELNODETYPE_CHRINFO) {
+	if (node && (node->type & 0xff) == MODELNODETYPE_CHRINFO)
+	{
 		modelUpdateChrInfo(model, node);
 	}
 }
@@ -755,45 +830,55 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 	Mtxf sp78;
 	Mtxf sp38;
 
-	if (rodata->chrinfo.mtxindex);
-
-	if (node->parent) {
+	if (node->parent)
+	{
 		sp24c = modelFindNodeMtx(model, node->parent, 0);
-	} else {
+	}
+	else
+	{
 		sp24c = arg0->unk00;
 	}
 
 	animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
 
-	if (g_Vars.in_cutscene && anim->speed > 0) {
+	if (g_Vars.in_cutscene && anim->speed > 0)
+	{
 #if VERSION >= VERSION_PAL_BETA
 		sp154 = floorf(anim->frac / anim->speed + 0.01f) * anim->speed;
 #else
 		sp154 = floorf(anim->frac / anim->speed) * anim->speed;
 #endif
-	} else {
+	}
+	else
+	{
 		sp154 = anim->frac;
 	}
 
-	if (sp154 != 0.0f) {
+	if (sp154 != 0.0f)
+	{
 		animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot2, &rot2, &translate2, &scale2);
 		modelTweenRot(&rot1, &rot2, sp154);
 	}
 
-	if (anim->fracmerge != 0.0f) {
+	if (anim->fracmerge != 0.0f)
+	{
 		animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot3, &rot3, &translate3, &scale3);
 
-		if (anim->frac2 != 0.0f) {
+		if (anim->frac2 != 0.0f)
+		{
 			animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot4, &rot4, &translate4, &scale4);
 			modelTweenRot(&rot3, &rot4, anim->frac2);
 		}
 
-		if ((g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) && (g_Anims[anim->animnum2].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
+		if ((g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) && (g_Anims[anim->animnum2].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0)
+		{
 			mtx4LoadYRotation(rwdata->chrinfo.yrot, &sp78);
 			mtx4LoadRotation(&rot3, &sp38);
 			mtx00015be0(&sp78, &sp38);
 			quaternion0f097044(&sp38, spec);
-		} else {
+		}
+		else
+		{
 			quaternion0f096ca0(&rot3, spec);
 		}
 
@@ -801,14 +886,20 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 		quaternion0f0976c0(spfc, spec);
 		quaternionSlerp(spfc, spec, anim->fracmerge, spdc);
 		quaternionToMtx(spdc, &sp1d8);
-	} else {
+	}
+	else
+	{
 		mtx4LoadRotation(&rot1, &sp1d8);
 	}
 
-	if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
+	if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION)
+	{
 		mtx4LoadTranslation(sp254, &sp198);
-	} else {
-		if (rwdata->chrinfo.unk18 != 0.0f) {
+	}
+	else
+	{
+		if (rwdata->chrinfo.unk18 != 0.0f)
+		{
 			sp250 = modelTweenRotAxis(sp250, rwdata->chrinfo.unk1c, rwdata->chrinfo.unk18);
 		}
 
@@ -817,13 +908,17 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 
 	mtx00015be4(&sp198, &sp1d8, &sp158);
 
-	if (scale != 1.0f) {
+	if (scale != 1.0f)
+	{
 		mtx00015f4c(scale, &sp158);
 	}
 
-	if (sp24c) {
+	if (sp24c)
+	{
 		mtx00015be4(sp24c, &sp158, mtx);
-	} else {
+	}
+	else
+	{
 		mtx4Copy(&sp158, mtx);
 	}
 }
@@ -840,61 +935,77 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 	s32 mtxindex2 = rodata->mtxindex2;
 	Mtxf *matrices = model->matrices;
 
-	if (node->parent != NULL) {
+	if (node->parent != NULL)
+	{
 		rendermtx = modelFindNodeMtx(model, node->parent, 0);
-	} else {
+	}
+	else
+	{
 		rendermtx = renderdata->unk00;
 	}
 
-	if (rendermtx != NULL) {
+	if (rendermtx != NULL)
+	{
 		Mtxf *nodemtx = &matrices[mtxindex0];
 
 		mtx4LoadRotationAndTranslation(pos, rot, &mtx68);
 
-		if (allowscale && model->scale != 1.0f) {
+		if (allowscale && model->scale != 1.0f)
+		{
 			mtx00015f04(model->scale, &mtx68);
 		}
 
-		if (arg6->x != 1.0f) {
+		if (arg6->x != 1.0f)
+		{
 			mtx00015df0(arg6->x, &mtx68);
 		}
 
-		if (arg6->y != 1.0f) {
+		if (arg6->y != 1.0f)
+		{
 			mtx00015e4c(arg6->y, &mtx68);
 		}
 
-		if (arg6->z != 1.0f) {
+		if (arg6->z != 1.0f)
+		{
 			mtx00015ea8(arg6->z, &mtx68);
 		}
 
 		mtx00015be4(rendermtx, &mtx68, nodemtx);
 
-		if (g_ModelJointPositionedFunc != NULL) {
+		if (g_ModelJointPositionedFunc != NULL)
+		{
 			g_ModelJointPositionedFunc(mtxindex0, nodemtx);
 		}
-	} else {
+	}
+	else
+	{
 		Mtxf *nodemtx = &matrices[mtxindex0];
 
 		mtx4LoadRotationAndTranslation(pos, rot, nodemtx);
 
-		if (allowscale && model->scale != 1.0f) {
+		if (allowscale && model->scale != 1.0f)
+		{
 			mtx00015f04(model->scale, nodemtx);
 		}
 
-		if (arg6->x != 1.0f) {
+		if (arg6->x != 1.0f)
+		{
 			mtx00015df0(arg6->x, nodemtx);
 		}
 
-		if (arg6->y != 1.0f) {
+		if (arg6->y != 1.0f)
+		{
 			mtx00015e4c(arg6->y, nodemtx);
 		}
 
-		if (arg6->z != 1.0f) {
+		if (arg6->z != 1.0f)
+		{
 			mtx00015ea8(arg6->z, nodemtx);
 		}
 	}
 
-	if (nodetype & MODELNODETYPE_0100) {
+	if (nodetype & MODELNODETYPE_0100)
+	{
 		Mtxf *nodemtx = &matrices[mtxindex1];
 		f32 sp3c[4];
 		f32 sp2c[4];
@@ -902,40 +1013,52 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 		quaternion0f096ca0(rot, sp3c);
 		quaternion0f097518(sp3c, 0.5f, sp2c);
 
-		if (rendermtx != NULL) {
+		if (rendermtx != NULL)
+		{
 			quaternionToTransformMtx(pos, sp2c, &mtx68);
 			mtx00015be4(rendermtx, &mtx68, nodemtx);
-		} else {
+		}
+		else
+		{
 			quaternionToTransformMtx(pos, sp2c, nodemtx);
 		}
 	}
 
-	if (nodetype & MODELNODETYPE_0200) {
+	if (nodetype & MODELNODETYPE_0200)
+	{
 		Mtxf *finalmtx = rendermtx ? &mtx68 : &matrices[mtxindex2];
 		f32 roty = rot->y;
 
-		if (roty < M_PI) {
+		if (roty < M_PI)
+		{
 			roty *= 0.5f;
-		} else {
+		}
+		else
+		{
 			roty = M_BADTAU - (M_BADTAU - roty) * 0.5f;
 		}
 
 		mtx4LoadYRotation(roty, finalmtx);
 
-		if (roty >= M_PI) {
+		if (roty >= M_PI)
+		{
 			roty = M_BADTAU - roty;
 		}
 
-		if (roty < 0.890118f) { // 51 degrees
+		if (roty < 0.890118f)
+		{ // 51 degrees
 			roty = func0f096700(roty);
-		} else {
+		}
+		else
+		{
 			roty = 1.5f;
 		}
 
 		mtx00015edc(roty, finalmtx);
 		mtx4SetTranslation(pos, finalmtx);
 
-		if (rendermtx != NULL) {
+		if (rendermtx != NULL)
+		{
 			Mtxf *nodemtx = &matrices[mtxindex2];
 			mtx00015be4(rendermtx, finalmtx, nodemtx);
 		}
@@ -954,92 +1077,118 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 	s32 mtxindex2 = rodata->mtxindex2;
 	Mtxf *matrices = model->matrices;
 
-	if (node->parent != NULL) {
+	if (node->parent != NULL)
+	{
 		rendermtx = modelFindNodeMtx(model, node->parent, 0);
-	} else {
+	}
+	else
+	{
 		rendermtx = renderdata->unk00;
 	}
 
-	if (rendermtx != NULL) {
+	if (rendermtx != NULL)
+	{
 		Mtxf *nodemtx = &matrices[mtxindex0];
 
 		quaternionToTransformMtx(pos, rot, &mtx58);
 
-		if (arg5->x != 1.0f) {
+		if (arg5->x != 1.0f)
+		{
 			mtx00015df0(arg5->x, &mtx58);
 		}
 
-		if (arg5->y != 1.0f) {
+		if (arg5->y != 1.0f)
+		{
 			mtx00015e4c(arg5->y, &mtx58);
 		}
 
-		if (arg5->z != 1.0f) {
+		if (arg5->z != 1.0f)
+		{
 			mtx00015ea8(arg5->z, &mtx58);
 		}
 
 		mtx00015be4(rendermtx, &mtx58, nodemtx);
 
-		if (g_ModelJointPositionedFunc != NULL) {
+		if (g_ModelJointPositionedFunc != NULL)
+		{
 			g_ModelJointPositionedFunc(mtxindex0, nodemtx);
 		}
-	} else {
+	}
+	else
+	{
 		Mtxf *nodemtx = &matrices[mtxindex0];
 
 		quaternionToTransformMtx(pos, rot, nodemtx);
 
-		if (arg5->x != 1.0f) {
+		if (arg5->x != 1.0f)
+		{
 			mtx00015df0(arg5->x, nodemtx);
 		}
 
-		if (arg5->y != 1.0f) {
+		if (arg5->y != 1.0f)
+		{
 			mtx00015e4c(arg5->y, nodemtx);
 		}
 
-		if (arg5->z != 1.0f) {
+		if (arg5->z != 1.0f)
+		{
 			mtx00015ea8(arg5->z, nodemtx);
 		}
 	}
 
-	if (nodetype & MODELNODETYPE_0100) {
+	if (nodetype & MODELNODETYPE_0100)
+	{
 		Mtxf *nodemtx = &matrices[mtxindex1];
 		f32 sp2c[4];
 
 		quaternion0f097518(rot, 0.5f, sp2c);
 
-		if (rendermtx != NULL) {
+		if (rendermtx != NULL)
+		{
 			quaternionToTransformMtx(pos, sp2c, &mtx58);
 			mtx00015be4(rendermtx, &mtx58, nodemtx);
-		} else {
+		}
+		else
+		{
 			quaternionToTransformMtx(pos, sp2c, nodemtx);
 		}
 	}
 
-	if (nodetype & MODELNODETYPE_0200) {
+	if (nodetype & MODELNODETYPE_0200)
+	{
 		Mtxf *finalmtx = rendermtx ? &mtx58 : &matrices[mtxindex2];
 		f32 roty = 2.0f * acosf(rot[0]);
 
-		if (roty < M_PI) {
+		if (roty < M_PI)
+		{
 			roty *= 0.5f;
-		} else {
+		}
+		else
+		{
 			roty = M_BADTAU - (M_BADTAU - roty) * 0.5f;
 		}
 
 		mtx4LoadYRotation(roty, finalmtx);
 
-		if (roty >= M_PI) {
+		if (roty >= M_PI)
+		{
 			roty = M_BADTAU - roty;
 		}
 
-		if (roty < 0.890118f) { // 51 degrees
+		if (roty < 0.890118f) // 51 degrees
+		{ 
 			roty = func0f096700(roty);
-		} else {
+		}
+		else
+		{
 			roty = 1.5f;
 		}
 
 		mtx00015edc(roty, finalmtx);
 		mtx4SetTranslation(pos, finalmtx);
 
-		if (rendermtx != NULL) {
+		if (rendermtx != NULL)
+		{
 			Mtxf *nodemtx = &matrices[mtxindex2];
 			mtx00015be4(rendermtx, finalmtx, nodemtx);
 		}
@@ -1074,26 +1223,32 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 
 	anim = model->anim;
 
-	if (anim != NULL) {
+	if (anim != NULL)
+	{
 		animpart = rodata->part;
 		skel = model->definition->skel;
 
-		if (anim->animnum != 0) {
+		if (anim->animnum != 0)
+		{
 			sp128 = (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) && node == model->definition->rootnode;
 
 			animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
 
-			if (g_Vars.in_cutscene && anim->speed > 0.0f) {
+			if (g_Vars.in_cutscene && anim->speed > 0.0f)
+			{
 #if VERSION >= VERSION_PAL_BETA
 				spe0 = floorf(anim->frac / anim->speed + 0.0099999997764826f) * anim->speed;
 #else
 				spe0 = floorf(anim->frac / anim->speed) * anim->speed;
 #endif
-			} else {
+			}
+			else
+			{
 				spe0 = anim->frac;
 			}
 
-			if (spe0 != 0.0f) {
+			if (spe0 != 0.0f)
+			{
 				animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot2, &rot2, &translate2, &scale2);
 				modelTweenRot(&rot1, &rot2, spe0);
 
@@ -1106,7 +1261,9 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 					modelTweenPos(&translate1, &translate2, spe0);
 				}
 			}
-		} else {
+		}
+		else
+		{
 			translate1.f[0] = translate1.f[1] = translate1.f[2] = 0.0f;
 			rot1.f[0] = rot1.f[1] = rot1.f[2] = 0.0f;
 			scale1.f[0] = scale1.f[1] = scale1.f[2] = 1.0f;
@@ -1114,10 +1271,12 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 			sp128 = false;
 		}
 
-		if (anim->fracmerge != 0.0f) {
+		if (anim->fracmerge != 0.0f)
+		{
 			animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot3, &rot3, &translate3, &scale3);
 
-			if (anim->frac2 != 0.0f) {
+			if (anim->frac2 != 0.0f)
+			{
 				animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot4, &rot4, &translate4, &scale4);
 				modelTweenRot(&rot3, &rot4, anim->frac2);
 			}
@@ -1127,24 +1286,32 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 			quaternion0f0976c0(sp88, sp78);
 			quaternionSlerp(sp88, sp78, anim->fracmerge, sp68);
 
-			if (translate1.f[0] != 0.0f || translate1.f[1] != 0.0f || translate1.f[2] != 0.0f) {
+			if (translate1.f[0] != 0.0f || translate1.f[1] != 0.0f || translate1.f[2] != 0.0f)
+			{
 				translate1.x *= anim->animscale;
 				translate1.y *= anim->animscale;
 				translate1.z *= anim->animscale;
 
-				if (node != model->definition->rootnode) {
+				if (node != model->definition->rootnode)
+				{
 					translate1.x += rodata->pos.x;
 					translate1.y += rodata->pos.y;
 					translate1.z += rodata->pos.z;
 				}
 
 				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &translate1, &scale1);
-			} else if (node != model->definition->rootnode) {
+			}
+			else if (node != model->definition->rootnode)
+			{
 				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &rodata->pos, &scale1);
-			} else {
+			}
+			else
+			{
 				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &translate1, &scale1);
 			}
-		} else if (sp128) {
+		}
+		else if (sp128)
+		{
 			f32 mult = func0f15c888();
 
 			translate1.x *= mult;
@@ -1152,34 +1319,49 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 			translate1.z *= mult;
 
 			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, true, &scale1);
-		} else if (translate1.f[0] != 0.0f || translate1.f[1] != 0.0f || translate1.f[2] != 0.0f) {
+		}
+		else if (translate1.f[0] != 0.0f || translate1.f[1] != 0.0f || translate1.f[2] != 0.0f)
+		{
 			translate1.x *= anim->animscale;
 			translate1.y *= anim->animscale;
 			translate1.z *= anim->animscale;
 
-			if (node != model->definition->rootnode) {
+			if (node != model->definition->rootnode)
+			{
 				translate1.x += rodata->pos.x;
 				translate1.y += rodata->pos.y;
 				translate1.z += rodata->pos.z;
 			}
 
 			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, false, &scale1);
-		} else if (node != model->definition->rootnode) {
+		}
+		else if (node != model->definition->rootnode)
+		{
 			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &rodata->pos, false, &scale1);
-		} else {
+		}
+		else
+		{
 			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, false, &scale1);
 		}
-	} else {
-		if (node->parent) {
+	}
+	else
+	{
+		if (node->parent)
+		{
 			mtx = modelFindNodeMtx(model, node->parent, 0);
-		} else {
+		}
+		else
+		{
 			mtx = renderdata->unk00;
 		}
 
-		if (mtx) {
+		if (mtx)
+		{
 			mtx4LoadTranslation(&rodata->pos, &spe8);
 			mtx00015be4(mtx, &spe8, &model->matrices[rodata->mtxindex0]);
-		} else {
+		}
+		else
+		{
 			mtx4LoadTranslation(&rodata->pos, &model->matrices[rodata->mtxindex0]);
 		}
 	}
@@ -1193,16 +1375,22 @@ void modelUpdatePositionHeldNodeMtx(struct modelrenderdata *arg0, struct model *
 	s32 mtxindex = rodata->positionheld.mtxindex;
 	Mtxf *matrices = model->matrices;
 
-	if (node->parent) {
+	if (node->parent)
+	{
 		sp68 = modelFindNodeMtx(model, node->parent, 0);
-	} else {
+	}
+	else
+	{
 		sp68 = arg0->unk00;
 	}
 
-	if (sp68) {
+	if (sp68)
+	{
 		mtx4LoadTranslation(&rodata->positionheld.pos, &sp28);
 		mtx00015be4(sp68, &sp28, &matrices[mtxindex]);
-	} else {
+	}
+	else
+	{
 		mtx4LoadTranslation(&rodata->positionheld.pos, &matrices[mtxindex]);
 	}
 }
@@ -1217,18 +1405,24 @@ void modelUpdateDistanceRelations(struct model *model, struct modelnode *node)
 	Mtxf *mtx = modelFindNodeMtx(model, node, 0);
 	f32 distance;
 
-	if (g_ModelDistanceDisabled || !mtx) {
+	if (g_ModelDistanceDisabled || !mtx)
+	{
 		distance = 0;
-	} else {
+	}
+	else
+	{
 		distance = -mtx->m[3][2] * camGetLodScaleZ();
 
-		if (g_ModelDistanceScale != 1) {
+		if (g_ModelDistanceScale != 1)
+		{
 			distance *= g_ModelDistanceScale;
 		}
 	}
 
-	if (distance > rodata->distance.near * model->scale || rodata->distance.near == 0) {
-		if (distance <= rodata->distance.far * model->scale) {
+	if (distance > rodata->distance.near * model->scale || rodata->distance.near == 0)
+	{
+		if (distance <= rodata->distance.far * model->scale)
+		{
 			rwdata->distance.visible = true;
 			node->child = rodata->distance.target;
 			return;
@@ -1244,9 +1438,12 @@ void modelApplyDistanceRelations(struct model *model, struct modelnode *node)
 	struct modelrodata_distance *rodata = &node->rodata->distance;
 	struct modelrwdata_distance *rwdata = modelGetNodeRwData(model, node);
 
-	if (rwdata->visible) {
+	if (rwdata->visible)
+	{
 		node->child = rodata->target;
-	} else {
+	}
+	else
+	{
 		node->child = NULL;
 	}
 }
@@ -1256,9 +1453,12 @@ void modelApplyToggleRelations(struct model *model, struct modelnode *node)
 	struct modelrodata_toggle *rodata = &node->rodata->toggle;
 	struct modelrwdata_toggle *rwdata = modelGetNodeRwData(model, node);
 
-	if (rwdata->visible) {
+	if (rwdata->visible)
+	{
 		node->child = rodata->target;
-	} else {
+	}
+	else
+	{
 		node->child = NULL;
 	}
 }
@@ -1272,12 +1472,14 @@ void modelApplyHeadRelations(struct model *model, struct modelnode *bodynode)
 {
 	struct modelrwdata_headspot *rwdata = modelGetNodeRwData(model, bodynode);
 
-	if (rwdata->headmodeldef) {
+	if (rwdata->headmodeldef)
+	{
 		struct modelnode *headnode = rwdata->headmodeldef->rootnode;
 
 		bodynode->child = headnode;
 
-		while (headnode) {
+		while (headnode)
+		{
 			headnode->parent = bodynode;
 			headnode = headnode->next;
 		}
@@ -1291,15 +1493,19 @@ void modelApplyReorderRelationsByArg(struct modelnode *basenode, bool reverse)
 	struct modelnode *node2;
 	struct modelnode *loopnode;
 
-	if (reverse) {
+	if (reverse)
+	{
 		node1 = rodata->reorder.unk18;
 		node2 = rodata->reorder.unk1c;
-	} else {
+	}
+	else
+	{
 		node1 = rodata->reorder.unk1c;
 		node2 = rodata->reorder.unk18;
 	}
 
-	if (node1) {
+	if (node1)
+	{
 		// I think what's happening here is there's two groups of siblings,
 		// where node1 and node2 are the head nodes. Either group can be first,
 		// and this is ensuring the node1 group is first.
@@ -1312,27 +1518,33 @@ void modelApplyReorderRelationsByArg(struct modelnode *basenode, bool reverse)
 		// reached
 		loopnode = node1;
 
-		while (loopnode->next && loopnode->next != node2) {
+		while (loopnode->next && loopnode->next != node2)
+		{
 			loopnode = loopnode->next;
 		}
 
 		loopnode->next = node2;
 
-		if (node2) {
+		if (node2)
+		{
 			// Append node2 and its siblings to node1's siblings
 			node2->prev = loopnode;
 			loopnode = node2;
 
-			while (loopnode->next && loopnode->next != node1) {
+			while (loopnode->next && loopnode->next != node1)
+			{
 				loopnode = loopnode->next;
 			}
 
 			loopnode->next = NULL;
 		}
-	} else {
+	}
+	else
+	{
 		basenode->child = node2;
 
-		if (node2) {
+		if (node2)
+		{
 			node2->prev = NULL;
 		}
 	}
@@ -1354,20 +1566,27 @@ void modelUpdateReorderRelations(struct model *model, struct modelnode *node)
 	struct coord sp2c;
 	f32 tmp;
 
-	if (rodata->reorder.side == 0) {
+	if (rodata->reorder.side == 0)
+	{
 		sp38.x = rodata->reorder.unk0c[0];
 		sp38.y = rodata->reorder.unk0c[1];
 		sp38.z = rodata->reorder.unk0c[2];
 		mtx4RotateVecInPlace(mtx, &sp38);
-	} else if (rodata->reorder.side == 2) {
+	}
+	else if (rodata->reorder.side == 2)
+	{
 		sp38.x = mtx->m[1][0] * rodata->reorder.unk0c[1];
 		sp38.y = mtx->m[1][1] * rodata->reorder.unk0c[1];
 		sp38.z = mtx->m[1][2] * rodata->reorder.unk0c[1];
-	} else if (rodata->reorder.side == 3) {
+	}
+	else if (rodata->reorder.side == 3)
+	{
 		sp38.x = mtx->m[2][0] * rodata->reorder.unk0c[2];
 		sp38.y = mtx->m[2][1] * rodata->reorder.unk0c[2];
 		sp38.z = mtx->m[2][2] * rodata->reorder.unk0c[2];
-	} else if (rodata->reorder.side == 1) {
+	}
+	else if (rodata->reorder.side == 1)
+	{
 		sp38.x = mtx->m[0][0] * rodata->reorder.unk0c[0];
 		sp38.y = mtx->m[0][1] * rodata->reorder.unk0c[0];
 		sp38.z = mtx->m[0][2] * rodata->reorder.unk0c[0];
@@ -1381,9 +1600,12 @@ void modelUpdateReorderRelations(struct model *model, struct modelnode *node)
 
 	tmp = sp38.f[0] * sp2c.f[0] + sp38.f[1] * sp2c.f[1] + sp38.f[2] * sp2c.f[2];
 
-	if (tmp < 0) {
+	if (tmp < 0)
+	{
 		rwdata->reorder.reverse = true;
-	} else {
+	}
+	else
+	{
 		rwdata->reorder.reverse = false;
 	}
 
@@ -1401,13 +1623,13 @@ void modelUpdateRelationsQuick(struct model *model, struct modelnode *parent)
 {
 	struct modelnode *node = parent->child;
 
-	if (parent);
-
-	while (node) {
+	while (node)
+	{
 		s32 type = node->type & 0xff;
 		bool dochildren = true;
 
-		switch (type) {
+		switch (type)
+		{
 		case MODELNODETYPE_CHRINFO:
 		case MODELNODETYPE_POSITION:
 		case MODELNODETYPE_0B:
@@ -1431,16 +1653,22 @@ void modelUpdateRelationsQuick(struct model *model, struct modelnode *parent)
 			break;
 		}
 
-		if (dochildren && node->child) {
+		if (dochildren && node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node == parent->parent) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node == parent->parent)
+				{
 					node = NULL;
 					break;
 				}
 
-				if (node->next) {
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -1459,7 +1687,8 @@ void modelUpdateRelations(struct model *model)
 {
 	struct modelnode *node = model->definition->rootnode;
 
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
 		switch (type) {
@@ -1481,11 +1710,16 @@ void modelUpdateRelations(struct model *model)
 			break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node->next) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -1500,10 +1734,12 @@ void modelUpdateMatrices(struct modelrenderdata *arg0, struct model *model)
 {
 	struct modelnode *node = model->definition->rootnode;
 
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
-		switch (type) {
+		switch (type)
+		{
 		case MODELNODETYPE_CHRINFO:
 			modelUpdateChrNodeMtx(arg0, model, node);
 			break;
@@ -1530,11 +1766,16 @@ void modelUpdateMatrices(struct modelrenderdata *arg0, struct model *model)
 			break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node->next) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -1556,7 +1797,8 @@ void modelSetMatrices(struct modelrenderdata *renderdata, struct model *model)
 		modelUpdateMatrices(renderdata, model);
 	}
 #else
-	if (!modelasm00018680(renderdata, model)) {
+	if (!modelasm00018680(renderdata, model))
+	{
 		modelUpdateMatrices(renderdata, model);
 	}
 #endif
@@ -1569,8 +1811,10 @@ void modelSetMatricesWithAnim(struct modelrenderdata *renderdata, struct model *
 	f32 frac;
 	f32 frac2;
 
-	if (anim && anim->animnum) {
-		if (PLAYERCOUNT() >= 2) {
+	if (anim && anim->animnum)
+	{
+		if (PLAYERCOUNT() >= 2)
+		{
 			frac = anim->frac;
 			frac2 = anim->frac2;
 			speed = anim->speed;
@@ -1588,15 +1832,18 @@ void modelSetMatricesWithAnim(struct modelrenderdata *renderdata, struct model *
 		animLoadHeader(anim->animnum);
 		anim->frameslot1 = animLoadFrame(anim->animnum, anim->framea);
 
-		if (anim->frac != 0) {
+		if (anim->frac != 0)
+		{
 			anim->frameslot2 = animLoadFrame(anim->animnum, anim->frameb);
 		}
 
-		if (anim->animnum2) {
+		if (anim->animnum2)
+		{
 			animLoadHeader(anim->animnum2);
 			anim->frameslot3 = animLoadFrame(anim->animnum2, anim->frame2a);
 
-			if (anim->frac2 != 0) {
+			if (anim->frac2 != 0)
+			{
 				anim->frameslot4 = animLoadFrame(anim->animnum2, anim->frame2b);
 			}
 		}
@@ -1606,7 +1853,8 @@ void modelSetMatricesWithAnim(struct modelrenderdata *renderdata, struct model *
 
 	modelSetMatrices(renderdata, model);
 
-	if (PLAYERCOUNT() >= 2 && anim && anim->animnum) {
+	if (PLAYERCOUNT() >= 2 && anim && anim->animnum)
+	{
 		anim->frac = frac;
 		anim->frac2 = frac2;
 	}
@@ -1614,7 +1862,8 @@ void modelSetMatricesWithAnim(struct modelrenderdata *renderdata, struct model *
 
 s16 modelGetAnimNum(struct model *model)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		return model->anim->animnum;
 	}
 
@@ -1623,7 +1872,8 @@ s16 modelGetAnimNum(struct model *model)
 
 bool modelIsFlipped(struct model *model)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		return model->anim->flip;
 	}
 
@@ -1632,7 +1882,8 @@ bool modelIsFlipped(struct model *model)
 
 f32 modelGetCurAnimFrame(struct model *model)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		return model->anim->frame;
 	}
 
@@ -1643,14 +1894,19 @@ f32 modelGetAnimEndFrame(struct model *model)
 {
 	struct anim *anim = model->anim;
 
-	if (anim) {
-		if (anim->endframe >= 0) {
+	if (anim)
+	{
+		if (anim->endframe >= 0) 
+		{
 			return anim->endframe;
 		}
 
-		if (anim->animnum) {
+		if (anim->animnum) 
+		{
 			return animGetNumFrames(anim->animnum) - 1;
-		} else {
+		}
+		else
+		{
 			return 0;
 		}
 	}
@@ -1660,7 +1916,8 @@ f32 modelGetAnimEndFrame(struct model *model)
 
 s32 modelGetNumAnimFrames(struct model *model)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		return animGetNumFrames(modelGetAnimNum(model));
 	}
 
@@ -1669,7 +1926,8 @@ s32 modelGetNumAnimFrames(struct model *model)
 
 f32 modelGetAnimSpeed(struct model *model)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		return model->anim->speed;
 	}
 
@@ -1680,10 +1938,12 @@ f32 modelGetAbsAnimSpeed(struct model *model)
 {
 	f32 speed;
 
-	if (model->anim) {
+	if (model->anim)
+	{
 		speed = model->anim->speed;
 
-		if (speed < 0) {
+		if (speed < 0)
+		{
 			speed = -speed;
 		}
 
@@ -1695,7 +1955,8 @@ f32 modelGetAbsAnimSpeed(struct model *model)
 
 f32 modelGetEffectiveAnimSpeed(struct model *model)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		return modelGetAnimSpeed(model) * model->anim->playspeed;
 	}
 
@@ -1708,18 +1969,29 @@ f32 modelGetEffectiveAnimSpeed(struct model *model)
  */
 s32 modelConstrainOrWrapAnimFrame(s32 frame, s16 animnum, f32 endframe)
 {
-	if (frame < 0) {
-		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
+	if (frame < 0)
+	{
+		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP))
+		{
 			frame = animGetNumFrames(animnum) - (-frame % animGetNumFrames(animnum));
-		} else {
+		}
+		else
+		{
 			frame = 0;
 		}
-	} else if (endframe >= 0 && frame > (s32)endframe) {
+	}
+	else if (endframe >= 0 && frame > (s32)endframe)
+	{
 		frame = ceil(endframe);
-	} else if (frame >= animGetNumFrames(animnum)) {
-		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
+	}
+	else if (frame >= animGetNumFrames(animnum))
+	{
+		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP))
+		{
 			frame = frame % animGetNumFrames(animnum);
-		} else {
+		}
+		else
+		{
 			frame = animGetNumFrames(animnum) - 1;
 		}
 	}
@@ -1733,9 +2005,12 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 	struct modelnode *node;
 	u32 nodetype;
 
-	if (anim) {
-		if (merge > 0 && anim->animnum) {
-			if (anim->animnum2 && anim->fracmerge == 1) {
+	if (anim)
+	{
+		if (merge > 0 && anim->animnum)
+		{
+			if (anim->animnum2 && anim->fracmerge == 1)
+			{
 				return;
 			}
 
@@ -1755,7 +2030,8 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 			anim->elapsespeed2 = anim->elapsespeed;
 			anim->endframe2 = anim->endframe;
 
-			if (nodetype == MODELNODETYPE_CHRINFO) {
+			if (nodetype == MODELNODETYPE_CHRINFO)
+			{
 				struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
 				rwdata->unk02 = 1;
 				rwdata->unk4c.x = rwdata->unk34.x;
@@ -1765,7 +2041,9 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 				rwdata->unk40.y = rwdata->unk24.y;
 				rwdata->unk40.z = rwdata->unk24.z;
 			}
-		} else {
+		}
+		else
+		{
 			anim->animnum2 = 0;
 		}
 	}
@@ -1775,15 +2053,19 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 {
 	struct anim *anim = model->anim;
 
-	if (anim) {
+	if (anim)
+	{
 		s32 isfirstanim = !anim->animnum;
 		s32 type;
 
-		if (anim->animnum2) {
+		if (anim->animnum2)
+		{
 			anim->timemerge = merge;
 			anim->elapsemerge = 0;
 			anim->fracmerge = 1;
-		} else {
+		}
+		else
+		{
 			anim->timemerge = 0;
 			anim->fracmerge = 0;
 		}
@@ -1800,7 +2082,8 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 
 		type = model->definition->rootnode->type & 0xff;
 
-		if (type == MODELNODETYPE_CHRINFO) {
+		if (type == MODELNODETYPE_CHRINFO)
+		{
 			u32 stack;
 			struct modelrodata_chrinfo *rodata = &model->definition->rootnode->rodata->chrinfo;
 			struct modelrwdata_chrinfo *rwdata = (struct modelrwdata_chrinfo *) modelGetNodeRwData(model, model->definition->rootnode);
@@ -1822,7 +2105,8 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 			f32 x;
 			f32 z;
 
-			if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
+			if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION)
+			{
 				sp64 = func0f15c888();
 				animLoadHeader(anim->animnum);
 				frameslot = animLoadFrame(anim->animnum, anim->framea);
@@ -1834,9 +2118,12 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 				rwdata->unk34.z = translate.z * sp64;
 				rwdata->unk30 = rwdata->yrot;
 
-				if (anim->frac == 0) {
+				if (anim->frac == 0)
+				{
 					rwdata->unk01 = 0;
-				} else {
+				}
+				else
+				{
 					animLoadHeader(anim->animnum);
 					frameslot = animLoadFrame(anim->animnum, anim->frameb);
 					animForgetFrameBirths();
@@ -1849,24 +2136,29 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 
 					rwdata->unk01 = 1;
 				}
-			} else {
+			}
+			else
+			{
 				sp84 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, anim->frameb, &translate, anim->average);
 				scale = model->scale * anim->animscale;
 
-				if (scale != 1) {
+				if (scale != 1)
+				{
 					translate.x *= scale;
 					translate.y *= scale;
 					translate.z *= scale;
 				}
 
-				if (anim->average) {
+				if (anim->average)
+				{
 					translate.y = rwdata->pos.y - rwdata->ground;
 				}
 
 				sp98 = cosf(rwdata->yrot);
 				sp94 = sinf(rwdata->yrot);
 
-				if (anim->frac == 0) {
+				if (anim->frac == 0)
+				{
 					rwdata->unk34.x = rwdata->pos.f[0];
 					rwdata->unk34.y = rwdata->pos.f[1] - rwdata->ground;
 					rwdata->unk34.z = rwdata->pos.f[2];
@@ -1881,16 +2173,20 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 					rwdata->unk24.y = sp58.f[1];
 					rwdata->unk24.z = sp58.f[2];
 
-					if (rwdata->unk18 == 0) {
+					if (rwdata->unk18 == 0)
+					{
 						rwdata->unk20 = rwdata->unk30 + sp84;
 
-						if (rwdata->unk20 >= M_BADTAU) {
+						if (rwdata->unk20 >= M_BADTAU)
+						{
 							rwdata->unk20 -= M_BADTAU;
 						}
 					}
 
 					rwdata->unk01 = 1;
-				} else {
+				}
+				else
+				{
 					x = translate.f[0] * sp98 + translate.f[2] * sp94;
 					y = translate.f[1];
 					z = -translate.f[0] * sp94 + translate.f[2] * sp98;
@@ -1909,16 +2205,19 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 
 					angle = rwdata->yrot - sp84;
 
-					if (angle < 0) {
+					if (angle < 0)
+					{
 						angle += M_BADTAU;
 					}
 
 					rwdata->unk30 = modelTweenRotAxis(rwdata->yrot, angle, anim->frac);
 
-					if (rwdata->unk18 == 0) {
+					if (rwdata->unk18 == 0)
+					{
 						rwdata->unk20 = rwdata->unk30 + sp84;
 
-						if (rwdata->unk20 >= M_BADTAU) {
+						if (rwdata->unk20 >= M_BADTAU)
+						{
 							rwdata->unk20 -= M_BADTAU;
 						}
 					}
@@ -1926,7 +2225,8 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 					rwdata->unk01 = 1;
 				}
 
-				if (isfirstanim) {
+				if (isfirstanim)
+				{
 					rwdata->unk34.f[1] = rwdata->unk24.f[1];
 				}
 			}
@@ -1937,7 +2237,8 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 bool modelIsAnimMerging(struct model *model)
 {
 	if (model && model->anim && model->anim->animnum2
-			&& model->anim->fracmerge != 0 && model->anim->fracmerge != 1) {
+			&& model->anim->fracmerge != 0 && model->anim->fracmerge != 1)
+	{
 		return true;
 	}
 
@@ -1946,14 +2247,17 @@ bool modelIsAnimMerging(struct model *model)
 
 void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 timemerge, bool domerge)
 {
-	if (model) {
+	if (model)
+	{
 		if (model->anim && model->anim->animnum
 				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION)
-				&& (g_Anims[animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
+				&& (g_Anims[animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0)
+		{
 			timemerge = 0;
 		}
 
-		if (domerge) {
+		if (domerge)
+		{
 			modelCopyAnimForMerge(model, timemerge);
 		}
 
@@ -1963,10 +2267,12 @@ void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 
 
 void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startframe, f32 speed, f32 merge)
 {
-	if (model) {
+	if (model)
+	{
 		if (model->anim && model->anim->animnum
 				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION)
-				&& (g_Anims[animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
+				&& (g_Anims[animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0)
+		{
 			merge = 0;
 		}
 
@@ -1977,14 +2283,16 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startfram
 
 void modelCopyAnimData(struct model *src, struct model *dst)
 {
-	if (src->anim && dst->anim) {
+	if (src->anim && dst->anim)
+	{
 		*dst->anim = *src->anim;
 	}
 }
 
 void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		model->anim->looping = true;
 		model->anim->loopframe = loopframe;
 		model->anim->loopmerge = loopmerge;
@@ -1995,10 +2303,14 @@ void modelSetAnimEndFrame(struct model *model, f32 endframe)
 {
 	struct anim *anim = model->anim;
 
-	if (anim) {
-		if (anim->animnum && endframe < animGetNumFrames(anim->animnum) - 1) {
+	if (anim)
+	{
+		if (anim->animnum && endframe < animGetNumFrames(anim->animnum) - 1)
+		{
 			anim->endframe = endframe;
-		} else {
+		}
+		else
+		{
 			anim->endframe = -1;
 		}
 	}
@@ -2006,31 +2318,27 @@ void modelSetAnimEndFrame(struct model *model, f32 endframe)
 
 void modelSetAnimFlipFunction(struct model *model, void *callback)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		model->anim->flipfunc = callback;
 	}
 }
-
-#if VERSION < VERSION_NTSC_1_0
-void modelSetAnimUnk6c(struct model *model, s32 value)
-{
-	if (model->anim) {
-		model->anim->unk6c = value;
-	}
-}
-#endif
 
 void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
 {
 	struct anim *anim = model->anim;
 
-	if (anim) {
-		if (startframe > 0) {
+	if (anim)
+	{
+		if (startframe > 0)
+		{
 			anim->timespeed = startframe;
 			anim->newspeed = speed;
 			anim->elapsespeed = 0;
 			anim->oldspeed = anim->speed;
-		} else {
+		}
+		else
+		{
 			anim->speed = speed;
 			anim->timespeed = 0;
 		}
@@ -2043,10 +2351,14 @@ void modelSetAnimSpeedAuto(struct model *model, f32 arg1, f32 startframe)
 	f32 tmp;
 	f32 speed;
 
-	if (anim) {
-		if (anim->frame <= arg1) {
+	if (anim)
+	{
+		if (anim->frame <= arg1)
+		{
 			tmp = arg1 - anim->frame;
-		} else {
+		}
+		else
+		{
 			tmp = animGetNumFrames(anim->animnum) - anim->frame + arg1;
 		}
 
@@ -2060,13 +2372,17 @@ void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 startframe)
 {
 	struct anim *anim = model->anim;
 
-	if (anim) {
-		if (startframe > 0) {
+	if (anim)
+	{
+		if (startframe > 0)
+		{
 			anim->timeplay = startframe;
 			anim->newplay = speed;
 			anim->elapseplay = 0;
 			anim->oldplay = anim->playspeed;
-		} else {
+		}
+		else
+		{
 			anim->playspeed = speed;
 			anim->timeplay = 0;
 		}
@@ -2075,7 +2391,8 @@ void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 startframe)
 
 void modelSetAnim70(struct model *model, void *callback)
 {
-	if (model->anim) {
+	if (model->anim)
+	{
 		model->anim->unk70 = callback;
 	}
 }
@@ -2087,7 +2404,8 @@ void modelSetAnimFrame(struct model *model, f32 frame)
 	bool forwards;
 	struct anim *anim = model->anim;
 
-	if (anim) {
+	if (anim)
+	{
 		framea = floor(frame);
 		forwards = anim->speed >= 0;
 
@@ -2096,13 +2414,18 @@ void modelSetAnimFrame(struct model *model, f32 frame)
 		anim->framea = modelConstrainOrWrapAnimFrame(framea, anim->animnum, anim->endframe);
 		anim->frameb = modelConstrainOrWrapAnimFrame(frameb, anim->animnum, anim->endframe);
 
-		if (anim->framea == anim->frameb) {
+		if (anim->framea == anim->frameb)
+		{
 			anim->frac = 0;
 			anim->frame = anim->framea;
-		} else if (forwards) {
+		}
+		else if (forwards)
+		{
 			anim->frac = frame - framea;
 			anim->frame = anim->framea + anim->frac;
-		} else {
+		}
+		else
+		{
 			anim->frac = 1 - (frame - frameb);
 			anim->frame = anim->frameb + (1 - anim->frac);
 		}
@@ -2113,10 +2436,12 @@ void modelSetAnimFrame2(struct model *model, f32 frame1, f32 frame2)
 {
 	struct anim *anim = model->anim;
 
-	if (anim) {
+	if (anim)
+	{
 		modelSetAnimFrame(model, frame1);
 
-		if (anim->animnum2) {
+		if (anim->animnum2)
+		{
 			s32 framea = floor(frame2);
 			s32 frameb;
 			bool forwards = anim->speed2 >= 0;
@@ -2126,13 +2451,18 @@ void modelSetAnimFrame2(struct model *model, f32 frame1, f32 frame2)
 			anim->frame2a = modelConstrainOrWrapAnimFrame(framea, anim->animnum2, anim->endframe2);
 			anim->frame2b = modelConstrainOrWrapAnimFrame(frameb, anim->animnum2, anim->endframe2);
 
-			if (anim->frame2a == anim->frame2b) {
+			if (anim->frame2a == anim->frame2b)
+			{
 				anim->frac2 = 0;
 				anim->frame2 = anim->frame2a;
-			} else if (forwards) {
+			}
+			else if (forwards)
+			{
 				anim->frac2 = frame2 - framea;
 				anim->frame2 = anim->frame2a + anim->frac2;
-			} else {
+			}
+			else
+			{
 				anim->frac2 = 1 - (frame2 - frameb);
 				anim->frame2 = anim->frame2b + (1 - anim->frac2);
 			}
@@ -2156,15 +2486,18 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 {
 	struct anim *anim = model->anim;
 
-	if (anim != NULL) {
+	if (anim != NULL)
+	{
 		struct modelnode *rootnode = model->definition->rootnode;
 		u16 nodetype = rootnode->type;
 
-		if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
+		if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO)
+		{
 			struct modelrodata_chrinfo *rodata = &rootnode->rodata->chrinfo;
 			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, rootnode);
 
-			if (rwdata->unk00 == 0) {
+			if (rwdata->unk00 == 0)
+			{
 				s32 animpart = rodata->animpart;
 				struct skeleton *skel = model->definition->skel;
 				f32 scale = model->scale * anim->animscale;
@@ -2205,43 +2538,54 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 
 				absspeed = anim->speed;
 
-				if (absspeed < 0.0f) {
+				if (absspeed < 0.0f)
+				{
 					absspeed = -absspeed;
 				}
 
 				absspeed2 = anim->speed2;
 
-				if (absspeed2 < 0.0f) {
+				if (absspeed2 < 0.0f)
+				{
 					absspeed2 = -absspeed2;
 				}
 
 				forwards = false;
 
-				if (curframe <= endframe) {
+				if (curframe <= endframe)
+				{
 					forwards = true;
 				}
 
-				if (forwards) {
+				if (forwards)
+				{
 					floorcur = floor(curframe) + 1;
 					floorend = floor(endframe);
-				} else {
+				}
+				else
+				{
 					floorcur = ceil(curframe) - 1;
 					floorend = ceil(endframe);
 				}
 
-				if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
+				if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION)
+				{
 					f20 = func0f15c888();
 
-					if (floorend != anim->framea) {
+					if (floorend != anim->framea)
+					{
 						s0frame = modelConstrainOrWrapAnimFrame(floorend, anim->animnum, anim->endframe);
 
 						anim->framea = s0frame;
 
-						if (spc8 && floorend == anim->frameb) {
+						if (spc8 && floorend == anim->frameb)
+						{
 							spe0.x = spd0.x;
 							spe0.y = spd0.y;
 							spe0.z = spd0.z;
-						} else {
+						}
+						else
+						{
 							animLoadHeader(anim->animnum);
 							frameslot = animLoadFrame(anim->animnum, s0frame);
 							animForgetFrameBirths();
@@ -2254,9 +2598,12 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 
 						floorcur = floorend;
 
-						if (forwards) {
+						if (forwards)
+						{
 							floorcur++;
-						} else {
+						}
+						else
+						{
 							floorcur--;
 						}
 
@@ -2275,14 +2622,22 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 						spd0.y = translate.y * f20;
 						spd0.z = translate.z * f20;
 					}
-				} else {
-					while (true) {
-						if (forwards) {
-							if (floorend < floorcur) {
+				}
+				else
+				{
+					while (true)
+					{
+						if (forwards)
+						{
+							if (floorend < floorcur)
+							{
 								break;
 							}
-						} else {
-							if (floorend > floorcur) {
+						}
+						else
+						{
+							if (floorend > floorcur)
+							{
 								break;
 							}
 						}
@@ -2291,33 +2646,41 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 
 						anim->framea = s0frame;
 
-						if (spc8) {
+						if (spc8)
+						{
 							spe0.x = spd0.x;
 							spe0.y = spd0.y;
 							spe0.z = spd0.z;
 
-							if (rwdata->unk18 == 0.0f) {
+							if (rwdata->unk18 == 0.0f)
+							{
 								f30 = spcc;
 							}
-						} else {
+						}
+						else
+						{
 							f22 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, s0frame, &translate, anim->average);
 
-							if (scale != 1.0f) {
+							if (scale != 1.0f)
+							{
 								translate.x *= scale;
 								translate.y *= scale;
 								translate.z *= scale;
 							}
 
-							if (!forwards) {
+							if (!forwards)
+							{
 								translate.x = -translate.x;
 								translate.z = -translate.z;
 
-								if (f22 > 0.0f) {
+								if (f22 > 0.0f)
+								{
 									f22 = M_BADTAU - f22;
 								}
 							}
 
-							if (anim->average) {
+							if (anim->average)
+							{
 								translate.y = rwdata->pos.y - rwdata->ground;
 							}
 
@@ -2328,71 +2691,84 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							spe0.y = translate.y;
 							spe0.z += (-translate.x * sine) + (translate.z * cosine);
 
-							if (rwdata->unk18 == 0.0f) {
+							if (rwdata->unk18 == 0.0f)
+							{
 								f30 += f22;
 
-								if (f30 >= M_BADTAU) {
+								if (f30 >= M_BADTAU)
+								{
 									f30 -= M_BADTAU;
 								}
 							}
 						}
 
-						if (forwards) {
+						if (forwards)
+						{
 							floorcur++;
-						} else {
+						}
+						else
+						{
 							floorcur--;
 						}
 
 						s0frame = modelConstrainOrWrapAnimFrame(floorcur, anim->animnum, anim->endframe);
 						anim->frameb = s0frame;
 
-						if (anim->frameb != anim->framea) {
+						if (anim->frameb != anim->framea)
+						{
 							f22 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, s0frame, &translate, anim->average);
 
 							spc8 = true;
 
-							if (scale != 1.0f) {
+							if (scale != 1.0f)
+							{
 								translate.x *= scale;
 								translate.y *= scale;
 								translate.z *= scale;
 							}
 
-							if (!forwards) {
+							if (!forwards)
+							{
 								translate.x = -translate.x;
 								translate.z = -translate.z;
 
-								if (f22 > 0.0f) {
+								if (f22 > 0.0f)
+								{
 									f22 = M_BADTAU - f22;
 								}
 							}
 
-							if (anim->average) {
+							if (anim->average)
+							{
 								translate.y = rwdata->unk34.y;
 							}
 
 							cosine = cosf(rwdata->unk30);
 							sine = sinf(rwdata->unk30);
 
-							if (g_ModelAnimMergingEnabled && anim->animnum2) {
+							if (g_ModelAnimMergingEnabled && anim->animnum2)
+							{
 								spd0.x = translate.x * cosine + translate.f[2] * sine;
 								spd0.z = -translate.x * sine + translate.f[2] * cosine;
 
-								if (absspeed > 0.0f) {
+								if (absspeed > 0.0f)
+								{
 									f32 f0 = anim->fracmerge - anim->playspeed / (absspeed * anim->timemerge);
 
-									if (f0 < 0.0f) {
+									if (f0 < 0.0f)
+									{
 										f0 = 0.0f;
 									}
 
 									f0 = (f0 + anim->fracmerge) / 2.0f;
 
-									if (1);
-
 									sp90.f[0] = (rwdata->unk40.x - rwdata->unk4c.x) * absspeed2 / absspeed;
 									sp90.f[2] = (rwdata->unk40.z - rwdata->unk4c.z) * absspeed2 / absspeed;
 									spd0.x += (sp90.x - spd0.x) * f0;
 									spd0.z += (sp90.z - spd0.z) * f0;
-								} else {
+								}
+								else
+								{
 									spd0.x += (rwdata->unk40.x - rwdata->unk4c.x) * anim->fracmerge;
 									spd0.z += (rwdata->unk40.z - rwdata->unk4c.z) * anim->fracmerge;
 								}
@@ -2400,35 +2776,46 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 								spd0.x += spe0.x;
 								spd0.z += spe0.z;
 								spd0.y = translate.y;
-							} else {
+							}
+							else
+							{
 								spd0.x = spe0.x + translate.x * cosine + translate.f[2] * sine;
 								spd0.y = translate.y;
 								spd0.z = spe0.z - translate.x * sine + translate.f[2] * cosine;
 							}
 
-							if (rwdata->unk5c > 0.0f && absspeed > 0.0f) {
+							if (rwdata->unk5c > 0.0f && absspeed > 0.0f)
+							{
 								f32 increment = 1.0f / absspeed;
 
-								if (increment > rwdata->unk5c) {
+								if (increment > rwdata->unk5c)
+								{
 									increment = rwdata->unk5c;
 									rwdata->unk5c = 0.0f;
-								} else {
+								}
+								else
+								{
 									rwdata->unk5c -= increment;
 								}
 
 								f22 += rwdata->unk58 * increment;
 
-								if (f22 < 0.0f) {
+								if (f22 < 0.0f)
+								{
 									f22 += M_BADTAU;
-								} else if (f22 >= M_BADTAU) {
+								}
+								else if (f22 >= M_BADTAU)
+								{
 									f22 -= M_BADTAU;
 								}
 							}
 
-							if (rwdata->unk18 == 0.0f) {
+							if (rwdata->unk18 == 0.0f)
+							{
 								spcc = f30 + f22;
 
-								if (spcc >= M_BADTAU) {
+								if (spcc >= M_BADTAU)
+								{
 									spcc -= M_BADTAU;
 								}
 							}
@@ -2449,25 +2836,35 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 				rwdata->unk20 = spcc;
 				rwdata->unk01 = spc8;
 
-				if (anim->framea == anim->frameb) {
+				if (anim->framea == anim->frameb)
+				{
 					anim->frac = 0.0f;
 					anim->frame = anim->framea;
-				} else if (forwards) {
+				}
+				else if (forwards)
+				{
 					anim->frac = endframe - floorend;
 					anim->frame = anim->framea + anim->frac;
-				} else {
+				}
+				else
+				{
 					anim->frac = floorend - endframe;
 					anim->frame = anim->frameb + (1.0f - anim->frac);
 				}
 
-				if (anim->animnum2 && (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
+				if (anim->animnum2 && (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0)
+				{
 					s32 floorcur2 = floor(curframe2);
 					s32 floorend2 = floor(endframe2);
 
-					if ((forwards && floorcur2 < floorend2) || (!forwards && floorend2 < floorcur2)) {
-						if (rwdata->unk02 != 0) {
+					if ((forwards && floorcur2 < floorend2) || (!forwards && floorend2 < floorcur2))
+					{
+						if (rwdata->unk02 != 0)
+						{
 							rwdata->unk4c.f[1] = rwdata->unk40.f[1];
-						} else {
+						}
+						else
+						{
 							rwdata->unk4c.f[1] = rwdata->unk34.f[1];
 						}
 
@@ -2478,11 +2875,13 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 
 						animGetTranslateAngle(animpart, anim->flip2, skel, anim->animnum2, s0frame, &translate, anim->average);
 
-						if (scale != 1.0f) {
+						if (scale != 1.0f)
+						{
 							translate.y *= scale;
 						}
 
-						if (anim->average) {
+						if (anim->average)
+						{
 							translate.y = rwdata->unk4c.y;
 						}
 
@@ -2490,20 +2889,29 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 						rwdata->unk02 = 1;
 					}
 
-					if (forwards) {
+					if (forwards)
+					{
 						anim->frac2 = endframe2 - floorend2;
 						anim->frame2 = anim->frame2a + anim->frac2;
-					} else {
+					}
+					else
+					{
 						anim->frac2 = 1.0f - (endframe2 - floorend2);
 						anim->frame2 = anim->frame2b + (1.0f - anim->frac2);
 					}
-				} else {
+				}
+				else
+				{
 					rwdata->unk02 = 0;
 				}
-			} else {
+			}
+			else
+			{
 				modelSetAnimFrame2(model, endframe, endframe2);
 			}
-		} else {
+		}
+		else
+		{
 			modelSetAnimFrame2(model, endframe, endframe2);
 		}
 	}
@@ -2520,31 +2928,44 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 	f32 realendframe;
 	struct anim *anim = model->anim;
 
-	if (anim && lvupdate240 > 0) {
+	if (anim && lvupdate240 > 0)
+	{
 		frame = anim->frame;
 		frame2 = anim->frame2;
 
-		for (; lvupdate240 > 0; lvupdate240--) {
-			if (anim->timeplay > 0) {
+		for (; lvupdate240 > 0; lvupdate240--)
+		{
+			if (anim->timeplay > 0)
+			{
 				anim->elapseplay += 0.25f;
 
-				if (anim->elapseplay < anim->timeplay) {
+				if (anim->elapseplay < anim->timeplay)
+				{
 					anim->playspeed = anim->oldplay + (anim->newplay - anim->oldplay) * anim->elapseplay / anim->timeplay;
-				} else {
+				}
+				else
+				{
 					anim->timeplay = 0;
 					anim->playspeed = anim->newplay;
 				}
 			}
 
-			if (anim->timemerge > 0) {
+			if (anim->timemerge > 0)
+			{
 				anim->elapsemerge += anim->playspeed * 0.25f;
 
-				if (anim->elapsemerge == 0) {
+				if (anim->elapsemerge == 0)
+				{
 					anim->fracmerge = 1;
-				} else {
-					if (anim->elapsemerge < anim->timemerge) {
+				}
+				else
+				{
+					if (anim->elapsemerge < anim->timemerge)
+					{
 						anim->fracmerge = (anim->timemerge - anim->elapsemerge) / anim->timemerge;
-					} else {
+					}
+					else
+					{
 						anim->timemerge = 0;
 						anim->fracmerge = 0;
 						anim->animnum2 = 0;
@@ -2552,12 +2973,16 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 				}
 			}
 
-			if (anim->timespeed > 0) {
+			if (anim->timespeed > 0)
+			{
 				anim->elapsespeed += anim->playspeed * 0.25f;
 
-				if (anim->elapsespeed < anim->timespeed) {
+				if (anim->elapsespeed < anim->timespeed)
+				{
 					anim->speed = anim->oldspeed + (anim->newspeed - anim->oldspeed) * anim->elapsespeed / anim->timespeed;
-				} else {
+				}
+				else
+				{
 					anim->timespeed = 0;
 					anim->speed = anim->newspeed;
 				}
@@ -2566,13 +2991,18 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 			speed = anim->speed;
 			frame += anim->playspeed * speed * 0.25f;
 
-			if (anim->animnum2) {
-				if (anim->timespeed2 > 0) {
+			if (anim->animnum2)
+			{
+				if (anim->timespeed2 > 0)
+				{
 					anim->elapsespeed2 += anim->playspeed * 0.25f;
 
-					if (anim->elapsespeed2 < anim->timespeed2) {
+					if (anim->elapsespeed2 < anim->timespeed2)
+					{
 						anim->speed2 = anim->oldspeed2 + (anim->newspeed2 - anim->oldspeed2) * anim->elapsespeed2 / anim->timespeed2;
-					} else {
+					}
+					else
+					{
 						anim->timespeed2 = 0;
 						anim->speed2 = anim->newspeed2;
 					}
@@ -2582,34 +3012,44 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 				frame2 += anim->playspeed * speed2 * 0.25f;
 			}
 
-			if (anim->looping) {
+			if (anim->looping)
+			{
 				realendframe = anim->endframe;
 
-				if (speed >= 0) {
+				if (speed >= 0)
+				{
 					endframe = animGetNumFrames(anim->animnum) - 1;
 					startframe = anim->loopframe;
 
-					if (realendframe >= 0 && endframe > realendframe) {
+					if (realendframe >= 0 && endframe > realendframe)
+					{
 						endframe = realendframe;
 					}
-				} else {
+				}
+				else
+				{
 					endframe = anim->loopframe;
 					startframe = animGetNumFrames(anim->animnum) - 1;
 
-					if (realendframe >= 0 && startframe > realendframe) {
+					if (realendframe >= 0 && startframe > realendframe)
+					{
 						startframe = realendframe;
 					}
 				}
 
-				if ((speed >= 0 && frame >= endframe) || (speed < 0 && frame <= endframe)) {
+				if ((speed >= 0 && frame >= endframe) || (speed < 0 && frame <= endframe))
+				{
 					f32 prevnewspeed = anim->newspeed;
 					f32 prevoldspeed = anim->oldspeed;
 					f32 prevtimespeed = anim->timespeed;
 					f32 prevelapsespeed = anim->elapsespeed;
 
-					if (arg2) {
+					if (arg2)
+					{
 						modelSetAnimFrame2WithChrStuff(model, anim->frame, endframe, 0, 0);
-					} else {
+					}
+					else
+					{
 						modelSetAnimFrame2(model, endframe, 0);
 					}
 
@@ -2626,23 +3066,33 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 					frame2 = frame;
 					frame = startframe + frame - endframe;
 
-					if (anim->flipfunc) {
+					if (anim->flipfunc)
+					{
 						anim->flipfunc();
 					}
 				}
 			}
 		}
 
-		if (arg2) {
-			if (anim->animnum2) {
+		if (arg2)
+		{
+			if (anim->animnum2)
+			{
 				modelSetAnimFrame2WithChrStuff(model, anim->frame, frame, anim->frame2, frame2);
-			} else {
+			}
+			else
+			{
 				modelSetAnimFrame2WithChrStuff(model, anim->frame, frame, 0, 0);
 			}
-		} else {
-			if (anim->animnum2) {
+		}
+		else
+		{
+			if (anim->animnum2)
+			{
 				modelSetAnimFrame2(model, frame, frame2);
-			} else {
+			}
+			else
+			{
 				modelSetAnimFrame2(model, frame, 0);
 			}
 		}
@@ -2664,31 +3114,43 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 	f32 realendframe;
 	struct anim *anim = model->anim;
 
-	if (anim && lvupdate240 > 0) {
+	if (anim && lvupdate240 > 0)
+	{
 		frame = anim->frame;
 		frame2 = anim->frame2;
 
-		for (; lvupdate240 > 0; lvupdate240--) {
+		for (; lvupdate240 > 0; lvupdate240--)
+		{
 			if (anim->timeplay > 0) {
 				anim->elapseplay++;
 
-				if (anim->elapseplay < anim->timeplay) {
+				if (anim->elapseplay < anim->timeplay)
+				{
 					anim->playspeed = anim->oldplay + (anim->newplay - anim->oldplay) * anim->elapseplay / anim->timeplay;
-				} else {
+				}
+				else
+				{
 					anim->timeplay = 0;
 					anim->playspeed = anim->newplay;
 				}
 			}
 
-			if (anim->timemerge > 0) {
+			if (anim->timemerge > 0)
+			{
 				anim->elapsemerge += anim->playspeed;
 
-				if (anim->elapsemerge == 0) {
+				if (anim->elapsemerge == 0)
+				{
 					anim->fracmerge = 1;
-				} else {
-					if (anim->elapsemerge < anim->timemerge) {
+				}
+				else
+				{
+					if (anim->elapsemerge < anim->timemerge)
+					{
 						anim->fracmerge = (anim->timemerge - anim->elapsemerge) / anim->timemerge;
-					} else {
+					}
+					else
+					{
 						anim->timemerge = 0;
 						anim->fracmerge = 0;
 						anim->animnum2 = 0;
@@ -2696,12 +3158,16 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 				}
 			}
 
-			if (anim->timespeed > 0) {
+			if (anim->timespeed > 0)
+			{
 				anim->elapsespeed += anim->playspeed;
 
-				if (anim->elapsespeed < anim->timespeed) {
+				if (anim->elapsespeed < anim->timespeed)
+				{
 					anim->speed = anim->oldspeed + (anim->newspeed - anim->oldspeed) * anim->elapsespeed / anim->timespeed;
-				} else {
+				}
+				else
+				{
 					anim->timespeed = 0;
 					anim->speed = anim->newspeed;
 				}
@@ -2710,13 +3176,18 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 			speed = anim->speed;
 			frame += anim->playspeed * speed;
 
-			if (anim->animnum2) {
-				if (anim->timespeed2 > 0) {
+			if (anim->animnum2)
+			{
+				if (anim->timespeed2 > 0)
+				{
 					anim->elapsespeed2 += anim->playspeed;
 
-					if (anim->elapsespeed2 < anim->timespeed2) {
+					if (anim->elapsespeed2 < anim->timespeed2)
+					{
 						anim->speed2 = anim->oldspeed2 + (anim->newspeed2 - anim->oldspeed2) * anim->elapsespeed2 / anim->timespeed2;
-					} else {
+					}
+					else
+					{
 						anim->timespeed2 = 0;
 						anim->speed2 = anim->newspeed2;
 					}
@@ -2726,34 +3197,44 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 				frame2 += anim->playspeed * speed2;
 			}
 
-			if (anim->looping) {
+			if (anim->looping)
+			{
 				realendframe = anim->endframe;
 
-				if (speed >= 0) {
+				if (speed >= 0)
+				{
 					endframe = animGetNumFrames(anim->animnum) - 1;
 					startframe = anim->loopframe;
 
-					if (realendframe >= 0 && endframe > realendframe) {
+					if (realendframe >= 0 && endframe > realendframe)
+					{
 						endframe = realendframe;
 					}
-				} else {
+				}
+				else
+				{
 					endframe = anim->loopframe;
 					startframe = animGetNumFrames(anim->animnum) - 1;
 
-					if (realendframe >= 0 && startframe > realendframe) {
+					if (realendframe >= 0 && startframe > realendframe)
+					{
 						startframe = realendframe;
 					}
 				}
 
-				if ((speed >= 0 && frame >= endframe) || (speed < 0 && frame <= endframe)) {
+				if ((speed >= 0 && frame >= endframe) || (speed < 0 && frame <= endframe))
+				{
 					f32 prevnewspeed = anim->newspeed;
 					f32 prevoldspeed = anim->oldspeed;
 					f32 prevtimespeed = anim->timespeed;
 					f32 prevelapsespeed = anim->elapsespeed;
 
-					if (arg2) {
+					if (arg2)
+					{
 						modelSetAnimFrame2WithChrStuff(model, anim->frame, endframe, 0, 0);
-					} else {
+					}
+					else
+					{
 						modelSetAnimFrame2(model, endframe, 0);
 					}
 
@@ -2770,23 +3251,33 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 					frame2 = frame;
 					frame = startframe + frame - endframe;
 
-					if (anim->flipfunc) {
+					if (anim->flipfunc)
+					{
 						anim->flipfunc();
 					}
 				}
 			}
 		}
 
-		if (arg2) {
-			if (anim->animnum2) {
+		if (arg2)
+		{
+			if (anim->animnum2)
+			{
 				modelSetAnimFrame2WithChrStuff(model, anim->frame, frame, anim->frame2, frame2);
-			} else {
+			}
+			else
+			{
 				modelSetAnimFrame2WithChrStuff(model, anim->frame, frame, 0, 0);
 			}
-		} else {
-			if (anim->animnum2) {
+		}
+		else
+		{
+			if (anim->animnum2)
+			{
 				modelSetAnimFrame2(model, frame, frame2);
-			} else {
+			}
+			else
+			{
 				modelSetAnimFrame2(model, frame, 0);
 			}
 		}
@@ -2799,9 +3290,12 @@ void modelApplyRenderModeType1(struct modelrenderdata *renderdata)
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_1CYCLE);
 
-	if (renderdata->zbufferenabled) {
+	if (renderdata->zbufferenabled)
+	{
 		gDPSetRenderMode(renderdata->gdl++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
-	} else {
+	}
+	else
+	{
 		gDPSetRenderMode(renderdata->gdl++, G_RM_AA_OPA_SURF, G_RM_AA_OPA_SURF2);
 	}
 
@@ -2810,43 +3304,63 @@ void modelApplyRenderModeType1(struct modelrenderdata *renderdata)
 
 void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 {
-	if (renderdata->unk30 == 7) {
-		if (arg1) {
+	if (renderdata->unk30 == 7)
+	{
+		if (arg1)
+		{
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 			gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour | 0xff);
 			gDPSetCombineLERP(renderdata->gdl++, TEXEL0, ENVIRONMENT, SHADE_ALPHA, ENVIRONMENT, TEXEL0, ENVIRONMENT, SHADE, ENVIRONMENT, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
 
-			if (renderdata->zbufferenabled) {
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_OPA_SURF2);
 			}
-		} else {
-			if (renderdata->zbufferenabled) {
+		}
+		else
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 8) {
-		if (arg1) {
+	}
+	else if (renderdata->unk30 == 8)
+	{
+		if (arg1)
+		{
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 			gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour);
 			gDPSetCombineLERP(renderdata->gdl++, TEXEL0, ENVIRONMENT, SHADE_ALPHA, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
 
-			if (renderdata->zbufferenabled) {
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 9) {
-		if ((renderdata->envcolour & 0xff) == 0) {
-			if (arg1) {
+	}
+	else if (renderdata->unk30 == 9)
+	{
+		if ((renderdata->envcolour & 0xff) == 0)
+		{
+			if (arg1)
+			{
 				gDPPipeSync(renderdata->gdl++);
 				gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 				gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
@@ -2854,112 +3368,170 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 				gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, PRIMITIVE);
 
-				if (renderdata->zbufferenabled) {
+				if (renderdata->zbufferenabled)
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
-				} else {
+				}
+				else
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_OPA_SURF2);
 				}
-			} else {
-				if (renderdata->zbufferenabled) {
+			}
+			else
+			{
+				if (renderdata->zbufferenabled)
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-				} else {
+				}
+				else
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 				}
 			}
-		} else {
-			if (arg1) {
+		}
+		else
+		{
+			if (arg1)
+			{
 				gDPPipeSync(renderdata->gdl++);
 				gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 				gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 				gDPSetEnvColor(renderdata->gdl++, 0, 0, 0, renderdata->envcolour);
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, 0, SHADE, ENVIRONMENT, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
 
-				if (renderdata->zbufferenabled) {
+				if (renderdata->zbufferenabled)
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_TEX_EDGE2);
-				} else {
+				}
+				else
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_TEX_EDGE2);
 				}
-			} else {
+			}
+			else
+			{
 				gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, SHADE, ENVIRONMENT, TEXEL0, 0, COMBINED, 0, SHADE, 0, 1, 0, PRIMITIVE, COMBINED);
 
-				if (renderdata->zbufferenabled) {
+				if (renderdata->zbufferenabled)
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_TEX_EDGE2);
-				} else {
+				}
+				else
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_TEX_EDGE2);
 				}
 			}
 		}
-	} else if (renderdata->unk30 == 4) {
-		if (arg1) {
+	}
+	else if (renderdata->unk30 == 4)
+	{
+		if (arg1)
+		{
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->envcolour);
 			gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 
-			if (renderdata->zbufferenabled) {
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_OPA_SURF2);
 			}
-		} else {
-			if (renderdata->zbufferenabled) {
+		}
+		else
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 5) {
+	}
+	else if (renderdata->unk30 == 5)
+	{
 		u8 alpha;
 
-		if (arg1) {
+		if (arg1)
+		{
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 
 			alpha = renderdata->envcolour & 0xff;
 
-			if (alpha < 255) {
+			if (alpha < 255)
+			{
 				gDPSetEnvColor(renderdata->gdl++, 0xff, 0xff, 0xff, alpha);
 
-				if (renderdata->envcolour & 0xff00) {
+				if (renderdata->envcolour & 0xff00)
+				{
 					gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, SHADE, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
-				} else {
+				}
+				else
+				{
 					gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
 				}
-			} else {
+			}
+			else
+			{
 				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 			}
 
-			if (renderdata->zbufferenabled) {
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
-		} else {
+		}
+		else
+		{
 			alpha = renderdata->envcolour & 0xff;
 
-			if (alpha < 255) {
+			if (alpha < 255)
+			{
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL0, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
-			} else {
+			}
+			else
+			{
 				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 			}
 		}
-	} else {
-		if (arg1) {
+	}
+	else
+	{
+		if (arg1)
+		{
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 
-			if (renderdata->zbufferenabled) {
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_PASS, G_RM_AA_OPA_SURF2);
 			}
-		} else {
-			if (renderdata->zbufferenabled) {
+		}
+		else
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_PASS, G_RM_AA_ZB_XLU_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_PASS, G_RM_AA_XLU_SURF2);
 			}
 		}
@@ -2968,108 +3540,159 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 
 void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 {
-	if (renderdata->unk30 == 7) {
+	if (renderdata->unk30 == 7)
+	{
 		gDPPipeSync(renderdata->gdl++);
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 		gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour | 0x000000ff);
 		gDPSetCombineLERP(renderdata->gdl++, TEXEL0, ENVIRONMENT, SHADE_ALPHA, ENVIRONMENT, TEXEL0, ENVIRONMENT, SHADE, ENVIRONMENT, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
 
-		if (arg1) {
-			if (renderdata->zbufferenabled) {
+		if (arg1)
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_OPA_SURF2);
 			}
-		} else {
-			if (renderdata->zbufferenabled) {
+		}
+		else
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 8) {
+	}
+	else if (renderdata->unk30 == 8)
+	{
 		gDPPipeSync(renderdata->gdl++);
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 		gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour);
 		gDPSetCombineLERP(renderdata->gdl++, TEXEL0, ENVIRONMENT, SHADE_ALPHA, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
 
-		if (renderdata->zbufferenabled) {
+		if (renderdata->zbufferenabled)
+		{
 			gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-		} else {
+		}
+		else
+		{
 			gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 		}
-	} else if (renderdata->unk30 == 9) {
-		if ((renderdata->envcolour & 0xff) == 0) {
+	}
+	else if (renderdata->unk30 == 9)
+	{
+		if ((renderdata->envcolour & 0xff) == 0)
+		{
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 			gDPSetEnvColorViaWord(renderdata->gdl++, 0xffffffff);
 			gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
 
-			if (arg1) {
+			if (arg1)
+			{
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, PRIMITIVE);
 
-				if (renderdata->zbufferenabled) {
+				if (renderdata->zbufferenabled)
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
-				} else {
+				}
+				else
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_OPA_SURF2);
 				}
-			} else {
+			}
+			else
+			{
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, PRIMITIVE);
 
-				if (renderdata->zbufferenabled) {
+				if (renderdata->zbufferenabled)
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-				} else {
+				}
+				else
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 				}
 			}
-		} else {
+		}
+		else
+		{
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 			gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour & 0xff);
 
-			if (arg1) {
+			if (arg1)
+			{
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, 0, SHADE, ENVIRONMENT, COMBINED, 0, SHADE, 0, 0, 0, 0, COMBINED);
 
-				if (renderdata->zbufferenabled) {
+				if (renderdata->zbufferenabled)
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_TEX_EDGE2);
-				} else {
+				}
+				else
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_TEX_EDGE2);
 				}
-			} else {
+			}
+			else
+			{
 				gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, SHADE, ENVIRONMENT, TEXEL0, 0, COMBINED, 0, SHADE, 0, 1, 0, PRIMITIVE, COMBINED);
 
-				if (renderdata->zbufferenabled) {
+				if (renderdata->zbufferenabled)
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_TEX_EDGE2);
-				} else {
+				}
+				else
+				{
 					gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_TEX_EDGE2);
 				}
 			}
 		}
-	} else if (renderdata->unk30 == 4) {
+	}
+	else if (renderdata->unk30 == 4)
+	{
 		gDPPipeSync(renderdata->gdl++);
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, renderdata->envcolour);
 		gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 
-		if (arg1) {
-			if (renderdata->zbufferenabled) {
+		if (arg1)
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_OPA_SURF2);
 			}
-		} else {
-			if (renderdata->zbufferenabled) {
+		}
+		else
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 5) {
+	}
+	else if (renderdata->unk30 == 5)
+	{
 		u8 alpha;
 
 		gDPPipeSync(renderdata->gdl++);
@@ -3078,43 +3701,66 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 
 		alpha = renderdata->envcolour & 0xff;
 
-		if (alpha < 255) {
+		if (alpha < 255)
+		{
 			gDPSetEnvColor(renderdata->gdl++, 0xff, 0xff, 0xff, alpha);
 
-			if (arg1) {
-				if (renderdata->envcolour & 0xff00) {
+			if (arg1)
+			{
+				if (renderdata->envcolour & 0xff00)
+				{
 					gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, SHADE, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
-				} else {
+				}
+				else
+				{
 					gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 1, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
 				}
-			} else {
+			}
+			else
+			{
 				gDPSetCombineLERP(renderdata->gdl++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL0, 0, ENVIRONMENT, 0, COMBINED, 0, SHADE, 0, COMBINED, 0, SHADE, 0);
 			}
-		} else {
+		}
+		else
+		{
 			gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 		}
 
-		if (renderdata->zbufferenabled) {
+		if (renderdata->zbufferenabled)
+		{
 			gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-		} else {
+		}
+		else
+		{
 			gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 		}
-	} else {
+	}
+	else
+	{
 		gDPPipeSync(renderdata->gdl++);
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, 0xffffff00);
 		gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 
-		if (arg1) {
-			if (renderdata->zbufferenabled) {
+		if (arg1)
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_OPA_SURF2);
 			}
-		} else {
-			if (renderdata->zbufferenabled) {
+		}
+		else
+		{
+			if (renderdata->zbufferenabled)
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_XLU_SURF2);
-			} else {
+			}
+			else
+			{
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
@@ -3126,9 +3772,12 @@ void modelApplyRenderModeType2(struct modelrenderdata *renderdata)
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 
-	if (renderdata->zbufferenabled) {
+	if (renderdata->zbufferenabled)
+	{
 		gDPSetRenderMode(renderdata->gdl++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
-	} else {
+	}
+	else
+	{
 		gDPSetRenderMode(renderdata->gdl++, G_RM_PASS, G_RM_AA_OPA_SURF2);
 	}
 
@@ -3137,11 +3786,16 @@ void modelApplyRenderModeType2(struct modelrenderdata *renderdata)
 
 void modelApplyCullMode(struct modelrenderdata *renderdata)
 {
-	if (renderdata->cullmode == CULLMODE_NONE) {
+	if (renderdata->cullmode == CULLMODE_NONE)
+	{
 		gSPClearGeometryMode(renderdata->gdl++, G_CULL_BOTH);
-	} else if (renderdata->cullmode == CULLMODE_FRONT) {
+	}
+	else if (renderdata->cullmode == CULLMODE_FRONT)
+	{
 		gSPSetGeometryMode(renderdata->gdl++, G_CULL_FRONT);
-	} else if (renderdata->cullmode == CULLMODE_BACK) {
+	}
+	else if (renderdata->cullmode == CULLMODE_BACK)
+	{
 		gSPSetGeometryMode(renderdata->gdl++, G_CULL_BACK);
 	}
 }
@@ -3150,18 +3804,22 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 {
 	struct modelrodata_gundl *rodata = &node->rodata->gundl;
 
-	if (var8005efc4 && !var8005efc4(model, node)) {
+	if (var8005efc4 && !var8005efc4(model, node))
+	{
 		return;
 	}
 
-	if ((renderdata->flags & MODELRENDERFLAG_OPA) && rodata->opagdl) {
+	if ((renderdata->flags & MODELRENDERFLAG_OPA) && rodata->opagdl)
+	{
 		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
-		if (renderdata->cullmode) {
+		if (renderdata->cullmode)
+		{
 			modelApplyCullMode(renderdata);
 		}
 
-		switch (rodata->unk12) {
+		switch (rodata->unk12)
+		{
 		case 1:
 			modelApplyRenderModeType1(renderdata);
 			break;
@@ -3178,17 +3836,20 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 
 		gSPDisplayList(renderdata->gdl++, rodata->opagdl);
 
-		if (rodata->unk12 == 3 && rodata->xlugdl) {
+		if (rodata->unk12 == 3 && rodata->xlugdl)
+		{
 			modelApplyRenderModeType3(renderdata, false);
 
 			gSPDisplayList(renderdata->gdl++, rodata->xlugdl);
 		}
 	}
 
-	if ((renderdata->flags & MODELRENDERFLAG_XLU) && rodata->opagdl && rodata->unk12 == 4 && rodata->xlugdl) {
+	if ((renderdata->flags & MODELRENDERFLAG_XLU) && rodata->opagdl && rodata->unk12 == 4 && rodata->xlugdl)
+	{
 		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
-		if (renderdata->cullmode) {
+		if (renderdata->cullmode)
+		{
 			modelApplyCullMode(renderdata);
 		}
 
@@ -3202,21 +3863,26 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 {
 	union modelrodata *rodata = node->rodata;
 
-	if (var8005efc4 && !var8005efc4(model, node)) {
+	if (var8005efc4 && !var8005efc4(model, node))
+	{
 		return;
 	}
 
-	if (renderdata->flags & MODELRENDERFLAG_OPA) {
+	if (renderdata->flags & MODELRENDERFLAG_OPA)
+	{
 		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
-		if (rwdata->dl.gdl) {
+		if (rwdata->dl.gdl)
+		{
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colourtable));
 
-			if (renderdata->cullmode) {
+			if (renderdata->cullmode)
+			{
 				modelApplyCullMode(renderdata);
 			}
 
-			switch (rodata->dl.mcount) {
+			switch (rodata->dl.mcount)
+			{
 			case 1:
 				modelApplyRenderModeType1(renderdata);
 				break;
@@ -3236,7 +3902,8 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 
 			gSPDisplayList(renderdata->gdl++, rwdata->dl.gdl);
 
-			if (rodata->dl.mcount == 3 && rodata->dl.xlugdl) {
+			if (rodata->dl.mcount == 3 && rodata->dl.xlugdl)
+			{
 				modelApplyRenderModeType3(renderdata, false);
 
 				gSPDisplayList(renderdata->gdl++, rodata->dl.xlugdl);
@@ -3244,13 +3911,16 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 		}
 	}
 
-	if (renderdata->flags & MODELRENDERFLAG_XLU) {
+	if (renderdata->flags & MODELRENDERFLAG_XLU)
+	{
 		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
-		if (rwdata->dl.gdl && rodata->dl.mcount == 4 && rodata->dl.xlugdl) {
+		if (rwdata->dl.gdl && rodata->dl.mcount == 4 && rodata->dl.xlugdl)
+		{
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colourtable));
 
-			if (renderdata->cullmode) {
+			if (renderdata->cullmode)
+			{
 				modelApplyCullMode(renderdata);
 			}
 
@@ -3277,11 +3947,13 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
  */
 void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct modelnode *node)
 {
-	if (renderdata->flags & MODELRENDERFLAG_XLU) {
+	if (renderdata->flags & MODELRENDERFLAG_XLU)
+	{
 		struct modelrodata_stargunfire *rodata = &node->rodata->stargunfire;
 		s32 i;
 
-		if (rodata->gdl) {
+		if (rodata->gdl)
+		{
 			struct gfxvtx *src = (struct gfxvtx *) rodata->vertices;
 			struct gfxvtx *dst = g_ModelVtxAllocatorFunc(rodata->unk00 * 4);
 
@@ -3292,7 +3964,8 @@ void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct model
 			gDPSetFogColor(renderdata->gdl++, 0x00, 0x00, 0x00, 0x00);
 			gSPDisplayList(renderdata->gdl++, rodata->gdl);
 
-			for (i = 0; i < rodata->unk00; i++) {
+			for (i = 0; i < rodata->unk00; i++)
+			{
 				u16 rand1 = (random() << 10) & 0xffff;
 				s32 s4 = ((coss(rand1) << 5) * 181) >> 18;
 				s32 s3 = ((sins(rand1) << 5) * 181) >> 18;
@@ -3376,7 +4049,8 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 	struct colour *colours;
 	f32 distance;
 
-	if ((renderdata->flags & MODELRENDERFLAG_XLU) && rwdata->chrgunfire.visible) {
+	if ((renderdata->flags & MODELRENDERFLAG_XLU) && rwdata->chrgunfire.visible)
+	{
 		s32 index = modelFindNodeMtxIndex(node, 0);
 		mtx = &model->matrices[index];
 
@@ -3386,12 +4060,15 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 
 		distance = sqrtf(spe0.f[0] * spe0.f[0] + spe0.f[1] * spe0.f[1] + spe0.f[2] * spe0.f[2]);
 
-		if (distance > 0) {
+		if (distance > 0)
+		{
 			f32 tmp = 1 / (model->scale * distance);
 			spe0.f[0] *= tmp;
 			spe0.f[1] *= tmp;
 			spe0.f[2] *= tmp;
-		} else {
+		}
+		else
+		{
 			spe0.f[0] = 0;
 			spe0.f[1] = 0;
 			spe0.f[2] = 1 / model->scale;
@@ -3402,7 +4079,8 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 
 		tmp = -(spe0.f[0] * mtx->m[0][0] + spe0.f[1] * mtx->m[0][1] + spe0.f[2] * mtx->m[0][2]);
 
-		if (tmp < 0) {
+		if (tmp < 0)
+		{
 			spf0 = M_BADTAU - spf0;
 		}
 
@@ -3458,7 +4136,8 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 
 		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
-		if (rodata->texture) {
+		if (rodata->texture)
+		{
 			s32 centre;
 			u16 sp62;
 			s32 sp5c;
@@ -3482,7 +4161,9 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 			vertices[3].t = centre + sp5c;
 
 			modelSelectTexture(renderdata, tconfig, 4);
-		} else {
+		}
+		else
+		{
 			modelSelectTexture(renderdata, NULL, 1);
 		}
 
@@ -3503,7 +4184,8 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 
 	gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_MTX, osVirtualToPhysical(model->matrices));
 
-	while (node) {
+	while (node)
+	{
 		type = node->type & 0xff;
 
 		switch (type) {
@@ -3512,7 +4194,8 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 			rodata = node->rodata;
 			rwdata = modelGetNodeRwData(model, node);
 
-			switch (type) {
+			switch (type)
+			{
 			case MODELNODETYPE_DISTANCE:
 				node->child = rwdata->distance.visible ? rodata->distance.target : NULL;
 				break;
@@ -3524,11 +4207,13 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 		case MODELNODETYPE_HEADSPOT:
 			rwdata = modelGetNodeRwData(model, node);
 
-			if (rwdata->headspot.headmodeldef) {
+			if (rwdata->headspot.headmodeldef)
+			{
 				struct modelnode *loopnode = rwdata->headspot.headmodeldef->rootnode;
 				node->child = loopnode;
 
-				while (loopnode) {
+				while (loopnode)
+				{
 					loopnode->parent = node;
 					loopnode = loopnode->next;
 				}
@@ -3554,11 +4239,16 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 			break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node->next) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -3616,7 +4306,8 @@ bool modelTestBboxNodeForHit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct co
 	f32 zsum2;
 	f32 zsum3;
 
-	if (var8005efc0 != 0.0f) {
+	if (var8005efc0 != 0.0f)
+	{
 		xmin -= var8005efc0;
 		xmax += var8005efc0;
 		ymin -= var8005efc0;
@@ -3638,17 +4329,20 @@ bool modelTestBboxNodeForHit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct co
 	f0 = -(xthingx + xthingy + xthingz) * xmin;
 	xsum2 = -(xsum2 + f0);
 
-	if (xsum1 < 0.0f) {
+	if (xsum1 < 0.0f)
+	{
 		xsum1 = -xsum1;
 		xsum2 = -xsum2;
 		xsum3 = -xsum3;
 	}
 
-	if (xsum2 < 0.0f && xsum3 < 0.0f) {
+	if (xsum2 < 0.0f && xsum3 < 0.0f)
+	{
 		return false;
 	}
 
-	if (xsum3 < xsum2) {
+	if (xsum3 < xsum2)
+	{
 		f32 tmp = xsum2;
 		xsum2 = xsum3;
 		xsum3 = tmp;
@@ -3667,17 +4361,20 @@ bool modelTestBboxNodeForHit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct co
 	f0 = -(ythingx + ythingy + ythingz) * ymin;
 	ysum2 = -(ysum2 + f0);
 
-	if (ysum1 < 0.0f) {
+	if (ysum1 < 0.0f)
+	{
 		ysum1 = -ysum1;
 		ysum2 = -ysum2;
 		ysum3 = -ysum3;
 	}
 
-	if (ysum2 < 0.0f && ysum3 < 0.0f) {
+	if (ysum2 < 0.0f && ysum3 < 0.0f)
+	{
 		return false;
 	}
 
-	if (ysum3 < ysum2) {
+	if (ysum3 < ysum2)
+	{
 		f32 tmp = ysum2;
 		ysum2 = ysum3;
 		ysum3 = tmp;
@@ -3689,15 +4386,20 @@ bool modelTestBboxNodeForHit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct co
 	mult3 = xsum3 * ysum1;
 	mult4 = ysum3 * xsum1;
 
-	if (mult1 < mult2) {
-		if (mult4 < mult2) {
+	if (mult1 < mult2)
+	{
+		if (mult4 < mult2)
+		{
 			return false;
 		}
 
 		bestsum2 = xsum2;
 		bestsum1 = xsum1;
-	} else {
-		if (mult3 < mult1) {
+	}
+	else
+	{
+		if (mult3 < mult1)
+		{
 			return false;
 		}
 
@@ -3705,10 +4407,13 @@ bool modelTestBboxNodeForHit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct co
 		bestsum1 = ysum1;
 	}
 
-	if (mult3 < mult4) {
+	if (mult3 < mult4)
+	{
 		anotherbestsum3 = xsum3;
 		anotherbestsum1 = xsum1;
-	} else {
+	}
+	else
+	{
 		anotherbestsum3 = ysum3;
 		anotherbestsum1 = ysum1;
 	}
@@ -3726,29 +4431,37 @@ bool modelTestBboxNodeForHit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct co
 	f0 = -(zthingx + zthingy + zthingz) * zmin;
 	zsum2 = -(zsum2 + f0);
 
-	if (zsum1 < 0.0f) {
+	if (zsum1 < 0.0f)
+	{
 		zsum1 = -zsum1;
 		zsum2 = -zsum2;
 		zsum3 = -zsum3;
 	}
 
-	if (zsum2 < 0.0f && zsum3 < 0.0f) {
+	if (zsum2 < 0.0f && zsum3 < 0.0f)
+	{
 		return false;
 	}
 
-	if (zsum3 < zsum2) {
+	if (zsum3 < zsum2)
+	{
 		f32 tmp = zsum2;
 		zsum2 = zsum3;
 		zsum3 = tmp;
 	}
 
 	// Do z comparison things with the result of the x/y comparison thing
-	if (bestsum2 * zsum1 < zsum2 * bestsum1) {
-		if (anotherbestsum3 * zsum1 < zsum2 * anotherbestsum1) {
+	if (bestsum2 * zsum1 < zsum2 * bestsum1)
+	{
+		if (anotherbestsum3 * zsum1 < zsum2 * anotherbestsum1)
+		{
 			return false;
 		}
-	} else {
-		if (zsum3 * bestsum1 < bestsum2 * zsum1) {
+	}
+	else
+	{
+		if (zsum3 * bestsum1 < bestsum2 * zsum1)
+		{
 			return false;
 		}
 	}
@@ -3772,19 +4485,28 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 
 	if (model);
 
-	if (*startnode) {
+	if (*startnode)
+	{
 		node = *startnode;
 		*startnode = NULL;
-	} else {
+	}
+	else
+	{
 		node = model->definition->rootnode;
 	}
 
-	while (node) {
-		if (dochildren && node->child) {
+	while (node)
+	{
+		if (dochildren && node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node->next) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -3792,7 +4514,8 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 				node = node->parent;
 			}
 
-			if (!node) {
+			if (!node)
+			{
 				break;
 			}
 		}
@@ -3800,12 +4523,14 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 		dochildren = true;
 		type = node->type & 0xff;
 
-		switch (type) {
+		switch (type)
+		{
 		case MODELNODETYPE_BBOX:
 			rodata = node->rodata;
 			mtx = modelFindNodeMtx(model, node, 0);
 
-			if (modelTestBboxNodeForHit(&rodata->bbox, mtx, arg1, arg2)) {
+			if (modelTestBboxNodeForHit(&rodata->bbox, mtx, arg1, arg2))
+			{
 				*startnode = node;
 				return rodata->bbox.hitpart;
 			}
@@ -3825,12 +4550,14 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 		case MODELNODETYPE_HEADSPOT:
 			rwdata = modelGetNodeRwData(model, node);
 
-			if (rwdata->headspot.headmodeldef) {
+			if (rwdata->headspot.headmodeldef)
+			{
 				struct modelnode *loopnode = rwdata->headspot.headmodeldef->rootnode;
 
 				node->child = loopnode;
 
-				while (loopnode) {
+				while (loopnode)
+				{
 					loopnode->parent = node;
 					loopnode = loopnode->next;
 				}
@@ -3855,7 +4582,8 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
 	union modelrodata *rodata;
 	s32 diff = fileramaddr - vma;
 
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
 		PROMOTE(node->rodata);
@@ -3864,69 +4592,75 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
 		PROMOTE(node->prev);
 		PROMOTE(node->child);
 
-		switch (type) {
-		case MODELNODETYPE_CHRINFO:
-			break;
-		case MODELNODETYPE_POSITION:
-			break;
-		case MODELNODETYPE_GUNDL:
-			rodata = node->rodata;
-			PROMOTE(rodata->gundl.vertices);
-			rodata->gundl.baseaddr = (void *)fileramaddr;
-			break;
-		case MODELNODETYPE_DL:
-			rodata = node->rodata;
-			PROMOTE(rodata->dl.vertices);
-			rodata->dl.colourtable = (void *)fileramaddr;
-			break;
-		case MODELNODETYPE_DISTANCE:
-			rodata = node->rodata;
-			PROMOTE(rodata->distance.target);
-			node->child = rodata->distance.target;
-			break;
-		case MODELNODETYPE_TOGGLE:
-			rodata = node->rodata;
-			PROMOTE(rodata->toggle.target);
-			break;
-		case MODELNODETYPE_REORDER:
-			rodata = node->rodata;
-			PROMOTE(rodata->reorder.unk18);
-			PROMOTE(rodata->reorder.unk1c);
-			break;
-		case MODELNODETYPE_11:
-			rodata = node->rodata;
-			PROMOTE(rodata->type11.unk14);
-			break;
-		case MODELNODETYPE_0B:
-			rodata = node->rodata;
-			PROMOTE(rodata->type0b.unk3c);
-			rodata->type0b.baseaddr = (void *)fileramaddr;
-			break;
-		case MODELNODETYPE_CHRGUNFIRE:
-			rodata = node->rodata;
-			PROMOTE(rodata->chrgunfire.texture);
-			rodata->chrgunfire.baseaddr = (void *)fileramaddr;
-			break;
-		case MODELNODETYPE_0D:
-			rodata = node->rodata;
-			PROMOTE(rodata->type0d.unk10);
-			PROMOTE(rodata->type0d.unk14);
-			rodata->type0d.baseaddr = (void *)fileramaddr;
-			break;
-		case MODELNODETYPE_STARGUNFIRE:
-			rodata = node->rodata;
-			PROMOTE(rodata->stargunfire.vertices);
-			rodata->stargunfire.baseaddr = (void *)fileramaddr;
-			break;
-		default:
-			break;
+		switch (type)
+		{
+			case MODELNODETYPE_CHRINFO:
+				break;
+			case MODELNODETYPE_POSITION:
+				break;
+			case MODELNODETYPE_GUNDL:
+				rodata = node->rodata;
+				PROMOTE(rodata->gundl.vertices);
+				rodata->gundl.baseaddr = (void *)fileramaddr;
+				break;
+			case MODELNODETYPE_DL:
+				rodata = node->rodata;
+				PROMOTE(rodata->dl.vertices);
+				rodata->dl.colourtable = (void *)fileramaddr;
+				break;
+			case MODELNODETYPE_DISTANCE:
+				rodata = node->rodata;
+				PROMOTE(rodata->distance.target);
+				node->child = rodata->distance.target;
+				break;
+			case MODELNODETYPE_TOGGLE:
+				rodata = node->rodata;
+				PROMOTE(rodata->toggle.target);
+				break;
+			case MODELNODETYPE_REORDER:
+				rodata = node->rodata;
+				PROMOTE(rodata->reorder.unk18);
+				PROMOTE(rodata->reorder.unk1c);
+				break;
+			case MODELNODETYPE_11:
+				rodata = node->rodata;
+				PROMOTE(rodata->type11.unk14);
+				break;
+			case MODELNODETYPE_0B:
+				rodata = node->rodata;
+				PROMOTE(rodata->type0b.unk3c);
+				rodata->type0b.baseaddr = (void *)fileramaddr;
+				break;
+			case MODELNODETYPE_CHRGUNFIRE:
+				rodata = node->rodata;
+				PROMOTE(rodata->chrgunfire.texture);
+				rodata->chrgunfire.baseaddr = (void *)fileramaddr;
+				break;
+			case MODELNODETYPE_0D:
+				rodata = node->rodata;
+				PROMOTE(rodata->type0d.unk10);
+				PROMOTE(rodata->type0d.unk14);
+				rodata->type0d.baseaddr = (void *)fileramaddr;
+				break;
+			case MODELNODETYPE_STARGUNFIRE:
+				rodata = node->rodata;
+				PROMOTE(rodata->stargunfire.vertices);
+				rodata->stargunfire.baseaddr = (void *)fileramaddr;
+				break;
+			default:
+				break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node->next) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -3954,7 +4688,8 @@ void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, uintptr_t
 	PROMOTE(modeldef->parts);
 	PROMOTE(modeldef->texconfigs);
 
-	for (i = 0; i < modeldef->numparts; i++) {
+	for (i = 0; i < modeldef->numparts; i++)
+	{
 		PROMOTE(modeldef->parts[i]);
 	}
 
@@ -3963,7 +4698,8 @@ void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, uintptr_t
 	// Sort parts by part number so they can be bisected during lookup
 	partnums = (s16 *)&modeldef->parts[modeldef->numparts];
 
-	if (modeldef->numparts) {
+	if (modeldef->numparts)
+	{
 		struct modelnode *tmpnode;
 		s16 tmpnum;
 		bool changed;
@@ -3971,8 +4707,10 @@ void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, uintptr_t
 		do {
 			changed = false;
 
-			for (i = 0; i < modeldef->numparts - 1; i++) {
-				if (partnums[i] > partnums[i + 1]) {
+			for (i = 0; i < modeldef->numparts - 1; i++)
+			{
+				if (partnums[i] > partnums[i + 1])
+				{
 					tmpnum = partnums[i];
 					partnums[i] = partnums[i + 1];
 					partnums[i + 1] = tmpnum;
@@ -3994,68 +4732,76 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 	struct modelnode *node = basenode;
 	union modelrodata *rodata;
 
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
-		switch (type) {
-		case MODELNODETYPE_CHRINFO:
-			rodata = node->rodata;
-			rodata->chrinfo.rwdataindex = len;
-			len += sizeof(struct modelrwdata_chrinfo) / 4;
-			break;
-		case MODELNODETYPE_DISTANCE:
-			rodata = node->rodata;
-			rodata->distance.rwdataindex = len;
-			len += sizeof(struct modelrwdata_distance) / 4;
-			node->child = rodata->distance.target;
-			break;
-		case MODELNODETYPE_TOGGLE:
-			rodata = node->rodata;
-			rodata->toggle.rwdataindex = len;
-			len += sizeof(struct modelrwdata_toggle) / 4;
-			node->child = rodata->toggle.target;
-			break;
-		case MODELNODETYPE_HEADSPOT:
-			rodata = node->rodata;
-			rodata->headspot.rwdataindex = len;
-			len += sizeof(struct modelrwdata_headspot) / 4;
-			node->child = NULL;
-			break;
-		case MODELNODETYPE_REORDER:
-			rodata = node->rodata;
-			rodata->reorder.rwdataindex = len;
-			len += sizeof(struct modelrwdata_reorder) / 4;
-			modelApplyReorderRelationsByArg(node, false);
-			break;
-		case MODELNODETYPE_0B:
-			rodata = node->rodata;
-			rodata->type0b.rwdataindex = len;
-			len += sizeof(struct modelrwdata_0b) / 4;
-			break;
-		case MODELNODETYPE_CHRGUNFIRE:
-			rodata = node->rodata;
-			rodata->chrgunfire.rwdataindex = len;
-			len += sizeof(struct modelrwdata_chrgunfire) / 4;
-			break;
-		case MODELNODETYPE_DL:
-			rodata = node->rodata;
-			rodata->dl.rwdataindex = len;
-			len += sizeof(struct modelrwdata_dl) / 4;
-			break;
-		default:
-			break;
+		switch (type)
+		{
+			case MODELNODETYPE_CHRINFO:
+				rodata = node->rodata;
+				rodata->chrinfo.rwdataindex = len;
+				len += sizeof(struct modelrwdata_chrinfo) / 4;
+				break;
+			case MODELNODETYPE_DISTANCE:
+				rodata = node->rodata;
+				rodata->distance.rwdataindex = len;
+				len += sizeof(struct modelrwdata_distance) / 4;
+				node->child = rodata->distance.target;
+				break;
+			case MODELNODETYPE_TOGGLE:
+				rodata = node->rodata;
+				rodata->toggle.rwdataindex = len;
+				len += sizeof(struct modelrwdata_toggle) / 4;
+				node->child = rodata->toggle.target;
+				break;
+			case MODELNODETYPE_HEADSPOT:
+				rodata = node->rodata;
+				rodata->headspot.rwdataindex = len;
+				len += sizeof(struct modelrwdata_headspot) / 4;
+				node->child = NULL;
+				break;
+			case MODELNODETYPE_REORDER:
+				rodata = node->rodata;
+				rodata->reorder.rwdataindex = len;
+				len += sizeof(struct modelrwdata_reorder) / 4;
+				modelApplyReorderRelationsByArg(node, false);
+				break;
+			case MODELNODETYPE_0B:
+				rodata = node->rodata;
+				rodata->type0b.rwdataindex = len;
+				len += sizeof(struct modelrwdata_0b) / 4;
+				break;
+			case MODELNODETYPE_CHRGUNFIRE:
+				rodata = node->rodata;
+				rodata->chrgunfire.rwdataindex = len;
+				len += sizeof(struct modelrwdata_chrgunfire) / 4;
+				break;
+			case MODELNODETYPE_DL:
+				rodata = node->rodata;
+				rodata->dl.rwdataindex = len;
+				len += sizeof(struct modelrwdata_dl) / 4;
+				break;
+			default:
+				break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node == basenode->parent) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node == basenode->parent)
+				{
 					node = NULL;
 					break;
 				}
 
-				if (node->next) {
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -4079,10 +4825,12 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 	union modelrodata *rodata;
 	union modelrwdata *rwdata;
 
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
-		switch (type) {
+		switch (type)
+		{
 		case MODELNODETYPE_CHRINFO:
 			rwdata = modelGetNodeRwData(model, node);
 
@@ -4158,16 +4906,22 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 			break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node == startnode->parent) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node == startnode->parent)
+				{
 					node = NULL;
 					break;
 				}
 
-				if (node->next) {
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -4192,23 +4946,31 @@ void modelInit(struct model *model, struct modeldef *modeldef, union modelrwdata
 
 	node = modeldef->rootnode;
 
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
-		if (type == MODELNODETYPE_HEADSPOT) {
+		if (type == MODELNODETYPE_HEADSPOT)
+		{
 			model->unk00 |= 1;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node == modeldef->rootnode->parent) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node == modeldef->rootnode->parent)
+				{
 					node = NULL;
 					break;
 				}
 
-				if (node->next) {
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -4218,11 +4980,13 @@ void modelInit(struct model *model, struct modeldef *modeldef, union modelrwdata
 		}
 	}
 
-	if (rwdatas != NULL) {
+	if (rwdatas != NULL)
+	{
 		modelInitRwData(model, modeldef->rootnode);
 	}
 
-	if (resetanim) {
+	if (resetanim)
+	{
 		model->anim = NULL;
 	}
 }
@@ -4263,7 +5027,8 @@ void modelAttachHead(struct model *bodymode, struct modeldef *bodymodeldef, stru
 
 	node = headspotnode->child;
 
-	while (node) {
+	while (node)
+	{
 		node->parent = headspotnode;
 		node = node->next;
 	}
@@ -4289,36 +5054,46 @@ void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **node
 	union modelrodata *rodata;
 	Gfx *gdl = NULL;
 
-	if (node == NULL) {
+	if (node == NULL)
+	{
 		node = modeldef->rootnode;
 	}
 
-	while (node) {
+	while (node)
+	{
 		u32 type = node->type & 0xff;
 
-		switch (type) {
+		switch (type)
+		{
 		case MODELNODETYPE_GUNDL:
 			rodata = node->rodata;
 
-			if (node != *nodeptr) {
+			if (node != *nodeptr)
+			{
 				gdl = rodata->gundl.opagdl;
-			} else if (rodata->gundl.xlugdl != *gdlptr) {
+			}
+			else if (rodata->gundl.xlugdl != *gdlptr)
+			{
 				gdl = rodata->gundl.xlugdl;
 			}
 			break;
 		case MODELNODETYPE_DL:
 			rodata = node->rodata;
 
-			if (node != *nodeptr) {
+			if (node != *nodeptr)
+			{
 				gdl = rodata->dl.opagdl;
-			} else if (rodata->dl.xlugdl != *gdlptr) {
+			}
+			else if (rodata->dl.xlugdl != *gdlptr)
+			{
 				gdl = rodata->dl.xlugdl;
 			}
 			break;
 		case MODELNODETYPE_STARGUNFIRE:
 			rodata = node->rodata;
 
-			if (node != *nodeptr) {
+			if (node != *nodeptr)
+			{
 				gdl = rodata->stargunfire.gdl;
 			}
 			break;
@@ -4335,15 +5110,21 @@ void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **node
 			break;
 		}
 
-		if (gdl) {
+		if (gdl)
+		{
 			break;
 		}
 
-		if (node->child) {
+		if (node->child)
+		{
 			node = node->child;
-		} else {
-			while (node) {
-				if (node->next) {
+		}
+		else
+		{
+			while (node)
+			{
+				if (node->next)
+				{
 					node = node->next;
 					break;
 				}
@@ -4362,16 +5143,19 @@ void modelNodeReplaceGdl(struct modeldef *modeldef, struct modelnode *node, Gfx 
 	union modelrodata *rodata;
 	u32 type = node->type & 0xff;
 
-	switch (type) {
+	switch (type)
+	{
 	case MODELNODETYPE_GUNDL:
 		rodata = node->rodata;
 
-		if (rodata->gundl.opagdl == find) {
+		if (rodata->gundl.opagdl == find)
+		{
 			rodata->gundl.opagdl = replacement;
 			return;
 		}
 
-		if (rodata->gundl.xlugdl == find) {
+		if (rodata->gundl.xlugdl == find)
+		{
 			rodata->gundl.xlugdl = replacement;
 			return;
 		}
@@ -4379,12 +5163,14 @@ void modelNodeReplaceGdl(struct modeldef *modeldef, struct modelnode *node, Gfx 
 	case MODELNODETYPE_DL:
 		rodata = node->rodata;
 
-		if (rodata->dl.opagdl == find) {
+		if (rodata->dl.opagdl == find)
+		{
 			rodata->dl.opagdl = replacement;
 			return;
 		}
 
-		if (rodata->dl.xlugdl == find) {
+		if (rodata->dl.xlugdl == find)
+		{
 			rodata->dl.xlugdl = replacement;
 			return;
 		}
@@ -4392,7 +5178,8 @@ void modelNodeReplaceGdl(struct modeldef *modeldef, struct modelnode *node, Gfx 
 	case MODELNODETYPE_STARGUNFIRE:
 		rodata = node->rodata;
 
-		if (rodata->stargunfire.gdl == find) {
+		if (rodata->stargunfire.gdl == find)
+		{
 			rodata->stargunfire.gdl = replacement;
 			return;
 		}

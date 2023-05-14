@@ -250,6 +250,7 @@
     <ClCompile Include="src\game\menuitem.c" />
     <ClCompile Include="src\game\menustop.c" />
     <ClCompile Include="src\game\menutick.c" />
+    <ClCompile Include="src\game\modelbyteswap.c" />
     <ClCompile Include="src\game\modeldata\basic.c" />
     <ClCompile Include="src\game\modeldata\casing.c" />
     <ClCompile Include="src\game\modeldata\chrgun.c" />

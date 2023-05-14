@@ -126,7 +126,8 @@ void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct m
 
 	s5 = gdl;
 
-	if (gdl) {
+	if (gdl)
+	{
 		s32 v1 = allocsize - (loadedsize - (s32)(((uintptr_t)modeldef + (gdl & 0xffffff)) - (uintptr_t)modeldef));
 		sp84 = (s32)v1 + (s32)((uintptr_t)modeldef - ((uintptr_t)modeldef + (gdl & 0xffffff)));
 
@@ -135,24 +136,31 @@ void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct m
 				loadedsize - (s32)(((uintptr_t)modeldef + (gdl & 0xffffff)) - (uintptr_t)modeldef));
 		texLoadFromConfigs(modeldef->texconfigs, modeldef->numtexconfigs, texpool, (uintptr_t)modeldef2 - arg2);
 
-		while (node) {
+		while (node)
+		{
 			prevnode = node;
 			s0 = gdl;
 
 			modelIterateDisplayLists(modeldef, &node, (Gfx **) &gdl);
 
-			if (gdl) {
+			if (gdl)
+			{
 				s4 = gdl - s0;
-			} else {
+			}
+			else
+			{
 				s4 = loadedsize + (uintptr_t)modeldef - (uintptr_t)modeldef - (s0 & 0xffffff);
 			}
 
 			modelNodeReplaceGdl(modeldef, prevnode, (Gfx *) s0, (Gfx *) s5);
 
-			if (prevnode->type == MODELNODETYPE_DL) {
+			if (prevnode->type == MODELNODETYPE_DL)
+			{
 				struct modelrodata_dl *rodata = &prevnode->rodata->dl;
 				vertices = rodata->vertices;
-			} else {
+			}
+			else
+			{
 				vertices = NULL;
 			}
 
@@ -167,15 +175,20 @@ void modelPromoteTypeToPointer(struct modeldef *modeldef)
 {
 	s32 i;
 
-	if ((u32)modeldef->skel < 0x10000) {
-		for (i = 0; g_Skeletons[i] != NULL; i++) {
-			if ((s16)modeldef->skel == g_Skeletons[i]->skel) {
+	if ((u32)modeldef->skel < 0x10000)
+	{
+		for (i = 0; g_Skeletons[i] != NULL; i++)
+		{
+			if ((s16)modeldef->skel == g_Skeletons[i]->skel)
+			{
 				modeldef->skel = g_Skeletons[i];
 				return;
 			}
 		}
 	}
 }
+
+
 
 struct modeldef *modeldefLoad(u16 fileid, u8 *dst, s32 size, struct texpool *arg3)
 {
@@ -188,6 +201,8 @@ struct modeldef *modeldefLoad(u16 fileid, u8 *dst, s32 size, struct texpool *arg
 	} else {
 		modeldef = fileLoadToNew(fileid, FILELOADMETHOD_EXTRAMEM);
 	}
+
+	modelByteSwapModel(modeldef, 0x5000000);
 
 	modelPromoteTypeToPointer(modeldef);
 	modelPromoteOffsetsToPointers(modeldef, 0x5000000, (uintptr_t) modeldef);
