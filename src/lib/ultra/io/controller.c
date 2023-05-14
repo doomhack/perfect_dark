@@ -9,7 +9,7 @@ ALIGNED16 OSPifRam __osContPifRam;
 u8 __osContLastCmd;
 u8 __osMaxControllers = MAXCONTROLLERS;
 
-u8 controller_mask = 0; //Set this to set the plugged in controllers...
+u8 controller_mask = 1; //Set this to set the plugged in controllers...
 
 s32 osContInit(OSMesgQueue *mq, u8 *bitpattern, OSContStatus *data)
 {
