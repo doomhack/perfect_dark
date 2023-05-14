@@ -85,7 +85,6 @@ extern u8 *var8005f6fc;
 extern u32 var8005f704;
 extern OSViMode osViModeTable[];
 extern u32 var80060890;
-extern OSTimer *__osTimerList;
 extern u32 __osPiAccessQueueEnabled;
 extern OSThread *__osRunQueue;
 extern OSThread *__osActiveQueue;

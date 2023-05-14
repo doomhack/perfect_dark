@@ -238,7 +238,7 @@ void amgrMain(void *arg)
 
 void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 {
-	u32 somevalue;
+	u32 somevalue = 0;
 	s16 *outbuffer;
 	Acmd *datastart;
 	Acmd *cmd;
@@ -254,7 +254,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 
 	admaBeginFrame();
 
-	somevalue = IO_READ(OS_PHYSICAL_TO_K1(AI_LEN_REG)) / 4;
+	//somevalue = IO_READ(OS_PHYSICAL_TO_K1(AI_LEN_REG)) / 4;
 	datastart = g_AudioManager.ACMDList[var8005cf90];
 	outbuffer = (s16 *) osVirtualToPhysical(info->data);
 

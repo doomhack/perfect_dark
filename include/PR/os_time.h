@@ -62,6 +62,8 @@ typedef struct OSTimer_s {
 						/* timer fires           */
 	OSMesgQueue		*mq;		/* Message Queue */
 	OSMesg			msg;		/* Message to send */
+
+	u32				timer_id;  //ID of the timer (for cancelling)
 } OSTimer;
 
 

@@ -543,9 +543,6 @@
     <ClCompile Include="src\lib\ultra\gu\perspective.c">
       <Filter>Source Files\src\lib\ultra\gu</Filter>
     </ClCompile>
-    <ClCompile Include="src\lib\ultra\os\timerintr.c">
-      <Filter>Source Files\src\lib\ultra\os</Filter>
-    </ClCompile>
     <ClCompile Include="src\lib\ultra\os\os_thread.c">
       <Filter>Source Files\src\lib\ultra\os</Filter>
     </ClCompile>

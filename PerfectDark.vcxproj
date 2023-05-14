@@ -548,7 +548,6 @@
     <ClCompile Include="src\lib\ultra\os\setintmask.c" />
     <ClCompile Include="src\lib\ultra\os\os_timer.c" />
     <ClCompile Include="src\lib\ultra\os\os_thread.c" />
-    <ClCompile Include="src\lib\ultra\os\timerintr.c" />
     <ClCompile Include="src\lib\ultra\os\virtualtophysical.c" />
     <ClCompile Include="src\lib\varsinit.c" />
     <ClCompile Include="src\lib\vi.c" />

@@ -50,7 +50,6 @@ extern struct mp3decfourbytes *var8009c640;
 extern f32 *var8009c644;
 extern f32 *var8009c6d8;
 extern f32 *var8009c6dc;
-extern OSTimer var8009c760;
 extern OSTime __osCurrentTime;
 extern u32 __osBaseCounter;
 extern u32 __osViIntrCount;

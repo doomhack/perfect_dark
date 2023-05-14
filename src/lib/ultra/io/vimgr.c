@@ -12,7 +12,6 @@ OSMesgQueue viEventQueue;
 OSMesg viEventBuf[5];
 u32 var8009025c;
 OSIoMesg viRetraceMsg;
-OSIoMesg viCounterMsg;
 
 void viMgrMain(void *args);
 
@@ -31,12 +30,8 @@ void osCreateViManager(OSPri pri)
 		viRetraceMsg.hdr.type = OS_MESG_TYPE_VRETRACE;
 		viRetraceMsg.hdr.pri = OS_MESG_PRI_NORMAL;
 		viRetraceMsg.hdr.retQueue = NULL;
-		viCounterMsg.hdr.type = OS_MESG_TYPE_COUNTER;
-		viCounterMsg.hdr.pri = OS_MESG_PRI_NORMAL;
-		viCounterMsg.hdr.retQueue = NULL;
 
 		osSetEventMesg(OS_EVENT_VI, &viEventQueue, &viRetraceMsg);
-		osSetEventMesg(OS_EVENT_COUNTER, &viEventQueue, &viCounterMsg);
 
 		oldPri = -1;
 		myPri = osGetThreadPri(NULL);
@@ -125,9 +120,6 @@ void viMgrMain(void *args)
 			__osBaseCounter = osGetCount();
 			count = __osBaseCounter - count;
 			__osCurrentTime = __osCurrentTime + count;
-			break;
-		case OS_MESG_TYPE_COUNTER:
-			__osTimerInterrupt();
 			break;
 		}
 	}

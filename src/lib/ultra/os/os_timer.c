@@ -1,60 +1,56 @@
 #include <os_internal.h>
 #include "osint.h"
 
+#include <SDL.h>
+
+OSTime __osCurrentTime;
+u32 __osBaseCounter;
+u32 __osViIntrCount;
+
+void __osTimerServicesInit(void)
+{
+	__osCurrentTime = 0;
+	__osBaseCounter = 0;
+	__osViIntrCount = 0;
+}
+
+Uint32 __timerCallback(Uint32 interval, void* param)
+{
+	OSTimer* t = (OSTimer*)param;
+
+	osSendMesg(t->mq, t->msg, OS_MESG_NOBLOCK);
+
+	return t->interval;
+}
+
 int osSetTimer(OSTimer *t, OSTime value, OSTime interval, OSMesgQueue *mq, OSMesg msg)
 {
-	OSTime time;
-
-	t->next = NULL;
-	t->prev = NULL;
 	t->interval = interval;
 
 	if (value != 0)
 	{
 		t->value = value;
-	} else
+	}
+	else
 	{
 		t->value = interval;
 	}
 
 	t->mq = mq;
 	t->msg = msg;
-	time = __osInsertTimer(t);
 
-	if (__osTimerList->next == t) {
-		__osSetTimerIntr(time);
-	}
+	double us = OS_CYCLES_TO_USEC(t->value);
+
+	u32 ms = round(us / 1000.0);
+
+	t->timer_id = SDL_AddTimer(ms, __timerCallback, t);
 
 	return 0;
 }
 
 int osStopTimer(OSTimer* t)
 {
-	register u32 savedMask;
-	OSTimer* timep;
-
-	if (t->next == NULL) {
-		return -1;
-	}
-
-	savedMask = __osDisableInt();
-
-	timep = t->next;
-
-	if (timep != __osTimerList) {
-		timep->value += t->value;
-	}
-
-	t->prev->next = t->next;
-	t->next->prev = t->prev;
-	t->next = NULL;
-	t->prev = NULL;
-
-	if (__osTimerList->next == __osTimerList) {
-		__osSetCompare(0);
-	}
-
-	__osRestoreInt(savedMask);
+	SDL_RemoveTimer(t->timer_id);
 
 	return 0;
 }

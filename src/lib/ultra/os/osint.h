@@ -19,9 +19,7 @@ extern void __osEnqueueAndYield(OSThread **);
 extern void __osEnqueueThread(OSThread **, OSThread *);
 extern OSThread *__osPopThread(OSThread **);
 
-extern void __osSetTimerIntr(OSTime);
 extern OSTime __osInsertTimer(OSTimer *);
-extern void __osTimerInterrupt(void);
 extern u32 __osProbeTLB(void *);
 extern int     __osSpDeviceBusy(void);
 
@@ -30,12 +28,10 @@ extern OSThread *__osActiveQueue;
 extern OSThread *__osFaultedThread;
 extern OSThread *__osRunQueue;
 
-extern OSTimer *__osTimerList;
 extern OSTimer __osBaseTimer;
 extern OSTime __osCurrentTime;
 extern u32 __osBaseCounter;
 extern u32 __osViIntrCount;
-extern u32 __osTimerCounter;
 
 extern __OSEventState __osEventStateTab[OS_NUM_EVENTS];
 
