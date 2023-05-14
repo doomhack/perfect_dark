@@ -7,23 +7,11 @@ void __osPackReadData(void);
 
 s32 osContStartReadData(OSMesgQueue *mq)
 {
-	s32 ret = 0;
-	s32 i;
+	OSMesg msg = 0;
 
-	__osSiGetAccess();
+	osSendMesg(mq, msg, OS_MESG_NOBLOCK);
 
-	if (__osContLastCmd != 1) {
-		__osPackReadData();
-		ret = __osSiRawStartDma(OS_WRITE, &__osContPifRam);
-		osRecvMesg(mq, NULL, OS_MESG_BLOCK);
-	}
-
-	ret = __osSiRawStartDma(OS_READ, &__osContPifRam);
-
-	__osContLastCmd = 1;
-	__osSiRelAccess();
-
-	return ret;
+	return 0;
 }
 
 void osContGetReadData(OSContPad *data)
