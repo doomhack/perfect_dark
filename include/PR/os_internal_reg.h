@@ -34,7 +34,6 @@ extern "C" {
 extern u32		__osGetCause(void);
 extern void		__osSetCause(u32);
 extern u32		__osGetCompare(void);
-extern void		__osSetCompare(u32);
 extern u32		__osGetConfig(void);
 extern void		__osSetConfig(u32);
 extern void		__osSetCount(u32);

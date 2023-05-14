@@ -55,8 +55,6 @@ typedef u64	OSTime;
  * Structure for interval timer
  */
 typedef struct OSTimer_s {
-	struct OSTimer_s	*next;	/* point to next timer in list */
-	struct OSTimer_s	*prev;	/* point to previous timer in list */
 	OSTime			interval;	/* duration set by user */
 	OSTime			value;		/* time remaining before */
 						/* timer fires           */

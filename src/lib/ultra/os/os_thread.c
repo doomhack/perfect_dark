@@ -85,24 +85,3 @@ void osYieldThread(void)
 {
 	thrd_yield();
 }
-
-
-void __osEnqueueAndYield(OSThread** t)
-{
-
-}
-
-OSThread* __osPopThread(OSThread** t)
-{
-	return NULL;
-}
-
-void __osEnqueueThread(OSThread** t1, OSThread* t2)
-{
-
-}
-
-OSThread* __osGetCurrFaultedThread()
-{
-	return __osFaultedThread;
-}

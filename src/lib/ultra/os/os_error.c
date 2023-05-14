@@ -19,9 +19,3 @@ void __osSetSR(u32 x)
 {
 
 }
-
-void __osSetCompare(u32 s)
-{
-
-}
-

@@ -637,7 +637,11 @@ extern u32 g_VIRegBase;
  * can be written twice before becoming full.
  * The address must be written before the length.
  */
-#define AI_BASE_REG		0x04500000
+
+//#define AI_BASE_REG		0x04500000
+extern u32 g_AIRegBase;
+#define AI_BASE_REG		g_AIRegBase
+
 
 /* AI DRAM address (W): [23:0] starting RDRAM address (8B-aligned) */
 #define AI_DRAM_ADDR_REG	(AI_BASE_REG+0x00)	/* R0: DRAM address */

@@ -13,7 +13,6 @@ typedef struct {
 	unsigned int inst4;
 } __osExceptionVector;
 
-__osExceptionVector __osExceptionPreamble;
 s32 osAppNMIBuffer[128];
 
 u32 __osFinalRom;

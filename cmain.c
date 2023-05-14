@@ -35,6 +35,8 @@ u32 g_SP_IMem = 0;
 u32 g_SP_DPC_RegBase = 0;
 u32 g_SPRegBase = 0;
 u32 g_SPPCReg = 0;
+u32 g_AIRegBase = 0;
+
 
 u32 g_RDRam = 0;
 
@@ -75,6 +77,9 @@ void allocateMemoryAreas()
     g_RDRam = (u32)calloc(8 * 1024 * 1024, 1);
 
     g_SPPCReg = (u32)calloc(4, 1);
+
+    g_AIRegBase = (u32)calloc(32, 1);
+
 }
 
 int startGameOnThread(void* p)
