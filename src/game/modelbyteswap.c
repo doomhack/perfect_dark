@@ -35,6 +35,23 @@ u32 __mptr(u32 x, u32 offset, u32 baseaddr)
 
 #define MPTR(x) __mptr(x, offsetAddr, baseAddr)
 
+void modelByteSwapGunDl(struct modelrodata_gundl* gundl, u32 offsetAddr, u32 baseAddr)
+{
+	gundl->opagdl = BSWAP32((u32)gundl->opagdl);
+	gundl->xlugdl = BSWAP32((u32)gundl->xlugdl);
+	gundl->baseaddr = BSWAP32((u32)gundl->baseaddr);
+	gundl->vertices = BSWAP32((u32)gundl->vertices);
+
+	gundl->numvertices = BSWAP16((u32)gundl->numvertices);
+	gundl->unk12 = BSWAP16((u32)gundl->unk12);
+}
+
+void modelByteSwapToggle(struct modelrodata_toggle* toggle, u32 offsetAddr, u32 baseAddr)
+{
+	toggle->rwdataindex = BSWAP16(toggle->rwdataindex);
+	toggle->target = BSWAP32((u32)toggle->target);
+}
+
 void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 {
 	while (node)
@@ -48,6 +65,8 @@ void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 
 		u32 type = node->type & 0xff;
 
+		union modelrodata* ro = MPTR(node->rodata);
+
 		switch (type)
 		{
 			case MODELNODETYPE_CHRINFO:
@@ -55,12 +74,14 @@ void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 			case MODELNODETYPE_POSITION:
 				break;
 			case MODELNODETYPE_GUNDL:
+				modelByteSwapGunDl(&ro->gundl, offsetAddr, baseAddr);
 				break;
 			case MODELNODETYPE_DL:
 				break;
 			case MODELNODETYPE_DISTANCE:
 				break;
 			case MODELNODETYPE_TOGGLE:
+				modelByteSwapToggle(&ro->toggle, offsetAddr, baseAddr);
 				break;
 			case MODELNODETYPE_REORDER:
 				break;
@@ -110,6 +131,9 @@ void modelByteSwapModel(struct modeldef* modeldef, u32 offsetAddr)
 
 	modeldef->rwdatalen = BSWAP16((u32)modeldef->rwdatalen);
 	modeldef->numtexconfigs = BSWAP16((u32)modeldef->numtexconfigs);
+
+	modeldef->texconfigs = BSWAP32((u32)modeldef->texconfigs);
+
 
 	*((u32*)&modeldef->scale) = BSWAP32(*((u32*)&modeldef->scale));
 
