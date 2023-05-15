@@ -25,7 +25,15 @@
 
 //Models are stored in the ROM compressed so we have to byteswap them on load.
 
-#define MPTR(x) ((void*)((((u32)x) - offsetAddr) + baseAddr))
+u32 __mptr(u32 x, u32 offset, u32 baseaddr)
+{
+	if (x == NULL)
+		return NULL;
+
+	return (x - offset) + baseaddr;
+}
+
+#define MPTR(x) __mptr(x, offsetAddr, baseAddr)
 
 void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 {
@@ -92,6 +100,8 @@ void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 
 void modelByteSwapModel(struct modeldef* modeldef, u32 offsetAddr)
 {
+	u32 baseAddr = (u32)modeldef;
+
 	modeldef->rootnode = BSWAP32((u32)modeldef->rootnode);
 	modeldef->skel = BSWAP32((u32)modeldef->skel);
 
@@ -103,20 +113,21 @@ void modelByteSwapModel(struct modeldef* modeldef, u32 offsetAddr)
 
 	*((u32*)&modeldef->scale) = BSWAP32(*((u32*)&modeldef->scale));
 
-	u32* p = &modeldef->parts;
+	modeldef->parts = BSWAP32((u32)modeldef->parts);
+
+	u32* p = MPTR(modeldef->parts);
 
 	for (int i = 0; i < modeldef->numparts; i++)
 	{
 		p[i] = BSWAP32((u32)p[i]);
 	}
 
-	s16* partnums = (s16*)&modeldef->parts[modeldef->numparts];
+	s16* partnums = (s16*)&p[modeldef->numparts];
 
 	for (int i = 0; i < modeldef->numparts; i++)
 	{
 		partnums[i] = BSWAP16(partnums[i]);
 	}
 
-	u32 baseAddr = (u32)modeldef;
 	modelByteSwapNode(MPTR(modeldef->rootnode), offsetAddr, baseAddr);
 }
