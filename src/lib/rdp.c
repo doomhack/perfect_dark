@@ -118,13 +118,4 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 	gfx_start_frame();
 	gfx_run(gdlstart);
 	gfx_end_frame();
-
-	/*
-	Gfx x[3];
-	Gfx* y = &x[0];
-	gDPSetCombineMode(y++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
-
-	gDPSetPrimColorViaWord(y++, 0, 0, 0x12345678);
-	gfx_run(x);
-	*/
 }

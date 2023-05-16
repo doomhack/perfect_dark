@@ -35,6 +35,169 @@ u32 __mptr(u32 x, u32 offset, u32 baseaddr)
 
 #define MPTR(x) __mptr(x, offsetAddr, baseAddr)
 
+
+#define C0(pos, width) ((cmd->words.w0 >> (pos)) & ((1U << width) - 1))
+#define C1(pos, width) ((cmd->words.w1 >> (pos)) & ((1U << width) - 1))
+
+void printGdl(Gfx* cmd)
+{
+    for (;;)
+    {
+		cmd->words.w0 = BSWAP32(cmd->words.w0);
+		cmd->words.w1 = BSWAP32(cmd->words.w1);
+
+        u32 opcode = cmd->words.w0 >> 24;
+
+        switch (opcode)
+        {
+            // RSP commands:
+        case G_MTX:
+            printf("G_MTX\n");
+            break;
+        case (u8)G_POPMTX:
+            printf("G_POPMTX\n");
+            break;
+        case G_MOVEMEM:
+            printf("G_MOVEMEM\n");
+            break;
+        case (u8)G_MOVEWORD:
+            printf("G_MOVEWORD\n");
+            break;
+        case (u8)G_TEXTURE:
+            printf("G_TEXTURE\n");
+            break;
+        case G_VTX:
+            printf("G_VTX\n");
+            break;
+        case G_DL:
+            printf("G_DL\n");
+            if (C0(16, 1) == 0)
+            {
+                printGdl((Gfx*)(cmd->words.w1));
+            }
+            else
+            {
+                cmd = (Gfx*)(cmd->words.w1);
+                --cmd; // increase after break
+            }
+            break;
+        case (u8)G_ENDDL:
+            printf("G_ENDDL\n");
+            return;
+
+        case (u8)G_SETGEOMETRYMODE:
+            printf("G_SETGEOMETRYMODE\n");
+            break;
+        case (u8)G_CLEARGEOMETRYMODE:
+            printf("G_CLEARGEOMETRYMODE\n");
+            break;
+
+        case (u8)G_TRI1:
+            printf("G_CLEARGEOMETRYMODE\n");
+            break;
+
+        case (u8)G_SETOTHERMODE_L:
+            printf("G_SETOTHERMODE_L\n");
+            break;
+        case (u8)G_SETOTHERMODE_H:
+            printf("G_SETOTHERMODE_H\n");
+            break;
+
+            // RDP Commands:
+        case G_SETTIMG:
+            printf("G_SETTIMG\n");
+            break;
+        case G_LOADBLOCK:
+            printf("G_LOADBLOCK\n");
+            break;
+        case G_LOADTILE:
+            printf("G_LOADTILE\n");
+            break;
+        case G_SETTILE:
+            printf("G_SETTILE\n");
+            break;
+        case G_SETTILESIZE:
+            printf("G_SETTILESIZE\n");
+            break;
+        case G_LOADTLUT:
+            printf("G_LOADTLUT\n");
+            break;
+        case G_SETENVCOLOR:
+            printf("G_SETENVCOLOR\n");
+            break;
+        case G_SETPRIMCOLOR:
+            printf("G_SETPRIMCOLOR\n");
+            break;
+        case G_SETFOGCOLOR:
+            printf("G_SETFOGCOLOR\n");
+            break;
+        case G_SETFILLCOLOR:
+            printf("G_SETFILLCOLOR\n");
+            break;
+        case G_SETCOMBINE:
+            printf("G_SETCOMBINE\n");
+
+        case G_TEXRECT:
+        case G_TEXRECTFLIP:
+        {
+            printf("G_TEXRECT\n");
+            break;
+        }
+        case G_FILLRECT:
+			printf("G_FILLRECT\n");
+            break;
+
+        case G_SETSCISSOR:
+			printf("G_SETSCISSOR\n");
+			break;
+        case G_SETZIMG:
+			printf("G_SETZIMG\n");
+			break;
+        case G_SETCIMG:
+			printf("G_SETCIMG\n");
+			break;
+		default:
+			printf("Unknown Opcode\n");
+			break;
+        }
+        ++cmd;
+    }
+}
+
+void byteSwapGdl(Gfx* gdl)
+{
+	if (gdl == NULL)
+		return;
+
+	//printGdl(gdl);
+	//return;
+
+	return;
+
+	while (1)
+	{
+		gdl->words.w0 = BSWAP32(gdl->words.w0);
+		gdl->words.w1 = BSWAP32(gdl->words.w1);
+
+		u32 opcode = gdl->words.w0 >> 24;
+
+		if (opcode == (u8)G_ENDDL)
+			return;
+
+		gdl++;
+	}
+}
+
+void modelByteSwapVertex(struct gfxvtx* vertex)
+{
+	vertex->x = BSWAP16(vertex->x);
+	vertex->y = BSWAP16(vertex->y);
+	vertex->z = BSWAP16(vertex->z);
+
+	vertex->s = BSWAP16(vertex->s);
+	vertex->t = BSWAP16(vertex->t);
+}
+
 void modelByteSwapGunDl(struct modelrodata_gundl* gundl, u32 offsetAddr, u32 baseAddr)
 {
 	gundl->opagdl = BSWAP32((u32)gundl->opagdl);
@@ -42,8 +205,21 @@ void modelByteSwapGunDl(struct modelrodata_gundl* gundl, u32 offsetAddr, u32 bas
 	gundl->baseaddr = BSWAP32((u32)gundl->baseaddr);
 	gundl->vertices = BSWAP32((u32)gundl->vertices);
 
-	gundl->numvertices = BSWAP16((u32)gundl->numvertices);
-	gundl->unk12 = BSWAP16((u32)gundl->unk12);
+	gundl->numvertices = BSWAP16(gundl->numvertices);
+	gundl->unk12 = BSWAP16(gundl->unk12);
+
+	struct gfxvtx* vx = MPTR(gundl->vertices);
+
+	for (int i = 0; i < gundl->numvertices; i++)
+	{
+		modelByteSwapVertex(&vx[i]);
+	}
+
+	Gfx* gdl = MPTR(gundl->opagdl);
+	byteSwapGdl(gdl);
+
+	gdl = MPTR(gundl->xlugdl);
+	byteSwapGdl(gdl);
 }
 
 void modelByteSwapToggle(struct modelrodata_toggle* toggle, u32 offsetAddr, u32 baseAddr)
@@ -119,6 +295,11 @@ void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 	}
 }
 
+void byteSwapTexConfig(struct textureconfig* texconfig)
+{
+	texconfig->texturenum = BSWAP32(texconfig->texturenum);
+}
+
 void modelByteSwapModel(struct modeldef* modeldef, u32 offsetAddr)
 {
 	u32 baseAddr = (u32)modeldef;
@@ -126,14 +307,13 @@ void modelByteSwapModel(struct modeldef* modeldef, u32 offsetAddr)
 	modeldef->rootnode = BSWAP32((u32)modeldef->rootnode);
 	modeldef->skel = BSWAP32((u32)modeldef->skel);
 
-	modeldef->numparts = BSWAP16((u32)modeldef->numparts);
-	modeldef->nummatrices = BSWAP16((u32)modeldef->nummatrices);
+	modeldef->numparts = BSWAP16(modeldef->numparts);
+	modeldef->nummatrices = BSWAP16(modeldef->nummatrices);
 
-	modeldef->rwdatalen = BSWAP16((u32)modeldef->rwdatalen);
-	modeldef->numtexconfigs = BSWAP16((u32)modeldef->numtexconfigs);
+	modeldef->rwdatalen = BSWAP16(modeldef->rwdatalen);
+	modeldef->numtexconfigs = BSWAP16(modeldef->numtexconfigs);
 
 	modeldef->texconfigs = BSWAP32((u32)modeldef->texconfigs);
-
 
 	*((u32*)&modeldef->scale) = BSWAP32(*((u32*)&modeldef->scale));
 
@@ -151,6 +331,13 @@ void modelByteSwapModel(struct modeldef* modeldef, u32 offsetAddr)
 	for (int i = 0; i < modeldef->numparts; i++)
 	{
 		partnums[i] = BSWAP16(partnums[i]);
+	}
+
+	struct textureconfig* tconfig = MPTR(modeldef->texconfigs);
+
+	for (int i = 0; i < modeldef->numtexconfigs; i++)
+	{
+		byteSwapTexConfig(&tconfig[i]);
 	}
 
 	modelByteSwapNode(MPTR(modeldef->rootnode), offsetAddr, baseAddr);
