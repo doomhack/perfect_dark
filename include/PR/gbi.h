@@ -1726,6 +1726,11 @@ typedef struct {
 	unsigned int dest;
 } Gvtx;
 
+typedef struct {
+	int padding : 24;
+	int opcode : 8;
+	unsigned int padding2;
+} GCommand;
 
 /*
  * This union is the fundamental type of the display list.
@@ -1734,6 +1739,7 @@ typedef struct {
 typedef union {
 	Gwords		words;
 	u8          bytes[8];
+	GCommand	cmd;
 	Gdma		dma;
 	Gvtx		vtx;
 	Gtri		tri;

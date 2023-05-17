@@ -43,30 +43,30 @@ void printGdl(Gfx* cmd)
 {
     for (;;)
     {
-        u32 opcode = cmd->words.w0 >> 24;
+		s8 opcode = cmd->cmd.opcode;
 
         switch (opcode)
         {
             // RSP commands:
-        case G_MTX:
+        case (s8)G_MTX:
             printf("G_MTX\n");
             break;
-        case (u8)G_POPMTX:
+        case (s8)G_POPMTX:
             printf("G_POPMTX\n");
             break;
-        case G_MOVEMEM:
+        case (s8)G_MOVEMEM:
             printf("G_MOVEMEM\n");
             break;
-        case (u8)G_MOVEWORD:
+        case (s8)G_MOVEWORD:
             printf("G_MOVEWORD\n");
             break;
-        case (u8)G_TEXTURE:
+        case (s8)G_TEXTURE:
             printf("G_TEXTURE\n");
             break;
-        case G_VTX:
+        case (s8)G_VTX:
             printf("G_VTX\n");
             break;
-        case G_DL:
+        case (s8)G_DL:
             printf("G_DL\n");
             if (C0(16, 1) == 0)
             {
@@ -78,82 +78,82 @@ void printGdl(Gfx* cmd)
                 --cmd; // increase after break
             }
             break;
-        case (u8)G_ENDDL:
+        case (s8)G_ENDDL:
             printf("G_ENDDL\n");
             return;
 
-        case (u8)G_SETGEOMETRYMODE:
+        case (s8)G_SETGEOMETRYMODE:
             printf("G_SETGEOMETRYMODE\n");
             break;
-        case (u8)G_CLEARGEOMETRYMODE:
+        case (s8)G_CLEARGEOMETRYMODE:
             printf("G_CLEARGEOMETRYMODE\n");
             break;
 
-        case (u8)G_TRI1:
+        case (s8)G_TRI1:
             printf("G_CLEARGEOMETRYMODE\n");
             break;
 
-        case (u8)G_SETOTHERMODE_L:
+        case (s8)G_SETOTHERMODE_L:
             printf("G_SETOTHERMODE_L\n");
             break;
-        case (u8)G_SETOTHERMODE_H:
+        case (s8)G_SETOTHERMODE_H:
             printf("G_SETOTHERMODE_H\n");
             break;
 
             // RDP Commands:
-        case G_SETTIMG:
+        case (s8)G_SETTIMG:
             printf("G_SETTIMG\n");
             break;
-        case G_LOADBLOCK:
+        case (s8)G_LOADBLOCK:
             printf("G_LOADBLOCK\n");
             break;
-        case G_LOADTILE:
+        case (s8)G_LOADTILE:
             printf("G_LOADTILE\n");
             break;
-        case G_SETTILE:
+        case (s8)G_SETTILE:
             printf("G_SETTILE\n");
             break;
-        case G_SETTILESIZE:
+        case (s8)G_SETTILESIZE:
             printf("G_SETTILESIZE\n");
             break;
-        case G_LOADTLUT:
+        case (s8)G_LOADTLUT:
             printf("G_LOADTLUT\n");
             break;
-        case G_SETENVCOLOR:
+        case (s8)G_SETENVCOLOR:
             printf("G_SETENVCOLOR\n");
             break;
-        case G_SETPRIMCOLOR:
+        case (s8)G_SETPRIMCOLOR:
             printf("G_SETPRIMCOLOR\n");
             break;
-        case G_SETFOGCOLOR:
+        case (s8)G_SETFOGCOLOR:
             printf("G_SETFOGCOLOR\n");
             break;
-        case G_SETFILLCOLOR:
+        case (s8)G_SETFILLCOLOR:
             printf("G_SETFILLCOLOR\n");
             break;
-        case G_SETCOMBINE:
+        case (s8)G_SETCOMBINE:
             printf("G_SETCOMBINE\n");
 
-        case G_TEXRECT:
-        case G_TEXRECTFLIP:
+        case (s8)G_TEXRECT:
+        case (s8)G_TEXRECTFLIP:
         {
             printf("G_TEXRECT\n");
             break;
         }
-        case G_FILLRECT:
+        case (s8)G_FILLRECT:
 			printf("G_FILLRECT\n");
             break;
 
-        case G_SETSCISSOR:
+        case (s8)G_SETSCISSOR:
 			printf("G_SETSCISSOR\n");
 			break;
-        case G_SETZIMG:
+        case (s8)G_SETZIMG:
 			printf("G_SETZIMG\n");
 			break;
-        case G_SETCIMG:
+        case (s8)G_SETCIMG:
 			printf("G_SETCIMG\n");
 			break;
-		case G_RDPPIPESYNC:
+		case (s8)G_RDPPIPESYNC:
 			printf("G_RDPPIPESYNC\n");
 			break;
 		default:
@@ -176,9 +176,9 @@ void byteSwapGdl(Gfx* gdl)
 		gpc->words.w0 = BSWAP32(gpc->words.w0);
 		gpc->words.w1 = BSWAP32(gpc->words.w1);
 
-		u32 opcode = gpc->words.w0 >> 24;
+		s8 opcode = gpc->cmd.opcode;
 
-		if (opcode == (u8)G_ENDDL)
+		if (opcode == (s8)G_ENDDL)
 			break;
 
 		gpc++;
