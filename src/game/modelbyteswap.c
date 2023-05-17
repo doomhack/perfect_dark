@@ -43,9 +43,6 @@ void printGdl(Gfx* cmd)
 {
     for (;;)
     {
-		cmd->words.w0 = BSWAP32(cmd->words.w0);
-		cmd->words.w1 = BSWAP32(cmd->words.w1);
-
         u32 opcode = cmd->words.w0 >> 24;
 
         switch (opcode)
@@ -156,6 +153,9 @@ void printGdl(Gfx* cmd)
         case G_SETCIMG:
 			printf("G_SETCIMG\n");
 			break;
+		case G_RDPPIPESYNC:
+			printf("G_RDPPIPESYNC\n");
+			break;
 		default:
 			printf("Unknown Opcode\n");
 			break;
@@ -169,23 +169,22 @@ void byteSwapGdl(Gfx* gdl)
 	if (gdl == NULL)
 		return;
 
-	//printGdl(gdl);
-	//return;
-
-	return;
+	Gfx* gpc = gdl;
 
 	while (1)
 	{
-		gdl->words.w0 = BSWAP32(gdl->words.w0);
-		gdl->words.w1 = BSWAP32(gdl->words.w1);
+		gpc->words.w0 = BSWAP32(gpc->words.w0);
+		gpc->words.w1 = BSWAP32(gpc->words.w1);
 
-		u32 opcode = gdl->words.w0 >> 24;
+		u32 opcode = gpc->words.w0 >> 24;
 
 		if (opcode == (u8)G_ENDDL)
-			return;
+			break;
 
-		gdl++;
+		gpc++;
 	}
+
+	printGdl(gdl);
 }
 
 void modelByteSwapVertex(struct gfxvtx* vertex)

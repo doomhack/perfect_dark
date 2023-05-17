@@ -1483,7 +1483,7 @@ typedef union {
  *  Graphics DMA Packet
  */
 typedef struct {
-	int		cmd:8;
+	int				cmd:8;
 	unsigned int	par:8;
 	unsigned int	len:16;
 	unsigned int	addr;
@@ -1705,6 +1705,7 @@ typedef struct {
 	unsigned int tile2:12;
 } GunkC0;
 
+/*
 typedef struct {
 	unsigned int cmd:8;
 	unsigned int unk08:4;
@@ -1713,6 +1714,18 @@ typedef struct {
 	unsigned int seg:8;
 	unsigned int offset:24;
 } Gvtx;
+*/
+typedef struct {
+	//W0
+	unsigned int len : 16;
+	unsigned int unk08 : 4; //Vertex buffer Index
+	unsigned int num_vx : 4;
+	unsigned int cmd : 8;
+
+	//W1
+	unsigned int dest;
+} Gvtx;
+
 
 /*
  * This union is the fundamental type of the display list.
@@ -1725,23 +1738,23 @@ typedef union {
 	Gvtx		vtx;
 	Gtri		tri;
 	Gtri4		tri4;
-	Gline3D		line;
-	Gpopmtx		popmtx;
-	Gsegment	segment;
-	GsetothermodeH	setothermodeH;
-	GsetothermodeL	setothermodeL;
+	//Gline3D		line;
+	//Gpopmtx		popmtx;
+	//Gsegment	segment;
+	//GsetothermodeH	setothermodeH;
+	//GsetothermodeL	setothermodeL;
 	Gtexture	texture;
-	Gperspnorm	perspnorm;
-	Gsetimg		setimg;
-	Gsetcombine	setcombine;
-	Gsetcolor	setcolor;
-	Gfillrect	fillrect;	/* use for setscissor also */
-	Gsettile	settile;
-	Gloadtile	loadtile;	/* use for loadblock also, th is dxt */
-	Gsettilesize	settilesize;
-	Gloadtlut	loadtlut;
+	//Gperspnorm	perspnorm;
+	//Gsetimg		setimg;
+	//Gsetcombine	setcombine;
+	//Gsetcolor	setcolor;
+	//Gfillrect	fillrect;	/* use for setscissor also */
+	//Gsettile	settile;
+	//Gloadtile	loadtile;	/* use for loadblock also, th is dxt */
+	//Gsettilesize	settilesize;
+	//Gloadtlut	loadtlut;
 	GunkC0      unkc0;
-        long long int	force_structure_alignment;
+    long long int	force_structure_alignment;
 } Gfx;
 
 /*
