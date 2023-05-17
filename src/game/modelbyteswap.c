@@ -41,6 +41,9 @@ u32 __mptr(u32 x, u32 offset, u32 baseaddr)
 
 void printGdl(Gfx* cmd)
 {
+	//Gfx x;
+	//gSPTexture(& x, 0x1234, 0x5678, 1, 2, 3);
+
     for (;;)
     {
 		s8 opcode = cmd->cmd.opcode;

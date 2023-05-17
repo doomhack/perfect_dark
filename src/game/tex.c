@@ -823,24 +823,26 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 
 	spe0 = dyntexHasRoom();
 
-	if (spe0) {
-		for (j = 0; j < 16; j++) {
+	if (spe0)
+	{
+		for (j = 0; j < 16; j++)
+		{
 			sp90[j] = 0;
 		}
 	}
 
-	if (pool == NULL) {
+	if (pool == NULL)
 		pool = &g_TexSharedPool;
-	}
 
-	while (sp128 > 0) {
-		switch (s5->texture.cmd) {
+	while (sp128 > 0)
+	{
+		switch (s5->texture.cmd) 
+		{
 		case 0xc0: // Repurposed?
 			spe4 = true;
 
-			if (animated) {
+			if (animated)
 				spe8 = true;
-			}
 
 			texturenum = s5->words.w1 & 0xfff;
 			flag = s5->words.w0 & 0x200;
@@ -849,18 +851,23 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 
 			tex1 = texFindInPool(texturenum, pool);
 
-			if (tex1 != NULL) {
+			if (tex1 != NULL)
+			{
 				spf4 = tex1->unk0c_03;
-			} else {
+			}
+			else
+			{
 				spf4 = 0;
 			}
 
-			if (tex1 != NULL) {
+			if (tex1 != NULL)
+			{
 				s6 = tex0f1742e4(s6, sp12c, tex1, sp104);
 				sp104 = false;
 				animated = false;
 
-				switch (s5->unkc0.subcmd) {
+				switch (s5->unkc0.subcmd)
+				{
 				case 0:
 					tmp6 = (s5->words.w1 >> 24) & 0xff;
 					tmp1 = (s5->words.w0 >> 22) & 3;
@@ -876,7 +883,8 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 					texLoadFromTextureNum(texturenum2, pool);
 					tex2 = texFindInPool(texturenum2, pool);
 
-					if (tex2 != NULL) {
+					if (tex2 != NULL)
+					{
 						tmp6 = (s5->words.w1 >> 24) & 0xff;
 						tmp1 = (s5->words.w0 >> 22) & 3;
 						tmp2 = (s5->words.w0 >> 20) & 3;
@@ -910,29 +918,34 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 					break;
 				}
 
-				if (spe0 != 0) {
+				if (spe0 != 0)
+				{
 					// Deep Sea - green river under floor
-					if (texturenum == TEXTURE_06CB) {
+					if (texturenum == TEXTURE_06CB)
+					{
 						dyntexSetCurrentType(DYNTEXTYPE_RIVER);
 						animated = true;
 					}
 
 					// Deep Sea - juice that flows inside SA megaweapon
 					// Attack Ship - juice that flows inside engine power node
-					if (texturenum == TEXTURE_0A6A) {
+					if (texturenum == TEXTURE_0A6A)
+					{
 						dyntexSetCurrentType(DYNTEXTYPE_POWERJUICE);
 						animated = true;
 					}
 
 					// Deep Sea - white rings around SA megaweapon node
 					// Attack Ship - white rings around engine power node
-					if (texturenum == TEXTURE_0A69) {
+					if (texturenum == TEXTURE_0A69)
+					{
 						dyntexSetCurrentType(DYNTEXTYPE_POWERRING);
 						animated = true;
 					}
 
 					// Deep Sea - teleport
-					if (texturenum == TEXTURE_06E2) {
+					if (texturenum == TEXTURE_06E2)
+					{
 						dyntexSetCurrentType(DYNTEXTYPE_TELEPORTAL);
 						animated = true;
 					}
@@ -942,26 +955,30 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 					// 0dae - Chicago - canal
 					// 0dae - Villa - shallow water
 					// 0dae - Sewers (MP)
-					if (texturenum == TEXTURE_01C7 || texturenum == TEXTURE_0DAE) {
+					if (texturenum == TEXTURE_01C7 || texturenum == TEXTURE_0DAE)
+					{
 						dyntexSetCurrentType(DYNTEXTYPE_RIVER);
 						animated = true;
 					}
 
 					// Air Force One - Monitor
-					if (texturenum == TEXTURE_029B) {
+					if (texturenum == TEXTURE_029B)
+					{
 						dyntexSetCurrentType(DYNTEXTYPE_MONITOR);
 						animated = true;
 					}
 
 					// Villa - deep water
 					// Complex - water
-					if (texturenum == TEXTURE_090F) {
+					if (texturenum == TEXTURE_090F)
+					{
 						dyntexSetCurrentType(DYNTEXTYPE_OCEAN);
 						animated = true;
 					}
 
 					// Attack Ship - triangular arrows
-					if (texturenum == TEXTURE_0A42) {
+					if (texturenum == TEXTURE_0A42)
+					{
 						dyntexSetCurrentType(DYNTEXTYPE_ARROWS);
 						animated = true;
 					}
@@ -977,13 +994,16 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 				u32 offset;
 				struct gfxvtx *vtx;
 
-				if (spe0) {
+				if (spe0)
+				{
 					start = s5->bytes[1] & 0xf;
 					count = s5->vtx.unk08 + 1;
 					vtx = (struct gfxvtx *)(s5->dma.addr & 0x00ffffff);
 
-					for (i = start; i < start + count; i++) {
-						if (animated && sp90[i]) {
+					for (i = start; i < start + count; i++)
+					{
+						if (animated && sp90[i])
+						{
 							dyntexAddVertex(spa0[i]);
 							sp90[i] = 0;
 						}
@@ -993,7 +1013,8 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 					}
 				}
 
-				if (spf4 && arg4) {
+				if (spf4 && arg4)
+				{
 					s32 count = s5->vtx.unk08 + 1;
 					struct gfxvtx *vtx;
 					s32 i;
@@ -1001,7 +1022,8 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 					offset = s5->dma.addr & 0x00ffffff;
 					vtx = (struct gfxvtx *) (arg4 + offset);
 
-					for (i = 0; i < count; i++) {
+					for (i = 0; i < count; i++)
+					{
 						vtx[i].s >>= 1;
 						vtx[i].t >>= 1;
 					}
@@ -1020,33 +1042,41 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 			break;
 		case (u8) G_TRI4:
 		case (u8) G_TRI1:
-			if (animated) {
-				if (s5->texture.cmd == (u8) G_TRI1) {
+			if (animated)
+			{
+				if (s5->texture.cmd == (u8) G_TRI1)
+				{
 					sp90[s5->tri.tri.v[0] / 10] = 1;
 					sp90[s5->tri.tri.v[1] / 10] = 1;
 					sp90[s5->tri.tri.v[2] / 10] = 1;
-				} else {
+				}
+				else
+				{
 					Gfx *tmp = s5;
 
-					if (tmp->tri4.x1 != tmp->tri4.y1 || tmp->tri4.z1 != tmp->tri4.y1) {
+					if (tmp->tri4.x1 != tmp->tri4.y1 || tmp->tri4.z1 != tmp->tri4.y1)
+					{
 						sp90[tmp->tri4.x1] = 1;
 						sp90[tmp->tri4.y1] = 1;
 						sp90[tmp->tri4.z1] = 1;
 					}
 
-					if (tmp->tri4.x2 != tmp->tri4.y2 || tmp->tri4.z2 != tmp->tri4.y2) {
+					if (tmp->tri4.x2 != tmp->tri4.y2 || tmp->tri4.z2 != tmp->tri4.y2)
+					{
 						sp90[tmp->tri4.x2] = 1;
 						sp90[tmp->tri4.y2] = 1;
 						sp90[tmp->tri4.z2] = 1;
 					}
 
-					if (tmp->tri4.x3 != tmp->tri4.y3 || tmp->tri4.z3 != tmp->tri4.y3) {
+					if (tmp->tri4.x3 != tmp->tri4.y3 || tmp->tri4.z3 != tmp->tri4.y3)
+					{
 						sp90[tmp->tri4.x3] = 1;
 						sp90[tmp->tri4.y3] = 1;
 						sp90[tmp->tri4.z3] = 1;
 					}
 
-					if (tmp->tri4.x4 != tmp->tri4.y4 || tmp->tri4.z4 != tmp->tri4.y4) {
+					if (tmp->tri4.x4 != tmp->tri4.y4 || tmp->tri4.z4 != tmp->tri4.y4)
+					{
 						sp90[tmp->tri4.x4] = 1;
 						sp90[tmp->tri4.y4] = 1;
 						sp90[tmp->tri4.z4] = 1;
@@ -1064,7 +1094,8 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 		case (u8) G_TEXTURE:
 			spe4 = true;
 
-			if (animated) {
+			if (animated)
+			{
 				spe8 = true;
 			}
 
@@ -1090,15 +1121,18 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 
 		sp128--;
 
-		if (spe4 || sp128 <= 0) {
+		if (spe4 || sp128 <= 0)
+		{
 			spe4 = false;
 
-			if (spe8 || animated) {
+			if (spe8 || animated)
+			{
 				s32 i;
 
 				spe8 = false;
 
-				for (i = 0; i < 16; i++) {
+				for (i = 0; i < 16; i++)
+				{
 					if (sp90[i]) {
 						dyntexAddVertex(spa0[i]);
 						sp90[i] = 0;

@@ -5065,49 +5065,54 @@ void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **node
 
 		switch (type)
 		{
-		case MODELNODETYPE_GUNDL:
-			rodata = node->rodata;
+			case MODELNODETYPE_GUNDL:
+				rodata = node->rodata;
 
-			if (node != *nodeptr)
-			{
-				gdl = rodata->gundl.opagdl;
-			}
-			else if (rodata->gundl.xlugdl != *gdlptr)
-			{
-				gdl = rodata->gundl.xlugdl;
-			}
-			break;
-		case MODELNODETYPE_DL:
-			rodata = node->rodata;
+				if (node != *nodeptr)
+				{
+					gdl = rodata->gundl.opagdl;
+				}
+				else if (rodata->gundl.xlugdl != *gdlptr)
+				{
+					gdl = rodata->gundl.xlugdl;
+				}
+				break;
 
-			if (node != *nodeptr)
-			{
-				gdl = rodata->dl.opagdl;
-			}
-			else if (rodata->dl.xlugdl != *gdlptr)
-			{
-				gdl = rodata->dl.xlugdl;
-			}
-			break;
-		case MODELNODETYPE_STARGUNFIRE:
-			rodata = node->rodata;
+			case MODELNODETYPE_DL:
+				rodata = node->rodata;
 
-			if (node != *nodeptr)
-			{
-				gdl = rodata->stargunfire.gdl;
-			}
-			break;
-		case MODELNODETYPE_DISTANCE:
-			rodata = node->rodata;
-			node->child = rodata->distance.target;
-			break;
-		case MODELNODETYPE_TOGGLE:
-			rodata = node->rodata;
-			node->child = rodata->toggle.target;
-			break;
-		case MODELNODETYPE_REORDER:
-			modelApplyReorderRelationsByArg(node, true);
-			break;
+				if (node != *nodeptr)
+				{
+					gdl = rodata->dl.opagdl;
+				}
+				else if (rodata->dl.xlugdl != *gdlptr)
+				{
+					gdl = rodata->dl.xlugdl;
+				}
+				break;
+
+			case MODELNODETYPE_STARGUNFIRE:
+				rodata = node->rodata;
+
+				if (node != *nodeptr)
+				{
+					gdl = rodata->stargunfire.gdl;
+				}
+				break;
+
+			case MODELNODETYPE_DISTANCE:
+				rodata = node->rodata;
+				node->child = rodata->distance.target;
+				break;
+
+			case MODELNODETYPE_TOGGLE:
+				rodata = node->rodata;
+				node->child = rodata->toggle.target;
+				break;
+
+			case MODELNODETYPE_REORDER:
+				modelApplyReorderRelationsByArg(node, true);
+				break;
 		}
 
 		if (gdl)

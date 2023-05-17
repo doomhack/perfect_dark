@@ -1556,6 +1556,7 @@ typedef struct {
 		unsigned int	data:32;
 } GsetothermodeH;
 
+/*
 typedef struct {
 		unsigned char	cmd;
 		unsigned char	lodscale;
@@ -1563,6 +1564,21 @@ typedef struct {
 		unsigned char	on;
 		unsigned short	s;
 		unsigned short	t;
+} Gtexture;
+*/
+
+typedef struct {
+	//W0
+	unsigned char	on;
+	unsigned char	tile:3;
+	unsigned char	lodscale:3;
+	unsigned char	padding:2;
+	unsigned char	bowtie_hack;
+	unsigned char	cmd;
+
+	//W1
+	unsigned short	t;
+	unsigned short	s;
 } Gtexture;
 
 typedef struct {

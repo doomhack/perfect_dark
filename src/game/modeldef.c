@@ -105,41 +105,37 @@ struct skeleton *g_Skeletons[] = {
 	&g_SkelBB,
 };
 
-void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 arg2, struct modeldef *modeldef2, struct texpool *texpool, bool arg5)
+void modeldef0f1a7560(struct modeldef *modeldef, u16 filenum, u32 vma, struct modeldef *baseAddr, struct texpool *texpool, bool arg5)
 {
-	s32 allocsize;
-	s32 loadedsize;
-	s32 sp84;
-	u32 s0;
-	u32 s4;
-	uintptr_t s5;
-	struct modelnode *node;
-	struct modelnode *prevnode;
-	uintptr_t gdl;
-	struct gfxvtx *vertices;
+	s32 allocsize = fileGetAllocationSize(filenum);
+	s32 loadedsize = fileGetLoadedSize(filenum);
+	struct modelnode *node = NULL;
+	struct modelnode *prevnode = NULL;
+	uintptr_t gdl = NULL;
+	struct gfxvtx *vertices = NULL;
 
-	allocsize = fileGetAllocationSize(filenum);
-	loadedsize = fileGetLoadedSize(filenum);
-	node = NULL;
+	modelIterateDisplayLists(modeldef, &node, (Gfx**)&gdl);
 
-	modelIterateDisplayLists(modeldef, &node, (Gfx **)&gdl);
-
-	s5 = gdl;
+	uintptr_t s5 = gdl;
 
 	if (gdl)
 	{
 		s32 v1 = allocsize - (loadedsize - (s32)(((uintptr_t)modeldef + (gdl & 0xffffff)) - (uintptr_t)modeldef));
-		sp84 = (s32)v1 + (s32)((uintptr_t)modeldef - ((uintptr_t)modeldef + (gdl & 0xffffff)));
+
+		s32 sp84 = (s32)v1 + (s32)((uintptr_t)modeldef - ((uintptr_t)modeldef + (gdl & 0xffffff)));
 
 		texCopyGdls((Gfx *)((uintptr_t)modeldef + (gdl & 0xffffff)),
 				(Gfx *)(v1 + (uintptr_t)modeldef),
 				loadedsize - (s32)(((uintptr_t)modeldef + (gdl & 0xffffff)) - (uintptr_t)modeldef));
-		texLoadFromConfigs(modeldef->texconfigs, modeldef->numtexconfigs, texpool, (uintptr_t)modeldef2 - arg2);
+
+		texLoadFromConfigs(modeldef->texconfigs, modeldef->numtexconfigs, texpool, (uintptr_t)baseAddr - vma);
 
 		while (node)
 		{
+			u32 s0 = gdl;
+			u32 s4;
+
 			prevnode = node;
-			s0 = gdl;
 
 			modelIterateDisplayLists(modeldef, &node, (Gfx **) &gdl);
 
