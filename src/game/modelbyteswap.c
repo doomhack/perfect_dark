@@ -156,6 +156,10 @@ void printGdl(Gfx* cmd)
 		case (s8)G_RDPPIPESYNC:
 			printf("G_RDPPIPESYNC\n");
 			break;
+		case (s8)G_TRI4:
+			printf("G_TRI4\n");
+			break;
+
 		default:
 			printf("Unknown Opcode\n");
 			break;
