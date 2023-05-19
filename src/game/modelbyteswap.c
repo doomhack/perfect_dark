@@ -41,9 +41,6 @@ u32 __mptr(u32 x, u32 offset, u32 baseaddr)
 
 void printGdl(Gfx* cmd)
 {
-	//Gfx x;
-	//gSPTexture(& x, 0x1234, 0x5678, 1, 2, 3);
-
     for (;;)
     {
 		s8 opcode = cmd->cmd.opcode;
@@ -230,6 +227,79 @@ void modelByteSwapToggle(struct modelrodata_toggle* toggle, u32 offsetAddr, u32 
 	toggle->target = BSWAP32((u32)toggle->target);
 }
 
+void modelByteSwapPosition(struct modelrodata_position* position, u32 offsetAddr, u32 baseAddr)
+{
+	position->part = BSWAP16(position->part);
+
+	position->mtxindexes[0] = BSWAP16(position->mtxindexes[0]);
+	position->mtxindexes[1] = BSWAP16(position->mtxindexes[1]);
+	position->mtxindexes[2] = BSWAP16(position->mtxindexes[2]);
+
+	*((u32*)&position->drawdist) = BSWAP32(*((u32*)&position->drawdist));
+
+	*((u32*)&position->pos.f[0]) = BSWAP32(*((u32*)&position->pos.f[0]));
+	*((u32*)&position->pos.f[1]) = BSWAP32(*((u32*)&position->pos.f[1]));
+	*((u32*)&position->pos.f[2]) = BSWAP32(*((u32*)&position->pos.f[2]));
+}
+
+void modelByteSwapBbox(struct modelrodata_bbox* bbox, u32 offsetAddr, u32 baseAddr)
+{
+	bbox->hitpart = BSWAP32(bbox->hitpart);
+
+	*((u32*)&bbox->xmin) = BSWAP32(*((u32*)&bbox->xmin));
+	*((u32*)&bbox->xmax) = BSWAP32(*((u32*)&bbox->xmax));
+	*((u32*)&bbox->ymin) = BSWAP32(*((u32*)&bbox->ymin));
+
+	*((u32*)&bbox->ymax) = BSWAP32(*((u32*)&bbox->ymax));
+	*((u32*)&bbox->zmin) = BSWAP32(*((u32*)&bbox->zmin));
+	*((u32*)&bbox->zmax) = BSWAP32(*((u32*)&bbox->zmax));
+}
+
+void modelByteSwapReoder(struct modelrodata_reorder* reorder, u32 offsetAddr, u32 baseAddr)
+{
+	*((u32*)&reorder->unk00) = BSWAP32(*((u32*)&reorder->unk00));
+	*((u32*)&reorder->unk04) = BSWAP32(*((u32*)&reorder->unk04));
+	*((u32*)&reorder->unk08) = BSWAP32(*((u32*)&reorder->unk08));
+
+	*((u32*)&reorder->unk0c[0]) = BSWAP32(*((u32*)&reorder->unk0c[0]));
+	*((u32*)&reorder->unk0c[1]) = BSWAP32(*((u32*)&reorder->unk0c[1]));
+	*((u32*)&reorder->unk0c[2]) = BSWAP32(*((u32*)&reorder->unk0c[2]));
+
+	reorder->unk18 = BSWAP32((u32)reorder->unk18);
+	reorder->unk1c = BSWAP32((u32)reorder->unk1c);
+
+	reorder->side = BSWAP16((u32)reorder->side);
+	reorder->rwdataindex = BSWAP16((u32)reorder->rwdataindex);
+}
+
+void modelByteSwapDl(struct modelrodata_dl* dl, u32 offsetAddr, u32 baseAddr)
+{
+	dl->opagdl = BSWAP32((u32)dl->opagdl);
+	dl->xlugdl = BSWAP32((u32)dl->xlugdl);
+
+	dl->colourtable = BSWAP32((u32)dl->colourtable);
+	dl->vertices = BSWAP32((u32)dl->vertices);
+
+	dl->numvertices = BSWAP16(dl->numvertices);
+	dl->mcount = BSWAP16(dl->mcount);
+
+	dl->rwdataindex = BSWAP16(dl->rwdataindex);
+	dl->numcolours = BSWAP16(dl->numcolours);
+
+	struct gfxvtx* vx = MPTR(dl->vertices);
+
+	for (int i = 0; i < dl->numvertices; i++)
+	{
+		modelByteSwapVertex(&vx[i]);
+	}
+
+	Gfx* gdl = MPTR(dl->opagdl);
+	byteSwapGdl(gdl);
+
+	gdl = MPTR(dl->xlugdl);
+	byteSwapGdl(gdl);
+}
+
 void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 {
 	while (node)
@@ -250,11 +320,16 @@ void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 			case MODELNODETYPE_CHRINFO:
 				break;
 			case MODELNODETYPE_POSITION:
+				modelByteSwapPosition(&ro->position, offsetAddr, baseAddr);
 				break;
 			case MODELNODETYPE_GUNDL:
 				modelByteSwapGunDl(&ro->gundl, offsetAddr, baseAddr);
 				break;
+			case MODELNODETYPE_BBOX:
+				modelByteSwapBbox(&ro->bbox, offsetAddr, baseAddr);
+				break;
 			case MODELNODETYPE_DL:
+				modelByteSwapDl(&ro->dl, offsetAddr, baseAddr);
 				break;
 			case MODELNODETYPE_DISTANCE:
 				break;
@@ -262,6 +337,7 @@ void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 				modelByteSwapToggle(&ro->toggle, offsetAddr, baseAddr);
 				break;
 			case MODELNODETYPE_REORDER:
+				modelByteSwapReoder(&ro->reorder, offsetAddr, baseAddr);
 				break;
 			case MODELNODETYPE_11:
 				break;

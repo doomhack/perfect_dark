@@ -1899,8 +1899,12 @@ s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *look
  * For textures with 32-bit colour values (in GBI format), swap every pair
  * within each word. For all other textures, swap every byte within each pair.
  */
+
+//Why does it do this? As far as I can see the textures are stored in
+//normal big-endian order? Is this an N64 thing?
 void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
 {
+	return;
 	s32 x;
 	s32 y;
 	s32 alignedwidth;

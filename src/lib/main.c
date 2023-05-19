@@ -209,7 +209,7 @@ void mainInit(void)
 	u8 *end;
 
     Gfx var8005dcc8[] = {
-        gsSPSegment(0x00, 0x00000000),
+        gsSPSegment(0x0, 0x00000000),
         gsSPDisplayList(&var800613a0),
         gsSPDisplayList(&var80061380),
         gsDPFullSync(),
@@ -217,7 +217,7 @@ void mainInit(void)
     };
 
     Gfx var8005dcf0[] = {
-        gsSPSegment(0x00, 0x00000000),
+        gsSPSegment(0x0, 0x00000000),
         gsSPDisplayList(&var800613a0),
         gsSPDisplayList(&var80061380),
         gsDPFullSync(),

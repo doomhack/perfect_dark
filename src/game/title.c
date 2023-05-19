@@ -343,7 +343,8 @@ Gfx *titleRenderLegal(Gfx *gdl)
 	struct fontchar *font1;
 	struct font *font2;
 
-	if (g_LegalEnabled) {
+	if (g_LegalEnabled)
+	{
 		gdl = titleClear(gdl);
 #if VERSION == VERSION_JPN_FINAL
 		gdl = func0f0d479c(gdl);
