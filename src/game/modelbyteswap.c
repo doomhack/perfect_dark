@@ -324,8 +324,6 @@ void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 
 		switch (type)
 		{
-			case MODELNODETYPE_CHRINFO:
-				break;
 			case MODELNODETYPE_POSITION:
 				modelByteSwapPosition(&ro->position, offsetAddr, baseAddr);
 				break;
@@ -338,25 +336,14 @@ void modelByteSwapNode(struct modelnode* node, u32 offsetAddr, u32 baseAddr)
 			case MODELNODETYPE_DL:
 				modelByteSwapDl(&ro->dl, offsetAddr, baseAddr);
 				break;
-			case MODELNODETYPE_DISTANCE:
-				break;
 			case MODELNODETYPE_TOGGLE:
 				modelByteSwapToggle(&ro->toggle, offsetAddr, baseAddr);
 				break;
 			case MODELNODETYPE_REORDER:
 				modelByteSwapReoder(&ro->reorder, offsetAddr, baseAddr);
 				break;
-			case MODELNODETYPE_11:
-				break;
-			case MODELNODETYPE_0B:
-				break;
-			case MODELNODETYPE_CHRGUNFIRE:
-				break;
-			case MODELNODETYPE_0D:
-				break;
-			case MODELNODETYPE_STARGUNFIRE:
-				break;
 			default:
+				printf("modelByteSwapNode: unhandled node type");
 				break;
 		}
 

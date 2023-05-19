@@ -339,6 +339,7 @@
     <ClCompile Include="src\game\texinit.c" />
     <ClCompile Include="src\game\texreset.c" />
     <ClCompile Include="src\game\texselect.c" />
+    <ClCompile Include="src\game\tilesbyteswap.c" />
     <ClCompile Include="src\game\tilesreset.c" />
     <ClCompile Include="src\game\timing.c" />
     <ClCompile Include="src\game\title.c" />

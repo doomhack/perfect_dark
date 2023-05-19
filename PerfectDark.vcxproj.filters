@@ -1230,6 +1230,9 @@
     <ClCompile Include="src\game\modelbyteswap.c">
       <Filter>Source Files\src\game</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\tilesbyteswap.c">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PR\abi.h">
