@@ -27,6 +27,22 @@
 #define	gDPSetVerticeArray(pkt, ptr, numvertices) \
 	gDPSetVerticeArrayRaw(pkt, ptr, ((numvertices) - 1) << 4, (numvertices) * sizeof(struct gfxvtx))
 
+
+typedef struct {
+	union {
+		struct {
+			/*0x00*/ s16 x;
+			/*0x02*/ s16 y;
+			/*0x04*/ s16 z;
+		};
+		s16 v[3];
+	};
+	/*0x06*/ u8 flags;
+	/*0x07*/ u8 colour;
+	/*0x08*/ s16 s;
+	/*0x0a*/ s16 t;
+} Vtx_pd;
+
 /**
  * 07	rsp_color
  * This PD-specific command declares offset to RGBA data

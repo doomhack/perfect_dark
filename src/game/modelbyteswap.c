@@ -159,6 +159,9 @@ void printGdl(Gfx* cmd)
 		case (s8)G_TRI4:
 			printf("G_TRI4\n");
 			break;
+		case (s8)G_SETCOLOR:
+			printf("G_SETCOLOR\n");
+			break;
 
 		default:
 			printf("Unknown Opcode\n");
