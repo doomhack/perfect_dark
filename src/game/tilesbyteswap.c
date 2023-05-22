@@ -14,10 +14,17 @@ void tilesByteswapTiles(u8* tileData)
 	u32* t32 = tileData;
 
 	t32[0] = BSWAP32(t32[0]);
-	t32[1] = BSWAP32(t32[1]);
 
-	struct geo* geo = (struct geo*)(tileData + t32[0]);
-	struct geo* end = (struct geo*)(tileData + t32[1]);
+	u32 tileNumRooms = t32[0];
+	u32* tileRooms = &t32[1];
+
+	for (int i = 0; i <= tileNumRooms; i++)
+	{
+		tileRooms[i] = BSWAP32(tileRooms[i]);
+	}
+
+	struct geo* geo = (struct geo*)(tileData + tileRooms[0]);
+	struct geo* end = (struct geo*)(tileData + tileRooms[tileNumRooms]);
 
 	while (geo < end)
 	{
