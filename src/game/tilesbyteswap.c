@@ -7,8 +7,6 @@
 #include "data.h"
 #include "types.h"
 
-#define mult6(a) (((a) << 1) + ((a) << 2))
-
 void tilesByteswapTiles(u8* tileData)
 {
 	u32* t32 = tileData;
