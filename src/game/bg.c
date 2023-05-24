@@ -1589,16 +1589,9 @@ void bgReset(s32 stagenum)
 	// This is the cause and fix for the Challenge 7 memory corruption bug in
 	// NTSC 1.0. A full writeup about the bug and how the fix works can be found
 	// in the docs folder of this project.
-#ifdef AVOID_UB
 	section2 = mempAlloc(inflatedsize + section2compsize, MEMPOOL_STAGE);
 	scratch = (uintptr_t) section2 + inflatedsize;
-#elif VERSION >= VERSION_NTSC_FINAL
-	section2 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
-	scratch = (uintptr_t) section2 + 0x8000;
-#else
-	section2 = mempAlloc(inflatedsize + 0x800, MEMPOOL_STAGE);
-	scratch = (uintptr_t) section2 + 0x800;
-#endif
+
 
 	// Load compressed data from ROM to scratch
 	bgLoadFile((u8 *) scratch, section2start + 4, ((section2compsize - 1) | 0xf) + 1);
@@ -1613,8 +1606,6 @@ void bgReset(s32 stagenum)
 		texLoadFromTextureNum(section2[i] & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff, NULL);
 	}
 
-	if (1);
-
 	// Free section 2
 	mempRealloc(section2, 0, MEMPOOL_STAGE);
 
@@ -1626,7 +1617,6 @@ void bgReset(s32 stagenum)
 	{
 		g_BgPrimaryData2 = (u32 *)g_BgPrimaryData;
 		g_BgRooms = (struct bgroom *)(g_BgPrimaryData2[1] + g_BgPrimaryData - 0x0f000000);
-		goto foo; foo:;
 		g_Vars.roomcount = 0;
 
 		for (j = 1; g_BgRooms[j].unk00 != 0; j++)
@@ -1987,16 +1977,8 @@ void bgBuildTables(s32 stagenum)
 		inflatedsize = (inflatedsize | 0xf) + 1;
 
 		// Load and inflate section 3
-#ifdef AVOID_UB
 		section3 = mempAlloc(inflatedsize + section3compsize, MEMPOOL_STAGE);
 		scratch = section3 + inflatedsize;
-#elif VERSION >= VERSION_NTSC_FINAL
-		section3 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
-		scratch = section3 + 0x8000;
-#else
-		section3 = mempAlloc(inflatedsize + 0x1000, MEMPOOL_STAGE);
-		scratch = section3 + 0x1000;
-#endif
 
 		bgLoadFile(scratch, g_BgSection3 + 4, ((section3compsize - 1) | 0xf) + 1);
 		bgInflate(scratch, section3, section3compsize);
